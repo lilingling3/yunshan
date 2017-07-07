@@ -1,0 +1,156 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+{% set page_id  = ['carProblem', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':' ','prenav':'车辆问题'} %}
+     <div class="ui main-search grid bk_gray" style="padding: 0px">
+
+         <div class="ten wide">
+             <form action="{{ path("auto_admin_carproblem_list") }}" method="get">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+
+                         <td class="ui input">
+                             <input type="text" name="mobile" placeholder="请输入手机号" value="{{ mobile }}">
+                         </td>
+                         <td id="yui_3_14_1_1_1461549608378_20">
+                             <select name="licensePlace" id="licensePlace" class="ui dropdown">
+                                 <option value="" >属地</option>
+                                 {% for  val in licensePlaces %}
+                                     <option value="{{ val.name}}" {%  if val.name == licensePlace  %} selected="selected" {% endif %} >{{ val.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="plateNumber" placeholder="请输入车牌" value="{{ plateNumber }}">
+                         </td>
+                         <td>
+                             <select name="carId" id="carId" class="ui dropdown" style="width: 100px;">
+                                 <option value="">车型</option>
+                                 {% for  car in cars %}
+                                     <option value="{{ car.id }}"  {%  if car.id == carId  %} selected="selected" {% endif %}>{{ car.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td>
+                             <select name="problem"  class="ui dropdown" style="width: 100px;">
+                                 <option value="" >问题类型</option>
+
+                                 <option value="201" {%  if problem == 201  %} selected="selected" {% endif %}>车辆异常</option>
+                                 <option value="202" {%  if problem == 202  %} selected="selected" {% endif %}>车身剐蹭</option>
+                                 <option value="203" {%  if problem == 203  %} selected="selected" {% endif %}>前后挡风破损</option>
+                                 <option value="204" {%  if problem == 204  %} selected="selected" {% endif %}>反光镜破损</option>
+                                 <option value="205" {%  if problem == 205  %} selected="selected" {% endif %}>门窗破损</option>
+                                 <option value="206" {%  if problem == 206  %} selected="selected" {% endif %}>门窗未关</option>
+                                 <option value="207" {%  if problem == 207  %} selected="selected" {% endif %}>雨刷器破损</option>
+                                 <option value="208" {%  if problem == 208  %} selected="selected" {% endif %}>保险杠破损</option>
+
+                             </select>
+                         </td>
+                         <td>
+                             <select name="state"  class="ui dropdown" style="width: 100px;">
+                                 <option value="" >处理状态</option>
+
+                                 <option value="101" {%  if state == 101  %} selected="selected" {% endif %}>已处理</option>
+                                 <option value="102" {%  if state == 102  %} selected="selected" {% endif %}>未处理</option>
+                                 <option value="103" {%  if state == 103  %} selected="selected" {% endif %}>待处理</option>
+                                 <option value="104" {%  if state == 104  %} selected="selected" {% endif %}>重复</option>
+                                 <option value="105" {%  if state == 105  %} selected="selected" {% endif %}>不实</option>
+
+                             </select>
+                         </td>
+
+                         <td>
+                             <button class="ui teal button" type="submit">查询</button>
+                             <button class="ui teal button "  onclick="JavaScript:history.back(-1);">返回</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+
+     <div class="ui main-content grid">
+
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     {#<th>订单编号</th>#}
+                     <th>手机号</th>
+                     <th>姓名</th>
+                     <th>车牌号</th>
+                     <th>车型名称</th>
+                     <th>上报时间</th>
+                     <th>问题类型</th>
+
+                     <th>处理状态</th>
+                     {#<th>实付金额(元)</th>#}
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for rentalorder in carProblem %}
+                     <tr>
+                         {#<td>{{ rentalorder.id }}</td>#}
+                         <td>{{ rentalorder.mobile }}</td>
+                         <td>{{ rentalorder.name }}</td>
+                         <td>{{ rentalorder.licensePlace }}{{ rentalorder.plateNumber }}</td>
+                         <td>{{ rentalorder.carType }}</td>
+                         <td>{{ rentalorder.createTime|date('Y-m-d H:i:s') }}</td>
+                         <td><p class="problem-text" title="{{ rentalorder.problem }}">{{ rentalorder.problem }}</p></td>
+
+                         <td>{{ rentalorder.state }}</td>
+                         <td><a href="{{ path('auto_admin_carproblem_show',{imageLabel:rentalorder.ImageLabel}) }}">查看</a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_carproblem_list",{'page':k,'mobile':mobile,'licensePlace':licensePlace,'plateNumber':plateNumber,'carId':carId,'problem':problem,'state':state}) }}">{{ k
+                                         }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column" style="display: none">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">租赁订单列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

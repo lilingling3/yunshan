@@ -1,0 +1,40 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'添加优惠兑换码'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {{ form_start(form) }}
+             <div class="ui form">
+
+                 <div class=" field">
+                     <label>发放数量</label>
+                     {{ form_widget(form.count,{'attr': {'maxlength':'3'}} ) }}
+                 </div>
+                 <div class=" field">
+                     <label>{{ form_label(form.coupon.kind) }}</label>
+                     {{ form_widget(form.coupon.kind ,{'attr': {'class':'ui dropdown'}}) }}
+                 </div>
+                 <div class=" field">
+                     <label>{{ form_label(form.coupon.activity) }}</label>
+                     {{ form_widget(form.coupon.activity ,{'attr': {'class':'ui dropdown'}}) }}
+                 </div>
+                 <button class="ui teal button newCode_submit" type="submit">提交</button>
+             </div>
+             {{ form_end(form) }}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">添加优惠券 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

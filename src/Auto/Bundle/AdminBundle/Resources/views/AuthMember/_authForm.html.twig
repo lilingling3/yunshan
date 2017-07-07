@@ -1,0 +1,183 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+    <div class=" field">
+        <table class="ui teal table" style="border: none">
+            <p>
+              手机号| <span id="mobile">{{ auth.member.mobile }}</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                注册时间|{{ auth.member.createTime|date('Y-m-d H:i:s') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                认证时间|{% if auth.applyTime  %}
+                        {{ auth.applyTime|date('Y-m-d H:i:s') }}
+                    {% endif %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                状态|{% if blacked %}<a href="{{ path('auto_admin_blacklist_show',{'id':blacked[0].id})}}" class="red">已拉黑</a>{% else %}正常{% endif %}
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                余额|{{ auth.member.wallet|default() }}
+            </p>
+            <tr>
+                <td>驾驶证</td>
+                <td>身份证</td>
+                <td>手持身份证</td>
+            </tr>
+            <tr>
+                <th>
+                    <a href="{{ auth.licenseImage|photograph }}" id="zoom1" class="MagicZoom MagicThumb"><img data-rotate="0" alt="驾驶证照片"src="{{ auth.licenseImage|photograph }}" style="width:340px;" id="main_img" class="main_img">
+                    </a>
+                </th>
+                <th>
+                    <a href="{{ auth.idImage|photograph }}" id="zoom2" class="MagicZoom MagicThumb"><img data-rotate="0" alt="身份证照片"src="{{ auth.idImage|photograph }}" style="width:340px;" id="main_img2" class="main_img">
+                    </a>
+                </th>
+                <th>
+                    <a href="{{ auth.idHandImage|photograph }}" id="zoom3" class="MagicZoom MagicThumb"><img data-rotate="0" alt="手持身份证照片"src="{{ auth.idHandImage|photograph }}" style="width:340px;" id="main_img3" class="main_img">
+                    </a>
+                </th>
+            </tr>
+            <tr>
+                <td>驾驶证审核</td>
+                <td>身份证审</td>
+                <td>手持身份证审核</td>
+            </tr>
+            <tr>
+                <td>
+                    {{ form_widget(form.AuthMember.licenseImageAuthError,{'attr': {'class':'ui dropdown'}} ) }}
+                </td>
+                <td>
+                    {{ form_widget(form.AuthMember.idImageAuthError,{'attr': {'class':'ui dropdown'}} ) }}
+
+                </td>
+                <td>
+                    {{ form_widget(form.AuthMember.idHandImageAuthError,{'attr': {'class':'ui dropdown'}} ) }}
+
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="fields editdata" style="border-top: 1px dashed rgba(34,36,38,.15);">
+
+        <table  class="ui teal table" style="border: none">
+            <tr>
+                <td class="tdl">
+                    <table class="uitable1">
+                        <tr>
+                            <td>
+                                姓名
+                            </td>
+                            <td>
+                                性别
+                            </td>
+                            <td>
+                                民族
+                            </td>
+                        </tr>
+                    </table>
+                    </td>
+                <td class="tdl">身份证号</td>
+                <td class="tdl">身份证住址</td>
+            </tr>
+            <tr>
+                <td class="tdl">
+                    <table class="uitable1">
+                        <tr>
+                            <td>
+                                {{ form_widget(form.name,{'attr': {'placeholder':'请输入姓名' }} ) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.sex,{'attr': {'class':'ui dropdown'}} ) }}
+                            </td>
+                            <td>
+                                {{ form_widget(form.nation,{'attr': {'class':'ui dropdown'}} ) }}
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td class="tdl">
+                    {{ form_widget(form.IdNumber,{'attr': {'placeholder':'请输入15-18位有效身份证' }} ) }}
+                </td>
+                <td class="tdl">
+                    {{ form_widget(form.address,{'attr': {'placeholder':'请输入身份证住址' }} ) }}
+              </td>
+            </tr>
+        </table>
+    </div>
+    <div class="fields editdata"  style="border-top: 1px dashed rgba(34,36,38,.15);">
+        <table class="ui teal table" style="border: none">
+            <tr>
+                <td class="tdl">
+                    <table class="uitable2">
+                        <tr>
+                            <td  class="td1">
+                                {{ form_label(form.AuthMember.IDNumber) }}
+                            </td>
+                            <td  class="td2">
+                                {{ form_label(form.AuthMember.documentNumber) }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td class="tdl">
+                    <table class="uitable2">
+                        <tr>
+                            <td  class="td1">
+                                {{ form_label(form.AuthMember.licenseStartDate) }}
+                            </td>
+                            <td  class="td2">
+                                {{ form_label(form.AuthMember.licenseEndDate) }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td class="tdl">{{ form_label(form.AuthMember.mobileCallError) }}</td>
+            </tr>
+            <tr>
+                <td class="tdl">
+                    <table class="uitable2">
+                        <tr>
+                            <td class="td1">
+                                {{ form_widget(form.AuthMember.IDNumber,{'attr': {'placeholder':'驾驶证号'}} ) }}
+                            </td>
+                            <td class="td2">
+                                {{ form_widget(form.AuthMember.documentNumber,{'attr': {'placeholder':'档案号' }} ) }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td class="tdl">
+                    <table class="uitable2">
+                        <tr>
+                            <td  class="td1">
+                                {{ form_widget(form.AuthMember.licenseStartDate) }}
+                            </td>
+                            <td  class="td2">
+                                {{ form_widget(form.AuthMember.licenseEndDate) }}
+                            </td>
+                        </tr>
+                    </table>
+
+                </td>
+                <td class="tdl">
+                    {{ form_widget(form.AuthMember.mobileCallError,{'attr': {'class':'ui dropdown'}} ) }}
+                </td>
+            </tr>
+        </table>
+        </div>
+    <div id="hid" class="pdtop" style="border-top: 1px dashed rgba(34,36,38,.15);display:none;">
+
+        <p>第三方验证结果</p>
+        <p class="inputw">{{ form_widget(form.AuthMember.validateResult,{'attr': {'class':'ui dropdown', 'readonly': 'true' }} ) }}</p>
+        <p>第三方审核</p>
+        <p>{{ form_widget(form.AuthMember.validateError,{'attr': {'class':'ui dropdown'}} ) }}</p>
+
+        <p class="error" style="color:red"></p>
+
+    </div>
+
+        <div  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</div>
+        <button class="ui teal button auth_submit">保存</button>
+        <button class="ui teal button auth_validate" >提交第三方认证</button>
+
+</div>
+{{ form_end(form) }}

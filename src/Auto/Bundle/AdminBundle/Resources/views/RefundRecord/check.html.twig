@@ -1,0 +1,114 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['refund_record', 'check'] %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'审核','prenav':'退款审核'} %}
+         <div class="ui main-content grid">
+
+             <div class="sixteen wide column">
+                 <h4 class="ui horizontal  header"> 申请用户信息 </h4>
+                 <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                     <thead>
+                     <tr>
+                         <th>申请时间</th>
+                         <th>手机号</th>
+                         <th>姓名</th>
+                         <th>未处理违章</th>
+                         <th>未付款订单</th>
+                         <th>未缴费记录</th>
+                         <th>账户余额</th>
+                         <th>状态</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td>{{ refundRecord.createTime | date('Y-m-d H:i:s') }}</td>
+                         <td>{{ refundRecord.member.mobile }}</td>
+                         <td>{{ refundRecord.member.name }}</td>
+                         <td>{% if isHasIllegalRecord %}异常{% else %}正常{% endif %}</td>
+                         <td>{% if isHasOrder %}异常{% else %}正常{% endif %}</td>
+                         <td>{% if isHasPaymentOrder %}异常{% else %}正常{% endif %}</td>
+                         <td>{{ refundRecord.member.wallet }}</td>
+                         <td>
+                             待审核
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </div>
+             <div class="sixteen wide column">
+                     <h4 class="ui horizontal  header"> 退款说明 </h4>
+                     <p>{{ refundRecord.refundInstrustions }}</p>
+             </div>
+
+             <div class="sixteen wide column">
+                 <h4 class="ui horizontal  header"> 审核失败原因 </h4>
+                 <form class="ui form" id="checkFailedFrom" action="{{ path("auto_admin_refund_record_check_failed",{'id':refundRecord.id}) }}" method="post">
+                     <div class="field">
+                         <textarea rows="2" id="checkFailedReason" name="checkFailedReason" placeholder="请输入审核失败原因"></textarea>
+                     </div>
+                    <p class="error" style="color:red"></p>
+                 </form>
+             </div>
+
+             <div class="sixteen wide column">
+                 <form id="checkOkFrom" action="{{ path("auto_admin_refund_record_check_ok",{'id':refundRecord.id}) }}" method="post">
+                 <h4 class="ui horizontal  header"> 退款单信息 </h4><a href="JavaScript:void(0);" id="addRefundOrder">新增退款单</a>
+                 <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                     <thead>
+                     <tr>
+                         <th>充值/退款渠道</th>
+                         <th>渠道流水号</th>
+                         <th>退款金额</th>
+                         <th>账户扣除</th>
+                     </tr>
+                     </thead>
+                     <tbody id="order_tbody">
+                     <tr>
+                         <td>
+                             <select class="ui search dropdown" name="channel[]">
+                                 <option value="weixin">微信</option>
+                                 <option value="zhifubao">支付宝</option>
+                             </select>
+                         </td>
+                         <td><div class="ui input"><input type="text" name="tradeNo[]" placeholder="渠道流水号"></div></td>
+                         <td><div class="ui input"><input type="text" name="actualRefundAmount[]" placeholder="100"></div></td>
+                         <td><div class="ui input"><input type="text" name="refundAmount[]" placeholder="120"></div></td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 </form>
+             </div>
+
+            <div  class="sixteen wide column">
+                <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+                <button class="ui teal button applyOk" >审核成功</button>
+                <button class="ui teal button applyFailed" >审核失败</button>
+            </div>
+         </div>
+         <div class="apply-failed door">
+             <div>
+                 <p>确定审核失败吗？</p>
+
+                 <button class="ui teal button refund-cancel">取消</button>
+                 <button class="ui teal button right submit-do" >确认</button>
+             </div>
+         </div>
+         <div class="apply-ok door">
+             <div>
+                 <p><span class="left-row">姓名：</span>{{ refundRecord.member.name }}</p>
+                 <p><span class="left-row">手机号：</span>{{ refundRecord.member.mobile }}</p>
+                 <p><span class="left-row">退款金额：</span><span class="returnfund"></span></p>
+                 <p><span class="left-row">账户扣除：</span><span class="deductfund"></span></p>
+                 <p class="text-center">确认发起退款吗？</p>
+                 <button class="ui teal button refund-cancel">取消</button>
+                 <button class="ui teal button right submit-do" >确认</button>
+
+             </div>
+         </div>
+
+
+ {% endblock %}

@@ -1,0 +1,15 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+{% block content %}
+    <div class="top-menu">
+        车辆使用帮助
+        <a href="{{ path("auto_wap_more") }}"><b></b></a>
+    </div>
+    <div class="member-li">
+        {% for car in cars %}
+            <a href="{{ path('auto_wap_car_introduce',{'id':car.carID}) }}">
+                <li>{{ car.name }}<b></b></li>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

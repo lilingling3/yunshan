@@ -1,0 +1,62 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoMobileBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order', 'detail'] %}
+  {% block content %}  
+
+    <div class="container">
+        <div class="cont">
+            <p class="title-name"><span class="line"> | </span>车辆信息</p>
+            <div class="inner">
+                <p><span class="title">车型</span><span class="text">{{ rentalOrder.rentalCar.car.name }}</span></p>
+                <p><span class="title">车牌号</span><span class="text">{{ rentalOrder.rentalCar.license }}</span></p>
+                <p><span class="title">取车点</span><span class="text">{{ rentalOrder.pickUpRentalStation.name }}</span></p>
+                <p><span class="title">还车点</span><span class="text">{{ rentalOrder.returnRentalStation.name }}</span></p>
+                <p><span class="title">行驶里程</span><span class="text">{{ rentalOrder.mileage|default(0) }}公里</span></p>
+            </div>
+        </div>
+
+        <div class="cont">
+             <p class="title-name"><span class="line"> | </span>用车时间</p>
+            <div class="inner">
+                <p><span class="title">下单时间</span><span class="text">{{ rentalOrder.createTime }}</span></p>
+                <p><span class="title">取车时间</span><span class="text">{{ rentalOrder.useTime|default('-') }}</span></p>
+                <p><span class="title">还车时间</span><span class="text">{{ rentalOrder.endTime|default('-') }}</span></p>
+                <p><span class="title">支付时间</span><span class="text">{{ rentalOrder.payTime|default('-') }}</span></p>
+        
+              {% for price in rentalOrder.costDetail.charge.rentalPrice  %}
+                    <p><span class="title">{{ price.name}}时长</span><span class="text">{{ time.name(price.time) }}</span></p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="cont">
+            <p class="title-name"><span class="line"> | </span>费用明细</p>
+            <div class="inner">
+                <p><span class="title">总费用</span><span class="text">{{ rentalOrder.costDetail.cost }}元</span></p>
+                {% for price in rentalOrder.costDetail.charge.rentalPrice  %}
+                    <p>
+                        <span class="title" style="margin-left:13px;">{{ price.name}}费用</span>
+                        <span class="text">{% if price.amount %}{{ price.amount }}{% else %}0{% endif %}元</span>
+                    </p>
+                {% endfor %}
+
+            {% if rentalOrder.payTime %}
+              {#  <p><span class="title">优惠券抵扣</span><span class="text">
+                {% if rentalOrder.coupon %}- {{ rentalOrder.coupon.amount }}.00元{% else %}0元{% endif %}</span></p>
+                <p><span class="title">实付金额</span><span class="text">{{ rentalOrder.amount|default(0) }}元</span></p>#}
+                <p><span class="title">优惠券抵扣</span><span class="text">{{ rentalOrder.coupon.amount|default(0) }}元</span></p>
+                <p><span class="title">余额抵扣</span><span class="text">{{ rentalOrder.walletAmount|default(0) }}元</span></p>
+                <p><span class="title">实付金额</span><span class="text">{{ rentalOrder.amount|default(0) }}元</span></p>
+
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
+
+{% block footer %}
+{% endblock %}

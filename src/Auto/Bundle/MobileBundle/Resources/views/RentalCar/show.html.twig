@@ -1,0 +1,95 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'show'] %}
+{% block content %}
+<div class="container">
+    <div class="topcont">
+        <div class="inner">
+            <div class="left-cont">
+                <div class="img-cont">
+                    <img src="{{ rentalCar.image|default('/bundles/automobile/images/car.png') }}" />
+                </div>
+            </div>
+
+            <div class="right-cont">
+                <p><span class="license-cont"><span class="license">{{ rentalCar.license }}</span></span></p>
+                <p class="model">{{ rentalCar.car.name }}</p>
+                <p class="journey">续航{{ rentalCar.mileage|default(0) }}公里</p> 
+            </div>
+        </div>
+        <div class="inner price-cont">
+            <table>
+                <tr><td class="tdbg">时段</td>
+                    <td class="tdbg">计费</td>
+                </tr>
+                <tr class="tr1">
+                    <td>
+                        <span class="sun"></span>
+                        <span class="tdtext">短租-6小时内</span>
+                    </td>
+                    <td><span class="nowprice">{{  rentalCar.rentalPrice[0].price }}</span>元/分钟</td>
+                </tr>
+               <tr class="tr2">
+                    <td>
+                        <span class="moon"></span>
+                        <span class="tdtext">长租-6小时后</span>
+                    </td>
+                    <td><span class="nowprice">{{  rentalCar.rentalPrice[1].price }}</span>元/分钟</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="station-cont">
+        <div class="inner innerpadingbm">
+            <div class="name">
+                <p><span class="carstitle">取车</span><span class="cricle cricle1"></span></p>
+                <span class="point"></span>
+            </div>
+            <div class="sinfo">
+                <p class="sname">{{ rentalCar.rentalStation.name }}</p>
+                <p class="street">{{ rentalCar.rentalStation.street }}</p>
+            </div>
+        </div>
+        <div class="inner">
+            <div class="name">
+                <p><span class="carstitle">还车</span><span class="cricle cricle2"></span></p>
+            </div>
+            <div class="sinfo  {% if rentalCar.rentalStation.backType==601 %}sinfo2{% endif %}">
+                <p class="sname">{{ backStation.name }}</p>
+                <p class="street">{{ backStation.street }}</p>
+                {% if rentalCar.rentalStation.backType==601 %}
+                <span class="change-s">更改</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="affirmorder">
+        <img src="{{ asset('/bundles/automobile/images/btn-bg2.png') }}"/>
+        <span class="tblr-center">确认租车</span>
+
+    </div>
+    <div class="stext">
+        <p>15分钟起租，续航以实际为准。</p>
+	   <p>不计里程，价格已包含保险</p>
+    </div>
+</div>
+
+    {% if rentalCar.rentalStation.backType==601 %}
+    <form method="post" id="change-station" action="{{ path('auto_mobile_back_station') }}">
+        <input type="hidden" name="rentalCarID"  value="{{ rentalCar.rentalCarID }}" />
+        <input type="hidden" name="backSid"  value="{{ backStation.rentalStationID }}" />
+    </form>
+    {% endif %}
+
+
+    <form method="post" id="submitorder" action="{{ path('auto_mobile_rental_car_order') }}">
+        <input type="hidden" name="rentalCarID" value="{{ rentalCar.rentalCarID }}" />
+        <input type="hidden" name="rentalStationID" value="{{ rentalCar.rentalStation.rentalStationID }}" />
+        <input type="hidden" name="returnStationID"  value="{{ backStation.rentalStationID }}" />
+    </form>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

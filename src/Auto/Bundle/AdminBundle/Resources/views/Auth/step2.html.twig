@@ -1,0 +1,239 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['auth', 'step2'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/jquery.jqzoom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/lrtk.js') }}"></script>
+    {{ parent() }}
+    <style>
+        #zoom3 .MagicZoomBigImageCont {
+            margin-left: -784px;
+
+        }
+    </style>
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'审核','prenav':'新用户认证'} %}
+
+     <div class="ui main-content grid">
+         {{ form_start(form) }}
+
+         <div class="wide column">
+             <div class=" ui main-content grid clearfix">
+                 手机号：{{ auth.member.mobile }}
+                 <span class="space"></span>注册时间:{{ auth.member.createTime|date('Y-m-d H:i:s') }}
+                 <span class="space"></span>认证时间:{% if auth.applyTime  %}{{ auth.applyTime|date('Y-m-d H:i:s') }}{% endif %}
+                 <span class="space"></span>状态:{% if blacked %}已拉黑{% else %}正常{% endif %}
+                 <span class="space"></span>余额:{{ auth.member.wallet|default('0') }}
+             </div>
+             <div class="ui main-content grid line clearfix">
+                 <div class="five wide column">
+                    <p class="card-t">身份证</p>
+                     <a href="{{ auth.idImage|photograph }}" id="zoom1" class="MagicZoom MagicThumb">
+                        <img data-rotate="0" alt="身份证照片" width="300px" height="300px" class="IDnumber"  src="{{ auth.idImage|photograph }}">
+                     </a>
+                 </div>
+                 <div class="five wide column">
+                     <p class="card-t">驾驶证</p>
+                     <a href="{{ auth.licenseImage|photograph }}" id="zoom2" class="MagicZoom MagicThumb">
+                         <img data-rotate="0" alt="驾驶证照片" width="300px" height="300px"  class="driver" src="{{ auth.licenseImage|photograph }}">
+                     </a>
+                 </div>
+
+                 <div class="five wide column">
+                     <p class="card-t">手持身份证</p>
+                     <a href="{{ auth.idHandImage|photograph }}" id="zoom3" class="MagicZoom MagicThumb">
+                        <img data-rotate="0" alt="手持身份证照片" width="300px" height="300px"   src="{{ auth.idHandImage|photograph }}">
+                     </a>
+                 </div>
+
+             </div>
+             <div class="ui main-content grid nopdbottom">
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                     <table class="ui teal table" style="border: none;">
+                         <tbody>
+                         <tr>
+                             <td>姓名</td>
+                             <td>性别</td>
+                             <td>民族</td>
+                         </tr>
+                            <tr>
+                                <td>
+                                    {{ form_widget(form.member.name,{'attr': {'placeholder':'姓名' ,'class':'ui dropdown'}} ) }}
+                                </td>
+                                <td>
+                                    {{ form_widget(form.member.sex,{'attr': {'placeholder':'姓名','class':'select-wd1' }} ) }}
+                                </td>
+                                <td>
+                                    {{ form_widget(form.member.nation,{'attr': {'placeholder':'姓名' }} ) }}
+                                </td>
+                            </tr>
+                         </tbody>
+                     </table>
+                         </div>
+                 </div>
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>身份证号</td></tr>
+                             <tr><td>{{ form_widget(form.auth.IDNumber ,{'attr': {'placeholder':'身份证号' ,'class':'ui dropdown'}} ) }}</td></tr>
+                         </table>
+                     </div>
+                 </div>
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>身份证住址</td></tr>
+                             <tr><td>{{ form_widget(form.auth.IDAddress ,{'attr': {'placeholder':'身份证住址' ,'class':'ui dropdown'}} ) }}</td></tr>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+
+             <!------>
+             <div class="ui main-content grid nopdtop nopdbottom">
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>驾驶证档案</td></tr>
+                             <tr><td>{{ form_widget(form.auth.documentNumber ,{'attr': {'placeholder':'驾驶证档案' ,'class':'ui dropdown'}} ) }}</td></tr>
+                         </table>
+                     </div>
+                 </div>
+                 <div class="five wide column ">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>驾驶证号</td></tr>
+                             <tr><td>{{ form_widget(form.auth.licenseNumber ,{'attr': {'placeholder':'驾驶证号' ,'class':'ui dropdown'}} ) }}</td></tr>
+                         </table>
+                     </div>
+                 </div>
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>驾驶证住址</td></tr>
+                             <tr><td>{{ form_widget(form.auth.licenseAddress ,{'attr': {'placeholder':'驾驶证住址' ,'class':'ui dropdown'}} ) }}</td></tr>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+
+             <!----------------->
+
+             <div class="ui main-content grid nopdtop nopdbottom">
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>驾驶证省份</td><td>驾驶证城市</td></tr>
+                             <tr>
+                                 <td>{{ form_widget(form.auth.licenseProvince ,{'attr': {'placeholder':'驾驶证省份' ,'class':'ui dropdown'}} ) }}</td>
+                                 <td>{{ form_widget(form.auth.licenseCity ,{'attr': {'placeholder':'驾驶证城市' ,'class':'ui dropdown'}} ) }}</td>
+                             </tr>
+                         </table>
+                     </div>
+                 </div>
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>证件有效开始日期</td><td>驾驶证有效结束日期</td></tr>
+                             <tr>
+                                 <td>{{ form_widget(form.auth.licenseStartDate ,{'attr': {'placeholder':'驾驶证档案' ,'class':'ui dropdown'}} ) }}</td>
+                                 <td>{{ form_widget(form.auth.licenseEndDate ,{'attr': {'placeholder':'驾驶证档案' ,'class':'ui dropdown'}} ) }}</td>
+                             </tr>
+                         </table>
+                     </div>
+                 </div>
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>驾驶证有效年数</td><td></td><td></td></tr>
+                             <tr>
+                                 <td>
+                                     {{ form_widget(form.auth.licenseValidYear ,{'attr': {'placeholder':'驾驶证有效年数' ,'class':'ui dropdown'}} ) }}
+                                 </td>
+                                 <td>
+                                     <div class="ui teal basic button IDnumber_data btn">获取身份证信息</div>
+                                 </td>
+                                 <td>
+                                     <div class="ui teal basic button driver_data btn">获取驾驶证信息</div>
+                                 </td>
+                             </tr>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+
+             <!----------比对信息------->
+
+             <div class="ui main-content grid nopdtop nopdbottom linetop">
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr><td>身份证信息比对是否一致</td><td>身份证不良信息报警</td></tr>
+                             <tr>
+                                 <td verifytype ='4' verifycode=""  verifytext=""  class="verify-result4 verify-result color-gray">未知</td>
+                                 <td verifytype ='2' verifycode="" verifytext="" class="verify-result2 verify-result color-gray">未知</td>
+                             </tr>
+                             <tr>
+                                 <td> <div type ='4' class="ui teal basic button IDnumber_auth btn">验证身份证</div></td>
+                                 <td> <div type ='2' class="ui teal basic button crime_auth btn">验证犯罪信息</div></td>
+                             </tr>
+                         </table>
+                     </div>
+                 </div>
+                 <div class="five wide column">
+                     <div class="fields ui form edit">
+                         <table class="ui teal table" style="border: none;">
+                             <tr>
+                                 <td style="display: none;">驾驶证是否真实</td>
+                                 <td>手机号是否为本人持有</td>
+                             </tr>
+                             <tr>
+                                 <td verifytype="3" verifytext="" style="display: none;" verifycode="" class="verify-result3 verify-result color-gray">暂停</td>
+                                 <td verifytype="1"verifytext="" verifycode="" class="verify-result1 verify-result color-gray">未知</td>
+                             </tr>
+                             <tr>
+                                 <td  style="display: none;"> <div type ='3' class="ui teal basic button driver_auth btn">验证驾驶证</div></td>
+                                 <td> <div type ='1' class="ui teal basic button mobile_auth btn">验证手机</div></td>
+                             </tr>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+
+
+             <input type="hidden" id="mobile" value="{{ auth.member.mobile }}">
+             <input type="hidden" id="type1" verifyresult="" >
+             <input type="hidden" id="type2" verifyresult="" >
+             <input type="hidden" id="type3" verifyresult="0" value="3">
+             <input type="hidden" id="type4" verifyresult="" >
+
+             <p style="display: none;"> {{ form_widget(form.auth.validateError,{'attr': {'class':'ui dropdown'}})  }}</p>
+             <p style="display: none;"> {{ form_widget(form.auth.validateNewResult,{'attr': {'class':'ui dropdown'}})  }}</p>
+             <p style="display: none;"> {{ form_widget(form.auth.submitType,{'attr': {'class':'ui dropdown'}})  }}</p>
+<!--------按钮-------->
+             <div class="ui main-content grid nopdtop nopdbottom">
+                 <div class="fields ui form edit">
+                     <table class="ui teal table" style="border: none;">
+                         <tr>
+                             <td><div submitstype="0"  class="ui teal button auth_submit">认证成功</div></td>
+                             <td><div submitstype="1" class="ui teal button auth_submit">认证失败</div></td>
+                         </tr>
+                     </table>
+                 </div>
+             </div>
+         </div>
+
+
+
+         {{ form_end(form) }}
+     </div>
+
+
+     <div class="loading-layer">
+         <div class="img-cont tblr-center">
+             <img src="{{ asset('/bundles/autoadmin/images/loading.gif') }}" />
+         </div>
+     </div>
+
+ {% endblock %}

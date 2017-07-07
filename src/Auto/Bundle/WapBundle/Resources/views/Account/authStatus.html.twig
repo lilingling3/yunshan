@@ -1,0 +1,33 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['account', 'auth'] %}
+{% block content %}
+
+    <div class="top-menu">
+        个人信息
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+
+    </div>
+
+    {% include "AutoWapBundle:Account:_status.html.twig" %}
+	
+    <div class="auth-notice status{{ auth.status }}">
+        <div class="auth-notice-text">
+        <!--{{ auth.message }}-->
+        {% if auth.status ==299 %}
+        驾驶证认证成功不可修改
+        {% else %}
+        租赁车辆前须完成驾驶证认证
+        {% endif %}
+        </div>
+    </div>
+    {% if auth.status ==203 %}
+    	<div class="fail-time"><p>由于您的驾驶证超过有效期，需重新认证新驾驶证信息后才可租赁车辆。</p></div>
+    {% endif %}
+    {% if auth.status ==202 %}
+        <div class="fail-time"><p class="accounting">依据范例横向拍摄驾驶证照片，请保证图片清晰。驾照领取需一年以上。</p></div>
+    {% endif %}
+	
+    <div class="auth-img-container">
+        <div class="auth-img-cont"><img class="auth-img" src="{{ auth.licenseImage }}"></div>
+    </div>
+{% endblock %}

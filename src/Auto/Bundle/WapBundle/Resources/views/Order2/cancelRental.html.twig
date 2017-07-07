@@ -1,0 +1,29 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order2', 'show'] %}
+{% block content %}
+   {% include "AutoWapBundle:Order2:_car.html.twig" %}
+
+     <div class="order-info order-info1 order-status{{ rentalOrder.status }}">
+        {% include "AutoWapBundle:Order2:_order.html.twig" %}
+
+    </div>
+
+    <div class="adetail"><a  href="{{ path('auto_wap_rental_order_detail2',{'id':rentalOrder.orderID}) }}"><span>订单明细</span></a></div>
+
+    <div class="footdiv">
+        <a class="foota"  href="{{ path('auto_wap_index3') }}">
+            <img src="{{ asset('/bundles/autowap/images/2.0-home.png') }}"/>
+        </a>
+        <a class="foota"  href="{{ path('auto_wap_rental_order_list2') }}">
+            <img src="{{ asset('/bundles/autowap/images/2.0-order.png') }}"/>
+        </a>
+        <a class="foota" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653" >
+            <img src="{{ asset('/bundles/autowap/images/2.0-down.png') }}"/>
+        </a>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

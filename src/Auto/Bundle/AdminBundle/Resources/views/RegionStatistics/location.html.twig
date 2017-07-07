@@ -1,0 +1,186 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['statistics', 'location'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'车辆定位'} %}
+
+
+     <div class="ui main-content">
+         <div class="ui bottom attached segment  no_border">
+             <form action="{{ path("auto_admin_region_statistics_location") }}"  method="get">
+                 <table class="ui very basic table no_border">
+                     <tbody>
+                     <tr>
+                         <p>
+                       <span class='sts_location_sp'>车辆信息</span>
+
+                             {#<select  class=" time_input" name="city" id="city" class="ui dropdown">#}
+                                     {#<option value="0">请选择</option>#}
+                                     {#{% for citys in area %}#}
+                                        {#{% for city in citys.children %}#}
+                                         {#<option value="{{ city.id }}">{{ city.name }}</option>#}
+                                        {#{% endfor %}#}
+                                     {#{% endfor %}#}
+                             {#</select>#}
+
+                             {#<select  class=" time_input"  name="rental_station" id="rental_station2" class="ui dropdown">#}
+                                 {#<option value="0">请选择</option>#}
+                                 {#{% for rentalStation in rentalStations %}#}
+                                         {#<option value="{{ rentalStation.id }}">{{ rentalStation.name }}</option>#}
+                                 {#{% endfor %}#}
+                             {#</select>#}
+                             <select  class=" time_input"  name="license_place" id="license_place" class="ui dropdown">
+                                 <option value="0">请选择</option>
+                                 {% for licensePlace in licensePlaces %}
+                                     <option value="{{ licensePlace.id }}">{{ licensePlace.name }}</option>
+                                 {% endfor %}
+                             </select>
+                             <input class=" time_input" type="text" name="plate_number" id='plate_number' placeholder="输入车牌号查询车辆" value="{% if plate_number %}{{ plate_number }}{% endif %}">
+                             <button id='CarInfo' class="ui teal button operate_submit " type="submit" >查询</button>
+                        </p>
+                     </tr>
+                     <tr>
+                         {% if not plate_number  %}
+                             <p style="border-top: 1px dotted rgba(34,36,38,.15);padding-top: 13px;">
+
+                                 <span class='sts_location_sp'>历史轨迹</span>
+
+                                 <input class=" time_input" disabled = 'true' style="width: 200px;" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="" autocomplete="off">
+
+                                 <input class=" time_input" disabled = 'true' style="width: 200px;" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="" autocomplete="off">
+
+                                 <button class="ui teal button operate_submit " style="background: rgba(204, 204, 204, 1)"  type="button" >查询</button>
+
+                                 <span class='sts_location_sp' style="border-left: 1px dotted rgba(34,36,38,.15);"> 回放速度</span>
+
+                                 <select  class="time_input"  style="color: rgba(204, 204, 204, 1)" name="speed" id="speed" class="ui dropdown" disabled = 'true'>
+                                     <option value="0.1">0.1km/h</option>
+                                     <option value="0.2">0.2km/h</option>
+                                     <option value="0.3">0.3km/h</option>
+                                     <option value="0.4">0.4km/h</option>
+                                     <option value="0.5">0.5km/h</option>
+                                 </select>
+
+                                 <button  class="ui teal button operate_submit " style="background: rgba(204, 204, 204, 1)" type="button" >开始</button>
+                                 <button class="ui teal button operate_submit " style="background: rgba(204, 204, 204, 1)" type="button" >停止</button>
+                             </p>
+                         {% else %}
+                             {% if not  moveData %}
+                                 <p style="border-top: 1px dotted rgba(34,36,38,.15);padding-top: 13px;color:red;text-align: center">无此车牌号，请检查后重新输入</p>
+                                 <p style="border-top: 1px dotted rgba(34,36,38,.15);padding-top: 13px;">
+
+                                     <span class='sts_location_sp'>历史轨迹</span>
+
+                                     <input class=" time_input" disabled = 'true' style="width: 200px;" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="" autocomplete="off">
+
+                                     <input class=" time_input" disabled = 'true' style="width: 200px;" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="" autocomplete="off">
+
+                                     <button class="ui teal button operate_submit " style="background: rgba(204, 204, 204, 1)"  type="button" >查询</button>
+
+                                     <span class='sts_location_sp' style="border-left: 1px dotted rgba(34,36,38,.15);"> 回放速度</span>
+
+                                     <select  class="time_input"  style="color: rgba(204, 204, 204, 1)" name="speed" id="speed" class="ui dropdown" disabled = 'true'>
+                                         <option value="0.1">0.1km/h</option>
+                                         <option value="0.2">0.2km/h</option>
+                                         <option value="0.3">0.3km/h</option>
+                                         <option value="0.4">0.4km/h</option>
+                                         <option value="0.5">0.5km/h</option>
+                                     </select>
+
+                                     <button  class="ui teal button operate_submit " style="background: rgba(204, 204, 204, 1)" type="button" >开始</button>
+                                     <button class="ui teal button operate_submit " style="background: rgba(204, 204, 204, 1)" type="button" >停止</button>
+                                 </p>
+                             {% endif %}
+                             {% if  moveData %}
+                             <p style="border-top: 1px dotted rgba(34,36,38,.15);padding-top: 13px;">
+                                 {% for move in moveData %}
+                                 <input id='moveData' type="hidden" data-station="{{ move.rentalStation.name }}" data-type="{{ move.car.name }}" data-platePlace="{{ move.licensePlace.id }}" data-plate="{{ move.license }}">
+                                 {% endfor %}
+                                 <span class='sts_location_sp'>历史轨迹</span>
+                                 <input class=" time_input" style="width: 200px;" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="" autocomplete="off">
+                                 <input class=" time_input" style="width: 200px;" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="" autocomplete="off">
+                                 <button id='playBack'  class="ui teal button" type="button" >查询</button>
+
+                             <span class='sts_location_sp' style="border-left: 1px dotted rgba(34,36,38,.15);"> 回放速度</span>
+
+                                 <select  class="time_input "  name="speed" id="speed" class="ui dropdown">
+                                     <option value="0.1">0.1km/h</option>
+                                     <option value="0.2">0.2km/h</option>
+                                     <option value="0.3">0.3km/h</option>
+                                     <option value="0.4">0.4km/h</option>
+                                     <option value="0.5">0.5km/h</option>
+                                 </select>
+
+                              <button onclick="javascript:startRun();" class="ui teal button operate_submit " type="button" >开始</button>
+                              <button onclick="javascript:endRun();" class="ui teal button operate_submit " type="button" >停止</button>
+                         </p>
+                        {% endif %}
+                     {% endif %}
+                     </tr>
+
+                     </tbody>
+                 </table>
+             </form>
+
+             <p>轨迹长度:<span id="mileage"></span>米</p>
+         </div>
+     </div>
+     
+        <div class="ui main-content grid" style="position: relative">
+            {% if not plate_number %}
+            <div class="sts_over">
+                <div class="sts_over_top">
+                    <p style="margin-bottom: 5px;">在库车辆
+                        <span>{{ car_count }}</span>
+                    </p>
+                    <p>运营车辆
+                        <span>{{ viableCars_count }}</span>
+                    </p>
+                </div>
+                <div class="sts_over_bottom">
+                    <p style="">
+                        <span class="sp1 wait"></span>
+                        <span class="sp2">待租赁</span>
+                        <span class="sp3 stic_loc_waiting"></span>
+                        <input type="checkbox" id="waiting" checked="true"/>
+                    </p>
+                    <p style="">
+                        <span class="sp1 renting"></span>
+                        <span class="sp2">租赁中</span>
+                        <span class="sp3 stic_loc_renting"></span>
+                        <input type="checkbox" id="renting" checked="true" />
+                    </p>
+                    <p style="">
+                        <span class="sp1 off"></span>
+                        <span class="sp2">已下线</span>
+                        <span class="sp3 stic_loc_off"></span>
+                        <input type="checkbox" id="off" checked="true"/>
+                    </p>
+                    <p style="">
+                        <span class="sp1 offRent"></span>
+                        <span class="sp2">下线租赁中</span>
+                        <span class="sp3 stic_loc_down_rent"></span>
+                        <input type="checkbox" id="offRent" checked="true"/>
+                    </p>
+                    <p style="">
+                        <span class="sp1  unusual"></span>
+                        <span class="sp2">设备异常</span>
+                        <span class="sp3 stic_loc_abnormal"></span>
+                        <input type="checkbox" id="abnormal" checked="true"/>
+                    </p>
+                </div>
+            </div>
+            {% endif %}
+            <div class="fifteen wide column" id="container" style="height: 650px;"></div>
+
+        </div>
+ {% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=b9d7491ba1d58fecf58d56ca808024a5"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    {{ parent() }}
+{% endblock %}

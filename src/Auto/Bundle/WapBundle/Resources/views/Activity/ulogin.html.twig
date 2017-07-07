@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,initial-scale=1,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/autowap/css/ulogin.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/js/zepto.min.js') }}" ></script>
+    <script src="https://s4.cnzz.com/z_stat.php?id=1259593410&web_id=1259593410" language="JavaScript"></script>
+</head>
+<body>
+<div id="page" class="login activity ulogin">
+    <img src="{{ asset('/bundles/autowap/images/activity-loginbg1.png') }}" class="bg" >
+    <div class="cont">
+        <i class="u-logo u-logo{{ source }}"></i>
+        <i class="logo"><img src="{{ asset('/bundles/autowap/images/activity-loginlogo.png') }}"  /></i>
+        <div class="u-t">
+            <img src="{{ asset('/bundles/autowap/images/activity-login-t'~source~'.png') }}"  />
+        </div>
+        <div class="login-form">
+            <form id="codelogin2Verify" action="/wap/activity/codelogin/verify" method="post">
+                <div class="row-li clearfix">
+                    <div class="input-dom">
+                        <img src="{{ asset('/bundles/autowap/images/activity-login-input1.png') }}"  />
+                        <span class="tb-center error-icon"></span>
+                        <input flag="1" type="text" name="mobile" maxlength="11" id="mobile" class="input-t tblr-center" placeholder="请输入您的手机号" />
+                    </div>
+                </div>
+                <div class="row-li clearfix">
+                    <div class="input-dom clearfix">
+                        <img src="{{ asset('/bundles/autowap/images/activity-login-input1.png') }}" class="input-bg" />
+                        <div class="code-input">
+                            <img src="{{ asset('/bundles/autowap/images/activity-login-input2.png') }}" />
+                            <span class="tb-center error-icon"></span>
+                            <input maxlength="4"  flag="2" id="code" name="code" type="text" class="input-t tblr-center" placeholder="请输入验证码" />
+                        </div>
+                        <div class="code-button">
+                            <img src="{{ asset('/bundles/autowap/images/activity-login-input3.png') }}" />
+                            <i class="code-t tblr-center">获取验证码</i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row-li clearfix">
+                    <div class="input-dom btn-cont">
+                        <img class="btn-img" src="{{ asset('/bundles/autowap/images/activity-login-btton1.png') }}" />
+                        <div class="btn "></div>
+                    </div>
+                </div>
+            </form>
+            <div class="protocol"><p>注册即同意<a class="href"><span>《云杉智行租赁用户协议》</span></a></p></div>
+        </div>
+
+        <div class="footer">
+            <div class="mobile-cont">
+                <div class="icon"><img src="{{ asset('/bundles/autowap/images/2.0-phone.png') }}"></div>
+                <div class="phone-text">
+                    <p>二十四小时客服电话</p>
+                    <p><a href="tel:4001118220" class="tel">400-111-8220</a></p>
+                </div>
+            </div>
+            <p>©云杉智行网络科技（北京）有限公司</p>
+        </div>
+    </div>
+</div>
+<input type="hidden" name="source" id="source" value="{{ source }}" />
+</body>
+<script type="text/javascript" src="{{ asset('/bundles/autowap/js/module/ulogin.js') }}" ></script>
+</html>

@@ -1,0 +1,113 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order2', 'show'] %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        body {
+            position: relative;
+            height: 100%;
+        }
+        .overhide {
+            overflow: hidden;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% include "AutoWapBundle:Order2:_car.html.twig" %}
+    <div class="order-info order-info1 order-status{{ rentalOrder.status }}">
+        {% include "AutoWapBundle:Order2:_order.html.twig" %}
+    </div>
+
+    <!--支付的时候显示的--->
+        <div class="rental-coupon">
+            <div class="row">
+                <div class="left">租赁费用</div>
+                <div class="right">{{ (rentalOrder.costDetail.cost)//1 }}.{{ (rentalOrder.costDetail.cost*10)%10 }}{{ (rentalOrder.costDetail.cost*100)%10 }}元</div>
+            </div>
+
+            <div class="row">
+                <div class="left">优惠券</div>
+                <div class="right">
+                    {% if maxcoupon %}
+                    <span class="use-coupon ">
+                        <span class="use-coupon-amount">{{ maxcoupon.amount }}</span>
+                        <span class="use-coupon-amount-t">元</span></span>
+                        <span class="change-coupon" >[更改]</span>
+                    {% else %}
+                        <span class="use-coupon">当前没有可用优惠券</span>
+                    {% endif %}
+                </div>
+            </div>
+
+
+                <div class="row" {% if not maxWalletAmount  %} style="display: none;" {% endif %}>
+                    <div class="left">
+                        使用余额支付<span class="walletAmount">{{ maxWalletAmount }}</span>元
+                    </div>
+                    <div class="right">
+                        <span class="wcont">
+                            <span class="wbtn"></span>
+                        </span>
+                    </div>
+                </div>
+        </div>
+
+
+
+
+  <div class="car-button">
+
+           <form id="orderpayform" action="{{ path('auto_wap_pay_order_fee',{id:rentalOrder.orderID}) }}" method="get">
+              {# &#123;&#35;<input name="coupon" type="hidden" value="{% if coupon %}{{ coupon.id }}{% endif %}" >&#35;&#125;#}
+               <input name="orderCost" type="hidden" id="orderCost" value="{{ rentalOrder.costDetail.cost }}" >
+               <input name="maxWalletAmount" type="hidden" id="maxWalletAmount" value="{{ maxWalletAmount|default(0) }}" >
+               <input name="wallet" type="hidden" id="useWalletAmount" value="" >
+               <input name="orderID" type="hidden" id="orderID" value="{{ rentalOrder.orderID }}" >
+               <input name="userID" type="hidden" id="userID" value="{{ app.user.token }}" >
+               <input name="coupon" type="hidden" id="couponID" amount="{{ maxcoupon.amount|default(0) }}" value="{{ maxcoupon.couponID|default(0) }}" >
+
+          <div class="pay" >
+              支付<span class="needpayamount"></span>元</div>
+
+        </form>
+    </div>
+
+
+    <div class="couponlist" >
+
+        <div class="title">选择优惠券
+            <div class="close-cont">
+                <span class="close"></span>
+                <img src="{{ asset('/bundles/autowap/images/2.0-close.png') }}"/>
+            </div>
+        </div>
+        <div class="list-cont">
+            <div class="lists">
+
+
+            </div>
+            <div class="addmore-cont addmorecoupon">
+                点击加载
+            </div>
+        </div>
+        <div class="unuse-cont">
+            <div class="unuse unusecoupon">
+                土豪不用优惠券
+            </div>
+        </div>
+    </div>
+
+    <div class="divlayer"></div>
+
+    <div class="adetail adetail1">
+        <a  href="{{ path('auto_wap_rental_order_list2') }}"><span>稍后支付</span></a>
+        <a  href="{{ path('auto_wap_rental_order_detail2',{'id':rentalOrder.orderID}) }}"><span>订单明细</span></a>
+    </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

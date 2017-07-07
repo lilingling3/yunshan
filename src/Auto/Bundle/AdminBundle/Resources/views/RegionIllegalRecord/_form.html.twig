@@ -1,0 +1,22 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class="field">
+        <label>处理人手机号</label>
+        {{ form_widget(form.mobile,{'attr': {'placeholder':'请输入处理人手机号' }}) }}
+    </div>
+
+    <div class="field">
+        <label>{{ form_label(form.Illegal.agentAmount) }}</label>
+        {{ form_widget(form.Illegal.agentAmount,{'attr': {'placeholder':'请输入金额' }}) }}
+    </div>
+
+    <div class="field">
+        <label>{{ form_label(form.Illegal.remark) }}</label>
+        {{ form_widget(form.Illegal.remark,{'attr': {'placeholder':'请输入备注' }}) }}
+    </div>
+
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">保存</button>
+</div>
+{{ form_end(form) }}

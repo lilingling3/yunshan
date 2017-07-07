@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,initial-scale=1,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>为0找π&nbsp;手机豪礼送不停</title>
+    <link  rel="stylesheet" href="{{ asset('/bundles/autowap/css/mascot.css') }}"  />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        wx.config({
+            'debug': false,
+            'appId': '{{ signPackage.appId }}',
+            'timestamp': '{{ signPackage.timestamp }}',
+            'nonceStr': '{{ signPackage.nonceStr }}',
+            'signature': '{{ signPackage.signature }}',
+            'jsApiList': ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+
+            //自定义内容
+            var dataForWeixin = {
+                title: '大标题：为“0”找“π”！云杉智行邀你设计代言宝贝，手机豪礼送送送！',
+                desc: '〇”单身求解救！据说“〇”的玩伴“π”被封印到这条微博里了！快点开这条微博，按照微博上的指示，帮助“〇”找到“π”！我们备下了乐MAX 2 北京车展顶配特别版 作为奖品感谢帮助者',
+                imgUrl: 'http://lecarshare.com/photograph/b7/db/b7db3b2cd693acba7df10ff94c1bef59e690f030.jpeg',
+                link: '{{ url }}'
+            };
+
+            //分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: dataForWeixin.title, // 分享标题
+                link: dataForWeixin.link, // 分享链接
+                imgUrl: dataForWeixin.imgUrl,  // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            //分享给朋友
+            wx.onMenuShareAppMessage({
+                title: dataForWeixin.title, // 分享标题,
+                desc: dataForWeixin.desc, // 分享标题,
+                link: dataForWeixin.link, // 分享标题, // 分享链接
+                imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            //分享给qq
+            wx.onMenuShareQQ({
+                title: dataForWeixin.title, // 分享标题,
+                desc: dataForWeixin.desc, // 分享标题,
+                link: dataForWeixin.link, // 分享标题, // 分享链接
+                imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="top">
+        <img  src="{{ asset('/bundles/autowap/images/mascot-top.png') }}" />
+    </div>
+    <article class="text-cont">
+        <section class="sect-cont">
+            <p>5月20日，我们发布了一对儿吉祥物还记得吗？除了小“0”之外，小“π”的形象还空缺着。快来为云杉智行设计代言宝贝吧！有机会获得顶配乐Max 2北京车展特别版~还有更多惊喜好礼等你拿！</p>
+        </section>
+
+        <section class="sect-cont">
+            <b class="title"><span class="circle">&bull;</span>活动时间</b>
+            <p>2016年5月27日---2016年6月10日</p>
+        </section>
+
+        <section class="sect-cont">
+            <b class="title"><span class="circle">&bull;</span>活动奖品</b>
+            <p>1、优秀奖（共1名）：乐Max2 北京车展顶配特别版&nbsp;1台</p>
+            <p>2、特别奖（共50名）：“π”的白色模型+彩笔 DIY套装 &nbsp;1套</p>
+            <p>3、参与奖（共N名）：北京地区的参与者皆可领取面值30元云杉智行vip代金卡 1张</p>
+        </section>
+
+        <section class="sect-cont">
+            <b class="title"><span class="circle">&bull;</span>设计提示：云杉智行代言宝贝名称及性格特点</b>
+            <p class="title"><span class="circle">&bull;</span>女生：0</p>
+            <p>0是一个小巧可爱的电子精灵。平时是磁悬浮飘在空中的，喜欢自由自在，小零活力无限。</p>
+            <p>电子钟属性。配色为云杉智行中的绿色。0虽然不需要靠动力飞行，但平时开心的时候喜欢像竹蜻蜓一样旋转自己的身体。</p>
+
+            <p class="title"><span class="circle">&bull;</span>男生：π</p>
+            <p>憨厚可爱的电子精灵。电池属性。性格开朗，热爱大自然，喜欢小动物总把0当作小鸟。喜欢cos各种小动物形象最喜欢的就是cos熊猫。等你来设计构想！</p>
+        </section>
+
+        <section class="sect-cont">
+            <b class="title"><span class="circle">&bull;</span>活动规则</b>
+            <p>1、所有作品必须为原创，不得盗用、挪用和转载他人作品参加活动，违者取消参与资格；</p>
+            <p>2、活动参与者若有违规行为，则顺延奖项。</p>
+        </section>
+    </article>
+
+    <div class="btn-cont">
+        <a class="btn-a" href="http://weibo.com/5772574696/DxjFIpvhZ?ref=home&type=comment#_rnd1464247371162">
+            <img src="{{ asset('/bundles/autowap/images/mascot-btn.png') }}" />
+        </a>
+    </div>
+    <div class="foot-t">本活动的最终解释权归云杉智行所有</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>实时定位</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/autoadmin/css/rentalStationlocal.css') }}">
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css" xmlns="http://www.w3.org/1999/html"/>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=3dc0d24d401640b9b8249da6c4dd5a72&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/automobile/js/module/jquery-1.9.0.min.js') }}" ></script>
+</head>
+<body>
+<div id="container"></div>
+<script>
+   var  map = new AMap.Map('container', {
+        resizeEnable: true,
+        center: [113.39327692145,23.059419454579],
+        zoom: 13,
+        level:17, //设置地图缩放级别
+        doubleClickZoom:false, //双击放大地图
+        scrollWheel:true//鼠标滚轮缩放地图
+    });
+
+    var changeMarkers=[],timeer;
+   getcarspos();
+   timeer=setInterval("getcarspos()",50000);
+
+    function  getcarspos(){
+        $.post("/api/rentalCar/curLocation",function(data,status){
+            if(status){
+                if(data.errorCode==0){
+                    changeRemoveMarker(changeMarkers);
+                    addmarks(data);
+                }else{
+                    alert(data.errorMessage);
+                }
+            }
+        });
+    }
+    function addmarks(markers){
+        //var l=markers.length/*>500?500:markers.length*/;
+        console.log(markers);
+        var offlinelist=markers["offlinelist"];
+        var offl=offlinelist.length;
+        var onlinelist=markers["onlinelist"];
+        var onl=onlinelist.length;
+
+        for(var i= 0;i<offl;i++){
+            var markerarr=offlinelist[i];
+            var markerpos=markerarr;
+            if(!markerpos["lon"] || !markerpos["lat"]){
+              continue;
+            }
+
+            var changemarker = new AMap.Marker({
+                position: [markerpos["lon"],markerpos["lat"]],
+                content:"<div class='markercont offline'>"+markerpos["license"]+"</div>",
+                extData:{"license":markerpos["license"]}
+            });
+            changeMarkers.push(changemarker);
+            changemarker.setMap(map);
+        }
+        for(var i= 0;i<onl;i++){
+            var markerarr=onlinelist[i];
+            var markerpos=markerarr;
+            if(!markerpos["lon"] || !markerpos["lat"]){
+                continue;
+            }
+            var changemarker = new AMap.Marker({
+                position: [markerpos["lon"],markerpos["lat"]],
+                content:"<div class='markercont'>"+markerpos["license"]+"</div>",
+                extData:{"license":markerpos["license"]}
+            });
+            changeMarkers.push(changemarker);
+            changemarker.setMap(map);
+
+        }
+
+
+    }
+    function changeRemoveMarker(markers){
+        map.remove(markers);
+    }
+
+</script>
+
+
+</body>
+</html>

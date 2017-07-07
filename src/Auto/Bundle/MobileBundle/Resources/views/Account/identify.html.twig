@@ -1,0 +1,218 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Account:_authError.html.twig" as autherror %}
+{% set page_id  = ['account', 'identify'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="{{ asset('/bundles/automobile/js/module/jquery-1.9.0.min.js') }}"></script>
+
+{% endblock %}
+{% block content %}
+
+     <div class="verify-title">
+            {% if auth.status==200 %}
+                <p class="tp">请按照范例图上传照片</p>
+            {% elseif  auth.status ==299 %}
+                <p class="blue">认证成功</p>
+            {% elseif auth.status !=299 %}
+            <p class="red">认证失败</p>
+            {% if auth.mobileCallError %}
+            <p class="black">{{ auth.mobileCallError }}</p>
+            {% endif %}
+            {% endif %}
+        </div>
+
+    {% if  auth.status!=201 and auth.status !=200 %} <form class="verify-data" action="{{ path('auto_mobile_account_auth_upload') }}"  method="post" enctype="multipart/form-data">
+        {% endif %}
+        <div class="auth-file" authstatus="{{ auth.status }}">
+            <div class="file"  id="auth-file2" >
+                <div class="auth-img-cont  ">
+                    {% if auth.status !=201  %}
+                    {% if auth.authImage.licenseImage and auth.authImage.idImage and auth.authImage.idHandImage %}
+                        {% if auth.authImageMessage.licenseAuthError %}
+                            <span class="img-icon verify-fial"></span>
+                        {% else %}
+                            <span class="img-icon "></span>
+                        {% endif %}
+                        {% elseif auth.authImage.licenseImage %}
+                        {% if auth.licenseImageMessage %}
+                            <span class="img-icon verify-fial"></span>
+                        {% else %}
+                            <span class="img-icon "></span>
+                        {% endif %}
+                        {% else %}
+                    {% endif %}
+                        {% endif %}
+                    <div dtype="licenseImage" class="licenseImage verify-img {% if auth.status !=201 %}{% if auth.authImage.licenseImage and auth.authImage.idImage and auth.authImage.idHandImage %}{% if auth.authImageMessage.licenseAuthError %} failbor{% else %}subor camera {% endif %}{% elseif auth.authImage.licenseImage %}{% if auth.licenseImageMessage %}failbor{% else%}subor camera{% endif %}{% else %}camera {% endif %} {% endif %}">
+                    {% if auth.status ==201 %}
+                        <div class="verify-layer ">
+                            <span class=" tblr-center layer-camera-t">审核中...</span>
+                        </div>
+                        {% elseif auth.authImage.licenseImage ==""  %}
+                        <div class="verify-layer ">
+                            <img class="tblr-center" src="{{ asset('/bundles/automobile/images/verify-camera.png') }}" />
+                        </div>
+                        {% endif %}
+                        <input type="hidden" name="licenseImageserverId" id="licenseImageserverId" value="" />
+                        <input type="hidden" name="licenseImage"  class="uploadimg {% if auth.authImage.licenseImage and auth.authImage.idImage and auth.authImage.idHandImage and auth.authImageMessage.licenseAuthError=="" %}   verifyflag{% elseif auth.authImage.licenseImage and auth.licenseImageMessage=="" %} verifyflag{% endif %}" capture="camera" value="{% if auth.authImage.licenseImage%}{{ auth.authImage.licenseImage }}{% endif %}" accept="image/*"  />
+                        <img class="tblr-center verify-photo" src="
+                            {% if auth.authImage.licenseImage %}
+                                {{ auth.authImage.licenseImage }}
+                            {% else %}
+                            {{ asset('/bundles/automobile/images/example-license.png') }}
+                        {% endif %}
+                        " />
+                        {% if auth.status !=201 %}
+                            {% if auth.licenseImage %}
+                                {% if auth.authImage.idImage=="" and auth.authImage.idHandImage=="" %}
+                                    {% if auth.licenseImageMessage %}
+                                        <div class="bottom-layer">{{ auth.licenseImageMessage }}</div>
+                                    {% else %}
+                                    {% endif %}
+                                {% else %}
+                                    {% if auth.authImageMessage.licenseAuthError %}
+                                        <div class="bottom-layer">{{ auth.authImageMessage.licenseAuthError }}</div>
+                                    {% else %}
+                                    {% endif %}
+                                {% endif %}
+
+                            {% endif %}
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="auth-img-cont ">
+                    {% if auth.status !=201 %}
+                    {% if auth.authImage.idImage %}
+                    {% if auth.authImageMessage.idImageAuthError %}
+                        <span class="img-icon verify-fial"></span>
+                    {% else %}
+                        <span class="img-icon "></span>
+                    {% endif %}
+                    {% endif %}
+                        {% endif %}
+                    <div dtype="idImage" class="idImage verify-img {% if auth.status !=201 %}{% if auth.authImage.idImage %}{% if auth.authImageMessage.idImageAuthError %}failbor{% else %}subor camera{% endif %}{% else %}camera{% endif %}{% endif %}">
+                        {% if auth.status ==201 %}
+                            <div class="verify-layer ">
+                                <span class=" tblr-center layer-camera-t">审核中...</span>
+                            </div>
+                        {% elseif auth.authImage.idImage==""%}
+
+                                <div class="verify-layer ">
+                                    <img class="tblr-center " src="{{ asset('/bundles/automobile/images/verify-camera.png') }}" />
+                                </div>
+
+                        {% endif %}
+                        <input type="hidden" name="idImageserverId" id="idImageserverId" value="" />
+                        <input type="hidden" name="idImage"  class="uploadimg  {% if auth.authImage.idImage and auth.authImageMessage.idImageAuthError==""%} verifyflag {% endif %}" value="
+                        {% if auth.authImage.idImage  %}{{ auth.authImage.idImage }}{% endif %}
+
+                        " capture="camera" accept="image/*"  />
+                        <img class="tblr-center verify-photo " src="{% if auth.authImage.idImage  %}{{ auth.authImage.idImage }}{% else %}{{ asset('/bundles/automobile/images/example-idcard.png') }}{% endif %}" />
+                         {% if auth.status !=201 %}
+                        {% if auth.authImageMessage.idImageAuthError %}
+                            <div class="bottom-layer">{{ auth.authImageMessage.idImageAuthError }}</div>
+                        {% endif %}
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="auth-img-cont">
+                {% if auth.status !=201 %}
+                    {% if auth.authImage.idHandImage %}
+                        {% if auth.authImageMessage.idHandImageAuthError %}
+                            <span class="img-icon verify-fial"></span>
+                        {% else %}
+                            <span class="img-icon "></span>
+                        {% endif %}
+                    {% endif %}
+                    {% endif %}
+                    <div dtype="idHandImage" class="idHandImage verify-img {% if auth.status !=201 %}{% if auth.authImage.idHandImage %}{% if auth.authImageMessage.idHandImageAuthError %}failbor{% else %} subor camera{% endif %}{% else %}camera{% endif %} {% endif %}">
+                        {% if auth.status ==201 %}
+                            <div class="verify-layer ">
+                                <span class=" tblr-center layer-camera-t">审核中...</span>
+                            </div>
+                        {% elseif auth.authImage.idHandImage=="" %}
+                        <div class="verify-layer ">
+                            <img class="tblr-center " src="{{ asset('/bundles/automobile/images/verify-camera.png') }}" />
+                        </div>
+                        {% endif %}
+                        <input type="hidden" name="idHandImageserverId" id="idHandImageserverId" value="" />
+                        <input type="hidden" name="idHandImage"  class="uploadimg {% if auth.authImage.idImage and auth.authImageMessage.idImageAuthError==""%} verifyflag {% endif %}" value="{% if auth.authImage.idHandImage %}{{ auth.authImage.idHandImage }}{% endif %}" capture="camera" accept="image/*"  />
+                        <img class="tblr-center verify-photo" src="{% if auth.authImage.idHandImage  %}{{ auth.authImage.idHandImage  }}{% else %}{{ asset('/bundles/automobile/images/example-person.png') }}{% endif %}"/>
+                        {% if auth.status !=201 %}
+                        {% if auth.authImageMessage.idHandImageAuthError %}
+                            <div class="bottom-layer">{{ auth.authImageMessage.idHandImageAuthError }}</div>
+                        {% endif %}
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+    {% if auth.status !=201 %}
+            <div class="account-t">
+                    <p class="red">注意：照片不清晰或不是本人证件照均会影响审核结果</p>
+            </div>
+       {% endif %}
+        </div>
+    {% if auth.status !=201 %}
+        <div class="auth-btn
+        {% if auth.authImage.licenseImage and auth.authImage.idImage and auth.authImage.idHandImage and auth.authImageMessage.licenseAuthError=="" and auth.authImageMessage.idImageAuthError==""and auth.authImageMessage.idHandImageAuthError=="" %}
+                auth-btn-sub{% endif %}">
+            <div  class="button upload-submit {% if auth.authImage.licenseImage and auth.authImage.idImage and auth.authImage.idHandImage and auth.authImageMessage.licenseAuthError=="" and auth.authImageMessage.idImageAuthError==""and auth.authImageMessage.idHandImageAuthError=="" %} upload-submit1 {% endif %}">
+                <img class="bg-btn"
+
+                     src="{% if auth.authImage.licenseImage and auth.authImage.idImage and auth.authImage.idHandImage and auth.authImageMessage.licenseAuthError=="" and auth.authImageMessage.idImageAuthError==""and auth.authImageMessage.idHandImageAuthError=="" %} {{ asset('/bundles/automobile/images/btn-bg3.png') }}{% else %}{{ asset('/bundles/automobile/images/btn-gray.png') }}{% endif %}"/>
+                <span class="tblr-center btn-text">提交认证</span>
+            </div>
+        </div>
+        <div class="float-layer">
+            <div class="scroll-window">
+            <span class="fork"></span>
+            <div class="layer-t">
+                <p>请按照范例图上传照片</p>
+            </div>
+            <div class="layer-img-cont">
+                <div class="layer-img layer-img1">
+                    <img  src="{{ asset('/bundles/automobile/images/example-license.png') }}" />
+                </div>
+            </div>
+            <div class="layer-warn">
+                <p>注意：</p>
+                <p>1、请保证证件照清晰、无遮挡、无反光</p>
+                <p>2、请保证证件在有效期内</p>
+            </div>
+            <div class="layer-img-cont layer-img-cont2">
+                <div class="layer-img layer-img2">
+                    <img  src="{{ asset('/bundles/automobile/images/example-license.png') }}" />
+                </div>
+            </div>
+            <div class="btn-cont" imgcon="">
+                <div class="layer-btn layer-btn1" >
+                    <img class="bg-btn" src=" {{ asset('/bundles/automobile/images/btn-white.png') }}" />
+                    <span  class="tblr-center layer-btn-text" >查看原图</span>
+                </div>
+                <div class="layer-btn layer-btn2">
+                    <img class="bg-btn" src=" {{ asset('/bundles/automobile/images/btn-bg3.png') }}" />
+                    <span  class="tblr-center layer-btn-text textwhite" >上传照片</span>
+                </div>
+            </div>
+
+            </div>
+        </div>
+        <button type="submit">提交</button>
+    {% endif %}
+    {% if auth.status!=201 %}
+            </form>
+        {% endif %}
+
+{#
+
+   <input type="hidden" id="appId" value="{{ signPackage.appId }}" />
+    <input type="hidden" id="timestamp" value="{{ signPackage.timestamp }}" />
+    <input type="hidden" id="nonceStr" value="{{ signPackage.nonceStr }}" />
+    <input type="hidden" id="signature" value="{{ signPackage.signature }}" />
+
+
+#}
+
+    {% endblock %}
+{% block footer %}
+{% endblock %}

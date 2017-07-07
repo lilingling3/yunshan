@@ -1,0 +1,94 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['region', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'运营区域分配'} %}
+     <div class="ui main-content" id="yui_3_14_1_1_1461549608378_26">
+         <div class="ui top attached menu tabular no_border">
+             <a class="item " href="{{ path("auto_admin_role_list") }}">权限设置</a>
+             <a class="active item font-normal bk_gray no_border">运营区域分配</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_region_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td>
+                             <input class=" time_input" type="text" name="mobile" placeholder="手机号" value="{{ mobile }}" >
+                         </td>
+                         <td>
+                             <input class=" time_input" type="text"  name="name" placeholder="姓名" value="{{ name }}">
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">搜索</button>
+                         </td>
+                         <td style="width: 273px;"></td>
+
+
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>手机号</th>
+                     <th>姓名</th>
+                     <th>角色</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for member in members %}
+                     <tr>
+                         <td>{{ member.mobile }}</td>
+                         <td>{{ member.name }}</td>
+                         <td>{{ member.roles }}</td>
+                        <td>
+                            <a href="{{ path('auto_admin_region_show',{'id':member.id}) }}">查看区域</a>|
+                            <a href="{{ path('auto_admin_region_area_set',{'id':member.id}) }}">分配区域</a>
+                        </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_region_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,47 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rental_coupon','coupon'] %}
+{% block content %}
+<div class="top-menu">
+    优惠券
+    <a href="{{ path("auto_wap_index") }}"><b></b></a>
+	<span><a href="javascript:window.location.reload();" class="refresh"><b></b></a></span>
+</div>
+<article class="content">
+	<div class="coupon-code">
+		<div class="code-inner clearfix">
+			<form method="post" action="{{ path('auto_wap_coupon_draw') }}">
+				<div class="input-cont"><input class="code" name="code" type="text" placeholder="请输入兑换码"/></div>
+				<span class="button">兑换优惠券</span>
+			</form>
+		</div>
+	</div>
+	<!--没有优惠券-->
+	{% if not coupons %}
+		<div class="no-coupon-t">
+     <p class="no-coupon">很抱歉，您暂时没有优惠券！</p>
+    </div>
+  {% endif %}
+  <!--有优惠券-->
+  <!--可用的优惠券--->
+  {% for coupon in coupons %}
+
+	<section class="{% if coupon.valid ==400 %}avaiable{% else %}unavaiable{% endif %}" coupon-value="{{ coupon
+    .amount }}" >
+		<div class="row">
+			<div class="left-cont">
+				<div class="incont">{{ coupon.amount }}</div>
+			</div>
+			<div class="coup-text">
+				<p>{{ coupon.name }}</p>
+				<p class="date">有效期至{{ coupon.endTime }} {% if coupon.valid ==401 %}[已使用]{% endif %}{% if coupon.valid ==402 %}[已过期]{% endif %}</p>
+				<p class="needhour">满{{ coupon.needHour }}小时可用</p>
+			</div>
+
+		</div>
+	</section>
+
+      {% endfor %}
+</article>
+
+
+{% endblock %}

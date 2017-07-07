@@ -1,0 +1,38 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'offlinelist'] %}
+{% block content %}
+<div class="top-menu" xmlns="http://www.w3.org/1999/html">
+    下线记录
+    <a href="{{ path("auto_operate_rental_car_show",{"id":id }) }}" class="left-cont"><b></b></a>
+    <span><a href="javascript:window.location.reload();">刷新</a></span>
+</div>
+
+    <div class="container">
+        {% for offlin in offlins %}
+        <div class="list-li">
+            <div class="row">
+                <p>{{ offlin.info.createTime|date('Y-m-d H:i') }}
+                    <b>{{ offlin.info.member.name }}
+                        <a href="tel:{{ offlin.info.member.mobile }}">
+                            <span>{{ offlin.info.member.mobile }}</span>
+                        </a>
+                    </b>
+                </p>
+            </div>
+            <div class="row">
+                <p class="offwhy">下线原因</p>
+                <p class="reason">
+                    {% for reasonsId in offlin.reasonsIds %}
+                    <span>{{ reasons[reasonsId] }}</span>
+                    {% endfor %}
+                    {% if  offlin.info.remark  %}
+                    <span>{{ offlin.info.remark }}</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

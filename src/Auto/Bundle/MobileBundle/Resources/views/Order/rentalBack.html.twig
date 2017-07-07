@@ -1,0 +1,22 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+
+{% set page_id  = ['order', 'back'] %}
+{% block content %}
+ <div class="back-notice">
+    <img src="{{ asset('/bundles/automobile/images/keyy.png') }}" width="100%">
+        <p class="reminder">如不按提示操作还车，所带来的损失由承租人承担。</p>
+        <form id="orderinfo" action="{{ path('auto_mobile_pay_rental_order') }}" method="post">
+            <input type="hidden" id="order-id" name="orderID" value="{{ rentalOrder.orderID }}">
+            <input type="hidden" id="user-id" name="userID" value="{{ app.user.token }}">
+            <div  class="btn">
+                <img class="btnbg" src="{{ asset('/bundles/automobile/images/btn-bg3.png')}}">
+                <span class="tblr-center">确认还车</span>
+            </div>
+        </form>
+
+    </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

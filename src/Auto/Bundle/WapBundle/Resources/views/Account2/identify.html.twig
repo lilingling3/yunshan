@@ -1,0 +1,59 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Account:_authError.html.twig" as autherror %}
+
+{% set page_id  = ['account2', 'identify'] %}
+{% block content %}
+
+    <div class="top-menu">
+        个人信息
+        <a href="{{ path("auto_wap_account_auth2") }}"><b></b></a>
+
+    </div>
+
+
+
+
+    <form action="{{ path('auto_wap_account_auth_upload2') }}"  method="post" enctype="multipart/form-data">
+
+        <div class="auth-file">
+
+
+
+            <div class="file"  id="auth-file2">
+                <div class="auth-img-cont">
+                    <img {% if auth.status==200 %} src="{{ asset('/bundles/autowap/images/auth3.png') }}"{% else %} src="{{ auth.licenseImage }}"{% endif %} width="100%">
+                </div>
+            </div>
+
+            <div class="account-t">
+                {% if  auth.status==202 %}
+                    <p class="auth-fail">{{ auth.licenseImageMessage }}</p>
+                    <p>拍照时请横拿手机，并将驾驶证正副页放在一张照片里。</p>
+                    {% elseif auth.status==299 %}
+                        <p class="">恭喜，您的驾驶证信息审核通过。</p>
+                        {% else %}
+                {% endif %}
+
+                <p>
+                    {% if auth.status==200 %}
+                        驾照领取时间在一年以下、照片不清晰、不是本人都会影响审核结果。
+
+
+                    {% endif %}
+                </p>
+            </div>
+            {% if not auth.status!=299 %}
+                <div class="upload-content">
+                    <p>上传照片</p>
+                    <input type="file" img-data="#auth-file2" name="file2"  class="upload" capture="camera"
+                           accept="image/*"  />
+                </div>
+            {% endif %}
+        </div>
+        <div class="auth-btn">
+            <button type="button" class="upload-submit">提交认证</button>
+        </div>
+
+    </form>
+
+{% endblock %}

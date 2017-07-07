@@ -1,0 +1,55 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_order', 'end_order'] %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+{% block content %}
+    <div class="top-menu" xmlns="http://www.w3.org/1999/html">
+        租赁订单
+        <a href="{{ path('auto_operate_rental_order_show',{'id':rentalOrder.orderID}) }}"  class="left-cont"><b></b></a>
+    </div>
+
+    <div class="order-details">
+        <div class="order-info">
+            {{ rentalOrder.createTime|date('Ymd') }}{{ rentalOrder.orderID }}
+            <p class="info-status info-status{{ rentalOrder.status }}"> {{ status.name(rentalOrder) }}</p>
+        </div>
+        <div class="in-cont">
+            <p><b>车辆号牌&nbsp;:&nbsp;</b>{{ rentalOrder.rentalCar.license }}</p>
+            <p><b>车辆型号&nbsp;:&nbsp;</b>{{ rentalOrder.rentalCar.car.name }}</p>
+            <p><b>租赁点&nbsp;:&nbsp;</b>{{ rentalOrder.rentalCar.rentalStation.name }}</p>
+            <p><b>下单时间&nbsp;:&nbsp;</b>{{ rentalOrder.createTime }}</p>
+            <p><b>取车时间&nbsp;:&nbsp;</b>{{ rentalOrder.useTime|default('-') }}</p>
+            <p><b>支付时间&nbsp;:&nbsp;</b>{{ rentalOrder.payTime|default('-') }}</p>
+            <p><b>租赁时长&nbsp;:&nbsp;</b>
+                {% if rentalOrder.status==101 %}
+                    -
+                {% elseif rentalOrder.offset %}
+                    {{ time.name(rentalOrder.offset) }}
+                {% else %}-
+                {% endif %}
+            </p>
+            <p><b>行驶里程&nbsp;:&nbsp;</b>{% if rentalOrder.mileage %}{{ rentalOrder.mileage//1000}}公里{% else %}-{% endif %}</p>
+            <p><b>产生费用&nbsp;:&nbsp;</b>{%if  rentalOrder.costDetail.cost %}{{ rentalOrder.costDetail.cost }}元{% else %}-{% endif %}</p>
+            <p><b>优惠券&nbsp;:&nbsp;</b>{{ rentalOrder.coupon.amount|default('-') }}</p>
+            <p><b>实付费用&nbsp;:&nbsp;</b>{{ rentalOrder.amount|default('-') }}</p>
+        </div>
+
+    </div>
+
+
+    <div class="reminder">
+        <p>1、请在人工还车前定位车辆是否已驶回租赁点；</p>
+        <p>2、请与用户确认车辆钥匙放在指定位置；</p>
+        <p>3、请与用户确认车门、车窗已关好；</p>
+        <p>4、人工还车后请与用户确认，并提醒用户可支付。</p>
+    </div>
+
+    <div class="cancel-rental-button">
+        <button type="submit" class="rental-submit">确认人工还车</button>
+    </div>
+<form class="end_order_data" action="{{ path('auto_operate_car_offline_back') }}" method="POST">
+    <input type="hidden"  name="orderID"  value="{{ rentalOrder.orderID }}"/>
+    <input type="hidden"  name="carID" value="{{ rentalOrder.rentalCar.rentalCarID }}"/>
+</form>
+
+{% endblock %}

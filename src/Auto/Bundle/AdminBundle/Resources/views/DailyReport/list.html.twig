@@ -1,0 +1,54 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['daily', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'数据导出','prenav':'数据统计'} %}
+     <div class="ui main-search grid bk_gray" style="padding: 0px">
+
+         <div class="ten wide">
+             <form action="{{ path("auto_admin_daily_output") }}" method="post">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+                         <td class="ui input">
+                             <input type="text" name="startTime" id="J-xl" value="" placeholder="统计开始时间">
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="endTime" id="J-xl2" value="" placeholder="统计结束时间">
+                         </td>
+                         <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+                         <script>
+                             laydate({
+                                 elem: '#J-xl'
+                             });
+                             laydate({
+                                 elem: '#J-xl2'
+                             });
+                         </script>
+                         <td>
+                             <select  class=" time_input" name="carModel" id="cars" class="ui dropdown">
+                                 <option value="0"  selected>全部车型</option>
+                                 {% for car in cars %}
+                                     <option  value="{{ car.id }}">{{ car.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td>
+                             <select  class=" time_input" name="city" id="cities" class="ui dropdown">
+                                 <option value="0"  name="city" selected>全部城市</option>
+                                 {% for city in cities %}
+                                     <option  value="{{ city.id }}" name="city" provinceid="{{ city.parent.id }}">{{ city.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">导出</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+ {% endblock %}

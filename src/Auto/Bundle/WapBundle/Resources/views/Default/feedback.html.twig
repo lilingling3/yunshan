@@ -1,0 +1,16 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default', 'feedback'] %}
+{% block content %}
+    <div class="top-menu">
+        意见反馈
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+    </div>
+
+    <div class="details">
+        <p>亲爱的用户，在此感谢您的使用与支持。我们为工作中的不足向您诚挚的道歉，我们希望您能指出我们的不足，请您将建议意见发送至：
+        <a href="mailto:chengcheng@win-sky.com.cn?subject=意见反馈">chengcheng@win-sky.com.cn</a>
+</p>
+    </div>
+
+
+{% endblock %}

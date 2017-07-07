@@ -1,0 +1,149 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['orderFlow', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'充值订单','prenav':'订单流水'} %}
+     <div class="ui main-content" id="yui_3_14_1_1_1461549608378_26">
+         <div class="ui top attached menu tabular no_border">
+             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCE') %}
+             <a class="item" href="{{ path("auto_admin_order_flow_list") }}">租赁订单</a>
+             {% endif %}
+             <a class="active item font-normal bk_gray no_border " >充值订单</a>
+             <a class="item" href="{{ path("auto_admin_order_flow_refund_list") }}">退款订单</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_order_flow_recharge_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td>
+                             <select name="way" class="ui dropdown">
+                                 <option value="">充值方式</option>
+                                 <option value="100" {% if way == '100' %} selected="selected"{% endif %}>支付宝</option>
+                                 <option value="101" {% if way == '101' %} selected="selected"{% endif %}>微信</option>
+                                 <option value="102" {% if way == '102' %} selected="selected"{% endif %}>人工</option>
+                             </select>
+
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="mobile" placeholder="请输入手机号" value="{{ mobile }}">
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">查询</button>
+                         </td>
+                         <td style="width: 50%;"></td>
+                         <td>
+                             {% if is_granted('ROLE_ADMIN') %}
+                             <a class="ui teal button" href="{{ path("auto_admin_order_flow_recharge_new") }}">添加充值 </a>
+                             {% endif %}
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>手机号</th>
+                     <th>充值金额</th>
+                     <th>到账金额</th>
+                     <th>活动规则</th>
+                     <th>下单时间</th>
+                     <th>支付时间</th>
+                     <th>充值方式</th>
+                     <th>支付渠道流水ID</th>
+                     <th>状态</th>
+
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for recharge in rechargeOrders %}
+                     <tr>
+                         <td>{{ recharge.member.mobile }}</td>
+                         <td>{{ recharge.actualAmount }}</td>
+                         <td>{{ recharge.amount }}</td>
+                         <td>{% if recharge.activity  %}
+                             {{ recharge.activity.name }}
+                            {% endif %}
+                         </td>
+                         <td>{{ recharge.createTime|date('Y-m-d H:i:s') }}</td>
+                         <td>
+                             {% if recharge.payTime %}
+                                 {{ recharge.payTime|date('Y-m-d H:i:s') }}
+                             {% endif %}
+                             {#{{ recharge.payTime|date('Y-m-d H:i:s') }}#}
+                         </td>
+                         <td>
+                             {% if recharge.wechatTransactionId %}
+                                 微信
+                             {% elseif  recharge.alipayTradeNo%}
+                                 支付宝
+                             {% elseif  recharge.payTime %}
+                                 人工
+                             {% endif %}
+                         </td>
+                         <td>
+                             {% if recharge.wechatTransactionId %}
+                                 {{  recharge.wechatTransactionId}}
+                             {% elseif  recharge.alipayTradeNo%}
+                                 {{  recharge.alipayTradeNo}}
+                             {% endif %}
+                         </td>
+                         <td>
+                             {% if recharge.payTime %}
+                                 {% if recharge.actualRefundAmount %}
+                                     {% if recharge.refundTime %}
+                                         <div class="red">退款成功</div>
+                                     {% else %}
+                                        <div class="red">已申请退款</div>
+                                     {% endif %}
+                                 {% else %}
+                                     充值成功
+                                 {% endif %}
+                             {% else %}
+                                 待支付
+                             {% endif %}
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_order_flow_recharge_list",{'page':k,'way':way,'mobile':mobile}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+     </div>
+
+
+ {% endblock %}

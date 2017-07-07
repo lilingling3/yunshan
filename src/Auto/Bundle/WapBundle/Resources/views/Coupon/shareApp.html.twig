@@ -1,0 +1,24 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rental_coupon', 'share_app'] %}
+{% block content %}
+    <div class="container">
+        <div class="share-img">
+            <img src="{{ asset('/bundles/autowap/images/app-share.png') }}" />
+        </div>
+        <div class="text">
+            <p>云杉智行，绿色出行</p>
+            <p>关爱你我他</p>
+        </div>
+        <div class="buton-cont">
+            <div class="row input-row"><input type="text" placeholder="新用户输入手机号" id="phone" maxlength="11"/></div>
+            <div class="row button-row"><div class="button">领取30元优惠券</div></div>
+            <div class="row button-row row-down"><a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653" class="down">下载云杉智行</a></div>
+            <p class="buton-text">租车可抵现金</p>
+        </div>
+        <input type="hidden" id="uid" value="{{ uid }}" />
+        <input type="hidden" id="aid" value="{{ aid }}" />
+    </div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

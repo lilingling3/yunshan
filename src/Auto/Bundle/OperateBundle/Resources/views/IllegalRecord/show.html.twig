@@ -1,0 +1,43 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['illegal_record', 'show'] %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% block content %}
+    <div class="top-menu">
+        待处理违章
+        <a href="javascript:history.go(-1);" class="left-cont"><b></b></a>
+    </div>
+
+    <div class="rental-order clearfix">
+        <div class="row id">{{ illegal.createTime|date('Y/m/d ') }}
+        </div>
+        <div class="row row-style clearfix">
+            <div class="text">
+                <p><span class="t-name">号牌&nbsp;:&nbsp;</span>{{ illegal.rentalCar.license }}</p>
+                <p><span class="t-name">车辆型号&nbsp;:&nbsp;</span>{{ illegal.rentalCar.car.name }}</p>
+                <p><span class="t-name">用户&nbsp;:&nbsp;</span>{% if illegal.order and illegal.order.member and illegal.order.member.name %}{{ illegal.order.member.name }}{% else %}--{% endif %}</p>
+                <p><span class="t-name">手机&nbsp;:&nbsp;</span><a {% if illegal.order and illegal.order.member  %}href="tel:{{ illegal.order.member.mobile }}"{% endif %} class="tel">{% if illegal.order and illegal.order.member  %}{{ illegal.order.member.mobile }}{% else %}--{% endif %}</a></p>
+                <p><span class="t-name">租赁点&nbsp;:&nbsp;</span>{{ illegal.rentalCar.rentalStation.name }}</p>
+                <p><span class="t-name">下单时间&nbsp;:&nbsp;</span>{% if illegal.order and illegal.order.createTime %}{{ illegal.order.createTime|date('Y/m/d H:i:s') }}{% endif %}</p>
+                <p><span class="t-name">发动机号&nbsp;:&nbsp;</span>{{ illegal.rentalCar.engineNumber }}</p>
+                <p><span class="t-name">车架号&nbsp;:&nbsp;</span>{{ illegal.rentalCar.chassisNumber }}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="rental-order clearfix">
+        <div class="row row-style clearfix">
+            <div class="text">
+                <p><span class="t-name">违章记分&nbsp;:&nbsp;</span>{% if  illegal.illegalScore %}<span class="color-red">{{ illegal.illegalScore }}分</span>{% else %}-{% endif %}</p>
+                <p><span class="t-name">罚款金额&nbsp;:&nbsp;</span>{% if illegal.illegalAmount %}<span class="color-red">{{ illegal.illegalAmount }}元</span>{% else %}-{% endif %}</p>
+                <p><span class="t-name">违章时间&nbsp;:&nbsp;</span>{{ illegal.illegalTime|date('Y/m/d H:i:s') }}</p>
+                <p><span class="t-name">违章地点&nbsp;:&nbsp;</span>{{ illegal.illegalPlace }}</p>
+                <p class="clearfix"><span class="t-name">违章行为&nbsp;:&nbsp;</span><span>{{ illegal.illegal }}</span></p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['insurance', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'车辆保险管理'} %}
+
+
+     <div class="ui main-search grid  bk_gray" style="padding: 0px">
+
+         <div class="fifteen wide column" style="background: transparent;">
+             <form action="{{ path("auto_admin_insurance_record_list") }}" method="get">
+                 {% if rentalcarid %}
+                     <table class="ui very basic table">
+                         <tbody>
+                         <tr>
+                         <td><a class="ui teal button" href="{{ path('auto_admin_rentalcar_list') }}">返回</a></td>
+                         <td><a class="ui teal button" href="{{ path('auto_admin_insurance_record_new',{'rentalcarid':rentalcarid}) }}">添加车辆保险 </a></td>
+                         </tr>
+                         </tbody>
+                     </table>
+                 {% else %}
+                     <table class="ui very basic table">
+                         <tbody>
+                         <tr>
+                         <td class="ui input">
+                             <input type="text" name="startTime" id="J-xl"  placeholder="开始时间">
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="endTime" id="J-xl2"  placeholder="结束时间">
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">查询</button>
+                         </td>
+                         <td style=" width: 38%;"></td>
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_insurance_record_new') }}">添加车辆保险 </a>
+                         </td>
+                         </tr>
+                         </tbody>
+                     </table>
+                 {% endif %}
+             </form>
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+
+
+
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车辆车牌号</th>
+                     <th>投保公司</th>
+                     <th>投保类型</th>
+                     <th>投保日期</th>
+                     <th>投保生效日期</th>
+                     <th>投保失效日期</th>
+                     <th>投保金额</th>
+                     <th>投保单号</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for record in insurances %}
+                     <tr>
+                         <td>{{ record.rentalCar.license }}</td>
+                         <td>{{ record.company.name }}</td>
+                         <td>
+                             {% if record.insurance == 1 %}
+                                 交强险
+                             {% elseif record.insurance == 2 %}
+                                 商业险
+                             {% endif %}
+                         </td>
+                         <td>{{ record.insuranceTime|date('Y-m-d') }}</td>
+                         <td>{{ record.startTime|date('Y-m-d') }}</td>
+                         <td>{{ record.endTime|date('Y-m-d') }}</td>
+                         <td>{{ record.insuranceAmount}}</td>
+                         <td>{{ record.insuranceNumber }}</td>
+                         {% if rentalcarid %}
+                         <td>
+                             <a href="{{ path('auto_admin_insurance_record_edit',{'id':record.id,'rentalcarid':rentalcarid}) }}"><small>编辑</small></a>
+                             |
+                             <a href="{{ path('auto_admin_insurance_record_delete',{'id':record.id,'rentalcarid':rentalcarid}) }}"><small>删除</small></a>
+                         </td>
+                         {% else %}
+                         <td>
+                             <a href="{{ path('auto_admin_insurance_record_edit',{'id':record.id}) }}"><small>编辑</small></a>
+                             |
+                             <a href="{{ path('auto_admin_insurance_record_delete',{'id':record.id}) }}"><small>删除</small></a>
+                         </td>
+                         {% endif %}
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_insurance_record_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,34 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['default', 'info'] %}
+{% block content %}
+    <div class="top-menu">
+        完善信息
+        <a href="{{ path("auto_mobile_index") }}"><b></b></a>
+    </div>
+
+    <div class="user-info">
+        <p>以下信息请如实填写</p>
+        <p>如信息与真实信息不符将不能提供服务</p>
+    </div>
+    <form action="{{ path('auto_mobile_member_info_add') }}" method="post">
+        <div class="info-form">
+            <li><img src="{{ asset('/bundles/automobile/images/usericon1.png') }}">
+                <input type="text" class="text" name="name" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" value="{{ app.user.name|default }}" required
+                       placeholder="请输入员工卡姓名">
+            </li>
+            <li><img src="{{ asset('/bundles/automobile/images/usericon4.png') }}">
+                <input type="text" class="text" name="letvId"  onkeyup="value=value.replace(/[^\w\.\/]/ig,'')" value="{{ app.user.letvId|default }}"
+                       required
+                       placeholder="请输入员工卡号码">
+            </li>
+
+        </div>
+
+        <div class="submit-button">
+            <div class="row">
+                <button type="submit" class="login-in">提交</button>
+            </div>
+
+        </div>
+    </form>
+{% endblock %}

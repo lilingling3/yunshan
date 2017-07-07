@@ -1,0 +1,89 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'locate'] %}
+
+{% block javascripts %}
+    <script src="https://webapi.amap.com/maps?v=1.3&key=b9d7491ba1d58fecf58d56ca808024a5&plugin=AMap.AdvancedInfoWindow"></script>
+
+    {{ parent() }}
+    <style>
+        .amap-info-sharp { visibility: hidden;  }
+        .amap-info-close { display: none; }
+        .amap-info-content  {
+            border-radius: 5px;
+            background:transparent;
+            border: none;
+            box-shadow:none;
+            overflow: hidden;
+            padding: 0px;
+        }
+    </style>
+    <script>
+        var img={0:'/bundles/autooperate/images/map-bluemarker.png',1:'/bundles/autooperate/images/map-redmarker.png'};
+        var imgbg={0:'/bundles/autooperate/images/mapbluebg.png',1:'/bundles/autooperate/images/mapredbg.png'};
+        var font={0:"color:#0084ff",1:"color:#ff0000"};
+        var cont="<div clas='info-content' style=' width:173px; height:76px;line-height:76px; text-align:center;font-size: 12px;color: #666666;  z-index:100;'>"+"<img style='  position: absolute;z-index: 0;top: 0px;bottom: 0px;width: 100%;height: 100%;left: 0px;' src='"+imgbg[{% if unusual ==1 %}1{% else %}0{% endif %}]+"'/><div style='  position: relative; z-index: 6;  width: 100%;   text-align: center;   height: 100px;  line-height: 100px;"+font[{% if unusual ==1 %}1{% else %}0{% endif %}]+"'>{{ name }}</div></div>";
+
+        var map = new AMap.Map('mapContainer', {
+            // 设置中心点
+
+            center: [{{ coordinate.0 }}, {{ coordinate.1 }}],
+
+            // 设置缩放级别
+            zoom: 16
+        });
+        //地图中添加地图操作ToolBar插件
+        map.plugin(["AMap.ToolBar"],function() {
+            var toolBar = new AMap.ToolBar();
+            map.addControl(toolBar);
+        });
+        var markers = [];
+
+       /* AMap.event.addDomListener(document.getElementById('clearMarker'), 'click', function() {
+            map.remove(markers);
+        }, false);*/
+
+        addMarker({{ coordinate.0 }},{{ coordinate.1 }});
+        function addMarker(lng,lat){
+
+            marker = new AMap.Marker({
+                icon:img[{% if unusual ==1 %}1{% else %}0{% endif %}],
+                position:new AMap.LngLat(lng,lat)
+            });
+            marker.setMap(map);  //在地图上添加点
+            markers.push(marker);
+            var infoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(5, -20)});
+            infoWindow.setContent(cont);
+            infoWindow.open(map, [{{ coordinate.0 }}, {{ coordinate.1 }}]);
+
+        }
+
+    </script>
+
+{% endblock %}
+{% block content %}
+    <div class="top-menu">
+        车辆定位
+
+        <a href="{{ path("auto_operate_station_list") }}"  class="left-cont"><b></b></a>
+    </div>
+
+    <div id="mapContainer" style="height: 500px; width: 100%; overflow: hidden" ></div>
+
+{% if unusual ==1 %}
+    <h4 class="map-gps"><span>GPS异常获取：{{ time }}</span></h4>
+{% elseif unusual ==2 %}
+    <h4 class="map-gps">GPS正常获取-静止：{{ time }}</h4>
+{% elseif unusual ==3 %}
+    <h4 class="map-gps">GPS正常获取-运行：{{ time }}</h4>
+{% endif %}
+
+
+   {# <button id="clearMarker">删除标记</button>
+   <div class="marks">
+    {% for location in locations %}
+
+    <li><a href="javascript:void(0)" onclick="addMarker({{ location.coordinate.0 }},{{ location.coordinate.1 }})">
+            {{ location.time|date('m-d H:i:s') }}</a></li>
+    {% endfor %}
+    </div>#}
+{% endblock %}

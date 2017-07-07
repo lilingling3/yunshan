@@ -1,0 +1,104 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'实付流水'} %}
+     <div class="ui main-content" style="padding-bottom: 10px;">
+         <div class="ui top attached menu tabular no_border">
+             <a class="active item font-normal bk_gray no_border">租赁流水</a>
+             <a class="item " href="{{ path('auto_admin_invoice_account_recharge_show',{id:member.id,invoiceid:invoiceid}) }}">充值流水</a>
+         </div>
+     </div>
+     <br>
+     <div class="ui main-search grid bk_gray" style="padding: 0px 40px">
+
+         <div class="fifteen wide column " style="padding: 0px;background: transparent !important;">
+
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr style="line-height: 3;">
+                     <td class="ui input" style=" width: 500px;">
+                        手机号：{{ member.mobile }}|姓名：{{ member.name }}
+                     </td>
+                     <td style=" width: 85px;">
+                         {% if invoiceid %}
+                            <a class="ui teal button" href="{{ path('auto_admin_invoice_verify',{'id':invoiceid}) }}">返回</a>
+                         {% else %}
+                             <a class="ui teal button" onclick="JavaScript:history.back(-1);">返回 </a>
+                         {% endif %}
+                     </td>
+                     </tr>
+                     </tbody>
+                 </table>
+
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>下单时间</th>
+                     <th>支付时间</th>
+                     <th>实付金额（元）</th>
+                     <th>支付平台</th>
+                     <th>平台流水ID</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for order in orders %}
+                     <tr>
+                         <td>{{ order.createTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ order.payTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ order.amount }}</td>
+                         <td>
+                             {% if order.wechatTransactionId %}
+                                 微信
+                             {% elseif  order.alipayTradeNo%}
+                             支付宝
+                            {% endif %}
+                         </td>
+                         <td>{% if order.wechatTransactionId %}
+                                 {{ order.wechatTransactionId }}
+                             {% elseif  order.alipayTradeNo%}
+                                 {{ order.alipayTradeNo }}
+                             {% endif %}</td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_invoice_account_show",{page:k,id:member.id,invoiceid:invoiceid}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+         </div>
+     </div>
+
+
+ {% endblock %}

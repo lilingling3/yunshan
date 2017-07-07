@@ -1,0 +1,100 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+    <div class=" fields">
+        <div class="eight wide  field">
+            <label>父级车</label>
+            <input type="text" value="{{ parentPlateNumber }}" readonly="readonly" />
+        </div>
+        <div class="eight wide  field">
+            <label>{{ form_label(form.formType.claimLicensePlate) }}</label>
+            {{ form_widget(form.formType.claimLicensePlate,{'attr': {'placeholder':'理赔车车牌号'}} ) }}
+        </div>
+    </div>
+
+
+    <div class="field" >
+        <label>{{ form_label(form.formType.downReason) }}</label>
+        {{ form_widget(form.formType.downReason,{'attr': {'placeholder':'请输入事故原因' }} ) }}
+    </div>
+
+
+    <div class="fields">
+        <div class="eight wide field">
+            <label>{{ form_label(form.downTime) }}</label>
+            {{ form_widget(form.downTime ) }}
+        </div>
+        <div class="eight wide field">
+            <label>{{ form_label(form.applyTime) }}</label>
+            {{ form_widget(form.applyTime ) }}
+        </div>
+    </div>
+    <div class="fields">
+        <div class="eight wide field">
+            <label>{{ form_label(form.settleTime) }}</label>
+            {{ form_widget(form.settleTime ) }}
+        </div>
+        <div class="eight wide field">
+            <label>{{ form_label(form.claimTime) }}</label>
+            {{ form_widget(form.claimTime ) }}
+        </div>
+    </div>
+    <div class="field">
+        <label>{{ form_label(form.formType.claimAmount) }}</label>
+        {{ form_widget(form.formType.claimAmount,{'attr': {'placeholder':'2000' }}) }}
+    </div>
+
+
+
+    <div class="photographs">
+        {% set name = form.formType.images.vars.prototype.vars.full_name|replace({'__name__': ''}) %}
+        {% for p in form.formType.images %}
+            <div class="field photograph">
+                <img src="{{ p.vars.value starts with 'http://' ? p.vars.value : p.vars.value|photograph }}">
+                {{ form_widget(p, {full_name: name}) }}
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        {% endfor %}
+        <button class="ui basic button add-file watermark"><i class="icon photo"></i> 上传图片 </button>
+        <script type="text/x-handlebars-template" class="template">
+            <div class="field photograph">
+                <img src="{{ '{{ path }}' }}">
+                {{ form_widget(form.formType.images.vars.prototype, {full_name: name, value: '{{ localname }}'}) }}
+
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        </script>
+
+    </div>
+    {% do form.formType.images.setRendered %}
+
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">保存</button>
+
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    <script>
+        var downTime = {
+            elem: '#form_downTime',
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+        }
+        var applyTime = {
+            elem: '#form_applyTime',
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+        }
+        var settleTime = {
+            elem: '#form_settleTime',
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+        }
+        var claimTime = {
+            elem: '#form_claimTime',
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+        }
+        laydate(downTime);
+        laydate(applyTime);
+        laydate(settleTime);
+        laydate(claimTime);
+    </script>
+</div>
+
+{{ form_end(form) }}

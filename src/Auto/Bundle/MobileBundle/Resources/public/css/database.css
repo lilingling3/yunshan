@@ -1,0 +1,165 @@
+* {
+    outline: none;
+    margin: 0;
+}
+
+html, body, div { margin: 0; padding: 0; font-family:@sans;  }
+body{ background-color: #f3f4f6;}
+html { font-size: 100%; overflow-y: scroll; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+a{ text-decoration: none;color:#fff;}
+ul,li{list-style-type:none;}
+#page.activity.database,
+#page.activity.api {
+    background: white;
+}
+#page.activity.database .container,
+#page.activity.api .container {
+    position: relative;
+    padding: 20px 10px;
+}
+#page.activity.database .container .nav,
+#page.activity.api .container .nav {
+    position: fixed;
+    left: 10px;
+    top: 20px;
+    width: 300px;
+    border: 1px solid #ddd;
+}
+#page.activity.database .container .nav .navrow,
+#page.activity.api .container .nav .navrow {
+    border-top: 1px solid #ddd;
+}
+#page.activity.database .container .nav .navrow .leftrank,
+#page.activity.api .container .nav .navrow .leftrank {
+    padding: 0px 5px ;
+    height: 38px;
+    line-height: 38px;
+    background: url(../images/leftBg.png) repeat 0px 0px;
+}
+#page.activity.database .container .nav .navrow span,
+#page.activity.api .container .nav .navrow span {
+    color: #555555;
+}
+#page.activity.database .container .nav .navrow:first-child,
+#page.activity.api .container .nav .navrow:first-child {
+    border-top: none;
+}
+#page.activity.database .container .nav .navrow ul,
+#page.activity.api .container .nav .navrow ul {
+    display: none;
+    font-size: 14px;
+    padding: 0px;
+}
+#page.activity.database .container .nav .navrow ul li,
+#page.activity.api .container .nav .navrow ul li {
+    height: 38px;
+    line-height: 38px;
+    padding: 0px 4px;
+    padding-left: 5px;
+    border-top: 1px solid #ccc;
+    font-size: 12px;
+}
+#page.activity.database .container .nav .navrow ul li span,
+#page.activity.api .container .nav .navrow ul li span {
+    display: inline-block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+#page.activity.database .container .nav .navrow .rank1,
+#page.activity.api .container .nav .navrow .rank1,
+#page.activity.database .container .nav .navrow .rank2,
+#page.activity.api .container .nav .navrow .rank2 {
+    cursor: pointer;
+    display: block;
+}
+#page.activity.database .container .nav .active ul,
+#page.activity.api .container .nav .active ul {
+    display: block;
+}
+#page.activity.database .container .nav .active .rank1 span,
+#page.activity.api .container .nav .active .rank1 span {
+    color: #2e7ccf;
+}
+#page.activity.database .container .nav .rank2.actived span,
+#page.activity.api .container .nav .rank2.actived span {
+    color: #02a8fc;
+}
+#page.activity.database .container .innercont,
+#page.activity.api .container .innercont {
+    width: calc(70%);
+    margin-left: 340px;
+}
+#page.activity.database .container .innercont .module,
+#page.activity.api .container .innercont .module {
+    border-radius: 12px;
+    box-shadow: 0 0 8px #ddd;
+    margin-top: 10px;
+}
+#page.activity.database .container section,
+#page.activity.api .container section {
+    border-bottom: 1px solid #999;
+    margin: 0px 12px;
+    padding: 20px 0px;
+}
+#page.activity.database .container section:last-child,
+#page.activity.api .container section:last-child {
+    border: none;
+}
+#page.activity.database .container .title,
+#page.activity.api .container .title {
+    font-size: 16px;
+}
+#page.activity.database .container table,
+#page.activity.api .container table {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 12px;
+    border: 1px solid #666;
+}
+#page.activity.database .container table.nouse,
+#page.activity.api .container table.nouse,
+#page.activity.database .container table .nouse,
+#page.activity.api .container table .nouse {
+    color: #f15353;
+}
+#page.activity.database .container table.donot,
+#page.activity.api .container table.donot,
+#page.activity.database .container table .donot,
+#page.activity.api .container table .donot {
+    color: #F7B530;
+}
+#page.activity.database .container table th,
+#page.activity.api .container table th {
+    font-weight: normal;
+    font-size: 14px;
+    padding: 3px;
+    border: none;
+    border-left: 1px solid #666;
+}
+#page.activity.database .container table th:first-child,
+#page.activity.api .container table th:first-child {
+    border: none;
+}
+#page.activity.database .container table td,
+#page.activity.api .container table td {
+    border: none;
+    padding: 3px;
+    border-top: 1px solid #666;
+    border-left: 1px solid #666;
+}
+#page.activity.database .container table td:first-child,
+#page.activity.api .container table td:first-child {
+    border-left: none;
+}
+#page.activity.database .container table .green,
+#page.activity.api .container table .green {
+    color: #00a83c;
+}
+#page.activity.database .container table a,
+#page.activity.api .container table a,
+#page.activity.database .container table span,
+#page.activity.api .container table span {
+    color: #000;
+}

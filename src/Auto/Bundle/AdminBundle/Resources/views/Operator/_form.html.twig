@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>运营人员手机号</label>
+        {{ form_widget(form.mobile,{'attr': {'placeholder':'手机号码' }} ) }}
+    </div>
+
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

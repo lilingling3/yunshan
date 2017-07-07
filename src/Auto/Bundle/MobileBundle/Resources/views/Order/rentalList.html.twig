@@ -1,0 +1,67 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['order', 'list'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        html,body {
+            position: relative;
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+   {% if rentalOrders  %}
+<div class="orderlist">
+    {% for rentalOrder in rentalOrders %}
+        <a href="{{ path('auto_mobile_rental_order_show',{'id':rentalOrder.orderID}) }}">
+            <div class="order-li status{{ rentalOrder.status }}">
+                <div class="row border-bottom">
+                    <p class="b">
+                        {{ rentalOrder.createTime }}
+                        <span class="status-top1">查看</span>
+                    </p>
+                </div>
+                <div class="row rowpadding">
+                    <div class="column column-info">
+                        <div class="item">
+                            <p>车牌</p>
+                            {{ rentalOrder.rentalCar.license }}
+                        </div>
+
+                        <div class="item">
+                            <p>型号</p>
+                            {{ rentalOrder.rentalCar.car.name }}
+                        </div>
+                        <div class="item">
+                            <p>状态</p>
+                            {% if rentalOrder.status!=199 %}
+                                <span class=" status-top{{ rentalOrder.status }}">{{ status.name(rentalOrder) }}</span>
+                            {% else %}
+                                <span class="status-top1">已完成</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+
+    {% endfor %}
+</div>
+            {% if pageCount>1 %}
+                <div class="moreorderbtn">
+                    加载更多
+                </div>
+            {% endif %}
+ {% else %}
+    <div class="payimg">
+        <div class="paybtn">
+            <div class="img-cont"><img src="{{ rentalOrder.rentalCar.image|default('/bundles/automobile/images/xingcheng.png') }}" /></div>
+        </div>
+        <div class="inner">您还没有租车行程</div>
+    </div>
+   {% endif %}
+{% endblock %}
+{% block footer %}
+{% endblock %}

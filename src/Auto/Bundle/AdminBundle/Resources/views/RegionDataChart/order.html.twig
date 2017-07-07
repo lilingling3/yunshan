@@ -1,0 +1,394 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['dataChart', 'order'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/Chart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'数据图表'} %}
+
+
+    <div class="ui main-content">
+        <div class="ui bottom attached segment  no_border">
+            <form action="{{ path("auto_admin_region_chart_order") }}"  method="get">
+                <table class="ui very basic table no_border">
+                    <tbody>
+                    <tr>
+                        <td>数据类型</td>
+                        <td style="width: 70%;">
+                            <a class="chart_top_a" href="{{ path("auto_admin_region_chart_operate") }}">运营数据</a>
+                            <a class="chart_top_a chart_top_active " href="javascript:void(0)">订单数据</a>
+                            <a class="chart_top_a " href="{{ path("auto_admin_region_chart_register") }}">注册数据</a>
+                            <a class="chart_top_a " href="{{ path("auto_admin_region_chart_identification") }}">认证数据</a>
+                        </td>
+
+                        <td style="border-left: 1px solid rgba(34,36,38,.15);width: 20%;" rowspan="3">
+                            <button class="ui teal button chart_operate_submit " type="submit" >按条件搜索</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>统计地区</td>
+                        <td>
+                            <select  class=" time_input" name="province" id="province" class="ui dropdown">
+                                <option value="0">省份</option>
+                                {% for province in provinces %}
+                                    <option value="{{ province.id }}">{{ province.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <select  class=" time_input"  name="city" id="city" class="ui dropdown">
+                                <option value="0">全部城市</option>
+                                {% if citys %}
+                                    {% for city in citys %}
+                                        <option value="{{ city.id }}">{{ city.name }}</option>
+                                    {% endfor %}
+                                {% else %}
+                                    {% for province in provinces %}
+                                        {% for city in province.children %}
+                                            <option value="{{ city.id }}">{{ city.name }}</option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                            <select  class=" time_input"  name="area" id="area" class="ui dropdown">
+                                <option value="0">全部城区</option>
+                                {% if cantons %}
+                                    {% for  area in cantons%}
+                                        <option value="{{ area.id }}">{{ area.name }}</option>
+                                    {% endfor %}
+                                {% elseif citys %}
+                                    {% for city in citys %}
+                                        {% for  area in city.children%}
+                                            <option value="{{ area.id }}">{{ area.name }}</option>
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% else %}
+                                    {% for province in provinces %}
+                                        {% for city in province.children %}
+                                            {% for  area in city.children%}
+                                                <option value="{{ area.id }}">{{ area.name }}</option>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            </select>
+                            <select  class=" time_input"  name="rental_station" id="rental_station" class="ui dropdown">
+                                <option value="0">全部租赁点</option>
+                                {% for rentalStation in rentalStations %}
+                                    <option value="{{ rentalStation.id }}">{{ rentalStation.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>时间范围</td>
+                        <td>
+                            <p class="chart_time">
+                                <input type="text" name="day" value="" id="days" style="display: none"/>
+                                <a class="chart_top_a " data-day="3" href="javascript:void(0)">3天</a>
+                                <a class="chart_top_a " data-day="7" href="javascript:void(0)">7天</a>
+                                <a class="chart_top_a "  data-day="15" href="javascript:void(0)">15天</a>
+                                <a class="chart_top_a "  data-day="30" href="javascript:void(0)">30天</a>
+                                <a class="chart_top_a "  data-day="90" href="javascript:void(0)">90天</a>
+                            </p>
+                            <p style="float: left;width: 265px;margin-left: 10px;">
+                                <input class=" time_input" style="width: 130px;" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="" autocomplete="off">
+                                <input class=" time_input" style="width: 130px;" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="" autocomplete="off">
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="ui bottom attached segment bk_gray border_top ">
+            <p>{% if rental_station %}
+                    {{ rental_station.area.parent.parent.name}} | {{ rental_station.area.parent.name }} | {{ rental_station.area.name }}|{{ rental_station.name }}
+                {% elseif area%}
+                    {{ area.parent.parent.name }} | {{ area.parent.name }} | {{ area.name }}|全部租赁点
+                {%  elseif city %}
+                    {{ city.parent.name }} | {{ city.name }} | 全部城区 |全部租赁点
+                {%  elseif province %}
+                    {{ province.name }} | 全部城市 | 全部城区 |全部租赁点
+                {% else %}
+                    全部省份 | 全部城市 | 全部城区 |全部租赁点
+                {% endif %}
+                |{{ startTime }}至{{ endTime }}
+            </p>
+        </div>
+    </div>
+
+    <div class="ui main-content " style="position: relative;overflow: hidden;">
+        <div class="chart_cont_left">
+            <ul>
+                <li class="one">订单数据</li>
+                <li>
+                    <p>租赁用户</p>
+                    <p class="two">{{ member }}</p>
+                </li>
+                <li>
+                    <p>新增订单</p>
+                    <p class="two">{{ countNewOrders }}</p>
+                </li>
+                <li>
+                    <p>新增营收</p>
+                    <p class="two">{{ new_rental_revenue }}</p>
+                </li>
+                <li>
+                    <p>新增实收</p>
+                    <p class="two">
+                            {{ new_rental_amount }}
+                    </p>
+                </li>
+                <li>
+                    <p>累计订单</p>
+                    <p class="two">{{countOrders}}</p>
+                </li>
+                <li>
+                    <p>累计营收</p>
+
+                    <p class="two">{{  rental_revenue }}</p>
+
+                </li>
+                <li>
+                    <p>累计实收</p>
+                    <p class="two">{{ rental_all_amount }}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="chart_cont_right">
+            {#<canvas id="canvas"></canvas>#}
+            <div  >
+                {% if  rentalOrders %}
+                    {% for time in time_list %}
+                    {% for Order in rentalOrders %}
+                            {% if time==Order.createTime|default()|date('Y-m-d') %}
+                       <input class='chart_order_input' type="hidden" value="{{ everyDayOrder[Order.createTime|default()|date('Y-m-d')] }} " data-day="{{ Order.createTime|default()|date('Y-m-d') }}">
+                            {% else %}
+                            <input class='chart_order_input' type="hidden" value="0 " data-day="{{ time}}">
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    {% for time in time_list %}
+                       <input class='chart_order_input' type="hidden" value="0 " data-day="{{ time}}">
+                    {% endfor %}
+                {% endif %}
+                <canvas id="canvas"></canvas>
+            </div>
+                <div class="cont">
+                    <ul>
+                        {#<li>#}
+                            {#<h4>订单来源（单）</h4>#}
+                            {#<div class="cont_mid">#}
+                                {#<div>#}
+                                    {#<canvas id="chart-area" width="200" height="200"/>#}
+                                {#</div>#}
+                                {#<div id="spread"  >#}
+                                    {#{% for rentalCar in rentalCars %}#}
+                                        {#<input type="hidden" data-city="{{ rentalCar.rentalStation.area.parent.name }}"  data-cars="">#}
+                                        {#<p data-id='{{ rentalCar.rentalStation.area.parent.id }}' data-name='{{ rentalCar.rentalStation.area.parent.name }}'>#}
+                                            {#<span class="cont_mid_sp1"></span>#}
+                                            {#<span>{{ rentalCar.rentalStation.area.parent.name }}</span>#}
+                                            {#<span data-id='{{ rentalCar.rentalStation.area.parent.id }}' class="cont_mid_sp2 ndis" >1</span>#}
+                                            {#<span class="cont_mid_sp3" >9999</span>#}
+                                        {#</p>#}
+                                    {#{% endfor %}#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</li>#}
+                        <li>
+                            <h4>优惠券抵用（元）</h4>
+                            <div class="cont_mid">
+                                <div >
+                                    <canvas id="chartOrder-area1" width="200" height="200"/>
+                                </div>
+                                <div id="coupunCount">
+                                    <p data-name="实际收入">
+                                        <span class="cont_mid_sp1"></span>
+                                        <span>实际收入</span>
+                                        <span class="cont_mid_sp2 ndis">{{ order_amount }}</span>
+                                        <span class="cont_mid_sp3">{{ order_amount }}</span>
+                                    </p>
+                                    <p data-name="优惠券抵用">
+                                        <span class="cont_mid_sp1"></span>
+                                        <span>优惠券抵用</span>
+                                        <span class="cont_mid_sp2 ndis">{{ order_coupon }}</span>
+                                        <span class="cont_mid_sp3">{{ order_coupon }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <h4>用户使用频次</h4>
+                            <div class="cont_mid">
+                                <div>
+                                    <canvas id="chartOrder-area2" width="200" height="200"/>
+                                </div>
+                                <div id="Frequency">
+                                        <p data-name="1次">
+                                            <span class="cont_mid_sp1"></span>
+                                            <span>1次</span>
+                                            <span class="cont_mid_sp2 ndis">{{ oneFrenquency }}</span>
+                                            <span class="cont_mid_sp3">{{ oneFrenquency }}</span>
+                                        </p>
+                                        <p data-name="2～5次">
+                                            <span class="cont_mid_sp1"></span>
+                                            <span>2～5次</span>
+                                            <span class="cont_mid_sp2 ndis">{{ twoFrenquency }}</span>
+                                            <span class="cont_mid_sp3">{{ twoFrenquency }}</span>
+                                        </p>
+                                        <p data-name="6～10次">
+                                            <span class="cont_mid_sp1"></span>
+                                            <span>6～10次</span>
+                                            <span class="cont_mid_sp2 ndis">{{ sixFrenquency }}</span>
+                                            <span class="cont_mid_sp3">{{ sixFrenquency }}</span>
+                                        </p>
+                                        <p data-name="11~15次">
+                                            <span class="cont_mid_sp1"></span>
+                                            <span>11~15次</span>
+                                            <span class="cont_mid_sp2 ndis">{{ elevenFrenquency }}</span>
+                                            <span class="cont_mid_sp3">{{ elevenFrenquency }}</span>
+                                        </p>
+                                        <p data-name="16~20次">
+                                            <span class="cont_mid_sp1"></span>
+                                            <span>16~20次</span>
+                                            <span class="cont_mid_sp2 ndis">{{ sixtyFrenquency }}</span>
+                                            <span class="cont_mid_sp3">{{ sixtyFrenquency }}</span>
+                                        </p>
+                                        <p data-name="20次以上">
+                                            <span class="cont_mid_sp1"></span>
+                                            <span>20次以上</span>
+                                            <span class="cont_mid_sp2 ndis">{{ twentyFrenquency }}</span>
+                                            <span class="cont_mid_sp3">{{ twentyFrenquency }}</span>
+                                        </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="cont">
+                    <ul>
+
+                        <li>
+                            <h4>单次时长（小时）</h4>
+                            <div class="cont_mid ">
+                                <div>
+                                    <canvas id="chartOrder-area3" width="200" height="200"/>
+                                </div>
+                                <div id="singleTime">
+                                        <p data-name="1小时及以下">
+                                            <span class="cont_mid_sp1"></span>
+                                            <span>1小时及以下</span>
+                                            <span class="cont_mid_sp2 ndis">{{ oneHour }}</span>
+                                            <span class="cont_mid_sp3">{{ oneHour }}</span>
+                                        </p>
+                                    <p data-name="1～3小时">
+                                        <span class="cont_mid_sp1"></span>
+                                        <span>1～3小时</span>
+                                        <span class="cont_mid_sp2 ndis">{{ threeHour }}</span>
+                                        <span class="cont_mid_sp3">{{ threeHour }}</span>
+                                    </p>
+                                    <p data-name="4～6小时">
+                                        <span class="cont_mid_sp1"></span>
+                                        <span>4～6小时</span>
+                                        <span class="cont_mid_sp2 ndis">{{ fourHour }}</span>
+                                        <span class="cont_mid_sp3">{{ fourHour }}</span>
+                                    </p>
+                                    <p data-name="7～12小时">
+                                        <span class="cont_mid_sp1"></span>
+                                        <span>7～12小时</span>
+                                        <span class="cont_mid_sp2 ndis">{{ sevenHour }}</span>
+                                        <span class="cont_mid_sp3">{{ sevenHour }}</span>
+                                    </p>
+                                    <p data-name="12～16小时">
+                                        <span class="cont_mid_sp1"></span>
+                                        <span>12～16小时</span>
+                                        <span class="cont_mid_sp2 ndis">{{ twelveHour }}</span>
+                                        <span class="cont_mid_sp3">{{ twelveHour }}</span>
+                                    </p>
+                                    <p data-name="16小时以上">
+                                        <span class="cont_mid_sp1"></span>
+                                        <span>16小时以上</span>
+                                        <span class="cont_mid_sp2 ndis">{{ sixtyHour }}</span>
+                                        <span class="cont_mid_sp3">{{ sixtyHour }}</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        {% if  rental_station  or area%}
+                            <canvas id="chartOrder-area4" width="200" height="200"/>
+                        {% else %}
+                        <li>
+                            <h4>用户所在地区（人）</h4>
+                            <div class="cont_mid" >
+                                <div>
+                                    <canvas id="chartOrder-area4" width="200" height="200"/>
+                                </div>
+                                <div id="PopDistribution" class="ndis">
+                                    {%  if city %}
+                                        {% for rentalOrder in rentalOrders %}
+                                            <p data-id="{{ rentalOrder.rentalCar.rentalStation.area.id}}" data-name="{{ rentalOrder.rentalCar.rentalStation.area.name}}">
+                                                <span class="cont_mid_sp1"></span>
+                                                <span>{{ rentalOrder.rentalCar.rentalStation.area.name}}</span>
+                                                <span class="cont_mid_sp2 ndis"></span>
+                                                <span class="cont_mid_sp3"> </span>
+                                            </p>
+                                        {% endfor %}
+                                    {%  elseif province %}
+                                        {% for rentalOrder in rentalOrders %}
+                                            <p data-id="{{ rentalOrder.rentalCar.rentalStation.area.parent.id}}" data-name="{{ rentalOrder.rentalCar.rentalStation.area.parent.name}}">
+                                                <span class="cont_mid_sp1"></span>
+                                                <span>{{ rentalOrder.rentalCar.rentalStation.area.parent.name}}</span>
+                                                <span class="cont_mid_sp2 ndis"></span>
+                                                <span class="cont_mid_sp3">100.00%</span>
+                                            </p>
+                                        {% endfor %}
+                                    {% else %}
+                                        {% for rentalOrder in rentalOrders %}
+                                            <p data-id="{{ rentalOrder.rentalCar.rentalStation.area.parent.id}}" data-name="{{ rentalOrder.rentalCar.rentalStation.area.parent.name}}">
+                                                <span class="cont_mid_sp1"></span>
+                                                <span>{{ rentalOrder.rentalCar.rentalStation.area.parent.name}}</span>
+                                                <span class="cont_mid_sp2 ndis"></span>
+                                                <span class="cont_mid_sp3">100.00%</span>
+                                            </p>
+                                        {% endfor %}
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                {#<div class="cont">#}
+                    {#<ul>#}
+                        {#<li>#}
+                            {#<h4>用户所在地区（人）</h4>#}
+                            {#<div class="cont_mid" >#}
+                                {#<div>#}
+                                    {#<canvas id="chart-area4" width="200" height="200"/>#}
+                                {#</div>#}
+                                {#<div id="Income">#}
+                                    {#{% for rentalOrder in rentalOrders %}#}
+                                        {#<p data-id="{{ rentalOrder.rentalCar.car.id}}" data-name="{{ rentalOrder.rentalCar.car.name }}">#}
+                                            {#<span class="cont_mid_sp1"></span>#}
+                                            {#<span>{{ rentalOrder.rentalCar.car.name }}</span>#}
+                                            {#<span class="cont_mid_sp2 ndis">{{rental_amount[ rentalOrder.rentalCar.car.id]}}</span>#}
+                                            {#<span class="cont_mid_sp3">{{rental_amount[ rentalOrder.rentalCar.car.id]}}</span>#}
+                                        {#</p>#}
+                                    {#{% endfor %}#}
+                                {#</div>#}
+                            {#</div>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#</div>#}
+        </div>
+
+    </div>
+{% endblock %}

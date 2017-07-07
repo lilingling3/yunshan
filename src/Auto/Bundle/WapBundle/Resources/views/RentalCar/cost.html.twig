@@ -1,0 +1,105 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'cost'] %}
+
+{% block content %}
+    <div class="top-menu">
+        费用预估
+      <a  href="{{ path("auto_wap_rental_car_show",{'id':rentalCar.rentalCarID})}}"><b></b></a>
+       
+    </div>
+
+    <div class="rental-info">
+        <div class="row">
+
+            <div class="left">
+                <div class="column"><div class="item"><p>车牌</p>{{ rentalCar.license }}</div><div class="item"><p>型号</p>{{ rentalCar.car.name }}</div></div>
+                <div class="column"><div class="item"><p>续航以实际为准</p>{{ rentalCar.mileage }}km</div><div
+        class="item"><p>结构/座位</p>{{ rentalCar.car.bodyType }}/{{ rentalCar.car.seat }}座</div></div>
+            </div>
+            <div class="right clearfix">
+                <div class="image-cont">
+                    <img src="{{ rentalCar.image }}" />
+                    <div class="car-img-bottom">原地取还车</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="address">
+            <p>取还车地点</p>
+            {{ rentalCar.rentalStation.street }}
+        </div>
+    </div>
+
+    <div class="rental-back">
+        <div class="row  choose-time">
+        请选择车辆预计归还时间<span class="back_time">请选择时间</span>
+        </div>
+        
+    </div>
+
+   <div class="rental-price">
+   	<div class="row" id="rental-cost">
+        	<p class="title">预估费用详情</p>
+        		<ul>
+            
+                <li class="clearfix">
+                    <span class="title-l"><span class="time-name">日间时长：</span><b class="day-time">1：35：50</b></span>
+                    <span class="cost-r"><span class="time-name">日间产生费用：</span><b class="day-cost">42.50</b>元</span>
+                </li>
+                <li class="clearfix">
+                    <span class="title-l"><span class="time-name">夜间时长：</span><b class="night-time">1：35：50</b></span>
+                    <span class="cost-r"><span class="time-name">夜间产生费用：</span><b class="night-cost">42.50</b>元</span>
+                </li>
+                <li class="clearfix">
+                    <span class="title-l"><span class="time-name">总时长：</span><b class="all-time">1：35：50</b></span>
+                    <span class="cost-r"><span class="time-name">应付费用：</span><b class="all-cost">42.50</b>元</span>
+                </li>
+                
+        		</ul>
+            
+        </div>
+   </div>
+    <div class="rental-notice">
+
+
+
+
+        <div class="row">
+
+            <form method="post" action="{{ path('auto_wap_rental_car_order') }}">
+                <input type="hidden" name="id" id="rental-id" value="{{ rentalCar.rentalCarID }}">
+                <input type="hidden" name="rental-time" id="rental-time">
+                <input type="hidden" name="rental-time" id="rental-day">
+                <input type="hidden" name="rental-time" id="rental-hour">
+                <input type="hidden" name="rental-time" id="rental-minute">
+                <button class="use1 {% if has_order %}has-order{% endif %}"  type="button">车辆租赁费用预估</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div id="choose-time">
+        <select class="day">
+            <option value="0">今天</option>
+            <option value="1">明天</option>
+        </select>
+
+        <select class="hour">
+            {% for i in 0..23 %}
+            <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <select class="minute">
+            <option value="00">00</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+        </select>
+
+        <button class="time-button">确定</button>
+
+    </div>
+{% endblock %}

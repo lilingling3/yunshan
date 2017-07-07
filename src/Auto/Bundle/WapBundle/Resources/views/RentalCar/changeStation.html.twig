@@ -1,0 +1,73 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'change_station'] %}
+
+{% block content %}
+<div class="top-menu">
+    还车地点
+
+    <a class="go-there" href="{% if order %}{{ path('auto_wap_rental_order_show',{ id:order }) }}{% else %}{{ path('auto_wap_rental_car_show',{id:rentalCar.rentalCarID,backStation: checkedId}) }} {% endif %}">
+        <b></b></a>
+    <span></span>
+</div>
+
+ <div class="container">
+     <div class="seek">
+         <form class="searchByName" method="post" action="{{ path('auto_wap_rental_car_change_station_searchByName') }}" >
+            <input class="seek-input" name="searchByName" type="text" placeholder="请输入还车地点" />
+              {% if order %}
+                  <input name="order" type="hidden" value="{{ order }}" />
+                  {% endif %}
+             <input name="rentalCarID" type="hidden" value="{{ rentalCar.rentalCarID }}" />
+             <input name="checkedId" type="hidden" value="{{ checkedId }}" />
+         <span class="button"></span>
+         </form>
+     </div>
+     <div class="cont">
+         {% if  not backStations %}<p class="no-stations">无租赁点</p>{% endif %}
+         {% for backStation in backStations %}
+             {% if  backStation.rentalStationID==checkedId %}
+         <div class="row checked">
+
+                 <a class="a_href"   href="{% if order %}{{ path('auto_wap_rental_order_show',{ id:order }) }}{% else %}{{ path('auto_wap_rental_car_show',{id:rentalCar.rentalCarID,backStation: checkedId}) }} {% endif %}">
+                 </a>
+             <div class="l-icon">
+
+             </div>
+             <div class="text">
+                 <p class="name">{{ backStation.name }}</p>
+                 <p class="address">{{ backStation.street }}</p>
+             </div>
+             <div class="r-cont">
+
+             </div>
+
+
+
+         </div>
+                 {% else %}
+                     <div class="row {% if order %}order-row{% endif %}" {% if order %}  user="{{ app.user.token }}" order="{{ order }}" station="{{ backStation.rentalStationID }}" {% endif %}>
+                         {% if not order %}<a class="a_href" href="{{ path('auto_wap_rental_car_show',{id:rentalCar.rentalCarID,backStation:backStation.rentalStationID }) }}"></a>{% endif %}
+                             <div class="text">
+                             <p class="name">{{ backStation.name }}</p>
+                             <p class="address">{{ backStation.street }}</p>
+                         </div>
+                         <div class="r-cont">
+                             {% if order %}
+
+                             <span class="order-go" > 去这里</span>
+                             {% else %}
+                                 <a class="go-there" href="{{ path('auto_wap_rental_car_show',{id:rentalCar.rentalCarID,backStation:backStation.rentalStationID }) }}">
+                                     去这里
+                                 </a>
+                                     {% endif %}
+
+
+                         </div>
+
+                     </div>
+                 {% endif %}
+             {% endfor %}
+     </div>
+ </div>
+   
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'合作伙伴'} %}
+     <div class="ui main-content grid">
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:RentalCar:_form.html.twig" %}
+         </div>
+     </div>
+ {% endblock %}

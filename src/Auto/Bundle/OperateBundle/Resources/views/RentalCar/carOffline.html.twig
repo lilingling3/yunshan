@@ -1,0 +1,50 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'offline'] %}
+{% block content %}
+<div class="top-menu">
+    车辆下线
+
+    <a  {% if orderId is  empty %}{% else %} style="display: none" {% endif %} href="{{ path("auto_operate_rental_car_show",{"id":id}) }}" class="left-cont"><b></b></a>
+
+    <span><a href="{{ path('auto_operate_car_offline_list',{"id":id}) }}">记录</a></span>
+</div>
+
+    <section class="car-menu">
+        <li class="blue">运营问题</li>
+    {% for requireReason in onlineReasons["operater"] %}
+        <li><label for="check1" >{{ requireReason.reasons }}</label>
+            <span class="text-r">
+                <input type="checkbox"  class=" "  id="check{{ requireReason.id }}" chId="{{ requireReason.id }}" name="check{{ requireReason.id }}" value="{{ requireReason.reasons }}"></span>
+        </li>
+    {% endfor %}
+    </section>
+    <section class="car-menu">
+        <li class="blue">车辆问题</li>
+        {% for requireReason in onlineReasons["car"] %}
+            <li><label for="check1" >{{ requireReason.reasons }}</label>
+            <span class="text-r">
+                <input type="checkbox"  class=""  id="check{{ requireReason.id }}" chId="{{ requireReason.id }}" name="check{{ requireReason.id }}" value="{{ requireReason.reasons }}"></span>
+            </li>
+        {% endfor %}
+
+        <li>
+            <p><label for="check12">其他（最多100字）</label></p>
+                <textarea placeholder="请填写..."  maxlength="100"></textarea>
+        </li>
+        {% if orderId %}
+        <li  style="display: none"><label for="check6">人工还车</label>
+            <span class="text-r"><input class="checked"  type="checkbox" id="check17" chId="17" name="check17" value="调配车辆"></span>
+        </li>
+        {% endif %}
+    </section>
+    <button type="button" carId="{{ id }}" userId="{{ app.user.token }}" >车辆下线</button>
+    <form >
+        <input class="text" name="text" type="hidden" />
+        <input class="id" name="carID" type="hidden" value="{{ id }}" />
+        {% if orderId %}
+            <input class="orderID" name="orderID" type="hidden" value="{{ orderId }}" />
+        {% endif %}
+    </form>
+
+    <input type="hidden" id="license" value="{{ rentalCar.license }}"/>
+{% endblock %}

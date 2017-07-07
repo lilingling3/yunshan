@@ -1,0 +1,222 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['dataChart', 'identification'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/Chart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'数据图表'} %}
+
+
+    <div class="ui main-content">
+        <div class="ui top attached menu tabular no_border">
+            <a class="item active font-normal st_bt"  href="#">数据图表</a>
+            <a class="item "  href="{{ path("auto_admin_statistics_location") }}">车辆定位</a>
+        </div>
+        <div class="ui bottom attached segment  no_border">
+            <form action="{{ path("auto_admin_chart_identification") }}"  method="get">
+                <table class="ui very basic table no_border">
+                    <tbody>
+                    <tr>
+                        <td>数据类型</td>
+                        <td style="width: 70%;">
+                            <a class="chart_top_a" href="{{ path("auto_admin_chart_operate") }}">运营数据</a>
+                            <a class="chart_top_a " href="{{ path("auto_admin_chart_order") }}">订单数据</a>
+                            <a class="chart_top_a " href="{{ path("auto_admin_chart_register") }}">注册数据</a>
+                            <a class="chart_top_a chart_top_active" href="javascript:void(0)">认证数据</a>
+                        </td>
+
+                        <td style="border-left: 1px solid rgba(34,36,38,.15);width: 20%;" rowspan="3">
+                            <button class="ui teal button chart_operate_submit " type="submit" >按条件搜索</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>统计地区</td>
+                        <td>
+                            <select  style= 'color:#999' class=" time_input" name="province" id="province" class="ui dropdown" disabled="true">
+                                <option value="0">省份</option>
+                            </select>
+                            <select  style= 'color:#999' class=" time_input"  name="city" id="city" class="ui dropdown" disabled="true">
+                                <option value="0">全部城市</option>
+                            </select>
+                            <select  style= 'color:#999' class=" time_input"  name="area" id="area" class="ui dropdown" disabled="true">
+                                <option value="0">全部城区</option>
+                            </select>
+                            <select  style= 'color:#999' class=" time_input"  name="rental_station" id="rental_station" class="ui dropdown" disabled="true">
+                                <option value="0">全部租赁点</option>
+                            </select>
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>时间范围</td>
+                        <td>
+                            <p class="chart_time">
+                                <input type="text" name="day" value="" id="days" style="display: none"/>
+                                <a class="chart_top_a " data-day="3" href="javascript:void(0)">3天</a>
+                                <a class="chart_top_a " data-day="7" href="javascript:void(0)">7天</a>
+                                <a class="chart_top_a "  data-day="15" href="javascript:void(0)">15天</a>
+                                <a class="chart_top_a "  data-day="30" href="javascript:void(0)">30天</a>
+                                <a class="chart_top_a "  data-day="90" href="javascript:void(0)">90天</a>
+                            </p>
+                            <p style="float: left;width: 265px;margin-left: 10px;">
+                                <input class=" time_input" style="width: 130px;" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="" autocomplete="off">
+                                <input class=" time_input" style="width: 130px;" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="" autocomplete="off">
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="ui bottom attached segment bk_gray border_top ">
+            <p>全部省份 | 全部城市 | 全部城区 |全部租赁点
+                |{{ startTime }}至{{ endTime }}
+            </p>
+        </div>
+    </div>
+
+    <div class="ui main-content " style="position: relative;overflow: hidden;">
+        <div class="chart_cont_left">
+            <ul>
+                <li class="one">认证数据</li>
+                <li>
+                    <p>新增认证</p>
+                    <p class="two">{{ countNewMembers }}</p>
+                </li>
+                <li>
+                    <p>累计认证</p>
+                    <p class="two">{{ countMembers }}</p>
+                </li>
+                <li>
+                    <p>黑名单</p>
+                    <p class="two">
+                        {{ black }}
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="chart_cont_right">
+            {#<canvas id="canvas"></canvas>#}
+            <div  >
+                {% if members %}
+                    {% for time in time_list %}
+                        {% for member in members %}
+                            {% if time==member.createTime|default()|date('Y-m-d') %}
+                                <input class='chart_identification_input' type="hidden" value="{{ everyDayMember[time] }} " data-day="{{ member.createTime|default()|date('Y-m-d') }}">
+                            {% else %}
+                                <input class='chart_identification_input' type="hidden" value="0 " data-day="{{ time}}">
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    {% for time in time_list %}
+                        <input class='chart_identification_input' type="hidden" value="0 " data-day="{{ time}}">
+                    {% endfor %}
+                {% endif %}
+                <canvas id="identification_canvas"></canvas>
+            </div>
+            <div class="cont">
+                <ul>
+                    <li>
+                        <h4>认证结果</h4>
+                        <div class="cont_mid">
+                            <div >
+                                <canvas id="chartIdentify-area1" width="200" height="200"/>
+                            </div>
+                            <div id="identifyResult">
+                                <p data-name="未提交认证">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>未提交认证</span>
+                                    <span class="cont_mid_sp2 ndis">{{ uncertifieds}}</span>
+                                    <span class="cont_mid_sp3">{{ uncertifieds }}</span>
+                                </p>
+                                <p data-name="认证成功">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>认证成功</span>
+                                    <span class="cont_mid_sp2 ndis">{{ identifySuccess }}</span>
+                                    <span class="cont_mid_sp3">{{ identifySuccess }}</span>
+                                </p>
+                                <p data-name="认证失败">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>认证失败</span>
+                                    <span class="cont_mid_sp2 ndis">{{ identifyFail }}</span>
+                                    <span class="cont_mid_sp3">{{ identifyFail }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <h4>认证失败原因</h4>
+                        <div class="cont_mid" style="width:102%;">
+                            <div>
+                                <canvas id="chartIdentify-area2" width="200" height="200"/>
+                            </div>
+                            <div id="identifyFail" style="width: 230px;">
+                                <p data-name="证件照内容不清晰">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>证件照内容不清晰</span>
+                                    <span class="cont_mid_sp2 ndis"> {{ reason1 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason1 }}</span>
+                                </p>
+                                <p data-name="缺少驾驶证或驾驶证副页">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>缺少驾驶证或驾驶证副页</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason2 }}</span>
+                                    <span class="cont_mid_sp3">{{  reason2 }}</span>
+                                </p>
+                                <p data-name="驾驶证领取时间未满">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>驾驶证领取时间未满</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason3 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason3 }}</span>
+                                </p>
+                                <p data-name="驾驶证已过期">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>驾驶证已过期</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason4 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason4 }}</span>
+                                </p>
+                                <p data-name="驾驶证正副页信息不符">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>驾驶证正副页信息不符</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason5 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason5 }}</span>
+                                </p>
+                                <p data-name="证件信息与交管系统信息不符">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>证件信息与交管系统信息不符</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason6 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason6 }}</span>
+                                </p>
+                                <p data-name="电话无人接听">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>电话无人接听</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason7 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason7 }}</span>
+                                </p>
+                                <p data-name="不是本人">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>不是本人</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason8 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason8 }}</span>
+                                </p>
+                                <p data-name="无法提供身份证信息">
+                                    <span class="cont_mid_sp1"></span>
+                                    <span>无法提供身份证信息</span>
+                                    <span class="cont_mid_sp2 ndis">{{ reason9 }}</span>
+                                    <span class="cont_mid_sp3">{{ reason9 }}</span>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

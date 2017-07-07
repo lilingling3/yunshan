@@ -1,0 +1,146 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['regioncar', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'租赁车辆管理'} %}
+     <div class="ui main-content" id="yui_3_14_1_1_1461549608378_26">
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_regioncar_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td>
+                             <select name="online" id="online" class="ui dropdown">
+                                 <option value="">上线状态</option>
+                                 <option value="1">已上线</option>
+                                 <option value="0">下线中</option>
+                             </select>
+                         </td>
+                         <td>
+                             <input class=" time_input" type="text" name="rentalStation" placeholder="请输入租赁点名称" value="" >
+                         </td>
+                         <td id="yui_3_14_1_1_1461549608378_20">
+                             <select name="licensePlace" id="licensePlace" class="ui dropdown">
+                                 {% for  licensePlace in licensePlaces %}
+                                 <option value="{{ licensePlace.id }}">{{ licensePlace.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td>
+                             <input class=" time_input" type="text"  name="rentalCarId" placeholder="请输入车牌" value="">
+
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">搜索</button>
+                         </td>
+                         <td style="width: 273px;"></td>
+
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_regioncar_new') }}">添加车辆 </a>
+                         </td>
+
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车牌号</th>
+                     <th>车型名称</th>
+                     <th>颜色</th>
+                     <th>归属公司</th>
+                     <th>所属租赁点</th>
+                     <th>车辆状态</th>
+                     <th>车辆保险</th>
+                     <th>续航</th>
+                     {#<th>发动机号</th>#}
+                     <th>上线状态</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for rentalcar in rentalcars %}
+                 <tr>
+                     <td>{{ rentalcar.license }}</td>
+                     <td>{{ rentalcar.car.name }}</td>
+                     <td>{{ rentalcar.color.name }}</td>
+                     <td>
+                         {% if  rentalcar.company.kind == 3%}
+                         {{ rentalcar.company.name }}
+                         {% endif %}
+                     </td>
+                     <td>{{ rentalcar.rentalStation.name|default }}</td>
+                     <td>
+                         {% if carStatus[rentalcar.id]==300 and rentalcar.online and rentalcar.online.status==0 %}
+                         待整备
+                         {% elseif  carStatus[rentalcar.id]==301%}租赁中
+                         {% else %}未租赁{% endif %}
+                     </td>
+                     <td>
+                         {% if insurance[rentalcar.id]== '缺失' %}
+                             <div class="red">缺失</div>
+                         {% else %}
+                             {{ insurance[rentalcar.id] }}
+                         {% endif %}</td>
+                     <td>
+                         {% if mileage[rentalcar.id] %}
+                             {{ mileage[rentalcar.id] }} km
+                         {% else %}
+                             <div class="red">异常</div>
+                         {% endif %}</td>
+                     {#<td>{{ rentalcar.engineNumber }}</td>#}
+
+                     <td>
+                         {% if rentalcar.online and rentalcar.online.status==1 %}已上线{% else %}下线中{% endif %}
+                     </td>
+
+                     <td>
+                         <a href="{{ path('auto_admin_regioncar_edit',{'id':rentalcar.id}) }}"><small>编辑</small></a>
+                         | <a href="{{ path('auto_admin_regioncar_operateRecord',{'id':rentalcar.id}) }}"><small>日志</small></a>
+                         | <a href="{{ path('auto_admin_regioncar_info',{'id':rentalcar.id}) }}"><small>查看</small></a>
+                         | <a href="{{ path('auto_admin_regioncar_dispatch',{'id':rentalcar.id}) }}"><small>移库</small></a>
+                         | <a href="{{ path('auto_admin_regioncar_insurance_list',{'rentalcarid':rentalcar.id}) }}"><small>保险</small></a>
+                     </td>
+                 </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_regioncar_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+     </div>
+
+
+ {% endblock %}

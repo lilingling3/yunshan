@@ -1,0 +1,32 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['recharge', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'邀请好友活动'} %}
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             {{ form_start(form) }}
+             <div class="ui form">
+
+
+                 <div class=" field">
+                     <label>优惠券</label>
+                     {{ form_widget(form.kind,{'attr': {'placeholder':'优惠券' }} ) }}
+                 </div>
+                 <div class=" field">
+                     <label>邀请好友返现金额</label>
+                     {{ form_widget(form.cashback,{'attr': {'placeholder':'邀请好友返现金额' }} ) }}
+                 </div>
+
+                 <a onclick="history.go(-1)" class="ui teal button">返回</a>
+                 <button class="ui teal button" type="submit">提交</button>
+             </div>
+
+             {{ form_end(form) }}
+
+         </div>
+
+     </div>
+
+
+ {% endblock %}

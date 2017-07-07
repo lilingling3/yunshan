@@ -1,0 +1,1152 @@
+@import "parameter";
+
+#page.rental_order{
+  .shadow {
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background-color:#666;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.6;
+    z-index:5;
+    img{
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      margin-left: -25px;
+
+    }
+  }
+
+}
+
+#page.rental_order.show {
+
+  .car-button{
+    text-align: center;
+    padding:10px;
+    height: 80px;
+    &.car-button-h {
+      height: 28px;
+    }
+    .cancel,.pay{
+      width: 100%;
+      font-size: 18px;
+      text-align: center;
+      vertical-align: middle;
+      background-color: @color-third;;
+      color: #fff;
+      border:1px solid @color-third;
+      .radius(5px);
+      height: 45px;
+    }
+    .cancel-rent {
+    	
+        cursor: pointer;
+	    color: @color-blue;
+	    background-color: transparent;
+	    border: none;
+      font-size: 14px;
+    }
+  }
+
+  
+  
+ 
+  
+  .car-open{
+    text-align: center;
+    padding: 10px;
+    height: 40px;
+
+    .open,.find,{
+      width: 45%;
+      font-size: 18px;
+      text-align: center;
+      vertical-align: middle;
+      border:2px solid #1d9cd1;
+      color: #1d9cd1;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+      -o-box-sizing: border-box;
+      background-color: white;
+      float: right;
+      .radius(5px);
+      height: 45px;
+    }
+    .find{
+      float: left;
+    }
+		
+  }
+
+  .key-notice{
+  	z-index:4;
+    position: fixed;
+    top:20%;
+    width: 80%;
+    left: 8%;
+    display: none;
+    background-color: #eeeeee;
+    color: @color-secondary;
+    .radius(5px);
+    padding: 2%;
+    font-size: 15px;
+    line-height: 24px;
+    padding-bottom: 50px;
+    .key-img-cont {
+      width: 90%;
+      margin: 0px auto;
+      height: 80%;
+      text-align: center;
+      padding: 0px;
+      img {
+        width: 90%;
+        max-height: 90%;
+        bottom: 0px;
+      }
+    }
+    button{
+      width: 100%;
+      line-height: 40px;
+      font-size: 15px;
+      text-align: center;
+      vertical-align: middle;
+      background-color: @color-third;;
+      color: #fff;
+
+      border:1px solid @color-third;
+      .radius(5px);
+      height: 40px;
+      position: absolute;
+      left: 6%;
+      width: 90%;
+      bottom: 6px;
+    }
+  }
+
+  .use-car{
+
+    text-align: center;
+    padding: 10px;
+    height: 40px;
+    .back{
+      width: 100%;
+      font-size: 15px;
+      text-align: center;
+      vertical-align: middle;
+      background-color: @color-third;;
+      color: #fff;
+      border:1px solid @color-third;
+      .radius(5px);
+      height: 45px;
+    }
+
+    .introduction{
+
+      height: 50px;
+      font-size: 14px;
+      line-height: 50px;
+      color: @color-blue;
+      text-align: center;
+
+    }
+  }
+
+  .order-info{
+    background-color: #fff;
+    margin-top: 5px;
+    padding: 10px 0;
+    border-top: 1px solid @color-gray;
+    border-bottom: 1px solid @color-gray;
+    .row{
+      width: 96%;
+      margin: 0 auto;
+      height: auto;
+      overflow: hidden;
+      padding: 5px 0;
+      &.id{
+        color: @color-primary;
+      }
+      &:last-child{
+        border-top: 1px solid white;
+
+      }
+      .column{
+        float: left;
+        width: 49%;
+        font-size: 12px;
+        color: #626262;
+        text-align: center;
+        &:last-child{
+         width: 48%;
+          float: right;
+          padding-left: 2%;
+          border-left: 1px solid white;
+        }
+        p{
+          font-size: 14px;
+          color: #000;
+          line-height: 24px;
+          &.b{
+            color: #000;
+          }
+        }
+      }
+    }
+
+
+    &.order-status0,&.order-status-car{
+      .id{
+        color: @color-secondary;
+      }
+      .row .column p{
+        color: #000;
+       
+      }
+     
+    }
+
+
+  }
+
+  .rental-info{
+    margin-top: 5px;
+    background-color: #fff;
+    border-top: 1px solid @color-gray;
+    border-bottom: 1px solid @color-gray;
+    .row{
+      padding: 10px 0;
+      width: 96%;
+      margin: 0 auto;
+      overflow: hidden;
+      &:last-child{
+      	border-bottom:0px;
+      }
+      
+      .column-cont {
+      	 width: 100%;
+          height: auto;
+          overflow: hidden;
+          padding-top:5px;
+          &:first-child{
+            border-bottom: 1px dashed white;
+            padding-bottom: 14px;
+            padding-top: 0;
+          }
+          
+           .item{
+           	 float: left;
+	            height: auto;
+	            width: 33.3333%;
+	            font-size: 14px;
+	           .item-detail {
+	           	color:black;
+	           }
+             .car-detail-name {
+               font-size: 12px;
+               color: @color-secondary;
+             }
+           }
+           
+           
+          
+      }
+      
+
+      
+      .left{
+        width: 55%;
+        float: left;
+        .column{
+          width: 100%;
+          height: auto;
+          overflow: hidden;
+          padding-top:5px;
+          &:first-child{
+            border-bottom: 1px solid #e7e7e7;
+            padding-bottom: 5px;
+            padding-top: 0;
+          }
+          .item{
+            float: left;
+            height: auto;
+            width: 49%;
+            font-size: 14px;
+            &:first-child{
+             border-right: 1px solid #e7e7e7;
+            }
+            &:last-child{
+              width: 47%;
+              padding-left: 2%;
+            }
+            p{
+              font-size: 12px;
+              color: @color-secondary;
+            }
+          }
+          .item-border-no {
+          	border-right:0px;
+          }
+        }
+      }
+      .right{
+        float: right;
+        width: 45%;
+        text-align: right;
+        img{
+          max-height: 80px;
+        }
+      }
+    }
+    .address{
+      font-size: 14px;
+      padding: 10px 0;
+      margin: 0 auto;
+      border-top: 1px solid @color-gray;
+      position: relative;
+      .href_a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        display: inline-block;
+        z-index: 2;
+      }
+      p{
+        font-size: 12px;
+        color: @color-secondary;
+        line-height: 24px;
+      }
+      .change-station {
+        display: inline-block;
+        background-color: #179ed3;
+        color: white;
+        padding: 0px 3px;
+        margin-left: 3px;
+      }
+    }
+
+
+    &.order-status0{
+      .address{
+        color: #000;
+      }
+      .row .column{
+        color: @color-secondary;
+        .item-detail{
+          color: #000;
+        }
+      }
+    }
+  }
+  .rental-price{
+    background-color: #fff;
+    margin-top: 5px;
+    color: #575757;
+    border-top: 1px solid @color-gray;
+    border-bottom: 1px solid @color-gray;
+    ul{
+      padding: 10px 0;
+      width: 96%;
+      margin: 0 auto;
+      li{
+        list-style: none;
+        font-size: 14px;
+        line-height: 25px;
+        b{
+          color: @color-secondary;
+        }
+        span{
+          float: right;
+          b{
+            color: #ff8a00;
+          }
+        }
+      }
+    }
+
+
+  }
+  .rental-settle{
+    margin-top: 5px;
+    background-color: #fff;
+    padding: 5px 0;
+    .row{
+      width: 96%;
+      padding: 2px 2%;
+      color: @color-secondary;
+      line-height: 24px;
+      font-size: 12px;
+      span{
+        float: right;
+      }
+      &.cost{
+        color: #000;
+      }
+      &.total{
+        text-align: center;
+        border-top: 1px solid #e7e7e7;
+        float: none;
+        line-height: 40px;
+        span{
+          float: none;
+          font-size: 18px;
+          color: #ff8a00;
+        }
+        b{
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .order-notice{
+    padding-top: 10px;
+    p{
+      line-height: 24px;
+      font-size: 14px;
+      text-align: center;
+
+      b{
+        color: #ff0000;
+      }
+      span{
+        a{
+          color: @color-third;
+        }
+
+      }
+    }
+  }
+}
+
+
+
+
+#page.rental_order.list{
+  .border-top { border-top: 1px solid @color-gray}
+  .order-li{
+    margin-top: 5px;
+    background-color: #fff;
+    padding: 10px 0;
+    height: auto;
+    overflow: hidden;
+    color: #000;
+    border-top: 1px solid @color-gray;
+    border-bottom: 1px solid @color-gray;
+    &.status0{
+      color: @color-secondary;
+    }
+    .row{
+      width: 96%;
+      padding: 0 2%;
+      margin: 0 auto;
+      p{
+        font-size: 12px;
+        color: @color-secondary;
+        line-height: 20px;
+        &.b{
+        	padding-bottom:5px;
+          color: #000;
+          font-size: 14px;
+          span{
+            float: right;
+            color: #000;
+          }
+          .status-top ,.status-top101 {
+          	color:@color-third;
+          }
+           .status-top1,.status-top199 {
+          	color: #000;
+          	.money {
+          		color:@color-red;
+          	}
+          }
+           .status-top2,.status-top100 {
+          	color: @color-secondary;
+          }
+            .status-top3,.status-top103 {
+          	color: @color-red;
+          }
+        }
+
+      }
+
+      .left{
+        float: left;
+        width: 100%;
+        .column{
+          font-size: 14px;
+          padding: 5px;
+          height: auto;
+          overflow: hidden;
+          &:first-child{
+            border-bottom: 1px solid @color-gray;
+          }
+          .item{
+            width: 49%;
+            float: left;
+            &:last-child{
+              width: 48%;
+              padding-left: 2%;
+              border-left: none;
+              float: right;
+            }
+          }
+        }
+      }
+      .right{
+        float: right;
+        width: 26%;
+        height: 60px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 14px;
+        padding-top: 40px;
+        &.status1{
+          color: @color-primary;
+        }
+        p{
+            color: #ff0000;
+        }
+
+      }
+
+    }
+  }
+
+
+
+/***********/
+	.order-li {
+		.column-info {			
+			padding:5px 0px;
+			border-top: 1px solid @color-gray;
+			
+		}
+	}
+
+}
+
+#page.rental_order.back{
+  .back-notice{
+    padding: 10px;
+    p{
+      margin: 10px 0;
+      font-size: 15px;
+      line-height: 24px;
+      color: @color-secondary;
+      &.tel{
+        text-align: center;
+        font-size: 12px;
+        a{
+          color: #1d9cd1;
+        }
+      }
+    }
+
+    button{
+      width: 100%;
+      line-height: 45px;
+      font-size: 15px;
+      text-align: center;
+      vertical-align: middle;
+      background-color: @color-third;;
+      color: #fff;
+
+      border:1px solid @color-third;
+      .radius(5px);
+      height: 45px;
+
+    }
+  }
+}
+
+
+
+#page.rental_order.show {
+
+	.rental-back {
+		.choose-time {
+			border-top:none;
+			&:last-child{
+		 	border-top:none;
+		 }
+		}
+		 
+	}
+	.rental-price {
+	
+		 #rental-cost {
+		 	width: 96%;
+	    margin: 0 auto;
+	    overflow: hidden;
+		 	padding: 10px 0px;
+		 	 .title {
+			  text-align: left;
+			  font-size: 12px;
+			  color: #000;
+			  padding-bottom: 0px;
+			}
+			.fact-pay {
+					padding-top:5px;
+			    border-top: 1px solid @color-gray;
+				p{
+				font-size:14px;
+					color:#000;
+					text-align:center;
+					.fact-pay-yuan {
+						color: #ff0000;
+					}
+				}
+			} 
+			ul {
+				 width: 100%;
+				 color: #828282;
+			   text-align: left;
+			   font-size: 14px;
+			   line-height: 25px;
+			   li {
+			   
+ 				.title-l {
+			   	 	float:left;
+			   	 	.time-name {
+			   	 		    float: left;
+						    width: 70px;
+						    text-align: right;
+			   	 	}
+			   	 }
+			   	 .cost-r {
+						float: right;
+						color: #828282;
+						width: 161px;
+						.time-name,.pay-detail-name{
+							float: left;
+						    width: 98px;
+						    text-align: right;
+						}
+						.pay-detail{
+							 color: black;
+							  float: left;
+						}
+						.all-cost {
+						  color: black;
+						}
+					}
+			   }
+			}
+
+		 }
+		 
+		 .row {
+		 	 &:last-child{
+	        text-align: center;
+	        border-top: none;
+	        b{
+	          color: #000;
+              font-weight: normal;
+              &.day-cost-coupon {
+                color: @color-green;
+              }
+	        }
+      		}
+
+		 }
+      &.rental-pay-price #rental-cost ul li:last-child .cost-r{
+        .pay-detail{
+          color: @color-red;
+          b{
+            color: @color-red;
+          }
+        }
+      }
+	}
+
+  #rental-cost.pay-cost ul li:last-child .pay-detail:last-child {
+     color: @color-red;
+     b{
+       color: @color-red;
+     }
+   }
+	/*coupon*/
+	.rental-coupon {
+	  font-size: 14px;
+    line-height: 25px;
+		background-color: #fff;
+    margin-top: 5px;
+    color: #575757;
+      border-top: 1px solid @color-gray;
+      border-bottom: 1px solid @color-gray;
+    .row{
+    	width: 96%;
+	    margin: 0 auto;
+	    overflow: hidden;
+	    padding: 10px 0px;
+	    .left{
+	    	float:left;
+	    }
+	    .right {
+	    	float:right;
+	    	.use-coupon {
+	    		margin-right:10px;
+	    	}
+	    	.change-coupon,.change-coupon:link,.change-coupon:visited,.change-coupon:hover,.change-coupon:active {
+	    		cursor: pointer;
+	    		color:@color-third;
+	    	}
+	    }
+    }
+    
+    
+
+	}
+	
+	/*coupon*/
+	
+	
+	.order-info1 {
+		padding:0px;
+		text-align:center;
+      border-top: 1px solid @color-gray;
+      border-bottom: 1px solid @color-gray;
+		.row {
+			padding:0px;
+			border-bottom: 1px dashed white;
+			.column {
+				padding:10px 0px;
+				&:last-child {
+					    border-left: 1px dashed white;
+				}
+			}
+			&:last-child {
+					   border-bottom:none;
+					    border-top:none;
+				}
+		}
+	}
+	
+	 /****/
+    .rental-info {
+    	.row-style {
+    		    border-bottom: 1px dashed #e7e7e7;
+
+    		   .left {
+    		   .column {
+    		   		 &:first-child {
+    		   		border-bottom:none
+    		   	}
+    		   	.item {
+    		   		 &:first-child {
+	    		   		border-right:none
+	    		   		}
+    		   		}
+    		   	}
+
+    		   }
+    	}
+    }
+}
+
+
+/*page: coupon  start*/
+#page.rental_order.coupon{
+    .content{
+        font-size:14px;
+        color: #000;
+        .avaiable,.unavaiable {
+        line-height: 25px;
+            background-color: #fff;
+        margin-top: 5px;
+       .row {
+           width: 96%;
+            margin: 0 auto;
+            overflow: hidden;
+            padding: 10px 0px;
+            position: relative;
+            .left-cont {
+                .incont {
+                	color:white;
+                    width:60px;
+                    height:60px;
+                    line-height:60px;
+                    text-align:center;
+                    border-radius:60px;
+                    background-color:@color-primary;
+                }
+            }
+            
+            .coup-text{
+            	position: absolute;
+            	margin-left:10px;
+            	transform:translate3d(60px,-50%,0px);
+            	-ms-transform:translate3d(60px,-50%,0px);
+            	-moz-transform:translate3d(60px,-50%,0px);
+            	-webkit-transform:translate3d(60px,-50%,0px);
+            	-o-transform:translate3d(60px,-50%,0px);
+            	top:50%;
+            	p{ 
+            		height:20px;
+            		line-height:20px;
+            	}
+            	.date {
+            		font-size:12px;
+            	}
+            }
+           
+           
+           .cheched {
+           	position: absolute;
+           	top:50%;
+           	right:0px;
+         	transform:translate3d(0px,-50%,0px);
+          	-ms-transform:translate3d(0px,-50%,0px);
+          	-moz-transform:translate3d(0px,-50%,0px);
+          	-webkit-transform:translate3d(0px,-50%,0px);
+          	-o-transform:translate3d(0px,-50%,0px);
+           	width:30px;
+           	height:30px;
+           	background:url('../images/right.png') no-repeat 50% 50%;
+           	background-size:30px 30px;
+           } 
+            
+       }
+        }
+        
+        
+        .unavaiable {
+        	color:@color-secondary;
+        	.row {
+        		 .left-cont {
+                .incont {
+                	background-color:#aaa;
+                
+                }
+             }
+        	}
+        }
+    }
+}
+
+@media screen and (orientation: landscape) {
+  #page.rental_order.show .key-notice {
+    position: fixed;
+    top: 50%;
+    display: none;
+    width: auto;
+    height: 75%;
+    max-height: 200px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+
+    background-color: #eeeeee;
+    color: #828282;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding:10px;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+  }
+  #page.rental_order.show .key-notice  .key-img-cont  img {
+    width: auto;
+    height: 58%;
+  }
+
+  @media screen and (min-width: 600px) {
+    #page.rental_order.show .key-notice {
+      max-height: 250px;
+    }
+    #page.rental_order.show .key-notice .key-img-cont img {
+      width: auto;
+      height: 70%;
+
+    }
+  }
+}
+.clearfix:after{ content: "020";  display: block;  height: 0;  clear: both;  visibility: hidden;  }
+
+.clearfix {zoom: 1;  }
+
+
+#page.order.change_coupon{
+  .content{
+    /****/
+    border-top: 1px solid @color-gray;
+    margin-top: 5px;
+    .no-coupon-t {
+      padding:20px 10px 200px;
+      .no-coupon {
+        font-size:14px;
+        color:#000;
+        text-align: center;
+      }
+    }
+    /****/
+    font-size:14px;
+
+    section {
+      color: #000;
+      line-height: 25px;
+      background-color: #fff;
+      border-bottom: 1px solid @color-gray;
+      .row {
+        width: 96%;
+        margin: 0 auto;
+        overflow: hidden;
+        padding: 10px 0px;
+        position: relative;
+        .left-cont {
+          .incont {
+            color:white;
+            width:60px;
+            height:60px;
+            line-height:60px;
+            text-align:center;
+            border-radius:60px;
+            background-color:@color-primary;
+            font-size: 18px;
+          }
+        }
+
+        .coup-text{
+          position: absolute;
+          margin-left:10px;
+          transform:translate3d(60px,-50%,0px);
+          -ms-transform:translate3d(60px,-50%,0px);
+          -moz-transform:translate3d(60px,-50%,0px);
+          -webkit-transform:translate3d(60px,-50%,0px);
+          -o-transform:translate3d(60px,-50%,0px);
+          top:50%;
+          p{
+            height:20px;
+            line-height:20px;
+          }
+          .date {
+            font-size:12px;
+          }
+        }
+
+
+        .cheched {
+          position: absolute;
+          top:50%;
+          right:0px;
+          transform:translate3d(0px,-50%,0px);
+          -ms-transform:translate3d(0px,-50%,0px);
+          -moz-transform:translate3d(0px,-50%,0px);
+          -webkit-transform:translate3d(0px,-50%,0px);
+          -o-transform:translate3d(0px,-50%,0px);
+          width:30px;
+          height:30px;
+          background:url('../images/right.png') no-repeat 50% 50%;
+          background-size:30px 30px;
+        }
+
+      }
+    }
+
+
+    .unavaiable {
+      color:@color-secondary;
+      .row {
+        .left-cont {
+          .incont {
+            background-color:#aaa;
+
+          }
+        }
+      }
+    }
+  }
+
+  .top-menu {
+    .back-pay {
+      position: absolute;
+
+      width: 20px;
+      height: 44px;
+      left: 10px;
+    }
+    .back-pay-nocoupon {
+      cursor: pointer;
+      height: 44px;
+      line-height: 44px;
+      font-size: 14px;
+      color: white;
+    }
+  }
+}
+
+
+#page.rental_order.share_order {
+    font-size: 10px;
+    font-family: "Microsoft YaHei", Helvetica, sans-serif;
+    min-width: 320px;
+    max-width: 800px;
+    min-height: 100%;
+    margin: 0 auto;
+
+  @media screen and (min-width:480px) and (max-width:639px) {
+    &.share_order {
+      font-size: 15px
+    }
+
+  }
+
+  @media screen and (min-width:640px) and (max-width:719px) {
+    &.share_order {
+      font-size: 20px
+    }
+
+  }
+
+  @media screen and (min-width:720px) and (max-width:749px) {
+    &.share_order {
+      font-size: 22.5px
+    }
+
+  }
+
+  @media screen and (min-width:750px) and (max-width:799px) {
+    &.share_order {
+      font-size: 23.5px
+    }
+
+  }
+
+  @media screen and (min-width:800px) and (max-width:959px) {
+    &.share_order {
+      font-size: 25px
+    }
+
+  }
+
+  @media screen and (min-width:960px) and (max-width:1079px) {
+    &.share_order { font-size: 25px}
+  }
+
+  @media screen and (min-width:1080px) {
+    &.share_order {
+      font-size: 25px
+    }
+
+  }
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  img {
+    border: 0;
+  }
+  * {
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+  }
+  　::-webkit-input-placeholder { color:#aaa;}
+  　　:-moz-placeholder {  　color:#aaa;  }
+  　　::-moz-placeholder {  color:#aaa; }
+  　　:-ms-input-placeholder {  color:#aaa; }
+  .lr-center {transform: translate(-50%,0%); -webkit-transform: translate(-50%,0%); -ms-transform: translate(-50%,0%); -moz-transform: translate(-50%,0%); -o-transform: translate(-50%,0%);}
+  .tblr-center { transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); -moz-transform: translate(-50%,-50%); -o-transform: translate(-50%,-50%);}
+  .tb-center { transform: translate(0%,-50%); -webkit-transform: translate(0%,-50%); -ms-transform: translate(0%,-50%); -moz-transform: translate(0%,-50%); -o-transform: translate(0%,-50%);}
+
+  .color-green { color: #2bbfbf;}
+  .color-blue { color: #179ed3;}
+  .color-red { color: #ff7200;}
+  i.top-img  {
+    display: inline-block;
+    width: 20%;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    max-width: 110px;
+    img { width: 100%;}
+  }
+  .container {
+    width: 98%;
+    margin: 0px auto;
+    text-align: center;
+    min-height: 100%;
+    position: relative;
+    .img-cont {
+      width: 70%;
+      text-align: center;
+      margin: 0 auto;
+      padding-top: 20%;
+      img {
+        width: 100%;
+        max-width: 440px;
+      }
+    }
+    article {
+      .title {
+        font-size: 200%;
+        color: #666666;
+        padding: 20px 0px 0px;
+      }
+      .data-cont {
+        width: 100%;
+        margin-top: 20px;
+        display:-ms-flexbox;
+        display:-webkit-box;
+        display: flex; flex-flow: row;
+        display: -webkit-flex; -webkit-flex-flow: row;
+        display: -moz-flex; -moz-flex-flow: row;
+        display: -ms-flex; -ms-flex-flow: row;
+        .inner {
+          -webkit-box-flex: 1;
+          -moz-box-flex: 1;
+          flex: 1;
+          -webkit-flex: 1;
+          -moz-flex: 1;
+          -ms-flex: 1;
+          box-sizing: border-box;
+          text-align: center;
+          font-size:150%;
+          border-right: 1px solid #cccccc;
+          &:nth-child(2) { flex: 1.5;-webkit-flex: 1.5;-moz-flex: 1.5;-ms-flex: 1.5; }
+          &:last-child { border-right: none;}
+          p { padding: 3px 0px;}
+          p:last-child { font-weight: bold;}
+        }
+
+      }
+    }
+    .button-cont {
+      width: 100%;
+      height: 85px;
+      text-align: center;
+      padding: 0px 2%;
+      margin-top: 40px;
+      a {
+        font-size: 150%;
+        display: inline-block;
+        width: 48%;
+        padding: 15px 0px;
+        color: white;
+        background-color: #1d9cd1;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        &:first-child { float: left; }
+        &:last-child { float: right; }
+      }
+    }
+  }
+}

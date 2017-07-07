@@ -1,0 +1,80 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>车牌号</label>
+        <select id="rentalCar" name="rentalCar" placeholder="租赁车辆" class="ui dropdown">
+            {% for rentalcar in rentalcars %}
+            <option value="{{ rentalcar.id }}">{{ rentalcar.licensePlace.name }}{{ rentalcar.licensePlate }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class=" fields" >
+        <div class="four wide field">
+            <label>{{ form_label(form.kind) }}</label>
+            {{ form_widget(form.kind,{'attr': {'placeholder':'保险类型','class':'ui dropdown'}} ) }}
+        </div>
+        <div class="twelve wide  field" >
+            <label>{{ form_label(form.maintenanceReason) }}</label>
+            {{ form_widget(form.maintenanceReason,{'attr': {'placeholder':'请输入事故原因' }} ) }}
+        </div>
+    </div>
+
+    <div class="field">
+        <label>{{ form_label(form.downTime) }}</label>
+        {{ form_widget(form.downTime ) }}
+    </div>
+    <div class="field">
+        <label>{{ form_label(form.maintenanceAmount) }}(元)</label>
+        {{ form_widget(form.maintenanceAmount,{'attr': {'placeholder':'请输入定损金额' }} ) }}
+    </div>
+
+
+    <div class="field">
+        <label>{{ form_label(form.maintenanceTime) }}</label>
+        {{ form_widget(form.maintenanceTime) }}
+    </div>
+    <div class="field">
+        <label>{{ form_label(form.maintenanceProject) }}</label>
+        {{ form_widget(form.maintenanceProject,{'attr': {'placeholder':'请填写维修项目' }}) }}
+    </div>
+
+    <div class=" fields" >
+        <div class="eight wide field">
+            <label>{{ form_label(form.company) }}</label>
+            {{ form_widget(form.company,{'attr': {'placeholder':'请输入修理厂名称' }}) }}
+        </div>
+        <div class="eight wide  field" >
+            <label>修理状态</label>
+            {{ form_widget(form.status,{'attr': {'placeholder':'保险类型','class':'ui dropdown'}} ) }}
+        </div>
+    </div>
+
+
+    <div class="photographs">
+        {% set name = form.images.vars.prototype.vars.full_name|replace({'__name__': ''}) %}
+        {% for p in form.images %}
+            <div class="field photograph">
+                <img src="{{ p.vars.value starts with 'http://' ? p.vars.value : p.vars.value|photograph }}">
+                {{ form_widget(p, {full_name: name}) }}
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        {% endfor %}
+        <button class="ui basic button add-file watermark"><i class="icon photo"></i> 上传图片 </button>
+        <script type="text/x-handlebars-template" class="template">
+            <div class="field photograph">
+                <img src="{{ '{{ path }}' }}">
+                {{ form_widget(form.images.vars.prototype, {full_name: name, value: '{{ localname }}'}) }}
+
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        </script>
+
+    </div>
+    {% do form.images.setRendered %}
+
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

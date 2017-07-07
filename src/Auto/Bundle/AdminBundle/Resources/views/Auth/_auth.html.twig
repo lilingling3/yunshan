@@ -1,0 +1,53 @@
+<div class="ui main-content grid" style="margin: 6px 7px 0px;">
+    <div class="ui teal table" style="border: none">
+        <div>
+            手机号:{{ auth.member.mobile  }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            注册时间:{{ auth.member.createTime|date('Y-m-d H:i:s') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            认证时间:{% if auth.applyTime  %}
+                {{ auth.applyTime|date('Y-m-d H:i:s') }}
+            {% endif %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            状态:{% if blacked %}已拉黑{% else %}正常{% endif %}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            余额:{{ auth.member.wallet|default('0') }}
+        </div>
+    </div>
+</div>
+
+<div class="ui main-content grid" style="margin-top: 0px;">
+    <div class="wide column" style="border-top: 1px dashed #8F949A;">
+        <div class="ui grid">
+            <div class="five wide column">
+                <p class="card-d {{ authinfo.status }}  {% if authinfo.status!=200 and authinfo.status!=201 and (auth.idImageAuthError is not null) and  auth.idImageAuthError!=0 %} color-red {% endif %}">
+                    {% if authinfo.status==200 or auth.idImageAuthError is null or auth.idImageAuthError==0 %}
+                        身份证
+                    {% else %}
+                        身份证&nbsp;-&nbsp;{{ authinfo.authImageMessage.idImageAuthError }}
+                    {% endif %}
+                </p>
+                <a href="{{ auth.idImage|photograph }}" id="zoom2" class="MagicZoom MagicThumb">
+                    <img data-rotate="0" width="300px" height="300px" alt="身份证照片" src="{{ auth.idImage|photograph }}">
+                </a>
+            </div>
+            <div class="five wide column">
+                <p class="card-d {% if authinfo.status!=200 and  authinfo.status!=201 and (auth.licenseImageAuthError is not null) and auth.licenseImageAuthError!=0 %} color-red {% endif %}">
+                    {% if authinfo.status==200 or auth.licenseImageAuthError is null or auth.licenseImageAuthError==0 %}
+                        驾驶证{% else %} 驾驶证&nbsp;-&nbsp;{{ authinfo.authImageMessage.licenseAuthError }}
+                    {% endif %}
+                </p>
+                <a href="{{ auth.licenseImage|photograph }}" id="zoom1" class="MagicZoom MagicThumb">
+                    <img data-rotate="0" width="300px" height="300px" alt="驾驶证照片" src="{{ auth.licenseImage|photograph }}">
+                </a>
+            </div>
+
+            <div class="five wide column">
+                <p class="card-d {{ authinfo.status }} {% if authinfo.status!=200 and authinfo.status!=201 and (auth.idHandImageAuthError is not null) and  auth.idHandImageAuthError!=0 %} color-red {% endif %}">
+                    {% if authinfo.status==200 or auth.idHandImageAuthError is null or auth.idHandImageAuthError==0 %}
+                        手持身份证{% else %}手持身份证&nbsp;-&nbsp;{{ authinfo.authImageMessage.idHandImageAuthError }}
+                    {% endif %}</p>
+                <a href="{{ auth.idHandImage|photograph }}" id="zoom3" class="MagicZoom MagicThumb">
+                    <img data-rotate="0" width="300px" height="300px" alt="手持身份证照片" src="{{ auth.idHandImage|photograph }}">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

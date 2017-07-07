@@ -1,0 +1,49 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['area', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'地区列表'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {{ form_start(form) }}
+             <div class="ui form">
+                 <div class=" field">
+                     <label>省份名称</label>
+                     {{ form_widget(form.name,{'attr': {'placeholder':'省份名称' }} ) }}
+                 </div>
+                 <div class="fields">
+                     <div class="eight wide field">
+                         <label>坐标</label>
+                         {{ form_widget(form.latitude,{'attr': {'placeholder':'latitude','class':'ui dropdown latitude' }} ) }}
+                     </div>
+                     <div class="eight wide field">
+                         <label> &nbsp;</label>
+                         {{ form_widget(form.longitude,{'attr': {'placeholder':'longitude','class':'ui dropdown longitude' }} ) }}
+                     </div>
+
+                 </div>
+                 <div class="field">
+                     <div id="area-business-allmap"></div>
+                 </div>
+
+                 <button class="ui teal button" type="submit">提交</button>
+             </div>
+             {% do form.parent.setRendered %}
+             {{ form_end(form) }}
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">添加省份 </a>
+                 <a class="item" href="{{ path('auto_admin_area_list') }}">地区列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

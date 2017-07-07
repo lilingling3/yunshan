@@ -1,0 +1,18 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['maintenance', 'edit'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'编辑','prenav':'三者车'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:MaintenanceRecord:_thirdform.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+
+     </div>
+
+
+ {% endblock %}

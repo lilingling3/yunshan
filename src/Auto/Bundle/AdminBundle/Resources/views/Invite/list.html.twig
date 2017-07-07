@@ -1,0 +1,41 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['orderFlow', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+
+    {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'邀请好友活动'} %}
+    <div class="ui main-content grid">
+        <div class="fifteen wide column">
+            <table class="ui very basic table">
+                <thead>
+                <tr>
+                    <th>邀请好友返现金额</th>
+                    <th>优惠券类型</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                <tr>
+                    <td> {{ cashback }} 元 </td>
+                    <td> {{ coupon }} </td>
+                    <td>
+                        {% if condition %} 
+                            <a href="/admin/invite/inviteReward/new">添加</a>
+                        {% else %}
+                            <a href="/admin/invite/inviteReward/delete/{{ activityid }}">删除</a>
+                        {% endif %}
+                    </td>
+                 </tr>
+                 </tbody>
+             </table>
+
+
+         </div>
+     </div>
+
+ {% endblock %}

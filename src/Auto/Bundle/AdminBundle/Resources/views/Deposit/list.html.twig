@@ -1,0 +1,135 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['orderFlow', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+
+    {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'已缴纳','prenav':'租车押金'} %}
+    <div class="ui main-content" id="yui_3_14_1_1_1461549608378_26">
+        <div class="ui top attached menu tabular no_border">
+            <a class="active item font-normal bk_gray no_border">已缴纳</a>
+            <a class="item " href="{{ path("auto_admin_deposit_refund_list") }}">退款中</a>
+            <a class="item" href="{{ path("auto_admin_deposit_has_refund_list") }}">已退款</a>
+        </div>
+        <div class="ui bottom attached segment bk_gray no_border" >
+            <form action="{{ path("auto_admin_deposit_record_list") }}" method="get" >
+                <table class="ui very basic table no_border" >
+                    <tbody >
+                    <tr>
+                    <td class="ui input">
+                            <input type="text" name="mobile" placeholder="请输入手机号">
+                        </td>
+                        <td>
+                            <select name="payMethod" class="ui dropdown">
+                                <option>请选择平台</option>
+                                <option value="100">支付宝</option>
+                                <option value="101">微信</option>
+                            </select>
+                        </td>
+
+                        <td class="ui input">
+                            <input type="text" name="start_time" id="J-xl" autocomplete="off" placeholder="请选择支付时间">
+                        </td>
+                        <td>
+                            <button class="ui teal button  " type="submit">查询</button>
+                        </td>
+                        <td style="width: 415px;"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+    <div class="ui main-content grid">
+        <div class="fifteen wide column">
+            <table class="ui very basic table">
+                <thead>
+                <tr>
+                    <th>手机号</th>
+                    <th>用户</th>
+                    <th>实付金额</th>
+                    <th>下单时间</th>
+                    <th>支付时间</th>
+                    <th>平台</th>
+                    <th>流水号</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for depositorder in depositOrders %}
+                <tr>
+                    <td>{{ depositorder.mobile }}</td>
+                    <td>{{ depositorder.name }}</td>
+                    <td>{{ depositorder.amount }}元</td>
+                    <td>{% if depositorder.createTime %}
+                        {{ depositorder.createTime|date('Y-m-d H:i:s') }}
+                        {% endif %}
+                    </td>
+                    <td>{% if depositorder.payTime %}
+                        {{ depositorder.payTime|date('Y-m-d H:i:s') }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if depositorder.wechatTransactionId %}
+                            微信
+                        {% elseif depositorder.alipayTradeNo %}
+                            支付宝
+                        {% endif %}
+                    </td>
+                    <td>{% if depositorder.wechatTransactionId %}
+                            {{ depositorder.wechatTransactionId }}
+                        {% elseif depositorder.alipayTradeNo %}
+                            {{ depositorder.alipayTradeNo }}
+                        {% endif %}
+                    </td>
+                 </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_deposit_record_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+     </div>
+    <script>
+        var start = {
+            elem: '#J-xl',
+            format: 'YYYY-MM-DD', //日期格式
+            max: laydate.now(-1),
+            choose: function(datas) {
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        }
+        laydate(start);
+    </script>     
+
+ {% endblock %}

@@ -1,0 +1,122 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'优惠券管理'} %}
+     <div class="ui main-search grid bk_gray" style="padding: 0px">
+
+         <div class="ten wide">
+             <form action="{{ path("auto_admin_coupon_list") }}" method="get">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+                         <td  class="ui input">
+                             <select name="dateType" class="ui dropdown">
+                                 <option>时间类型</option>
+                                 <option value="1" {% if dateType==1 %} selected="selected" {% endif %}>兑换时间</option>
+                                 <option value="2" {% if dateType==2 %} selected="selected" {% endif %}>使用时间</option>
+                             </select>
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="startTime" id="J-xl" value="{{ startTime }}" placeholder="开始时间">
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="endTime" id="J-xl2" value="{{ endTime }}" placeholder="结束时间">
+                         </td>
+                         <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+                         <script>
+                             laydate({
+                                 elem: '#J-xl'
+                             });
+                             laydate({
+                                 elem: '#J-xl2'
+                             });
+                         </script>
+                         <td class="ui input">
+                             <input type="text" name="mobile" placeholder="请输入用户手机号" value="{{ mobile }}">
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">查询</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>优惠券名称</th>
+                     <th>金额(元)</th>
+                     <th>有效天数</th>
+                     <th>活动名称</th>
+                     <th>用户名称</th>
+                     <th>兑换时间</th>
+                     <th>有效期</th>
+                     <th>使用时间</th>
+                     <th>兑换码</th>
+                     <th>使用订单</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for coupon in coupons %}
+                 <tr>
+                     <td>{{ coupon.kind.name }}</td>
+                     <td>{{ coupon.kind.amount }}</td>
+                     <td>{{ coupon.kind.validDay }}</td>
+                     <td>{{ coupon.activity.name }}</td>
+                     <td>{% if coupon.member %}{{ coupon.member.mobile }}{% elseif coupon.mobile  %} {{ coupon.mobile }} {% else %}未兑换{% endif %}</td>
+                     <td>{% if coupon.member or coupon.mobile %} {{ coupon.createTime|date('Y-m-d H:i:s') }} {% endif %}</td>
+                     <td>{{ coupon.endTime|date('Y-m-d H:i:s') }}</td>
+                     <td>{% if coupon.useTime %}{{ coupon.useTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                     <td>{{ coupon.code }}</td>
+                     <td>{{ orderIdArr[coupon.id] }}</td>
+                 </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_coupon_list",{'page':k,'dateType':dateType,'startTime':startTime,'endTime':endTime,'mobile':mobile}) }}">{{ k }}</a>
+                                 {% else %}
+                                    <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+         </div>
+         {#<div class="one wide column">#}
+         {#</div>#}
+
+         {#<div class="four wide monitor column">#}
+             {#<div class="ui secondary vertical pointing menu">#}
+                 {#<a class="active item">优惠券列表 </a>#}
+             {#</div>#}
+         {#</div>#}
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,33 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加车辆','prenav':'租赁车辆'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:RentalCar:_editform.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         {#<div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">编辑租赁车辆 </a>
+                 <a class="item" href="{{ path('auto_admin_rentalcar_list') }}">租赁车辆列表 </a>
+                 <a class="item" href="{{ path('auto_admin_rentalcar_new') }}">添加租赁车辆</a>
+                 <a class="item" href="{{ path('auto_admin_car_new') }}">添加车型 </a>
+                 <a class="item" href="{{ path('auto_admin_color_new') }}">添加颜色 </a>
+                 <a class="item" href="{{ path('auto_admin_insurance_add_by_rentalcar',{'id':rentalcar.id }) }}">添加车辆保险 </a>
+                 <a class="item" href="{{ path('auto_admin_maintenance_add_by_rentalcar',{'id':rentalcar.id })
+                 }}">添加车辆保养记录 </a>
+                 <a class="item" href="{{ path('auto_admin_inspection_add_by_rentalcar',{'id':rentalcar.id })
+                 }}">添加车检记录 </a>
+                 <a class="item" href="{{ path('auto_admin_license_place_new') }}">添加车牌归属地 </a>
+                 <a class="item" href="{{ path('auto_admin_company_new') }}">添加归属公司 </a>
+             </div>
+         </div>#}
+
+     </div>
+
+
+ {% endblock %}

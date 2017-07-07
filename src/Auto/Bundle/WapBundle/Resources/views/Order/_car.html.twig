@@ -1,0 +1,51 @@
+<div class="row ">
+    <div class="column-cont">
+        <div class="column">
+            <div class="item"><p class="car-detail-name">车牌</p><p class="item-detail">{{ rentalOrder.rentalCar.license }}</p></div>
+            <div class="item"><p class="car-detail-name">型号</p><p class="item-detail">{{ rentalOrder.rentalCar.car.name }}</p></div>
+            <div class="item">
+                <p class="car-detail-name">结构/座位</p>
+                <p class="item-detail">{{ rentalOrder.rentalCar.car.bodyType }}/{{ rentalOrder.rentalCar.car.seat }}座</p>
+            </div>
+        </div>
+    </div>
+    {% if rentalOrder.status==100 or  rentalOrder.endTime %}
+      {% if  rentalOrder.returnRentalStation.rentalStationID==rentalOrder.pickUpRentalStation.rentalStationID%}
+        <div class="address">
+            <p>取还车地点</p>
+            {{ rentalOrder.pickUpRentalStation.street }}
+        </div>
+            {% else %}
+                <div class="address">
+                    <p>取车地点</p>
+                    {{ rentalOrder.pickUpRentalStation.street }}
+                </div>
+                <div class="address">
+                    <p>还车地点</p>
+                    {{ rentalOrder.returnRentalStation.street }}
+                </div>
+        {% endif %}
+        {% else %}
+            {% if rentalOrder.pickUpRentalStation.backType==600 %}
+                <div class="address">
+                    <p>取还车地点</p>
+                    {{ rentalOrder.pickUpRentalStation.street }}
+                </div>
+            {% else %}
+            <div class="address">
+                <p>取车地点</p>
+                {{ rentalOrder.pickUpRentalStation.street }}
+            </div>
+            <div class="address">
+                    <a class="href_a" href="{{ path('auto_wap_rental_car_change_station',{'id':rentalOrder.rentalCar.rentalCarID,"backStation":rentalOrder.returnRentalStation.rentalStationID,"order":rentalOrder.orderID }) }}"></a>
+                    <p>还车地点</p>
+                    {{ rentalOrder.returnRentalStation.street }}<span class="change-station">更换</span>
+            </div>
+                {% endif %}
+    {% endif %}
+
+
+
+
+
+</div>

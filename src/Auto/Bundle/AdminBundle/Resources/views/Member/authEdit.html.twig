@@ -1,0 +1,26 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['member', 'auth-edit'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/jquery.jqzoom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/lrtk.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'审核','prenav':'用户认证'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column" style="width: 100% !important;">
+             {% include "AutoAdminBundle:Member:_authForm.html.twig" %}
+         </div>
+
+
+         <div class="four wide monitor column" style="display:none;">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">用户认证 </a>
+                 <a class="item" href="{{ path('auto_admin_member_auth_list') }}">用户认证列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

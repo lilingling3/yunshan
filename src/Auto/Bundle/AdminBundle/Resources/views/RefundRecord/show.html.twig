@@ -1,0 +1,94 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['refund_record', 'check'] %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'审核','prenav':'退款审核'} %}
+         <div class="ui main-content grid">
+
+             <div class="sixteen wide column">
+                 <h4 class="ui horizontal  header"> 申请用户信息 </h4>
+                 <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                     <thead>
+                     <tr>
+                         <th>申请时间</th>
+                         <th>审核时间</th>
+                         <th>手机号</th>
+                         <th>姓名</th>
+                         <th>账户余额</th>
+                         <th>状态</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td>{{ refundRecord.createTime | date('Y-m-d H:i:s') }}</td>
+                         <td>{{ refundRecord.checkTime | date('Y-m-d H:i:s') }}</td>
+                         <td>{{ refundRecord.member.mobile }}</td>
+                         <td>{{ refundRecord.member.name }}</td>
+                         <td>{{ refundRecord.member.wallet }}</td>
+                         <td>{{ status }}</td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </div>
+             <div class="sixteen wide column">
+                     <h4 class="ui horizontal  header"> 退款说明 </h4>
+                     <p>{{ refundRecord.refundInstrustions }}</p>
+             </div>
+
+             {% if(refundRecord.checkFailedReason) %}
+             <div class="sixteen wide column">
+                 <h4 class="ui horizontal  header"> 审核失败原因 </h4>
+                 <p>{{ refundRecord.checkFailedReason }}</p>
+             </div>
+             {% endif %}
+
+            {% if(rechargeOrderCount) %}
+             <div class="sixteen wide column">
+                 <h4 class="ui horizontal  header"> 退款信息 </h4>
+                 <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                     <thead>
+                     <tr>
+                         <th>充值/退款渠道</th>
+                         <th>渠道流水号</th>
+                         <th>退款金额</th>
+                         <th>账户扣除</th>
+                         <th>退款时间</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                    {% for v in rechargeOrders %}
+                     <tr>
+                         <td>
+                             {% if(v.wechatTransactionId) %}
+                                 微信
+                             {% elseif(v.alipayTradeNo) %}
+                                 支付宝
+                             {% endif %}
+                         </td>
+                         <td>
+                             {% if(v.wechatTransactionId) %}
+                                 {{ v.wechatTransactionId }}
+                             {% elseif(v.alipayTradeNo) %}
+                                 {{ v.alipayTradeNo }}
+                             {% endif %}
+                         </td>
+                         <td>{{ v.actualRefundAmount }}</td>
+                         <td>{{ v.refundAmount }}</td>
+                         <td>{% if v.refundTime %}{{ v.refundTime | date('Y-m-d H:i:s') }}{% endif %}</td>
+                     </tr>
+                        {% endfor %}
+                     </tbody>
+                 </table>
+             </div>
+            {% endif %}
+
+            <div  class="sixteen wide column">
+                <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+            </div>
+         </div>
+
+
+ {% endblock %}

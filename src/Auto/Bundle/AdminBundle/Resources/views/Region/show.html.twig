@@ -1,0 +1,39 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['region', 'show'] %}
+ {% block content %}
+
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'区域列表','prenav':'运营区域分配'} %}
+     <div class="ui main-content grid">
+         <div class="ui big message" style="width: 100%">
+             {{ region.member.name }} （ {{ region.member.mobile }} ）
+             管辖省份：<span style="color: red;">{{ areacount.province }}</span>
+             管辖城市：<span style="color: red;">{{ areacount.city }}</span>
+             管辖城区：<span style="color: red;">{{ areacount.area }}</span>
+             <a href="{{ path('auto_admin_region_list') }}" class="ui teal button" style="display: inline-block;float: right">返回</a>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>地区</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for area in areas %}
+                     <tr>
+                         <td>{{ area.name }}</td>
+                         <td><a href="{{ path('auto_admin_region_area_delete',{'region_id':region.id,'area_id':area.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

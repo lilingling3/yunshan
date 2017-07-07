@@ -1,0 +1,85 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.name) }}</label>
+        {{ form_widget(form.name,{'attr': {'placeholder':"名称",'class':'ui dropdown' }} ) }}
+    </div>
+
+    <div class="fields">
+
+        <div class="five wide field">
+            <label>省份</label>
+            <select class="ui dropdown" id="country" data-cascading="#provincial" data-src="{{ path('auto_admin_area_all_by_region') }}"></select>
+        </div>
+
+        <div class="five wide field">
+            <label>城市</label>
+            <select class="ui dropdown" id="provincial" data-cascading="#{{ form.area.vars.id }}"></select>
+        </div>
+
+        <div class="six wide field">
+            <label>地区</label>
+            {{ form_widget(form.area, {attr: {class: 'ui dropdown', 'data-value': form.area.vars.value}}) }}
+        </div>
+
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.backType) }}</label>
+        {{ form_widget(form.backType,{'attr': {'placeholder':'停车位总数','class':'ui dropdown' }} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.parkingSpaceTotal) }}</label>
+        {{ form_widget(form.parkingSpaceTotal,{'attr': {'placeholder':'还车类型','class':'ui' }} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.street) }}</label>
+        {{ form_widget(form.street,{'attr': {'placeholder':'具体位置','class':'ui dropdown' }} ) }}
+    </div>
+
+    <div class="fields">
+        <div class="eight wide field">
+            <label>坐标</label>
+            {{ form_widget(form.latitude,{'attr': {'placeholder':'latitude','class':'ui dropdown' }} ) }}
+        </div>
+        <div class="eight wide field">
+            <label> &nbsp;</label>
+            {{ form_widget(form.longitude,{'attr': {'placeholder':'longitude','class':'ui dropdown' }} ) }}
+        </div>
+
+    </div>
+
+    <div class="field">
+        <div id="allmap"></div>
+    </div>
+
+    <div class="photographs">
+        {% set name = form.images.vars.prototype.vars.full_name|replace({'__name__': ''}) %}
+        {% for p in form.images %}
+            <div class="field photograph">
+                <img src="{{ p.vars.value starts with 'http://' ? p.vars.value : p.vars.value|photograph }}">
+                {{ form_widget(p, {full_name: name}) }}
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        {% endfor %}
+        <button class="ui basic button add-file watermark"><i class="icon photo"></i> 上传图片 </button>
+        <script type="text/x-handlebars-template" class="template">
+            <div class="field photograph">
+                <img src="{{ '{{ path }}' }}">
+                {{ form_widget(form.images.vars.prototype, {full_name: name, value: '{{ localname }}'}) }}
+
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        </script>
+
+    </div>
+
+    {% do form.images.setRendered %}
+
+    <div class=" field">
+        <label>{{ form_label(form.online) }}</label>
+        {{ form_widget(form.online,{'attr': {'placeholder':'上线状态','class':'ui dropdown'}} ) }}
+    </div>
+
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

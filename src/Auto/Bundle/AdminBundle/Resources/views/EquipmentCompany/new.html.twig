@@ -1,0 +1,17 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['illegal', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'设备公司','prenav':'添加'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:EquipmentCompany:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

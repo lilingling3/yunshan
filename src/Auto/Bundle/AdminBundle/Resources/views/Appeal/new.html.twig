@@ -1,0 +1,261 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['appeal', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加用户申诉','prenav':'申诉管理'} %}
+     <div class="ui main-search grid">
+
+         <div class="fifteen wide column">
+             <form action="{{ path("auto_admin_appeal_new_search") }}" method="post">
+                 <div class="black_list_content">
+                     <div class="ui input eight_wd fl" >
+                         <input type="text" name="mobile" placeholder="请输入手机号">
+                     </div>
+                     <div class="fr">
+                         <button class="ui teal button" type="submit">匹配</button>
+                     </div>
+                 </div>
+             </form>
+         </div>
+     </div>
+
+     {% if mobile %}
+         <div class="ui main-content grid">
+
+             <div class="fifteen wide column">
+                 {% if blackStatus %}
+                     <div class=" field" style="float:left;clear: none;">
+                         <label>用户证件照</label>
+                         <div class="field-img-cont clearfix jqzoom">
+                             <img  alt="证件照片"src="{##}{{ blackStatus[0].authMember.licenseImage|photograph }} " style="width:440px;" class="main_img">
+                         </div>
+                     </div>
+                     <div class="field other" style="float: left; width: 52%;margin-left: 5%;clear: none;">
+                         <table class="ui very basic table black">
+                             <tbody>
+                             <tr>
+                                 <td  class="black_list_new_left">证件照审核</td>
+                                 <td>通过</td>
+                             </tr>
+                             <tr>
+                                 <td class="black_list_new_left" >拉黑状态</td>
+                                 <td>已拉黑</td>
+                             </tr>
+
+                             <tr  >
+                                 <td  class="black_list_new_left">姓名</td>
+                                 <td>{{ blackStatus[0].authMember.member.name }}</td>
+                             </tr>
+                             <tr >
+                                 <td  class="black_list_new_left">驾驶证号</td>
+                                 <td>{{ blackStatus[0].authMember.IDNumber|default() }}</td>
+
+                             </tr>
+
+
+                             <tr  >
+                                 <td class="black_list_new_left">档案号</td>
+                                 <td>{{ blackStatus[0].authMember.documentNumber|default() }}</td>
+
+                             </tr>
+
+                             <tr  >
+                                 <td  class="black_list_new_left">证件有效期</td>
+                                 <td>{{ blackStatus[0].authMember.licenseStartDate|default()|date('Y-m-d') }}至{{ blackStatus[0].authMember.licenseEndDate|default()|date('Y-m-d') }}</td>
+
+                             </tr>
+                             <tr >
+                                 <td class="black_list_new_left">关联手机号</td>
+                                 <td>
+                                     {% for authNumber in authNumbers %}
+                                         {{ authNumber.member.mobile }}
+                                         <span class="bl_chain_mobile">|</span>
+                                     {% endfor %}
+                                 </td>
+
+                             </tr>
+
+                             </tbody>
+                         </table>
+                     </div>
+                     <div class="black_list_new_form_div">
+
+                             <table class="ui very basic table">
+                                 <tbody>
+                                 <tr>
+                                     <td>
+                                         <span class="black_list_new_left">拉黑时限：</span>
+                                         <span class="black_pr">{% if blackStatus[0].endTime %}{{ blackdays }}天{% else %}永久{% endif %}</span>
+                                         <span class="black_list_new_left black_bl"> 拉黑种类：</span>
+                                         <span class="black_pr">
+                                             {%  if blackStatus[0].reason==1 %}未付款
+                                             {% elseif blackStatus[0].reason==2 %}违章超时未处理
+                                             {% elseif blackStatus[0].reason==3 %}征信不良
+                                             {% elseif blackStatus[0].reason==4 %}租车严重过失
+                                             {% elseif blackStatus[0].reason==5 %}其他不良
+                                             {% endif %}
+                                         </span>
+                                         {% if appealStatus %}
+                                             <span class="black_list_new_left black_bl"> 申诉状态：</span>
+
+                                             {%  if appealStatus.handleTime  %}
+                                                 {% if appealStatus.status ==0 %}<span class="black_pr" >申诉失败</span>
+                                                 {% else %}<span class="black_pr" >申诉成功</span>
+                                                 {% endif %}
+                                             {% else %}<span class="black_pr orange">已申诉</span>{% endif %}
+                                         {% endif %}
+                                         <span class="black_list_new_left black_bl"> 拉黑时间：</span>
+                                         <span class="black_pr">{{ blackStatus[0].createTime|date('Y/m/d H:i:s') }}</span>
+                                         <span class="black_list_new_left black_bl ndis"> 操作人：</span>
+                                         <span class="black_pr ndis">13331195120（程诚）</span>
+                                     </td>
+                                 </tr>
+
+
+                                 <tr>
+                                     <td class="no_border_top">
+                                         <span class="black_list_new_left">拉黑原因：</span>
+                                         <span class="red">{{ blackStatus[0].authMember.member.mobile }}</span>{{ blackStatus[0].detail  }}
+                                     </td>
+
+                                 </tr>
+                                 {% if  appealStatus %}
+                                     {%  if appealStatus.handleTime  %}
+                                         {% if appealStatus.status ==0 %}
+                                             <tr>
+                                                 <td>
+                                                     <span class="black_list_new_left">申诉时间：</span>
+                                                     <span class="black_pr">{{appealStatus.createTime|date('Y/m/d H:i:s') }}</span>
+                                                     <span class="black_list_new_left black_bl ndis">申诉操作：</span>
+                                                     <span class="black_pr ndis">13331195120（程诚）</span>
+                                                     <span class="black_list_new_left">审核时间：</span>
+                                                     <span class="black_pr">{{appealStatus.handleTime|date('Y/m/d H:i:s') }}</span>
+                                                     <span class="black_list_new_left black_bl ndis">审核操作：</span>
+                                                     <span class="black_pr ndis">13331195120（程诚）</span>
+                                                 </td>
+                                             </tr>
+
+                                             <tr>
+                                                 <td class="no_border_top">
+                                                     <span class="black_list_new_left">申诉原因：</span>
+                                                     <span class="red">{{ blackStatus[0].authMember.member.mobile }}</span>{{ appealStatus.reason  }}
+                                                 </td>
+
+                                             </tr>
+                                             {{ form_start(form) }}
+
+                                             <tr  >
+                                                 <td>
+                                                     <span class="black_list_new_left fl black_mr" >申诉原因</span>
+                                                     {{ form_widget(form.appeal.reason,{'attr': {'rows':'3','class':'black_textarea'}} ) }}
+
+                                                 </td>
+                                             </tr>
+                                             <tr  {#style="display: none !important"#}>
+                                                 <td style="display: none !important">
+                                                     <span  >黑名单id</span>
+                                                     {{ form_widget(form.id ,{'attr': {'value':blackStatus[0].id|default()}}) }}
+
+                                                 </td>
+                                             </tr>
+
+                                             {#<tr  &#123;&#35;&#35;&#125;style="display: none !important">#}
+                                                 {#<td style="display: none !important">#}
+                                                     {#<span  >申诉id</span>#}
+                                                     {#{{ form_widget(form.appealId ,{'attr': {'value':appealStatus.id|default(),'type':'hidden'}}) }}#}
+
+                                                 {#</td>#}
+                                             {#</tr>#}
+
+
+                                             <tr  >
+                                                 <td>
+                                                     <div class="black_button">
+                                                         <a href="{{path ("auto_admin_appeal_list") }}"class="ui teal button  "   >返回</a>
+
+                                                             <button class="ui teal button five" type="submit">用户申诉</button>
+
+                                                     </div>
+                                                 </td>
+                                             </tr>
+                                             {{ form_end(form) }}
+                                         {% endif %}
+                                     {% else %}
+                                     <tr>
+                                         <td>
+                                             <span class="black_list_new_left">申诉时间：</span>
+                                             <span class="black_pr">{{appealStatus.createTime|date('Y/m/d H:i:s') }}</span>
+                                             <span class="black_list_new_left black_bl ndis"> 操作人：</span>
+                                             <span class="black_pr ndis">13331195120（程诚）</span>
+                                         </td>
+                                     </tr>
+
+                                     <tr>
+                                         <td class="no_border_top">
+                                             <span class="black_list_new_left">申诉原因：</span>
+                                             <span class="red">{{ blackStatus[0].authMember.member.mobile }}</span>{{ appealStatus.reason  }}
+                                         </td>
+
+                                     </tr>
+                                     <tr  >
+                                         <td>
+
+                                                 <a href="{{path ("auto_admin_appeal_list") }}"class="ui teal button  "   style="display: block;width: 20%;margin: 0 auto">返回</a>
+
+
+                                         </td>
+                                     </tr>
+                                     {% endif %}
+                                     {% else %}
+                                         {{ form_start(form) }}
+                                         {#<tr  &#123;&#35;&#35;&#125;style="display: none !important">#}
+                                             {#<td style="display: none !important">#}
+                                                 {#<span  >申诉id</span>#}
+                                                 {#{{ form_widget(form.appealId ,{'attr': {'value':appealStatus.id|default(),'type':'hidden','required':'false'}}) }}#}
+
+                                             {#</td>#}
+                                         {#</tr>#}
+
+                                         <tr  >
+                                             <td>
+                                                 <span class="black_list_new_left fl black_mr" >申诉原因</span>
+                                                 {{ form_widget(form.appeal.reason,{'attr': {'rows':'3','class':'black_textarea'}} ) }}
+
+                                             </td>
+                                         </tr>
+                                         <tr  {#style="display: none !important"#}>
+                                             <td style="display: none !important">
+                                                 <span  >黑名单id</span>
+                                                 {{ form_widget(form.id ,{'attr': {'value':blackStatus[0].id|default()}}) }}
+
+                                             </td>
+                                         </tr>
+
+                                     <tr  >
+                                         <td>
+                                             <div class="black_button">
+                                                 <a href="{{path ("auto_admin_appeal_list") }}"class="ui teal button  "   >返回</a>
+                                                 {% if appealStatus is null %}
+
+                                                     <button class="ui teal button five" type="submit">用户申诉</button>
+                                                 {% endif %}
+                                             </div>
+                                         </td>
+                                     </tr>
+                                    {{ form_end(form) }}
+                                 {% endif %}
+
+                                 </tbody>
+                             </table>
+
+
+                     </div>
+                 {% else %}
+                     {% if  mobile%}
+                     <p class="black_list_new_notfound">
+                         您输入的 <span class="red">{{ mobile }}</span> 无信息，请核实！
+                     </p>
+                     {% endif %}
+                 {% endif %}
+     {% endif %}
+ {% endblock %}

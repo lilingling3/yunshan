@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>5分钟，带你窥探未来出行</title>
+    <meta charset="utf-8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="pragram" content="no-cache" />
+    <!--移动端兼容适配 -->
+    <script type="text/javascript">
+        if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+            var version = parseFloat(RegExp.$1);
+            if(version>2.3){
+                var phoneScale = parseInt(window.screen.width)/750;
+                document.write('<meta name="viewport" content="width=750, minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+            }else{
+                document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">');
+            }
+        }else{
+            document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
+            //document.body.className="mphone";
+        }
+        //微信去掉下方刷新栏
+        if(navigator.userAgent.indexOf('MicroMessenger') >= 0){
+            document.addEventListener('WeixinJSBridgeReady', function() {
+                //WeixinJSBridge.call('hideToolbar');
+            });
+        }
+    </script>
+    <script src="http://s4.cnzz.com/z_stat.php?id=1259151417&web_id=1259151417" language="JavaScript"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <link href="{{ asset('/bundles/autowap/lecar/css/public.css') }}"  rel="stylesheet" />
+    <link href="{{ asset('/bundles/autowap/lecar/css/style.css?v=1.2') }}"  rel="stylesheet" />
+
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/lecar/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/lecar/js/fast.js') }}"></script>
+    <script src="{{ asset('/bundles/autowap/lecar/js/soundManager2.js') }}"></script>
+    <script  src="{{ asset('/bundles/autowap/lecar/js/PxLoader.js') }}"></script>
+    <script src="{{ asset('/bundles/autowap/lecar/js/PxLoaderImage.js') }}"></script>
+    <script src="{{ asset('/bundles/autowap/lecar/js/PxLoaderSound.js') }}"></script>
+    <script  src="{{ asset('/bundles/autowap/lecar/tour.js') }}"></script>
+</head>
+<body>
+<div class="load">
+    <div class="Histogram">
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+    </div>
+    <div class="title_loadnum"><span>0</span>%</div>
+</div>
+<article class="hudnfg">
+    <section class="page page1">
+        <div class="wh974">
+            <div class="tit5"></div>
+            <div class="car_bg">
+                <span></span>
+                <aside></aside>
+            </div>
+            <div class="startbuton"><span></span></div>
+        </div>
+    </section>
+    <section class="page page2 hide">
+
+        <div id="pano" style="width:100%;height:100%;">
+            <noscript><table style="width:100%;height:100%;"><tr style="vertical-align:middle;"><td><div style="text-align:center;">ERROR:<br/><br/>Javascript not activated<br/><br/></div></td></tr></table></noscript>
+        </div>
+
+
+        <div class="timer_out">
+            <p><span class="m1">0</span><span class="m2">5</span>:<span class="m3">0</span><span class="m4">0</span></p>
+        </div>
+        <section class="gamestart">
+            <div class="butonstat"></div>
+        </section>
+        <!--弹出提示-->
+        <section class="gametiops hide">
+            <div class="tips0 gamtps hide">
+                <aside class="Zero"></aside >
+                <span class="colsed"></span>
+                <span class="gonext"></span>
+            </div>
+            <div class="tips1 gamtps hide">
+                <aside class="Zero"></aside >
+                <span class="colsed"></span>
+                <span class="gonext"></span>
+            </div>
+            <div class="tips2 gamtps hide">
+                <aside class="Zero"></aside >
+                <span class="colsed"></span>
+                <span class="gonext"></span>
+            </div>
+            <div class="tips3 gamtps hide">
+                <aside class="Zero"></aside >
+                <span class="colsed"></span>
+                <span class="gostart"></span>
+            </div>
+            <div class="tips4 gamtps hide">
+                <span class="colsed"></span>
+                <span class="gonext"></span>
+            </div>
+            <div class="over hide"><span class="colsed"></span><span class="replay"></span></div>
+        </section>
+        <!--弹出提示-->
+        <!--车身提示-->
+        <section class="cartips">
+            <div class="car_top"><span class="new_cold"></span><span class="chod_spn"></span></div>
+            <div class="car_bot"><span class="new_cold"></span></div>
+        </section>
+    </section>
+    <section class="page page3 copage hide">
+        <section class="costion">
+            <section class="bgfdf" style="background-image:url('/bundles/autowap/lecar/images/bg1.jpg')">
+                <div class="ftit1"></div>
+                <div class="logo"></div>
+                <div class="tit1 flter"></div>
+                <div class="down"></div>
+            </section>
+        </section>
+        <section class="costion hide">
+            <section class="bgfdf" style="background-image:url('/bundles/autowap/lecar/images/bg2.jpg')">
+                <div class="logo"></div>
+                <div class="map"></div>
+                <div class="tit2 flter"></div>
+                <div class="down"></div>
+            </section>
+        </section>
+        <section class="costion hide">
+            <section class="bgfdf" style="background-image:url('/bundles/autowap/lecar/images/bg2.jpg')">
+                <div class="logo"></div>
+                <div class="wh800">
+                    <div class="tit3"></div>
+                    <div class="tit6"></div>
+                    <div class="ewm"> <img src="{{ asset('/bundles/autowap/lecar/images/img7.png') }}" /></div>
+                    <div class="tit4"></div>
+                    <div class="chmm"><img src="{{ asset('/bundles/autowap/lecar/images/mf.png') }}" /></div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <!--音乐-->
+    <div class="musiced hide">
+        <div class="msyuddtd kuddtz"></div>
+        <div class="yifd bigyf"></div>
+        <div class="yifd smyf"></div>
+    </div>
+    <audio src="{{ asset('/bundles/autowap/lecar/1.mp3') }}" loop preload="auto" class="audied"></audio>
+</article>
+<!---->
+<script type="text/javascript"src="{{ asset('/bundles/autowap/lecar/js/public.js') }}"></script>
+<script type="text/javascript"src="{{ asset('/bundles/autowap/lecar/js/loading.js') }}"></script>
+<script>
+    embedpano({swf:"/bundles/autowap/lecar/tour.swf", xml:"/bundles/autowap/lecar/tour.xml", target:"pano", html5:"prefer", initvars:{design:"flat"}, passQueryParameters:true});
+
+    function hotacn1(){
+        // alert("hotacn1")
+        if(canpaly2>0){
+            canpaly2=-1;
+
+        }else{
+            unkclic=-1;
+        }
+        gameadd();
+    }
+    function hotacn2(){
+        //alert("hotacn2");
+        //车头部;
+        $(".cartips").show();
+        $(".car_top").show();
+    }
+    function hotacn3(){
+        //alert("hotacn3")车尾部;
+        $(".cartips").show();
+        $(".car_bot").show();
+    }
+    function hotacn4(){
+        //alert("hotacn4")
+        if(canpaly3>0){
+            canpaly3=-1;
+
+        }else{
+            unkclic=-1;
+        }
+        gameadd();
+    }
+    function hotacn5(){
+        //alert("hotacn5")
+        if(canpaly4>0){
+            canpaly4=-1;
+
+        }else{
+            unkclic=-1;
+        }
+        gameadd();
+    }
+
+
+
+</script>
+<script type="text/javascript">
+    wx.config({
+        'debug': false,
+        'appId': '{{ signPackage.appId }}',
+        'timestamp': '{{ signPackage.timestamp }}',
+        'nonceStr': '{{ signPackage.nonceStr }}',
+        'signature': '{{ signPackage.signature }}',
+        'jsApiList': ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+
+        //自定义内容
+        var dataForWeixin = {
+            title: '5分钟，带你窥探未来出行',
+            desc: '重温车展现场体验极致科技，完美诠释何为未来！一次横跨终端，纵贯生态的神奇之旅，马上就要开始了！',
+            imgUrl: 'http://lecarshare.com/photograph/41/5f/415fb3460dc7f8a6b0b824470ef2149f9edd25f6.jpeg',
+            link: '{{ url }}'
+        };
+
+        //分享到朋友圈
+        wx.onMenuShareTimeline({
+            title: dataForWeixin.title, // 分享标题
+            link: dataForWeixin.link, // 分享链接
+            imgUrl: dataForWeixin.imgUrl,  // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        //分享给朋友
+        wx.onMenuShareAppMessage({
+            title: dataForWeixin.title, // 分享标题,
+            desc: dataForWeixin.desc, // 分享标题,
+            link: dataForWeixin.link, // 分享标题, // 分享链接
+            imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        //分享给qq
+        wx.onMenuShareQQ({
+            title: dataForWeixin.title, // 分享标题,
+            desc: dataForWeixin.desc, // 分享标题,
+            link: dataForWeixin.link, // 分享标题, // 分享链接
+            imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

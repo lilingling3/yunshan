@@ -1,0 +1,58 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['station', 'list'] %}
+{% block stylesheets %}
+
+
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=3dc0d24d401640b9b8249da6c4dd5a72&plugin=AMap.Walking"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/WalkingRender.js"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+	{{ parent() }}
+
+{% endblock %}
+{% block content %}
+	<div class="station-top">
+		<p class="title"><span class="site">{{ address }}</span>附近租赁点</p>
+	</div>
+
+	<div class="list">
+		{% for station in stations %}
+			{% if station.usableRentalCarCount>0 %}
+		<div class="scont stations" lon="{{ station.longitude }}" lat="{{ station.latitude }}">
+			<a class="href"  href="{{ path('auto_mobile_rental_car_list',{'sid':station.rentalStationID}) }}"  ></a>
+			<div class="inner-cont">
+				<div class="stitle">
+					<p class="sname">{{ station.name }}
+						<span class="carnum">
+						{% if station.usableRentalCarCount %}
+						可用<span class="num">{{ station.usableRentalCarCount }}</span>辆
+						{% else %}
+						暂无可用车辆
+						{% endif %}
+						</span></p>
+				</div>
+				<div class="inner">
+					{% if station.backType==601 %}<p class="yip"><span class="yi">随</span>支持异地取还车租赁点</p>{% endif %}
+					<p class="address">
+						<span class="s-icon"></span>
+						<span class="add-t">{{ station.street }}</span>
+						<span class="mile mileage"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+
+	<form>
+		<input type="hidden" id="lng" value="{{ lng }}" />
+		<input type="hidden" id="lat" value="{{ lat }}" />
+	</form>
+
+	<div class="geomap">
+		<div id='container'></div>
+		<div id="panel"></div>
+	</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

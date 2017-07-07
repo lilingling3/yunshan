@@ -1,0 +1,57 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['rentalcar', 'map'] %}
+{% block javascripts %}
+    <style>
+        #mapContainer{
+            min-height: 70rem;
+            margin: 0 auto;
+        }
+        .ui.grid>[class*="fourteen wide"].column{
+            width: 100%!important;
+        }
+        #admin .main-right{
+            background: #fff;
+        }
+        #admin .main-left{
+            display: none !important;
+        }
+
+    </style>
+    <script src="https://webapi.amap.com/maps?v=1.3&key=b9d7491ba1d58fecf58d56ca808024a5"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    {{ parent() }}
+    <script type="application/javascript">
+
+        console.log("地图页面开始加载latitude={{latitude }},longitude={{ longitude }}");
+
+        var map = new AMap.Map('mapContainer', {
+            // 设置中心点
+            center:[{{longitude}}, {{ latitude }}],
+            // 设置缩放级别
+            zoom: 16
+        });
+
+        //地图中添加地图操作ToolBar插件
+        map.plugin(["AMap.ToolBar"],function() {
+            var toolBar = new AMap.ToolBar();
+            map.addControl(toolBar);
+        });
+        var markers = [];
+        addMarker({{longitude}},{{ latitude }});
+
+        function addMarker(lng,lat){
+            marker = new AMap.Marker({
+                icon:"/bundles/autoadmin/images/map-marker.png",
+                position:new AMap.LngLat(lng,lat)
+            });
+            marker.setMap(map);  //在地图上添加点
+            markers.push(marker);
+        }
+
+    </script>
+
+{% endblock %}
+{% block content %}
+
+    <div id="mapContainer"></div>
+{% endblock %}

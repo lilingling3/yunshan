@@ -1,0 +1,132 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['deposit', 'list'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        html,body {
+            position: relative;
+            height: 100%;
+            background-color:white;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {#{{ total.total.status }}#}
+    <div class="deposit {% if total and total.total.status == 399 %} subg {% endif %}">
+        <div class="left-cont">
+            <div class="left-top">押金 (元)</div>
+            <div class="left-bottom" >{% if total and total.total.totalAmount %}{{ total.total.totalAmount }}{% else %}0{% endif %}</div>
+        </div>
+        {% if total and total.total.status == 399 %}
+            <div class="right-pay" ><span class="code">申请退款</span></div>
+        {% else %}
+            <div class="right-cont" ><span class="code">缴纳押金</span></div>
+        {% endif %}
+        <form method="get" action="{{ path('auto_mobile_pay_order') }}"> </form>
+    </div>
+    <div class="deposit-center">
+        <p>部分城市租赁车辆前需缴纳押金。</p>
+        <p>租车结算后可申请退还，押金最晚于30日内退还回您的账户。</p>
+    </div>
+
+
+    <div class="orderlist" pagecount="{{ total.pageCount|default(0) }}" page="{{ total.page|default(0) }}">
+        {% for deposit in deposits %}
+            {% if deposit.refundTime is not null or deposit.endTime is not null %}
+                <div class="order-li status102">
+                    <div class="row rowpadding">
+                        <div class="column column-info">
+                            <div class="item1">
+                                <p class="b">
+                                    {% if (deposit.amount - deposit.actualRefundAmount) == 0 %}
+                                        租车押金
+                                    {% elseif  deposit.refundTime and deposit.endTime is null %}
+                                        租车押金
+                                    {% else %}
+                                        租车押金（扣除{{ deposit.amount - deposit.actualRefundAmount }}元）
+                                    {% endif %}
+                                </p>
+                                <p class="time">
+                                    {{ deposit.payTime }}
+                                </p>
+                            </div>
+                            <div class="item">
+                            <span class=" status-top102">
+                                  {% if deposit.refundTime and deposit.endTime is null %}
+                                      <span  class="status-black">
+                                      {{ deposit.amount }}
+                                    </span>
+                                  {% elseif deposit.refundTime and deposit.endTime %}
+                                      <span  class="status-orange"  name="{{ deposit.actualRefundAmount }}">
+                                         {% if deposit.actualRefundAmount is null or deposit.actualRefundAmount ==0 %}-0{% else %}- {{ deposit.actualRefundAmount }}{% endif %}
+                                    </span>
+                                  {% else %}
+                                      <span class="status-green">
+                                         +{{ deposit.amount }}
+                                    </span>
+                                  {% endif %}
+                            </span>
+                                <p class="result">
+                                    {% if  deposit.refundTime and deposit.endTime is null %}
+                                        退款中
+                                    {% elseif deposit.refundTime and deposit.endTime %}
+                                        已退款
+                                    {% else %}
+                                        已缴纳
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {% if deposit.payTime %}
+                <div class="order-li status102">
+                    <div class="row rowpadding">
+                        <div class="column column-info">
+                            <div class="item1">
+                                <p class="b">租车押金</p>
+                                <p >
+                                    {{ deposit.createTime }}
+                                </p>
+                            </div>
+                            <div class="item">
+                            <span class=" status-top102">
+                                <span class="status-green">
+                                         +{{ deposit.amount }}
+                                    </span>
+                            </span>
+                                <p style="padding-left:15px;">已缴纳</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    {% if id==2 and total and total.total.status == 399 %}
+        <div class="pop_up">
+            <div class="pop_row">
+                <h4>缴纳成功</h4>
+                <a class="pop_ok" href="{{ path('auto_mobile_index') }}">
+                    <span>返回首页</span>
+                </a>
+            </div>
+        </div>
+        <div class="background"></div>
+    {% endif %}
+    {% if total and total.pageCount > 1 %}
+        <div class="moreorderbtn">
+            加载更多
+        </div>
+    {% endif %}
+    <input type="hidden" id="auth" value="{{ auth.status }}" />
+    <input type="hidden" id="userID" value="{{ app.user.token }}" />
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

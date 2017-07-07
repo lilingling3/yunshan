@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>云杉智行联手腾讯汽车，自驾出行自由安心。</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/autowap/css/carshow.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/js/zepto.min.js') }}" ></script>
+</head>
+<body>
+<div class="container">
+    <div class="top-cont">
+        <img  src="{{ asset('/bundles/autowap/images/carshow-top-bg1.png') }}" class="top-bg top-bg1" />
+        <img src="{{ asset('/bundles/autowap/images/carshow-top-bg2.png') }}"  class="top-bg top-bg2" />
+        <div class="top-text">
+            <img src="{{ asset('/bundles/autowap/images/carshow-top-text.png') }}" class="text" />
+            <img  src="{{ asset('/bundles/autowap/images/carshow-coupon.png') }}" class="coupon"/>
+        </div>
+        </div>
+    <div class="center-cont">
+        <img src="{{ asset('/bundles/autowap/images/carshow-center-bg.png') }}" class="center-bg" />
+        <div class="inner">
+            <div class="center-text"><img src="{{ asset('/bundles/autowap/images/carshow-center-text.png') }}" /></div>
+            <div class="register">
+                <div class="cptext">租车券已经放入账户：<span class="usrPhone"></span></div>
+                <div class="input-cont">
+                    <input type="tel" maxlength="11" id="phone" name="phone" autocomplete="off" placeholder="输入手机号">
+                </div>
+                <div class="button ">立刻领取</div>
+                <a class="button-href" style="display: block"  href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653" >下载手机App</a>
+                <a class="coupon-href" href="{{ path('auto_wap_activity_carshow_protocol') }}" >云杉智行优惠券使用规则</a>
+            </div>
+            <p class="cf-text">若出现优惠券未即时到账的情况，云杉智行将在24小时内自动为您充值到账
+                户，同一个用户限使用1张优惠券（同一个账号、同一个手机号、均算作同
+                一个用户）</p>
+        </div>
+    </div>
+    <div class="foot-cont">
+        <img src="{{ asset('/bundles/autowap/images/carshow-foot-cont.png') }}"  />
+        <a href="tel:4001118220" class="tel"></a>
+        <a href="http://leshare.com" class="website"></a>
+    </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="{{ asset('/bundles/autowap/js/module/carshow.js') }}" ></script>
+</html>

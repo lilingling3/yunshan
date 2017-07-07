@@ -1,0 +1,11 @@
+{% extends "AutoAdminBundle::base.html.twig" %}
+{% set page_id  = ['message', 'default'] %}
+ {% block content %}
+     <div class="ui icon message">
+         <div class="content">
+             <div class="header">{{ message }}</div>
+             <p><a href="javascript:history.go(-1);"><button class="ui toggle button">点击返回</button></a></p>
+         </div>
+     </div>
+
+ {% endblock %}

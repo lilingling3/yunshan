@@ -1,0 +1,75 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'list'] %}
+{% block content %}
+    <div class="top-menu">
+        运营车辆
+        <a href="{{ path("auto_operate_station_list") }}" class="left-cont"><b></b></a>
+        <span><a href="javascript:window.location.reload();" >刷新</a></span>
+
+    </div>
+    <div class="station">
+        <div class="row">
+            <h3>{{ rentalStation.name }}</h3>
+            <div class="station-cont">
+                <p>{{ rentalStation.street }}</p>
+            </div>
+            <div class="column">
+                <p>已租车辆 {{ rentalStation.processRentalCarCount }} 辆
+                    <span class="line">上线车辆 {{ rentalStation.onlineRentalCarCount }} 辆</span>
+                    <span class="line">下线车辆 {{ rentalStation.offlineRentalCarCount }} 辆</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% if rentalCars %}
+    <div class="car-list">
+    {% for rentalCar in rentalCars %}
+        <a href="{{ path('auto_operate_rental_car_show',{'id':rentalCar.rentalCarID}) }}">
+        
+
+        <li class="{% if rentalCar.status==301  %}onlin_li{% endif %}">
+
+            <div class="left"><img src="{{ rentalCar.image }}"> </div>
+            <div class="right clearfix {% if not rentalCar.online %}off-style{% endif %}">
+                <p class="license">{{ rentalCar.license }}
+                </p>
+                <div class="row clearfix">
+                    <div class="column ">
+                        <p>
+                            车型&nbsp;:&nbsp;<span class="car-name">{{ rentalCar.car.name }}</span>&nbsp;&nbsp;
+                            续航&nbsp;:&nbsp;
+                                <span class="car-name">
+                                    {% if rentalCar.mileage %}
+                                        {{ rentalCar.mileage }} km
+                                    {% else %}
+                                    <span class="color-red">异常</span>
+                                    {% endif %}
+                                </span>
+                        </p>
+                    </div>
+                    <div class="column">
+                        {% if rentalCar.online ==1 %}
+                            <span class="online">已上线-
+                                {% if rentalCar.status == 300 %}<span class="color-green">未租赁</span>
+                                    {% elseif rentalCar.status == 301 %}<span class="color-yellow">租赁中</span>
+                                    {% endif %}
+                                    </span>
+                        {% else %}
+                            <span class="off-line">已下线-
+                             {% if rentalCar.status == 301 %}<span class="color-yellow">租赁中</span>
+                                 {% else %}<span class="color-red">待整备</span>
+                             {% endif %}
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+               
+                     
+            </div>
+
+        </li></a>
+    {% endfor %}
+
+    </div>
+        {% endif %}
+{% endblock %}

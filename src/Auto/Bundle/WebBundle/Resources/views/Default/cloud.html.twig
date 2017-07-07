@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/semantic/dist/semantic.min.css') }}">
+    <link href="{{ asset('/bundles/autoweb/css/cloud.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="{{ asset('/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/semantic/dist/semantic.min.js') }}"></script>
+
+    <style>
+        .action-list{
+            margin-top: 50px;
+        }
+        .action-list .item span{
+            float: right;
+        }
+
+
+    </style>
+    <title>零派云盒</title>
+</head>
+<body>
+<!--class  制灰:ui button  basic operate cloud-btn unablebtn -->
+<div class="main ui container">
+
+
+    <form class="ui form">
+
+        <div class="fields column" style="margin-top: 20px;">
+            <div class="ui wide grid" style="width: 100%;">
+                <div class="twelve wide column">
+                    <label>设备号</label>
+                    <select id="boxid" class="ui dropdown">
+                        {% for box in box_list %}
+                            <option>{{ box }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="four wide column">
+                    <label style="visibility: hidden; "></label>
+                    <button class="ui button del-box cloud-btn1" style=" position: absolute;bottom: 1rem;" data-operate="open" type="button">删除</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="fields" style="margin-top: 10px;">
+            <div class="ui wide grid" style="width: 100%;">
+                <div class="twelve wide column">
+                    <label>零派云盒设备号</label>
+                    <input type="text" name="box" id="add_box" maxlength="16" placeholder="零派云盒设备号">
+                </div>
+                <div class="four wide column">
+                    <label></label>
+                    <button class="ui button add-box cloud-btn1" style=" position: absolute;bottom: 1rem; " data-operate="open" type="button">添加</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="ui grid" style="margin-top: 10px;">
+            <div class="sixteen wide column">
+                <div class="line"></div>
+            </div>
+            <div class="four wide column">
+
+                <button class="ui button black basic  operate cloud-btn" data-operate="open" type="button">开门</button>
+            </div>
+            <div class="four wide column">
+                <button class="ui button black basic operate cloud-btn" data-operate="close" type="button">关门</button>
+            </div>
+            <div class="four wide column">
+                <button class="ui button black basic operate cloud-btn" data-operate="find" type="button">寻车</button>
+            </div>
+
+            <div class="four wide column">
+                <button class="ui button black basic operate cloud-btn" data-operate="pursuit" type="button">追逃</button>
+            </div>
+            <div class="four wide column">
+                <button class="ui button black basic operate cloud-btn" data-operate="on" type="button">通电</button>
+            </div>
+            <div class="four wide column">
+                <button class="ui button black basic operate cloud-btn" data-operate="off" type="button">断电</button>
+            </div>
+            <div class="four wide column">
+                <button class="ui button  basic operate cloud-btn unablebtn" data-operate="sleep" type="button">休眠</button>
+            </div>
+
+            <div class="four wide column">
+                <button class="ui button  basic operate cloud-btn unablebtn" data-operate="wake" type="button">唤醒</button>
+            </div>
+
+
+            <div class="eight wide column">
+                <button class="ui button black basic operate cloud-btn " data-operate="reset" type="button">复位</button>
+            </div>
+
+
+
+            <div class="sixteen wide column ui grid">
+                <div class="five wide column">
+                    <button class="ui button black basic operate cloud-btn2" data-operate="startShare" type="button">下发密码</button>
+                </div>
+                <div class="five wide column">
+                    <button class="ui button black basic operate cloud-btn2" data-operate="stopShare" type="button">密码失效</button>
+                </div>
+                <div class="five wide column">
+                    <button class="ui button black basic  password cloud-btn2" type="button">获取密码</button>
+                </div>
+            </div>
+            <div class="sixteen wide column">
+                <div class="line"></div>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="app_update" type="button">更新app</button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="ssl_app_update" type="button">HTTPS-app</button>
+            </div>
+
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="xml_E150" type="button">E150XML</button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="ssl_xml_E150" type="button">HTTPS-E150</button>
+            </div>
+
+
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="xml_E160" type="button">E160XML</button>
+            </div>
+
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="ssl_xml_E160" type="button">HTTPS-E160</button>
+            </div>
+
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="xml_E200" type="button">E200XML</button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="ssl_xml_E150" type="button">HTTPS-E200</button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="xml_jianghuai" type="button">江淮XML</button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="ssl_xml_E150" type="button">HTTPS-江淮</button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="xml_dihao" type="button">帝豪XML</button>
+            </div>
+            <div class="eight wide column">
+                <button class="ui button black basic operate" data-operate="ssl_xml_E150" type="button">HTTPS-帝豪</button>
+            </div>
+            <div class="sixteen wide column">
+                <div class="line"></div>
+            </div>
+
+                <div class="four wide column">
+                    <button class="ui button green basic record cloud-btn" data-action="mileage" type="button">里程</button>
+                </div>
+                <div class="four wide column">
+                    <button class="ui button green basic  record cloud-btn" data-action="range" type="button">续航</button>
+                </div>
+                <div class="four wide column">
+                    <button class="ui button green basic  record cloud-btn" data-action="gps" type="button">gps</button>
+                </div>
+                <div class="four wide column">
+                    <button class="ui button green basic  record cloud-btn" data-action="Gsensor" type="button">Gsen</button>
+                </div>
+
+
+
+                <div class="four wide column">
+                    <button class="ui button green basic  record cloud-btn" data-action="speed" type="button">速度</button>
+                </div>
+                <div class="ten wide column">
+                    <button class="ui button green basic  record" data-action="switch" type="button">动力电</button>
+                </div>
+            <div class="four wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="sw-version" type="button">版本号</button>
+            </div>
+
+            <div class="ten wide column">
+                <button class="ui button green basic  record" data-action="Demolish_Event" type="button">拆除事件</button>
+            </div>
+            <div class="sixteen wide column">
+                <div class="line"></div>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="200011" type="button">20001/1</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="200012" type="button">20001/2</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="200013" type="button">20001/3</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="200014" type="button">20001/4</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="200015" type="button">20001/5</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="200016" type="button">20001/6</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="Reset" type="button">25000/2</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="BusOff_Event" type="button">25000/11</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="PKCE_Event" type="button">25000/12</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="SIM_Check_Event" type="button">25000/13</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="MCU_808_Event" type="button">25000/14</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="PPP_Event" type="button">25000/15</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="GPRS_SIG_Conn_Event" type="button">25000/17</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="System_Voltage_Event" type="button">25000/21</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="Passwd_Crack_Event" type="button">25000/24</button>
+            </div>
+            <div class="five wide column">
+                <button class="ui button green basic  record cloud-btn" data-action="WakeUp_Event" type="button">25000/27</button>
+            </div>
+
+            <div class="five wide column">
+                <button class="ui button green basic  record  cloud-btn" data-action="Lock_Failed_Event" type="button">25000/30</button>
+            </div>
+
+
+            <div class="five wide column">
+                <button class="ui button green basic  record  cloud-btn" data-action="Open_Door_Flag" type="button">1/10</button>
+            </div>
+
+
+
+        </div>
+    </form>
+
+
+</div>
+
+
+<div class="main ui container">
+    <div class="list action-list">
+
+
+    </div>
+</div>
+
+
+
+<script>
+    $(".operate").click(function(){
+        var box=$("#boxid").val();
+        var operate = $(this).attr('data-operate');
+        console.log("operate::"+operate);
+        if(operate=="sleep"||operate=="wake"/*||operate=="reset"*/){
+            return false;
+        }
+        $("form").addClass('loading');
+        $.post("/api/rentalCar/cloud/box/operate",{boxID:box,operate:operate},function(result){
+            if(result.errorCode==0){
+                alert('操作成功');
+            }else{
+                alert("操作失败");
+            }
+            $("form").removeClass('loading');
+        });
+    });
+
+    $(".password").click(function(){
+        var box=$("#boxid").val();
+        $("form").addClass('loading');
+        $.post("/api/rentalCar/cloud/box/password",{boxID:box},function(result){
+            if(result.errorCode==0){
+                alert(result.password);
+            }else{
+                alert("操作失败");
+            }
+            $("form").removeClass('loading');
+        });
+    });
+
+    $(".add-box").click(function(){
+        var box=$("#add_box").val();
+        if(box == ''){
+            alert('请输入设备号');
+            return;
+        }
+        $.post("/api/rentalCar/cloud/box/add",{boxID:box},function(result){
+            window.location.reload()
+        });
+    });
+
+    $(".del-box").click(function(){
+        var box=$("#boxid").val();
+        if(box == ''){
+            alert('请选择设备号');
+            return;
+        }
+        $.post("/api/rentalCar/cloud/box/delete",{boxID:box},function(result){
+            window.location.reload()
+        });
+    });
+
+    $(".record").click(function(){
+        var box=$("#boxid").val();
+        var action = $(this).attr('data-action');
+        $.post("/api/rentalCar/cloud/box/record",{boxID:box,action:action},function(result){
+
+            if(result.errorCode==0){
+
+                var str = '';
+                for(d in result.data){
+                    var item = result.data[d];
+                    str+='<div class="item">'+ item[action]+'<span>'+item.time+'</span></div>';
+                }
+
+                $(".action-list").html(str);
+            }
+
+        });
+    });
+
+
+</script>
+
+</body>
+</html>

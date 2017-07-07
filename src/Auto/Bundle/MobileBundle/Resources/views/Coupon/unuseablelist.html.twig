@@ -1,0 +1,63 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['coupon','unuseable'] %}
+{% block content %}
+
+    <article class="content">
+
+        <!--没有优惠券-->
+        {% if not coupons %}
+            <div class="no-coupon-t">
+                <p class="no-coupon">很抱歉，您暂时没有优惠券！</p>
+            </div>
+        {% endif %}
+        <!--有优惠券-->
+        <!--可用的优惠券--->
+        <div class="list">
+            {% for coupon in coupons %}
+
+                <section class="{% if coupon.valid ==400 %}avaiable{% else %}unavaiable{% endif %}" coupon-value="{{ coupon
+                .amount }}" >
+                    <div class="row">
+                        <div class="coupon-cont">
+                            <div class="incont"><span class="amount">{{ coupon.amount }}</span></div>
+                        </div>
+                        <div class="coup-text">
+                            <p>{{ coupon.name }}</p>
+                            <p class="date">有效期至   {{ coupon.endTime }} {% if coupon.valid ==401 %}[已使用]{% endif %}{% if coupon.valid ==402 %}[已过期]{% endif %}</p>
+                            <p class="needhour">
+                            {% if  coupon.needHour ==0 and coupon.needAmount ==0 and coupon.carLevel =="" %}
+                                无使用规则
+                            {% else %}
+                                {% if coupon.needHour > 0 and coupon.needAmount > 0 %}
+                                    规则:满{{ coupon.needHour }}小时 | {{ coupon.needAmount }} 元以上 | {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% elseif coupon.needHour > 0 %}
+                                    规则:满{{ coupon.needHour }}小时 | {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% elseif coupon.needAmount > 0 %}
+                                    规则:{{ coupon.needAmount }} 元以上 | {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% else %}
+                                    规则: {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% endif %}
+                            {% endif %}
+                            </p>
+                        </div>
+
+                    </div>
+                </section>
+
+            {% endfor %}
+        </div>
+    </article>
+
+  
+
+    <div class="tcont">
+        <a class="inline" href="{{ path('auto_mobile_coupon_useablelist') }}"><span>可用优惠券</span></a>
+          {% if pageCount>1 %}
+        <a class="morecouponbtn"  user="{{ app.user.token }}">
+             | &nbsp&nbsp加载更多
+        </a>{% endif %}
+    </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

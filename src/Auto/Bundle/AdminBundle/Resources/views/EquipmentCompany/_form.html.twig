@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.fullName) }}</label>
+        {{ form_widget(form.fullName,{'attr': {'placeholder':'请输入设备公司全称'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.name) }}</label>
+        {{ form_widget(form.name,{'attr': {'placeholder':'请输入设备公司简称'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.address) }}</label>
+        {{ form_widget(form.address,{'attr': {'placeholder':'请输入设备公司详细地址'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.contactName) }}</label>
+        {{ form_widget(form.contactName,{'attr': {'placeholder':'请输入设备公司联系人姓名'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.contactMobile) }}</label>
+        {{ form_widget(form.contactMobile,{'attr': {'placeholder':'请输入设备公司联系人的联系方式'}} ) }}
+    </div>
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">保存</button>
+</div>
+{{ form_end(form) }}

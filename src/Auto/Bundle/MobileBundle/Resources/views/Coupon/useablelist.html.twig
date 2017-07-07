@@ -1,0 +1,76 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['coupon','useable'] %}
+{% block content %}
+    <!--没有优惠券-->
+    {% if not coupons %}
+        <div class="no-coupon-t"  style="text-align:center;color:#b5b6b6;margin-top:20%;">
+            <div class="paybtn">
+                <div class="img-cont"><img src="{{ rentalOrder.rentalCar.image|default('/bundles/automobile/images/youhuijuan.png') }}" /></div>
+            </div>
+            <p class="no-coupon">很抱歉，您暂时没有可用优惠券</p>
+        </div>
+    {% else %}
+    <article class="content">
+        <div class="coupon-code">
+            <div class="code-inner clearfix">
+                <form method="post" action="{{ path('auto_mobile_coupon_draw') }}">
+                    <div class="input-cont">
+                        <img class="btn-bg" src="{{ asset('/bundles/automobile/images/index-btn2-bg.png') }}" />
+                        <input class="code" name="code" type="text" placeholder="请输入兑换码"/>
+                    </div>
+                    <span class="button">
+                       
+                        <span class="btn-t tb-center">兑换</span>
+                    </span>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+        <!--有优惠券-->
+        <!--可用的优惠券--->
+        <div class="list">
+            {% for coupon in coupons %}
+
+                <section class="avaiable"  >
+                    <div class="row">
+                        <div class="coupon-cont">
+                            <div class="incont">  <span class="amount">{{ coupon.amount }}</span></div>
+                        </div>
+                        <div class="coup-text">
+                            <p>{{ coupon.name }}</p>
+                            <p class="date">有效期至  {{ coupon.endTime }} {% if coupon.valid ==401 %}[已使用]{% endif %}{% if coupon.valid ==402 %}[已过期]{% endif %}</p>
+                            <p class="needhour">
+                            {% if  coupon.needHour ==0 and coupon.needAmount ==0 and coupon.carLevel =="" %}
+                                无使用规则
+                            {% else %}
+                                {% if coupon.needHour > 0 and coupon.needAmount > 0 %}
+                                    规则:满{{ coupon.needHour }}小时 | {{ coupon.needAmount }} 元以上 | {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% elseif coupon.needHour > 0 %}
+                                    规则:满{{ coupon.needHour }}小时 | {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% elseif coupon.needAmount > 0 %}
+                                    规则:{{ coupon.needAmount }} 元以上 | {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% else %}
+                                    规则: {% if coupon.carLevel =='' %}全部车型{% else %}{{ coupon.carLevel }}{% endif %}
+                                {% endif %}
+                            {% endif %}</p>
+                        </div>
+
+                    </div>
+                </section>
+
+            {% endfor %}
+        </div>
+    </article>
+
+    <div class="tcont">
+        <!--<a class="inline" href="{{ path('auto_mobile_coupon_unuseablelist') }}"><span>过期优惠券| &nbsp&nbsp</span></a>-->
+        {% if pageCount>1 %}
+        <a class="morecouponbtn"  user="{{ app.user.token }}">
+            加载更多
+        </a>{% endif %}
+    </div>
+
+
+{% endblock %}
+        {% block footer %}
+        {% endblock %}

@@ -1,0 +1,62 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['recharge', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'充值活动'} %}
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             {{ form_start(form) }}
+             <div class="ui form" style="line-height: 40px;">
+                 <div class=" fields">
+                     <div class="three wide field ">
+                     <label>手机号</label>
+                     {{ form_widget(form.mobile,{'attr': {'placeholder':'请输入' }} ) }}
+                         </div>
+                     <div class="three wide field">
+                         <label>实退金额</label>
+                         {{ form_widget(form.actualamount,{'attr': {'placeholder':'请输入' }} ) }}
+                     </div>
+                     <div class="three wide field">
+                         <label>退扣余额</label>
+                         {{ form_widget(form.chargeamount,{'attr': {'placeholder':'请输入' }} ) }}
+                     </div>
+                     <div class="three wide field">
+                         <label>类型</label>
+                         {{ form_widget(form.way,{'attr': {'placeholder':'请输入' }} ) }}
+                     </div>
+                 </div>
+
+                 <div class="ui grid">
+                     <div class="ten wide" style="width:76%;">
+                         <div class="field">
+                             <label>备注信息</label>
+                             {{ form_widget(form.remark,{'attr': {'placeholder':'请输入','class':'gd' }} ) }}
+                         </div>
+                     </div>
+                 </div>
+
+                 <a onclick="history.go(-1)" class="ui teal button">返回</a>
+                 <div class="ui teal button" type="button" id="submit" style="margin: 28px 1.25em 0 0;">保存</div>
+             </div>
+
+             {{ form_end(form) }}
+
+     </div>
+
+    <div class="fifteen wide column refundframe" style="display:none;">
+        <div class="frame">
+
+            <div class="head"><a href="javascript:void(0)" class="closeWd"><span class="close">x</span></a></div>
+
+            <div class="content">
+                <p>您确定要扣<span id="memberMobile"></span> 用户<span id="rechargeAmount"></span>元吗？</p>
+            </div>
+            <p style="top:10px;center;">
+                <input class="ui basic button tiny" type="button" name="cancel" value="取消">
+                <input class="ui basic button tiny" type="button" name="confirm" value="确认">
+            </p>
+            
+        </div>
+    </div>
+
+ {% endblock %}

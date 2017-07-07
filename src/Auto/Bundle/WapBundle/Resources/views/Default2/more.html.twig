@@ -1,0 +1,43 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default2', 'more'] %}
+{% block content %}
+  
+    <div class="member-li">
+        <a href="{{ path('auto_wap_car_list2') }}">
+            <li>车辆使用帮助</li>
+        </a>
+        <a href="{{ path('auto_wap_more_rent') }}">
+            <li>租赁服务协议</li>
+        </a>
+        <a href="{{ path('auto_wap_more_about') }}">
+            <li class="noborder">关于云杉智行</li>
+        </a>
+    </div>
+
+    <div class="member-li">
+        <li class="noborder">联系客服
+            <a href="tel:4001118220" class="tel"><span class="blue">400-111-8220</span></a>
+        </li>
+    </div>
+
+
+    <div class="member-li">
+        <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653">
+            <li class="noborder">下载客户端</li>
+        </a>
+    </div>
+
+
+
+
+    <div class="footdiv">
+        <a class="foota"  href="{{ path('auto_wap_index3') }}">
+            <img src="{{ asset('/bundles/autowap/images/2.0-home.png') }}"/>
+        </a>
+    </div>
+
+
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

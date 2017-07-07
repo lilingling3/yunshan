@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>租赁车辆</label>
+        <p>{{ rentalCar.license }}</p>
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.nextUpkeepTime) }}</label>
+        {{ form_widget(form.nextUpkeepTime) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.nextMileage) }} <small style="color: red;"> 当前里程：{{ mileageCurrent }}km</small></label>
+        {{ form_widget(form.nextMileage) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.remark) }}</label>
+        {{ form_widget(form.remark) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.upkeepTime) }}</label>
+        {{ form_widget(form.upkeepTime) }}
+    </div>
+
+    <a onclick="history.go(-1)" class="ui teal button">返回</a>
+    <button class="ui teal button" type="submit">提交</button>
+
+</div>
+{{ form_end(form) }}

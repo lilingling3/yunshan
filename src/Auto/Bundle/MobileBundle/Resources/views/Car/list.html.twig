@@ -1,0 +1,35 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+{% block title %}车辆使用手册{% endblock %}
+{% block content %}
+    <div class="container">
+    <section class="cont">
+        <div class="row">
+            <div class="innercont">
+                <div class="imgcont">
+                    <a class="href" href="{{ path('auto_mobile_car_show',{'id':1}) }}"></a>
+                    <img src="{{ asset('/bundles/automobile/images/eq.png') }}"/>
+                    <p class="bootom-cont">奇瑞EQ</p>
+                </div>
+                <div class="imgcont">
+                    <a class="href" href="{{ path('auto_mobile_car_show',{'id':2}) }}"></a>
+                    <img src="{{ asset('/bundles/automobile/images/ev.png') }}"/>
+                    <p class="bootom-cont bgbule">北汽EV160</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="innercont">
+                <div class="imgcont">
+                    <a class="href" href="{{ path('auto_mobile_car_show',{'id':3}) }}"></a>
+                    <img src="{{ asset('/bundles/automobile/images/eu.png') }}"/>
+                    <p class="bootom-cont bgyellow">北汽EU260</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

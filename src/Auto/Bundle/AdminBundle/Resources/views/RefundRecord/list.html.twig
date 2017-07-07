@@ -1,0 +1,107 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['refund_record', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'退款审核'} %}
+     <div class="ui main-search grid  bk_gray" style="padding: 0px">
+
+         <div class="fifteen wide column" style="background: transparent;">
+             <form action="{{ path("auto_admin_refund_record_list") }}" method="get">
+                 <table class="ui very basic table">
+                     <tbody>
+                         <td class="ui input">
+                             <input type="text" name="mobile" placeholder="请输入用户手机号">
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">提交</button>
+                         </td>
+                         <td style=" width: 303px;"></td>
+                         <td style=" width: 355px;"></td>
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_refund_record_new') }}">添加退款申请 </a>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>用户</th>
+                     <th>申请时间</th>
+                     <th>审核时间</th>
+                     <th>退款金额（元）</th>
+                     <th>状态</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for v in lists %}
+                 <tr>
+                     <td>{{ v.member.name }}<br>{{ v.member.mobile }}</td>
+                     <td>{{ v.createTime|date('Y-m-d H:i:s') }}</td>
+                     <td>{% if v.checkTime %}{{ v.checkTime|date('Y-m-d H:i:s')  }}{% endif %}</td>
+                     <td>{{ refundAmounts[v.id] }}</td>
+                     <td>
+                         {% if refundStatus[v.id] == 900 %}
+                             待审核
+                         {% elseif refundStatus[v.id] == 901 %}
+                             审核成功
+                         {% elseif refundStatus[v.id] == 902 %}
+                             审核失败
+                         {% elseif refundStatus[v.id] == 903 %}
+                             退款成功
+                         {% endif %}
+                     </td>
+                     <td>
+                         {% if refundStatus[v.id] == 900 %}
+                            <a href="{{ path('auto_admin_refund_record_check',{'id':v.id}) }}"><small>审核</small></a>
+                         {% elseif refundStatus[v.id] == 901 %}
+                             <a href="{{ path('auto_admin_refund_record_refund',{'id':v.id}) }}"><small>退款</small></a>
+                         {% else %}
+                             <a href="{{ path('auto_admin_refund_record_show',{'id':v.id}) }}"><small>查看</small></a>
+                         {% endif %}
+                     </td>
+                 </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_refund_record_list",{'page':k,'mobile':mobile}) }}">{{ k }}</a>
+                                 {% else %}
+                                    <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+         </div>
+     </div>
+
+
+ {% endblock %}

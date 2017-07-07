@@ -1,0 +1,146 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['default', 'index'] %}
+ {% block content %}
+
+     <div class="ui main-top grid">
+         <div class="twelve wide column">
+             <h3>首页</h3>
+         </div>
+         <div class="four wide center aligned column">
+             <small>
+                 {% if is_granted('ROLE_ADMIN') %}
+                     管理员
+                 {% endif %}
+                 {% if is_granted('ROLE_SERVER') %}
+                     客服
+                 {% endif %}
+                 {% if is_granted('ROLE_COO') %}
+                     运营总监
+                 {% endif %}
+                 {% if is_granted('ROLE_FINANCE') %}
+                     财务主管
+                 {% endif %}
+                 {% if is_granted('ROLE_MARKET') %}
+                     市场主管
+                 {% endif %}
+                 <a href="{{ path("auto_admin_logout") }}">退出</a>
+             </small>
+         </div>
+     </div>
+
+     <div class="ui main-content grid menu">
+         <div class="ten wide column">
+
+             <table class="ui very basic table selectable ">
+                 <thead>
+                 <tr>
+                     <th>待处理事项</th>
+                     <th></th>
+
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% if is_granted('ROLE_SERVER') %}
+                     {% if waiting !=0  %}
+                         <tr>
+
+                             <td class="item">用户认证</td>
+                             <td><a  class="ablock red" href="/admin/authMember/auth/list" >数量：{{ waiting  }}</a></td>
+
+                         </tr>
+                     {% endif %}
+                 {% endif %}
+                 {% if is_granted('ROLE_ADMIN') %}
+                     {% if waiting !=0  %}
+                         <tr>
+
+                             <td class="item">用户认证</td>
+                             <td><a  class="ablock red" href="/admin/authMember/auth/list" >数量：{{ waiting  }}</a></td>
+
+                         </tr>
+                     {% endif %}
+                     {% if offline !=0  %}
+                         <tr>
+                             <td class="item">待整备</td>
+                             <td><a  class="ablock red" href="/admin/rentalcar/list" >数量：{{ offline }}</a></td>
+                         </tr>
+                     {% endif %}
+                     {% if Illegal !=0  %}
+                         <tr>
+                             <td class="item">车辆违章</td>
+                             <td><a  class="ablock red" href="/admin/illegalRecord/list" >数量：{{ Illegal }}</a></td>
+
+                         </tr>
+                     {% endif %}
+                     {% if black_members !=0 %}
+                         <tr {#style="display: none !important;"#}>
+                             <td class="item">黑名单申诉</td>
+                             <td><a  class="ablock red" href="/admin/appeal/list" >数量：{{ black_members }}</a></td>
+
+                         </tr>
+                     {% endif %}
+                 {% endif %}
+                 {% if waiting ==0 %}
+                     {% if  offline ==0 %}
+                         {% if  Illegal ==0 %}
+                             <div>
+                                 <td class="nopend" style="text-align: center;">暂无待处理事项！</td>
+                             </div>
+                         {% endif %}
+                     {% endif %}
+                 {% endif %}
+
+                 </tbody>
+             </table>
+
+         </div>
+
+         <div class="five wide column" >
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>最新动态</th>
+                     <th style="width: 43px;"><a href="{{ path("auto_admin_operateRecord_list") }}" >更多</a></th>
+                 </tr>
+                 </thead>
+                 <tbody>
+
+                 {% for operateRecord in operateRecords %}
+                     <tr>
+                         <td>
+                             {{ operateRecord.createTime |default()|date('Y-m-d H:i:s')}}
+                             {{ operateRecord.operateMember.name }}
+                             {% if operateRecord.behavior==1%}创建{% elseif operateRecord.behavior==2 %}更新{% elseif operateRecord.behavior==3 %}删除{% endif %}
+
+                             {% if operateRecord.objectName =="SMS" %} 短信
+                             {% elseif operateRecord.objectName =="AuthMember" %}用户
+                             {% elseif operateRecord.objectName =="Car" %}车型
+                             {% elseif operateRecord.objectName =="Station"%} 租赁点
+                             {% elseif operateRecord.objectName =="Coupon" %}优惠券
+                             {% elseif operateRecord.objectName =="RentalCar" %}车辆
+                             {% elseif operateRecord.objectName =="Area" %}地区
+                             {% elseif operateRecord.objectName =="Company" %}车辆归属公司
+                             {% elseif operateRecord.objectName =="Color" %}颜色
+                             {% elseif operateRecord.objectName =="RentalPrice" %}车型定价
+                             {% elseif operateRecord.objectName =="CouponActivity" %}优惠活动
+                             {% elseif operateRecord.objectName =="LicensePlace"%} 车牌归属地
+                             {% elseif operateRecord.objectName =="BodyType"%} 车身结构
+                             {% elseif operateRecord.objectName =="CarLevel"%} 车型级别
+                             {% elseif operateRecord.objectName =="CouponKind"%} 优惠券类型
+                             {% elseif operateRecord.objectName =="BlackList"%} 黑名单
+                             {% elseif operateRecord.objectName =="Appeal"%} 用户申诉
+                             {% elseif operateRecord.objectName =="RechargeOrder"%} 用户充值
+                             {% elseif operateRecord.objectName =="RefundRecord"%} 退款审核
+                             {% else %}{{ operateRecord.objectName }}{% endif %}
+                              </td>
+                     </tr>
+                 {% endfor %}
+
+
+                 </tbody>
+             </table>
+
+         </div>
+     </div>
+
+ {% endblock %}

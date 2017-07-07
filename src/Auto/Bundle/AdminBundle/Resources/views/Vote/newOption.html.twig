@@ -1,0 +1,47 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['vote', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'投票列表'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:Vote:_optionForm.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">添加投票 </a>
+             </div>
+         </div>
+     </div>
+
+     <div class="eight wide column">
+
+         <h4 class="ui horizontal divider header"><i class="tag icon"></i> 选项 </h4>
+
+
+         <table class="ui teal table">
+             <thead>
+             <tr>
+                 <th>图片</th>
+                 <th>名称</th>
+                 <th>投票数量</th>
+             </tr></thead><tbody>
+             {% for option in options %}
+                 <tr>
+                     <td><img src="{{ option.image|photograph(100,80,'crop') }}"> </td>
+                     <td>{{ option.name }}</td>
+                     <td>{{ option.records|length }}</td>
+                 </tr>
+             {% endfor %}
+             </tbody>
+         </table>
+
+
+     </div>
+
+ {% endblock %}

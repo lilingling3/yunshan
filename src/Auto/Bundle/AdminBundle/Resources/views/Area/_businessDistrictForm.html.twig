@@ -1,0 +1,46 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" fields">
+        <div class=" ten wide field">
+            <label>{{ form_label(form.name) }}</label>
+            {{ form_widget(form.name,{'attr': {'placeholder':"名称",'class':'ui dropdown' }} ) }}
+        </div>
+    </div>
+
+    <div class="fields">
+        <div class="five wide field">
+            <label>省份</label>
+            <select class="ui dropdown" id="country" data-cascading="#provincial" data-src="{{ path('auto_admin_area_all') }}"></select>
+        </div>
+        <div class="five wide field">
+            <label>城市</label>
+            <select class="ui dropdown" id="provincial" data-cascading="#{{ form.area.vars.id }}"></select>
+        </div>
+        <div class="six wide field">
+            <label>地区</label>
+            {{ form_widget(form.area, {attr: {class: 'ui dropdown', 'data-value': form.area.vars.value}}) }}
+        </div>
+    </div>
+
+
+
+    <div class="fields">
+        <div class="five wide field">
+            <label>坐标</label>
+            {{ form_widget(form.latitude,{'attr': {'placeholder':'latitude','class':'ui dropdown latitude' }} ) }}
+        </div>
+        <div class="six wide field">
+            <label> &nbsp;</label>
+            {{ form_widget(form.longitude,{'attr': {'placeholder':'longitude','class':'ui dropdown longitude' }} ) }}
+        </div>
+
+    </div>
+
+    <div class="field">
+        <div id="area-business-allmap"></div>
+    </div>
+
+    <button class="ui teal adminbackgo button ">返回</button>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

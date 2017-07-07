@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>api</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/automobile/css/database.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/automobile/js/module/jquery-1.9.0.min.js') }}" ></script>
+</head>
+<body>
+
+<div id="page" class="activity api">
+    <div class="container" >
+        <div class="nav">
+            <div class="navrow active">
+                <div class="leftrank"><a class="rank rank1 "><span>用户，运营模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#account"><span>用户account</span></a></li>
+                    <li><a class="rank2"  href="#operator"><span>运营operator</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow">
+                <div class="leftrank"><a class="rank rank1 "><span>活动,partner，充值活动recharge模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#activity"><span>活动activity</span></a></li>
+                    <li><a class="rank2"  href="#invite"><span>邀请好友invite</span></a></li>
+                    <li><a class="rank2"  href="#partner"><span>partner</span></a></li>
+                    <li><a class="rank2"  href="#recharge"><span>充值活动recharge</span></a></li>
+                    <li><a class="rank2"  href="#sportMember"><span>很久之前的一个活动sportMember</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow">
+                <div class="leftrank"><a class="rank rank1 "><span>地区模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#area"><span>地区area</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow">
+                <div class="leftrank"><a class="rank rank1 "><span>租赁点，车辆模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#car"><span>车型car</span></a></li>
+                    <li><a class="rank2"  href="#illegalRecord"><span>车辆违章illegalRecord</span></a></li>
+                    <li><a class="rank2"  href="#rentalCar"><span>车辆rentalCar</span></a></li>
+                    <li><a class="rank2"  href="#rentalPrice"><span>api2/rentalPrice</span></a></li>
+                    <li><a class="rank2"  href="#stationCars"><span>stationCars</span></a></li>
+                    <li><a class="rank2"  href="#station"><span>租赁点station</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow">
+                <div class="leftrank"><a class="rank rank1 "><span>订单，优惠券，支付模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#order"><span>订单 order</span></a></li>
+                    <li><a class="rank2"  href="#coupon"><span>优惠券coupon</span></a></li>
+                    <li><a class="rank2"  href="#pay"><span>支付pay</span></a></li>
+                    <li><a class="rank2"  href="#usePay"><span>支付回调usePay</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow">
+                <div class="leftrank"><a class="rank rank1 "><span>押金模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#deposit"><span>押金deposit</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow">
+                <div class="leftrank"><a class="rank rank1 "><span>发票模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#invoice"><span>发票invoice</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow">
+                <div class="leftrank"><a class="rank rank1 "><span>消息模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#message"><span>消息列表message</span></a></li>
+                    <li><a class="rank2"  href="#remind"><span>有车提醒remind</span></a></li>
+                    <li><a class="rank2"  href="#upgrade"><span>app提醒upgrade</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="innercont">
+            <div class="module">
+                <section id="account">
+                    <p class="title"><b>用户account</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/account/getCode</td><td>mobile</td><td>errorCode,errorMessage</td><td>获取验证码</td></tr>
+                        <tr><td>2</td><td>api/account/verify</td><td>code，mobile</td><td>errorCode,mobile</td><td>认证验证码</td></tr>
+                        <tr><td>3</td><td>api/account/login/code</td><td>mobile</td><td>errorCode,code</td><td>获取登陆短信验证码</td></tr>
+                        <tr><td>4</td><td>api/account/verify/login</td><td>code，mobile，deviceToken，platform，source（h5是3）</td><td>errorCode,user（用户信息），register（是否新用户）</td><td>登录认证验证码</td></tr>
+                        <tr class="nouse"><td>5</td><td>api/account/register</td><td>password，mobile，deviceToken，platform</td><td>errorCode,user（用户信息）</td><td>密码登录</td></tr>
+                        <tr><td>5</td><td>api/account/logout</td><td>deviceToken,userID</td><td>errorCode</td><td>撤销</td></tr>
+                        <tr class="nouse"><td>6</td><td>api/account/login</td><td>mobile，password，deviceToken,userID</td><td>errorCode</td><td>密码登录</td></tr>
+                        <tr class="nouse"><td>7</td><td>api/account/forget/getCode</td><td>mobile</td><td>errorCode，mobile</td><td>忘记密码</td></tr>
+                        <tr class="nouse"><td>8</td><td>api/account/forget/verify</td><td>code,mobile</td><td>errorCode，mobile</td><td>忘记密码,验证验证码</td></tr>
+                        <tr class="nouse"><td>9</td><td>api/account/change/password</td><td>mobile,password，code</td><td>errorCode，user</td><td>（>=2.0）修改密码</td></tr>
+                        <tr class="nouse"><td>10</td><td>api/account/forget/changePassword</td><td>mobile,password</td><td>errorCode，user</td><td>（ <2.0）修改密码</td></tr>
+                        <tr><td>11</td><td>api/account/info</td><td>licenseImage,userID,nickname,portrait,personImage,sex,age,business,job,name,IDNumber</td><td>errorCode,user</td><td>审核</td></tr>
+                        <tr><td>12</td><td>api/account/user</td><td>userID,deviceToken</td><td>errorCode,user</td><td>获取用户信息</td></tr>
+                        <tr><td>13</td><td>api/account/device</td><td>userID,deviceToken,platformm</td><td>errorCode,user</td><td>获取用户信息</td></tr>
+                        <tr class="nouse"><td>14</td><td>api/account/info2</td><td>userID,deviceToken,platformm</td><td>errorCode,user</td><td>获取用户信息</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/account/login/code</td><td>mobile</td><td>errorCode,code:""</td><td>获取登陆短信验证码</td></tr>
+                        <tr><td>2</td><td>api2/account/verify/login</td><td>code,mobile,deviceToken,platform,source</td><td>errorCode,user:用户信息，register：是否新用户</td><td>获取登陆短信验证码</td></tr>
+                        <tr><td>3</td><td>api2/account/logout</td><td>deviceToken</td><td>errorCode</td><td>撤销</td></tr>
+                        <tr><td>4</td><td>api2/account/forget/getCode</td><td>mobile</td><td>errorCode，errorMessage</td><td></td></tr>
+                        <tr><td>5</td><td>api2/account/user</td><td>deviceToken</td><td>errorCode，user：用户信息</td><td></td></tr>
+                        <tr><td>6</td><td>api2/account/info</td><td>licenseImage,userID,nickname,portrait,personImage,sex,age,business,job,name,IDNumber</td><td>errorCode，user：用户信息</td><td>审核</td></tr>
+                    </table>
+                </section>
+                <section id="operator">
+                    <p class="title"><b>运营端operator</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" style="" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/operator/index</td><td>userID</td>
+                            <td>
+                                <p>errorCode,stationCount,rentalCarCount,illegalCount,</p>
+                                <p>outTimeOrderCount,noPayOrderCount,overloadRentalStationCount,</p>
+                                <p> emptyRentalStationCount,brokenCars</p>
+                            </td><td>运营端首页</td></tr>
+                        <tr><td>2</td><td>api/operator/illegal/list</td><td>userID,page</td><td>errorCode,pageCount,page,illegalRecords</td><td>违章列表</td></tr>
+                        <tr><td>3</td><td>api/operator/overtime/rentalOrder/list</td><td>userID,page</td><td>errorCode,pageCount,page,rentalOrders</td><td>超时订单</td></tr>
+                        <tr><td>4</td><td>api/operator/unpaid/rentalOrder/list</td><td>userID，page</td><td>errorCode,pageCount,page,rentalOrders</td><td>未支付订单</td></tr>
+                        <tr><td>5</td><td>api/operator/station/list</td><td>userID</td><td>errorCode,pageCount,page,rentalOrders</td><td>租赁点列表</td></tr>
+                        <tr><td>6</td><td>api/operator/rentalCar/list</td><td>userID,rentalStationID</td><td>errorCode,rentalCars</td><td>租赁点列表</td></tr>
+                        <tr><td>7</td><td>api/operator/options</td><td></td><td>errorCode,online(上线原因)，offline（下线原因），cars（车型名称）</td><td>选项卡</td></tr>
+                        <tr><td>8</td><td>api/operator/endRentalOrder</td><td>orderID，userID，reason，remark</td><td>errorCode</td><td>人工还车</td></tr>
+                        <tr><td>9</td><td>api/operator/empty/rental/station</td><td>userID</td><td>errorCode,stations</td><td>没有车辆租赁点</td></tr>
+                        <tr><td>10</td><td>api/operator/overload/rental/station</td><td>userID</td><td>errorCode,stations</td><td>超载车辆租赁点</td></tr>
+                        <tr><td>11</td><td>api/operator/rentalCar/orders</td><td>userID,rentalCarID,page</td><td>errorCode,pageCount,page,rentalOrders</td><td>车辆下的租赁订单</td></tr>
+                        <tr><td>12</td><td>api/operator/rentalCar/position</td><td>userID,rentalCarID</td><td>errorCode,position</td><td>车辆定位</td></tr>
+                        <tr><td>13</td><td>api/operator/rentalCar/position</td><td>userID,rentalCarID</td><td>errorCode,rentalCar,offlineReasons,noPayOrderCount</td><td>租赁车辆详情</td></tr>
+                        <tr><td>14</td><td>api/operator/index2</td><td>userID</td><td>errorCode,stations</td><td>2.0首页</td></tr>
+                        <tr><td>15</td><td>api/operator/brokenCar/list</td><td>userID</td><td>errorCode,brokenCarStations</td><td>2.0设备异常车辆列表</td></tr>
+                        <tr><td>16</td><td>api/operator/rentalCar/search</td><td>userID</td><td>errorCode,rentalCar,stations</td><td>2.0 车辆搜索</td></tr>
+                        <tr><td>17</td><td>api/operator/rentalCar/dispatch</td><td>userID，rentalCarID，dispatchStationID</td><td>errorCode</td><td>2.0 车辆移库操作</td></tr>
+                        <tr><td>18</td><td>api/operator/rentalCar/ranges</td><td>userID，rentalCarID，page</td><td>errorCode,pageCount,page,ranges</td><td>2.0 车辆续航日志</td></tr>
+                        <tr><td>19</td><td>api/operator/rentalCar/onlineReasons</td><td>userID，orderID，rentalCarID,onlineStatus</td><td>errorCode,onlineReasons,rentalCar,orderID</td><td>2.0 车辆上下线数据</td></tr>
+                        <tr><td>20</td><td>api/operator/rentalCar/charging</td><td>userID，rentalCarID,degree,cost</td><td>errorCode,rentalCarID</td><td>2.0 车辆充电</td></tr>
+                        <tr><td>21</td><td>api/operator/rentalCar/detail</td><td>userID，rentalCarID</td><td>errorCode,rentalCar</td><td>2.0 车辆详细</td></tr>
+                        <tr><td>22</td><td>api/operator/rentalCar/insuranceRecords</td><td>userID，rentalCarID</td><td>errorCode,InsuranceRecords</td><td>2.0 车辆保单详细</td></tr>
+                        <tr><td>23</td><td>api/operator/rentalCar/onlineReasons/list</td><td>userID，page,rentalCarID,onlineStatus</td><td>errorCode,page,pageCount,rentalCar,onlins</td><td>2.0 车辆上下线列表</td></tr>
+                        <tr><td>23</td><td>api/operator/work</td><td>userID，lon,lat,workStatus</td><td>errorCode,auth,area</td><td>2.0打卡 workStatus：1上班，：2下班</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="activity">
+                    <p class="title"><b>活动activity</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/activity/list</td><td></td><td>errorCode,activities</td><td>市场活动market_activity</td></tr>
+                        <tr><td  class="nouse">2</td><td>api/activity/feng</td><td>name，mobile，car，province，city，time，dealer，clock</td><td>errorCode</td><td></td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/activity/list</td><td></td><td>errorCode,activities</td><td>市场活动market_activity</td></tr>
+                    </table>
+                </section>
+                <section id="invite">
+                    <p class="title"><b>邀请好友invite</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/invite/addInvite</td><td></td><td>userID,token，channel，mobile</td><td>邀请好友建立关系</td></tr>
+                        <tr><td>2</td><td>api/invite/reward/list</td><td>userID，page</td><td>errorCode</td><td>邀请好友已成功认证列表</td></tr>
+                        <tr><td>3</td><td>api/invit/share/content</td><td>userID</td><td> errorCode, title ,content ,link</td><td>邀请好友，分享链接以及其他分享信息</td></tr>
+                        <tr><td>4</td><td>api/invit/share/detail</td><td>userID</td><td> errorCode, tiamount，inviteNum,totalAmount</td><td>分享之前的页面</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/invite/reward/list</td><td>userID，page</td><td>errorCode</td><td>邀请好友已成功认证列表</td></tr>
+                        <tr><td>2</td><td>api2/invit/share/content</td><td>userID</td><td> errorCode, title ,content ,link</td><td>邀请好友，分享链接以及其他分享信息</td></tr>
+                    </table>
+                </section>
+                <section id="partner">
+                    <p class="title"><b>partner</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/partner/area/list</td><td>code,timestamp，sign</td><td>error，areas</td><td>区域列表</td></tr>
+                        <tr><td>2</td><td>api/partner/station/info/{id}</td><td>code，timestamp，sign,$station</td><td>error，station</td><td>租赁点信息</td></tr>
+                        <tr><td>3</td><td>api/partner/area/station</td><td>code，timestamp，sign，areaI</td><td> error, stations</td><td>区域下的的租赁点信息</td></tr>
+                        <tr><td>4</td><td>api/partner/station/{id}/rentalcar</td><td>code,timestamp,sign,$station</td><td> error, rentalCars，station</td><td>车辆信息列表</td></tr>
+                        <tr><td>5</td><td>api/partner/end/rentalorder/{id}</td><td>code,timestamp,mobile,sign,$order</td><td> error, order</td><td>还车</td></tr>
+                        <tr><td>6</td><td>api/partner/rentalorder/cancel/{id}</td><td>code,timestamp,mobile,sign,$order</td><td> error, errorMessage</td><td>取消订单</td></tr>
+                        <tr><td>7</td><td>api/partner/order/{id}/operate</td><td>code,timestamp,mobile,sign,operate</td><td> error, errorMessage</td><td> 操作车辆，开关门等</td></tr>
+                        <tr><td>8</td><td>api/partner/rentalcar/{id}/order</td><td>code,timestamp,mobile,sign,returnStationID,$rentalCar</td><td> error, order</td><td>下单</td></tr>
+                    </table>
+
+                </section>
+                <section id="recharge">
+                    <p class="title"><b>充值活动recharge</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/recharge/activity/list</td><td>userID</td><td>errorCode，wallet，steplist，isDefaultActivity</td><td>充值</td></tr>
+                        <tr><td>2</td><td>api/recharge/new/order</td><td>userID，amount</td><td>errorCode,rechargeOrderID</td><td>生成充值订单</td></tr>
+                        <tr><td>3</td><td>api/recharge/alipay2/order</td><td>userID</td><td> errorCode, signType，alipayString</td><td>充值支付页面</td></tr>
+                        <tr><td>4</td><td>api/recharge/alipay2/notify.html</td><td></td><td></td><td>支付</td></tr>
+                        <tr><td>5</td><td>api/recharge/wechat2/order</td><td>userID，orderID</td><td>errorCode，payParameters</td><td>微信端充值</td></tr>
+                        <tr><td>6</td><td>api/recharge/wechat2/notify.html</td><td></td><td> </td><td>支付</td></tr>
+                        <tr><td>7</td><td>api/recharge/order/new</td><td>userID，amount</td><td> errorCode, rechargeOrderID</td><td>也是生成新的充值订单</td></tr>
+                        <tr><td>8</td><td>api/recharge/activity/info</td><td>userID</td><td> errorCode, rechargeActivity,rechargeAmountList,minAmount,discount,wallet</td><td>充值活动信息</td></tr>
+                        <tr><td>9</td><td>api/recharge/info</td><td>userID，rechargeOrderID</td><td> errorCode,rechargeStatus</td><td>充值信息</td></tr>
+                        <tr><td>10</td><td>api/recharge/alipay/order</td><td>userID</td><td> errorCode,sign，signType，alipayString</td><td></td></tr>
+                        <tr><td>11</td><td>api/recharge/alipay/notify.html</td><td></td><td></td><td></td></tr>
+                        <tr><td>12</td><td>api/recharge/wechat/order</td><td>userID，orderID</td><td>errorCode，payParameters</td><td></td></tr>
+                        <tr><td>13</td><td>api/recharge/wechat/notify.html</td><td></td><td></td><td></td></tr>
+                        <tr><td>14</td><td>api/recharge/record</td><td>userID，page</td><td>errorCode,pageCount,page,list</td><td>充值列表</td></tr>
+                        <tr><td>15</td><td>api/recharge/activity/delete</td><td>userID，rechargeActivityId</td><td>errorCode</td><td>删除充值活动</td></tr>
+                        <tr><td>16</td><td>api/recharge/activity/validate</td><td>userID，startime，endtime，activity</td><td>errorCode</td><td>充值活动合法性</td></tr>
+                        <tr><td>16</td><td>api/recharge/test</td><td></td><td>memberList，count，errorCode</td><td></td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/recharge/activity/list</td><td>userID</td><td>errorCode，wallet，steplist，isDefaultActivity</td><td>充值</td></tr>
+                        <tr><td>2</td><td>api2/recharge/new/order</td><td>userID，amount</td><td>errorCode,rechargeOrderID</td><td>生成充值订单</td></tr>
+                        <tr><td>3</td><td>api2/recharge/info</td><td>userID，rechargeOrderID</td><td> errorCode,rechargeStatus</td><td>充值信息</td></tr>
+                        <tr><td>4</td><td>api2/recharge/alipay2/order</td><td>userID</td><td> errorCode, signType，alipayString</td><td>充值支付页面</td></tr>
+                        <tr><td>5</td><td>api2/recharge/wechat2/order</td><td>userID，orderID</td><td>errorCode，payParameters</td><td>微信端充值</td></tr>
+                        <tr><td>6</td><td>api2/recharge/record</td><td>userID，page</td><td>errorCode,pageCount,page,list</td><td>充值列表</td></tr>
+                    </table>
+                </section>
+                <section id="car">
+                    <p class="sportMember"><b>sportMember</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/sportMember/getSportsMember</td><td>mobile</td><td>errorCode,errorMessage</td><td></td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="area">
+                    <p class="title"><b>地区area</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/area/all</td><td></td><td>allCityArr(所有的省,城市，区)</td><td>区域列表</td></tr>
+                        <tr><td>2</td><td>api/area/twoCascading</td><td></td><td>twoCascading(所有的省，城市)</td><td>区域列表</td></tr>
+                        <tr><td>3</td><td>api/area/threeCascading</td><td>id(区域的id)</td><td>data(区下的商圈)</td><td>区域列表</td></tr>
+                        <tr><td>4</td><td>api/area/allTwo</td><td>flag（all：获取全部省市，区域）</td><td>allCityAr</td><td>区域列表</td></tr>
+                        <tr><td>5</td><td>api/area/allbyregion</td><td></td><td>allCityAr</td><td>运营区域列表</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/activity/city</td><td></td><td>errorCode,areas</td><td>app地图城市列表</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="car">
+                    <p class="title"><b>车型car</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/car/introduction/list</td><td></td><td>introductions</td><td>车型列表</td></tr>
+                        <tr><td>2</td><td>api/car/ecolink</td><td>name,mobile,email,job,company</td><td>errorCode</td><td></td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/car/introduction/list</td><td></td><td>introductions</td><td>车型列表</td></tr>
+                    </table>
+                </section>
+                <section id="illegalRecord">
+                    <p class="title"><b>车辆违章illegalRecord</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/illegalRecord/list</td><td>userID，page</td><td>errorCode,pageCount（总页数），page（当前页数）,illegalRecords(违章数据)</td><td>违章列表</td></tr>
+                        <tr><td>2</td><td>api/illegalRecord/show</td><td>userID,job,illegalRecordID</td><td>errorCode，illegalRecord(违章详情)</td><td>违章详情</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/illegalRecord/list</td><td>userID，page</td><td>errorCode,pageCount（总页数），page（当前页数）,illegalRecords(违章数据)</td><td>违章列表</td></tr>
+                        <tr><td>2</td><td>api2/illegalRecord/show</td><td>userID,job,illegalRecordID</td><td>errorCode，illegalRecord(违章详情)</td><td>违章详情</td></tr>
+                    </table>
+                </section>
+                <section id="rentalCar">
+                    <p class="title"><b>车辆rentalCar</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/rentalCar/getCarsByStation</td><td>stationID，page</td><td>errorCode，rentalCars,page,rentalStation,pageCount</td><td>租赁车辆下面的车辆列表</td></tr>
+                        <tr><td>2</td><td>api/rentalCar/choose</td><td>rentalCarID</td><td>errorCode，rentalCar</td><td>选择车辆</td></tr>
+                        <tr><td>3</td><td>api/rentalCar/cloud/box/operate</td><td>boxID，operate</td><td>errorCode，result</td><td>云盒操作</td></tr>
+                        <tr><td>4</td><td>api/rentalCar/cloud/box/password</td><td>boxID</td><td>errorCode，password</td><td>云盒</td></tr>
+                        <tr><td>5</td><td>api/rentalCar/cloud/box/delete</td><td>boxID</td><td>errorCode</td><td>云盒删除</td></tr>
+                        <tr><td>6</td><td>api/rentalCar/cloud/box/record</td><td>boxID,action</td><td>errorCode,data</td><td>云盒记录</td></tr>
+                        <tr><td>7</td><td>api/rentalCar/cloud/box/add</td><td>boxID</td><td>errorCode</td><td>云盒添加</td></tr>
+                        <tr><td>8</td><td>api/rentalCar/order</td><td>rentalCarID,userID,source,rentalStationID,returnStationID</td><td>errorCode,order</td><td>下单</td></tr>
+                        <tr><td>9</td><td>api/rentalCar/inUse</td><td>userID</td><td>errorCode,order</td><td>用户下面的所有订单</td></tr>
+                        <tr><td>10</td><td>api/rentalCar/getCost</td><td>day，hour，minute，rentalID</td><td>errorCode,dateTime，rentalPrice</td><td>用户订单价格</td></tr>
+                        <tr><td>11</td><td>api/rentalCar/online</td><td>userID，rentalCarID，reason，remark，status</td><td>errorCode</td><td>车辆上下线</td></tr>
+                        <tr><td>12</td><td>api/rentalCar/operate</td><td>userID，rentalCarID，operate</td><td>errorCode，errorMessage</td><td>车辆操作</td></tr>
+                        <tr><td>13</td><td>api/rentalCar/lock</td><td>userID，rentalCarID，status</td><td>errorCode，errorMessage</td><td>车辆开门锁门操作</td></tr>
+                        <tr><td>14</td><td>api/rentalCar/curLocation</td><td>city，carType，province，stationID</td><td>errorCode，onlinelist，offlinelist，reportTime</td><td>admin，车辆定位</td></tr>
+                        <tr><td>15</td><td>api/rentalCar/car/detail</td><td>licenseplate</td><td>errorCode，remainMileage，carStatus，onlineStatus，longitude，latitude，reportTime</td><td>admin，车辆信息</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/rentalCar/choose</td><td>rentalCarID</td><td>errorCode，rentalCar</td><td>选择车辆</td></tr>
+                        <tr><td>2</td><td>api2/rentalCar/cloud/box/password</td><td>boxID</td><td>errorCode，password</td><td>云盒</td></tr>
+                        <tr><td>3</td><td>api2/rentalCar/order</td><td>rentalCarID，source，returnStationID</td><td>errorCode，order</td><td>下单</td></tr>
+                    </table>
+                </section>
+                <section id="rentalPrice">
+                    <p class="title"><b>rentalPrice</b></p>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/rentalPrice/introduction</td><td></td><td></td><td></td></tr>
+                    </table>
+                </section>
+                <section id="stationCars">
+                    <p class="title"><b>stationCars</b></p>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/stationCars/get</td><td>stationID,page</td><td>errorCode,rentalCars,page,rentalStation,pageCount</td><td>租赁点下的车辆</td></tr>
+                    </table>
+                </section>
+                <section id="station">
+                    <p class="title"><b>租赁点station</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/station/cluster/list</td><td>maxlat,minlat，maxlng，minlng，zoom，backType，pickUpRentalStationID，city</td><td>errorCode,stations</td><td>租赁点聚合</td></tr>
+                        <tr><td>2</td><td>api/station/list</td><td>maxlat,minlat，maxlng，minlng，zoom，backType，pickUpRentalStationID</td><td>errorCode,stations</td><td>租赁点</td></tr>
+                        <tr><td>3</td><td>api/station/back/list</td><td>rentalStationID,pickUpRentalStationID</td><td>errorCode,stations</td><td>换车点</td></tr>
+                        <tr><td>4</td><td>api/station/getLatlngImage</td><td>stationID</td><td>errorCode,rentalStation</td><td>获取租赁点信息</td></tr>
+                        <tr><td>5</td><td>api/station/searchByName</td><td>page,latitude,longitude,name,backType</td><td>errorCode,pageCount,page,stations</td><td>根据名字获取租赁</td></tr>
+                        <tr><td>6</td><td>api/station/searchByCoordinate</td><td>page,latitude,longitude,backType</td><td>errorCode,stations</td><td>根据经纬度范围获取租赁点</td></tr>
+                        <tr><td>7</td><td>api/station/hot</td><td>cityName</td><td>errorCode,stations</td><td>根据城或者区域名称获取租赁点</td></tr>
+                        <tr><td>8</td><td>api/station/charging/list</td><td></td><td>errorCode,stations</td><td>充电站</td></tr>
+                        <tr><td>9</td><td>api/station/recommend</td><td>name,address,latitude,longitude,userID</td><td>errorCode</td><td></td></tr>
+                        <tr><td>10</td><td>api/station/see</td><td></td><td>errorCode,stations</td><td>以html形式输出租赁点信息</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/station/cluster/list</td><td>maxlat,minlat，maxlng，minlng，zoom，backType，pickUpRentalStationID，city</td><td>errorCode,stations</td><td>租赁点聚合</td></tr>
+                        <tr><td>2</td><td>api2/station/list</td><td>maxlat,minlat，maxlng，minlng，zoom，backType，pickUpRentalStationID</td><td>errorCode,stations</td><td>租赁点</td></tr>
+                        <tr><td>3</td><td>api2/station/hot</td><td>cityName</td><td>errorCode,stations</td><td>根据城或者区域名称获取租赁点</td></tr>
+                        <tr><td>4</td><td>api2/station/recommend</td><td>name,address,latitude,longitude,userID</td><td>errorCode</td><td></td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="order">
+                    <p class="title"><b>订单order</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/order/getRentOrder</td><td>userID，orderID</td><td> errorCode,order</td><td>订单详情</td></tr>
+                        <tr><td>2</td><td>api/order/find</td><td>userID,page</td><td>errorCode</td><td>产找订单</td></tr>
+                        <tr><td>3</td><td>api/order/useCar</td><td>userID,useCar,member</td><td>result</td><td></td></tr>
+                        <tr><td>4</td><td>api/order/lock</td><td>userID,orderID,status</td><td>errorCode，errorMessage</td><td>开关门</td></tr>
+                        <tr><td>5</td><td>api/order/cancel_15</td><td>userID,orderID,cancelReason</td><td>errorCode，orderID</td><td>取消订单</td></tr>
+                        <tr><td>6</td><td>api/order/cancel</td><td>userID,orderID</td><td>errorCode，errorMessage</td><td>取消订单</td></tr>
+                        <tr><td>7</td><td>api/order/list</td><td>userID,page</td><td>errorCode，pageCount，page，orderCount，totalMileage，orders</td><td>订单列表</td></tr>
+                        <tr><td>8</td><td>api/order/settleRentOrder</td><td>userID,orderID</td><td>errorCode，order，coupon，maxWalletAmount</td><td>结算金额</td></tr>
+                        <tr><td>9</td><td>api/order/endRentalOrder</td><td>userID,orderID</td><td>errorCode，order</td><td>还车</td></tr>
+                        <tr><td>10</td><td>api/order/rentOrderPay</td><td>userID,orderID,couponID,wallet</td><td>errorCode，order</td><td>检查付款信息是否正确</td></tr>
+                        <tr><td>10</td><td>api/order/changeReturnStation</td><td>userID,orderID,rentalStationID</td><td>errorCode</td><td>更改换车租赁点</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/order/list</td><td>userID,page</td><td>errorCode，pageCount，page，orderCount，totalMileage，orders</td><td>订单列表</td></tr>
+                        <tr><td>2</td><td>api2/order/getRentOrder</td><td>userID，orderID</td><td> errorCode,order</td><td>订单详情</td></tr>
+                        <tr><td>3</td><td>api2/order/find</td><td>userID,page</td><td>errorCode</td><td>产找订单</td></tr>
+                        <tr><td>4</td><td>api2/order/lock</td><td>userID,orderID,status</td><td>errorCode，errorMessage</td><td>开关门</td></tr>
+                        <tr><td>5</td><td>api2/order/cancel_15</td><td>userID,orderID,cancelReason</td><td>errorCode，orderID</td><td>取消订单</td></tr>
+                        <tr><td>6</td><td>api2/order/settleRentOrder</td><td>userID,orderID</td><td>errorCode，order，coupon，maxWalletAmount</td><td>结算金额</td></tr>
+                        <tr><td>7</td><td>api2/order/endRentalOrder</td><td>userID,orderID</td><td>errorCode，order</td><td>还车</td></tr>
+                        <tr><td>8</td><td>api2/order/rentOrderPay</td><td>userID,orderID,couponID,wallet</td><td>errorCode，order</td><td>检查付款信息是否正确</td></tr>
+                        <tr><td>9</td><td>api2/order/changeReturnStation</td><td>userID,orderID,rentalStationID</td><td>errorCode</td><td>更改换车租赁点</td></tr>
+                    </table>
+                </section>
+                <section id="coupon">
+                    <p class="title"><b>优惠券coupon</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/coupon/list</td><td>userID，orderID，page</td><td> 有orderId时：'errorCode''pageCount''page''coupons''amount',</br>没有rderID:'errorCode''pageCount''page''coupons'</td><td>优惠券列表</td></tr>
+                        <tr><td>2</td><td>api/coupon/usable/list</td><td>userID,page</td><td>errorCode，pageCount，page，coupons </td><td>可用优惠券列表</td></tr>
+                        <tr><td>3</td><td>api/coupon/unusable/list</td><td>userID,page</td><td>errorCode，pageCount，page，coupons </td><td>不可用优惠券列表</td></tr>
+                        <tr class="nouse"><td>4</td><td>api/coupon/appShare</td><td>userID</td>
+                            <td class="text-left">
+                                <p>'errorCode'  =>  self::E_OK,   </p>
+                                <p>'title' =>'云杉智行，邀您加入绿色出行！', </p>
+                                <p> 'content'=>'新用户可领取30元活动优惠券！', </p>
+                                <p>'link' => $this->generateUrl('auto_wap_coupon_share_app',['aid'=>3290,'uid'=>$uid]),</p>
+                                <p></p> 'logo' =>'http://bkcar.cn/bundles/autowap/images/tou1.png'</p>
+                            </td>
+                            <td>
+                                app分享
+                            </td>
+                        </tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/coupon/list</td><td>userID，orderID，page</td><td> 有orderId时：'errorCode''pageCount''page''coupons''amount',</br>没有rderID:'errorCode''pageCount''page''coupons'</td><td>优惠券列表</td></tr>
+                        <tr><td>2</td><td>api2/coupon/usable/list</td><td>userID,page</td><td>errorCode，pageCount，page，coupons </td><td>可用优惠券列表</td></tr>
+                        <tr><td>3</td><td>api2/coupon/unusable/list</td><td>userID,page</td><td>errorCode，pageCount，page，coupons </td><td>不可用优惠券列表</td></tr>
+                        <tr class="nouse"><td>3</td><td>api/coupon/appShare</td><td>userID</td>
+                            <td  class="text-left">
+                                <p>'errorCode'  =>  self::E_OK,   </p>
+                                <p>'title' =>'云杉智行，邀您加入绿色出行！', </p>
+                                <p> 'content'=>'新用户可领取30元活动优惠券！', </p>
+                                <p>'link' =></p>
+                                <p></p> 'logo' =>'http://bkcar.cn/bundles/autowap/images/tou1.png'</p>
+                            </td>
+                            <td>
+                                app分享
+                            </td>
+                        </tr>
+                        <tr class="nouse"><td>4</td><td>api2/coupon/orderShare</td><td>orderID</td>
+                            <td class="text-left">
+                                <p>'errorCode'  =>  self::E_OK,</p>
+                                <p>'title' =>'云杉智行，邀您加入绿色出行！',</p>
+                                <p>'content'=>'使用云杉智行得出行优惠券！',</p>
+                                <p>'link' =></p>
+                                <p>'logo' =>'http://lecarx.com/bundles/autowap/images/tou1.png'</p>
+
+                            </td>
+                            <td>
+                                app分享
+                            </td>
+                        </tr>
+                        <tr><td>5</td><td>api2/coupon/draw</td><td>code</td><td>errorCode，coupon </td><td>兑换优惠券</td></tr>
+                    </table>
+                </section>
+                <section id="pay">
+                    <p class="title"><b>支付pay</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/pay/wechat/deposit</td><td>userID</td><td>errorCode,editAddress,jsApiParametersArr</td><td>支付押金</td></tr>
+                        <tr><td>2</td><td>api/pay/alipay/order</td><td>userID,orderID</td><td>errorCode，sign，signType，alipayString </td><td>支付订单</td></tr>
+                        <tr><td>3</td><td>api/pay/alipay/notify.html</td><td>userID,orderID</td><td> </td><td>支付订单</td></tr>
+                        <tr><td>4</td><td>api/pay/free/order</td><td>userID,orderID</td><td>errorCode，errorMessage</td><td>支付订单</td></tr>
+                        <tr><td>5</td><td>api/pay/wechat/order</td><td>userID,orderID</td><td>errorCode,payParameters </td><td>还是支付订单</td></tr>
+                        <tr><td>6</td><td>api/pay/wechat/notify.html</td><td></td><td> </td><td>h5订单支付</td></tr>
+                        <tr><td>7</td><td>api/pay/wechat/charge/notify.html</td><td></td><td> </td><td>充值</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/pay/alipay/order</td><td>orderID</td><td>errorCode，sign，signType，alipayString </td><td>支付订单</td></tr>
+                        <tr><td>2</td><td>api2/pay/wechat/order</td><td>orderID</td><td>errorCode,payParameters </td><td>微信支付订单</td></tr>
+                        <tr><td>3</td><td>api2/pay/wechat/order</td><td>userID,orderID</td><td>errorCode,payParameters </td><td>还是支付订单</td></tr>
+                        <tr><td>4</td><td>api2/pay/wechat/deposit</td><td>userID</td><td>errorCode,editAddress,jsApiParametersArr</td><td>支付押金</td></tr>
+                    </table>
+                </section>
+                <section id="usePay">
+                    <p class="title"><b>支付回调usePay</b></p>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/usePay/alipay2/notify.html</td><td></td><td></td><td>用户支付宝充值回调接口</td></tr>
+                        <tr><td>2</td><td>api2/usePay/wechat2/notify.html</td><td></td><td></td><td>用户充值微信充值回调接口</td></tr>
+                        <tr><td>3</td><td>api2/usePay/orderAlipay/notify.html</td><td></td><td> </td><td>订单支付宝回调接口</td></tr>
+                        <tr><td>4</td><td>api2/usePay/orderWechat/notify.html</td><td></td><td></td><td>订单微信支付回调接口</td></tr>
+                        <tr><td>5</td><td>api2/usePay/wechat/notify.html</td><td></td><td></td><td>缴费微信支付回调接口</td></tr>
+                        <tr><td>6</td><td>api2/usePay/alipay/notify.html</td><td></td><td></td><td>缴费支付宝回调接口</td></tr>
+                        <tr><td>6</td><td>api2/usePay/wechat/depositNotify.html</td><td></td><td></td><td>押金微信支付回调接口</td></tr>
+                        <tr><td>6</td><td>api2/usePay/alipay/depositNotify.html</td><td></td><td></td><td>押金支付宝回调接口</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="deposit">
+                    <p class="title"><b>押金deposit</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/deposit/list</td><td>userID，orderID，page</td><td> 有orderId时：'errorCode''pageCount''page''coupons''amount',</br>没有rderID:'errorCode''pageCount''page''coupons'</td><td>优惠券列表</td></tr>
+                        <tr><td>2</td><td>api/deposit/usable/list</td><td>userID,page</td>
+                            <td class="text-left">
+                                <p>'errorCode'  => self::E_OK,</p>
+                                <p>'pageCount'   => 总页数</p>
+                                <p>'page'        => ,当前页数</p>
+                                <p> 'orderCount'  => $deposit->count(), 搜出的数据总数</p>
+                                <p>'deposit'     => $deposit_order,  押金记录列表</p>
+                                <p>'total'       => $total:用户的押金数据</p>
+                            </td>
+                            <td>押金</td>
+                        </tr>
+                        <tr><td>3</td><td>api/deposit/order</td><td>userID</td><td>errorCode</td><td>缴纳押金</td></tr>
+                        <tr><td>4</td><td>api/deposit/wechat/notify.html</td><td></td><td ></td><td>付款</td></tr>
+                        <tr><td>5</td><td>api/deposit/refund</td><td>userID</td><td >errorCode</td><td>申请退款</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/deposit/list</td><td>userID，orderID，page</td><td> 有orderId时：'errorCode''pageCount''page''coupons''amount',</br>没有rderID:'errorCode''pageCount''page''coupons'</td><td>优惠券列表</td></tr>
+                        <tr><td>2</td><td>api/deposit/usable/list</td><td>userID,page</td>
+                            <td class="text-left">
+                                <p>'errorCode'  => self::E_OK,</p>
+                                <p>'pageCount'   => 总页数</p>
+                                <p>'page'        => ,当前页数</p>
+                                <p> 'orderCount'  => $deposit->count(), 搜出的数据总数</p>
+                                <p>'deposit'     => $deposit_order,  押金记录列表</p>
+                                <p>'total'       => $total:用户的押金数据</p>
+                            </td>
+                            <td>押金</td>
+                        </tr>
+                        <tr><td>3</td><td>api/deposit/order</td><td>userID</td><td>errorCode</td><td>缴纳押金</td></tr>
+                        <tr><td>5</td><td>api/deposit/refund</td><td>userID</td><td >errorCode</td><td>申请退款</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="invoice">
+                    <p class="title"><b>发票invoice</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/invoice/list</td><td>userID，page</td><td> errorCode,pageCount,page,invoices</td><td>发票列表</td></tr>
+                        <tr><td>2</td><td>api/invoice/show</td><td>userID,invoiceID</td><td >errorCode，invoice</td><td>发票详情</td></tr>
+                        <tr><td>3</td><td>api/invoice/quota</td><td>userID</td><td>errorCode</td><td>缴纳押金</td></tr>
+                        <tr><td>4</td><td>api/invoice/add</td><td>userID,amount,name,address,mobile,title</td><td >errorCode</td><td>申请发票</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api2/invoice/list</td><td>userID，page</td><td> errorCode,pageCount,page,invoices</td><td>发票列表</td></tr>
+                        <tr><td>2</td><td>api2/invoice/show</td><td>userID,invoiceID</td><td >errorCode，invoice</td><td>发票详情</td></tr>
+                        <tr><td>3</td><td>api2/invoice/quota</td><td>userID</td><td>errorCode</td><td>缴纳押金</td></tr>
+                        <tr><td>4</td><td>api2/invoice/add</td><td>userID,amount,name,address,mobile,title</td><td >errorCode</td><td>申请发票</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="message">
+                    <p class="title"><b>消息message</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/message/list</td><td>userID，page</td><td> errorCode,pageCount,page,messages</td><td>消息列表</td></tr>
+                        <tr><td>2</td><td>api/message/ad</td><td></td><td >errorCode，adImage，link，title</td><td>获取市场活动信息</td></tr>
+                        <tr><td>3</td><td>api/message/version</td><td>platform</td><td>errorCode，version，message，force</td><td>版本信息</td></tr>
+                        <tr><td>4</td><td>api/message/options</td><td></td><td >errorCode，cancelOrderOptions，rechargeActivity</td><td></td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/message/list</td><td>userID，page</td><td> errorCode,pageCount,page,messages</td><td>消息列表</td></tr>
+                        <tr><td>4</td><td>api/message/options</td><td></td><td >errorCode，cancelOrderOptions，rechargeActivity</td><td></td></tr>
+                    </table>
+                </section>
+                <section id="remind">
+                    <p class="title"><b>租赁点有车提醒remind</b></p>
+                    <p>api</p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                        <tr><td>1</td><td>api/remind/rentalStation/list</td><td>userID，rentalStationID</td><td> errorCode，remind[rentalStationID,endTime,remindID]</td><td>有车提醒</td></tr>
+                        <tr><td>2</td><td>api/remind/rentalStation/add</td><td>userID，rentalStationID，minute</td><td >errorCode，remind[rentalStationID,endTime,remindID]</td><td>添加有车提醒</td></tr>
+                        <tr><td>3</td><td>api/remind/rentalStation/cancel</td><td>userID，remindID</td><td>errorCode</td><td>删除有车提醒</td></tr>
+                    </table>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <table border="1"  cellspacing="0px" >
+                            <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                            <tr><td>1</td><td>api2/remind/rentalStation/list</td><td>userID，rentalStationID</td><td> errorCode，remind[rentalStationID,endTime,remindID]</td><td>有车提醒</td></tr>
+                            <tr><td>2</td><td>api2/remind/rentalStation/add</td><td>userID，rentalStationID，minute</td><td >errorCode，remind[rentalStationID,endTime,remindID]</td><td>添加有车提醒</td></tr>
+                            <tr><td>3</td><td>api2/remind/rentalStation/cancel</td><td>userID，remindID</td><td>errorCode</td><td>删除有车提醒</td></tr>
+                        </table>
+                    </table>
+                </section>
+                <section id="upgrade">
+                    <p class="title"><b>app提醒upgrade</b></p>
+                    <p>api2</p>
+                    <table border="1"  cellspacing="0px" >
+                        <table border="1"  cellspacing="0px" >
+                            <tr><th>序号</th><th>接口url</th><th>传入参数</th><th>返回参数</th><th>描述</th></tr>
+                            <tr><td>1</td><td>api2/upgrade/check</td><td>VersionCode，platform</td><td> errorCode，data[canUpgrade,devVersionCode,forceUpgrade，upgradeReasonpackageUrl，version]</td><td>app信息提醒</td></tr>
+                            <tr><td>2</td><td>api2/upgrade/checkapp</td><td>VersionCode，platform</td><td >errorCode，data[canUpgrade,devVersionCode,forceUpgrade，upgradeReasonpackageUrl，version]</td><td>app信息提醒</td></tr>
+
+                        </table>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="{{ asset('/bundles/automobile/js/activity/activityDataBase.js') }}" ></script>
+</body>
+</html>

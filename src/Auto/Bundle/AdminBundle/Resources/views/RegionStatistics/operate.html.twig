@@ -1,0 +1,190 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['regionstatistics', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'运营数据'} %}
+
+
+     <div class="ui main-content">
+         <div class="ui top attached menu tabular no_border">
+             <a class="active item font-normal bk_gray no_border" >运营数据</a>
+             <a class="item " href="{{ path("auto_admin_statistics_car_operate") }}">车辆数据</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border">
+             <form action="{{ path("auto_admin_statistics_operate_search") }}"  method="post">
+             <table class="ui very basic table no_border">
+                 <thead >
+                 <tr>
+
+                     <th class="static_operate_th no_bt">租赁点</th>
+                     <th class="static_operate_th no_bt">时间段</th>
+                     <th class="static_operate_th no_bt"></th>
+                     <th class="static_operate_th no_bt"></th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td>
+                         <select   name="rental_station" id="rental_station" class="ui dropdown">
+                             <option value="0">请选择</option>
+                             {% for rentalStation in rentalStations %}
+                                 <option value="{{ rentalStation.id }}">{{ rentalStation.name }}</option>
+                             {% endfor %}
+                         </select>
+                     </td>
+                     <td >
+                         <input class=" time_input Operatestarttime" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="{{ start_time }}" autocomplete="off">
+                     </td>
+                     <td >
+                         <input class=" time_input Operateendtime" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="{{ end_time }}" autocomplete="off">
+
+                     </td>
+                     <td>
+                         <button class="ui teal button operate_submit " type="submit" >搜索</button>
+                     </td>
+                 </tr>
+                 </tbody>
+             </table>
+             </form>
+         </div>
+         {% if  rentalStation%}
+         <div class="ui bottom attached segment bk_gray border_top">
+             <p>{% if rentalStation %}{{ rentalStation.name }}
+             {% if start_time != '2015-01-16'%}|{{ start_time }}至{{ end_time }}{% endif %}
+                 |车型:<span class="red carTypes">0种</span>|车辆:<span class="red rentalCars">0</span><span class="red">辆</span>
+             {% endif %}
+             </p>
+             <p>{% if count_rentalCars ==0%}<span class="red">对不起，无此数据结果，请更换搜索内容。</span>{% endif %}</p>
+         </div>
+         {% endif %}
+     </div>
+
+         <div class="ui main-content grid">
+             {% if rentalCars and  rentalStation  %}
+                 <div class="fifteen wide column" style="overflow: auto;">
+                     <div style="width: 180%;">
+                         <table class="ui teal table no_border th_white" id="dataCount" style="display: none">
+                             <thead >
+                         <tr class="font_size_12">
+                             <th>车型</th>
+                             <th>车牌号</th>
+                             <th >在库时长</th>
+                             <th >出租时长</th>
+                             <th>出租率</th>
+                             <th>单车出租时长</th>
+                             <th>日间出租时长</th>
+                             <th>日间出租率</th>
+                             <th>日间单车出租时长</th>
+                             <th>夜间出租时长</th>
+                             <th>夜间出租率</th>
+                             <th>夜间单车出租时长</th>
+                             <th>订单数</th>
+                             <th>频次</th>
+                             <th>单均时长</th>
+                             <th>日间订单数</th>
+                             <th>日间频次</th>
+                             <th>日间单均时长</th>
+                             <th>夜间订单数</th>
+                             <th>夜间频次</th>
+                             <th>夜间单均时长</th>
+                             <th>营收</th>
+                             <th>优惠券</th>
+                             <th>实收</th>
+                             <th>车均营收</th>
+                             <th>单均收入</th>
+                         </tr>
+                             </thead >
+                             <tbody>
+
+                             {% for car in rentalCars %}
+                                 {% if  stay_time[rentalStation.id][car.rentalCarId]|default > 0 %}
+                         <tr class="font_size_12" data-car-id="{{ car.rentalCarId }}" data-carType-id="{{ car.carId }}">
+                             <td>{{ car.carName }}</td>
+                             <td>{{ car.rentalCarLicense}}</td>
+
+                             <td data-stay="{{ ((stay_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2)}}">{{ ((stay_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2) }}</td>
+                             {#{% else if stay_time[rentalStation.id][car.id]|default <0%}#}
+                             {#<td data-stay="0">0</td>#}
+
+                             <td data-rental="{{ ((rental_time[rentalStation.id][car.rentalCarId]|default)/3600)}}">{{ ((rental_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2) }}</td>
+                             <td>
+                                 {% if dispatch_count[car.rentalCarId]!=0 %}
+                                     {% if stay_time[rentalStation.id][car.rentalCarId]|default > 0 %}
+                                         {{ ((((((rental_time[rentalStation.id][car.rentalCarId]|default)/3600))/(((stay_time[rentalStation.id][car.rentalCarId]|default)/3600))))*100)|number_format(2) }}%
+                                     {% else %}0%{% endif %}
+                                 {% elseif dispatch_count[car.rentalCarId]==0 %}
+                                     {% if stay_time[rentalStation.id][car.rentalCarId]|default!=0 %}
+                                         {{ ((((((rental_time[rentalStation.id][car.rentalCarId]|default)/3600))/(((stay_time[rentalStation.id][car.rentalCarId]|default)/3600))))*100)|number_format(2) }}%
+                                     {% else %}0%{% endif %}
+                                 {% endif %}
+                                </td>
+                             <td>{{ (((rental_time[rentalStation.id][car.rentalCarId]|default)/3600)/1)|number_format(2) }}</td>
+                             <td data-day="{{ ((day_time[rentalStation.id][car.rentalCarId]|default)/3600) }}">{{ ((day_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2) }}</td>
+                             <td>{{ ((((((day_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2))/12)|number_format(4))*100)|number_format(2) }}%</td>
+                             <td>{{ ((((day_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2))/1)|number_format(2) }}</td>
+                             <td data-night="{{ ((night_time[rentalStation.id][car.rentalCarId]|default)/3600) }}">{{ ((night_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2) }}</td>
+                             <td>{{ ((((((night_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2))/12)|number_format(4))*100)|number_format(2) }}%</td>
+                             <td>{{ ((((night_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2))/1)|number_format(2) }}</td>
+                             <td>{{ rental_count[rentalStation.id][car.rentalCarId]|default(0) }}</td>
+                             <td>{{ ((rental_count[rentalStation.id][car.rentalCarId]|default)/1)|number_format(2) }}</td>
+                             <td>{% if rental_count[rentalStation.id][car.rentalCarId]|default(0) == 0 %}0
+                                 {% else %}{{ ((((rental_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2))/(rental_count[rentalStation.id][car.rentalCarId]|default))|number_format(2) }}{% endif %}</td>
+                             <td>{{ day_count[rentalStation.id][car.rentalCarId]|default(0) }}</td>
+                             <td>{{ ((day_count[rentalStation.id][car.rentalCarId]|default)/1)|number_format(2) }}</td>
+                             <td>{% if day_count[rentalStation.id][car.rentalCarId]|default(0) == 0 %}0
+                                 {% else %}{{ ((((day_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2))/(day_count[rentalStation.id][car.rentalCarId]|default))|number_format(2) }}{% endif %}</td>
+                             <td>{{ night_count[rentalStation.id][car.rentalCarId]|default(0) }}</td>
+                             <td>{{ ((night_count[rentalStation.id][car.rentalCarId]|default)/1)|number_format(2) }}</td>
+                             <td>{% if night_count[rentalStation.id][car.rentalCarId]|default(0) == 0 %}0
+                                 {% else %}{{ ((((night_time[rentalStation.id][car.rentalCarId]|default)/3600)|number_format(2))/(night_count[rentalStation.id][car.rentalCarId]|default))|number_format(2) }}{% endif %}</td>
+                             <td>{{ rental_revenue[rentalStation.id][car.rentalCarId]|default(0) }}</td>
+                             <td>{{ coupon_amount[rentalStation.id][car.rentalCarId]|default(0) }}</td>
+                             <td>{{ rental_amount[rentalStation.id][car.rentalCarId]|default(0) }}</td>
+                             <td>{{ ((rental_revenue[rentalStation.id][car.rentalCarId]|default(0))/1)|number_format(2) }}</td>
+                             <td>{% if rental_count[rentalStation.id][car.rentalCarId]|default(0) == 0 %}0
+                                 {% else %}{{ (((rental_revenue[rentalStation.id][car.rentalCarId]|default(0)))/(rental_count[rentalStation.id][car.rentalCarId]|default))|number_format(2) }}{% endif %}</td>
+                         </tr>
+                                 {% endif %}
+
+                             {% endfor %}
+                             <tr class="font_size_12">
+                                 <td><span style="font-weight: 700;">总计</span></td>
+                                 <td><span class="red rentalCars">0</span></td>
+                                 <td><span class="red stay_time">0</span></td>
+                                 <td><span class="red rental_time">0</span></td>
+                                 <td><span class="red rental_rate">0</span></td>
+                                 <td><span class="red single_rental_time">0</span></td>
+                                 <td><span class="red day_time">0</span></td>
+                                 <td><span class="red day_rental_rate">0</span></td>
+                                 <td><span class="red single_day_time">0</span></td>
+                                 <td><span class="red night_time">0</span></td>
+                                 <td><span class="red night_rental_rate">0</span></td>
+                                 <td><span class="red single_night_time">0</span></td>
+                                 <td><span class="red rental_count">0</span></td>
+                                 <td><span class="red frequency">0</span></td>
+                                 <td><span class="red single_order_time">0</span></td>
+                                 <td><span class="red day_count">0</span></td>
+                                 <td><span class="red day_frequency">0</span></td>
+                                 <td><span class="red day_single_order_time">0</span></td>
+                                 <td><span class="red night_count">0</span></td>
+                                 <td><span class="red night_frequency">0</span></td>
+                                 <td><span class="red night_single_order_time">0</span></td>
+                                 <td><span class="red rental_revenue">0</span></td>
+                                 <td><span class="red coupon_amount">0</span></td>
+                                 <td><span class="red rental_amount">0</span></td>
+                                 <td><span class="red single_car_revenue">0</span></td>
+                                 <td><span class="red single_order">0</span></td>
+                             </tr>
+                             <tbody>
+                     </table>
+                     <div>
+                </div>
+                     </div>
+                 </div>
+             {% endif %}
+         </div>
+
+ {% endblock %}

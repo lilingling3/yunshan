@@ -1,0 +1,154 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['default', 'message'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'全部动态'} %}
+     <div class="ui main-content grid">
+         <div class="fifteen  wide column">
+             <form action="{{ path("auto_admin_matter_list_search") }}"  method="post">
+                 <table class="ui very basic table">
+                     <thead >
+                     <tr>
+                         <th>操作</th>
+                         <th>对象类型</th>
+                         <th>操作者手机号</th>
+                         <th>内容</th>
+                         <th>操作时间</th>
+                         <th></th>
+                         <th></th>
+                         <th></th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td>
+                             <select name="operate" class="ui dropdown matter_choice2">
+                                 <option value="0">请选择</option>
+                                 <option value="1" {% if operate == 1 %} selected="selected" {% endif %}>创建</option>
+                                 <option value="2" {% if operate == 2 %} selected="selected" {% endif %}>更新</option>
+                                 <option value="3" {% if operate == 3 %} selected="selected" {% endif %}>删除</option>
+                             </select>
+                         </td>
+                         <td>
+                             <select name="object" class="ui dropdown matter_choice2">
+                                 <option value="">请选择</option>
+                                {% for key,value in objects %}
+                                 <option value="{{ key }}" {% if object == key  %} selected="selected" {% endif %}>{{ value }}</option>
+                                {% endfor %}
+                             </select>
+                         </td>
+                         <td >
+                             <input class="time_input" type="text" name="mobile" placeholder="操作者手机号" value="{{ mobile }}">
+                         </td>
+
+                         <td >
+                             <input class="time_input" type="text" name="content" placeholder="内容" value="{{ content }}">
+                         </td>
+
+                         <td >
+                                <input class=" time_input Operatestarttime" type="text" id="J-xl" name="starttime" placeholder="开始时间" value="{{ starttime }}" autocomplete="off">
+                         </td>
+                         <td style="width: 10%;">至</td>
+                         <td >
+                             <input class=" time_input Operateendtime" type="text" id="J-xl2" name="endtime" placeholder="结束时间" value="{{ endtime }}" autocomplete="off">
+
+                         </td>
+                         <script>
+                             laydate({
+                                 elem: '#J-xl'
+                             });
+                             laydate({
+                                 elem: '#J-xl2'
+                             });
+                         </script>
+                         <td>
+                             <button class="ui teal button operate_submit " type="submit" >提交</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>操作时间</th>
+                     <th>人员</th>
+                     <th>手机</th>
+                     <th>操作</th>
+                     <th>对象类型</th>
+                     <th>内容</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+
+                 {% for operateRecord in operateRecords %}
+
+                             <tr>
+                                 <td>
+                                     {{ operateRecord.createTime|date('Y-m-d H:i:s')}}
+                                 </td>
+                                 <td> {{ operateRecord.operateMember.name }}</td>
+                                 <td>
+                                     {{ operateRecord.operateMember.mobile }}
+                                 </td>
+                                 <td>{%  if operateRecord.behavior== 1 %} 创建{% elseif operateRecord.behavior== 2 %}更新{% elseif operateRecord.behavior== 3 %}删除{% endif %}
+                                 </td>
+                                 <td>{% if objects[operateRecord.objectName] %} {{ objects[operateRecord.objectName] }}
+                                     {% else %}{{ operateRecord.objectName }}{% endif %}
+                                 </td>
+                                 <td>{{ operateRecord.content }}</td>
+                             </tr>
+
+                 {% endfor %}
+            
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_operateRecord_list",{'page':k,
+                                     'operate':operate,'object':object,'mobile':mobile,'starttime':starttime,'endtime':endtime,'content':content})}}">{{
+                                 k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+
+         </div>
+
+
+     </div>
+
+
+ {% endblock %}

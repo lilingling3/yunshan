@@ -1,0 +1,90 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['illegalRecord', 'show'] %}
+{% block content %}
+    <div class="top-menu">
+        租赁违章
+        <a href="{{ path("auto_wap_illegalRecord") }}"><b></b></a>
+        <span><a href="javascript:window.location.reload();"class="refresh"><b></b></a></span>
+    </div>
+
+    <div class="rules_cont">
+
+    <div class="rules_li">
+        <div class="row">
+            <p class="b">
+                {{ illegal.createTime|date('Y/m/d') }}
+                {% if illegal.handleTime  %}
+                    <span class="status-handle">已处理</span>
+                {% else%}
+                    <span class="status-unhandle">未处理</span>
+                {% endif %}
+            </p>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="item">
+                    <p>车牌</p> {{ illegal.rentalCar.license }}
+                </div>
+                <div class="item">
+                    <p>车型</p>{{ illegal.rentalCar.car.name }}</div>
+            </div>
+            <div class="column">
+                <div class="item">
+                    <p>车辆发动机号</p>{{ illegal.rentalCar.engineNumber }}
+                </div>
+                <div class="item">
+                    <p>车架号</p>{{ illegal.rentalCar.chassisNumber }}
+                </div>
+            </div>
+            <div class="column">
+                <div class="item">
+                    <p>违章记分</p>
+                             <span {% if not illegal.handleTime and  illegal.illegalScore!=0 %} class="color-red" {% endif %} >
+                                 {{ illegal.illegalScore  }}
+                            </span>&nbsp;分
+                </div>
+                <div class="item">
+                    <p>违章罚款</p>
+                            <span {% if not illegal.handleTime %} class="color-red" {% endif %} >
+                                 {{ illegal.illegalAmount  }}
+                            </span>
+                    </span> 元
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="rules_li">
+        <div class="row">
+            <div class="column-info">
+                <p class="p-title">违章时间</p>
+                <p {% if not illegal.handleTime %} class="color-red" {% endif %}>{{ illegal.illegalTime }}</p>
+            </div>
+            <div class="column-info">
+                <div class="text">
+                    <p class="p-title">违章地点</p>
+                    {{ illegal.illegalPlace }}
+                </div>
+            </div>
+            <div class="column-info">
+                <div class="text">
+                    <p class="p-title">违法行为</p>
+                    {{ illegal.illegalReason }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if not  illegal.handleTime %}
+        <div class="rules_li">
+            <div class="row">
+                <div class="column-info column-info-last">
+                    <div class="text">
+                        <p class="p-title">处理办法</p>
+                        <p> {{ illegal.handleText }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}

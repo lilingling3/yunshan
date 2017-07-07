@@ -1,0 +1,59 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['statistics', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'固定数据统计'} %}
+     <div class="ui main-content grid">
+         <div class="fifteen  wide column">
+
+             <h4 class="ui horizontal divider header"><i class="tag icon"></i> 累计数据|全部 </h4>
+             <table class="ui teal table" style="margin-bottom: 0px">
+                 <thead>
+                 <tr>
+                     <th>总注册用户</th>
+                     <th>总提交认证用户</th>
+                     <th>总审核通过用户</th>
+                     <th>总充值用户数</th>
+                     <th>总充值金额</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td> {{ members }}</td>
+                     <td>{{ verifications }}</td>
+                     <td>{{ verifieds }}</td>
+                     <td>{{ recharge_members }}</td>
+                     <td>{{ recharge_fee }}</td>
+
+
+                 </tr>
+                 </tbody>
+             </table>
+             <table class="ui teal table" style="margin-top: 0px !important;border-top: 0px;">
+                 <thead>
+                 <tr>
+                     <th>总生成订单</th>
+                     <th>总取消订单</th>
+                     <th>总完成订单应收费用（元）</th>
+                     <th>总完成订单优惠券抵用金额（元）</th>
+                     <th>总完成订单实收费用（元）</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td>{{ order_amount }}</td>
+                     <td>{{ cancel_orders_amount }}</td>
+                     <td>{{ finished_orders_amount }}</td>
+                     <td> {{ finished_orders_coupon_fee_amount }}</td>
+                     <td>{{ finished_orders_actual_fee_amount }}</td>
+                 </tr>
+                 </tbody>
+             </table>
+           </div>
+     </div>
+
+ {% endblock %}
+                                                                                                       

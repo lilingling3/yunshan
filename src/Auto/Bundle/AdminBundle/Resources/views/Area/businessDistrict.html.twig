@@ -1,0 +1,70 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['area', 'business-district'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'商圈管理'} %}
+     <div class="ui main-content grid">
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <a class="ui teal button" href="{{ path('auto_admin_area_businessDistrict_new') }}">添加商圈 </a>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>商圈名称</th>
+                     <th>经纬</th>
+                     <th>所在区</th>
+                     <th>所在城市</th>
+                     <th  width="15%">操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for businessDistrict in businessDistricts %}
+                     <tr>
+                         <td>{{ businessDistrict.name }}</td>
+                         <td>[{{ businessDistrict.longitude }},{{ businessDistrict.latitude }}]</td>
+                         <td>{{ businessDistrict.area.name }}</td>
+                         <td>{{businessDistrict.area.parent.name }}</td>
+                         <td>
+                             <a href="{{ path('auto_admin_area_businessDistrict_edit',{'id':businessDistrict.id}) }}"><small>修改</small></a>
+                             |<a href="{{ path('auto_admin_area_businessDistrict_del',{'id':businessDistrict.id}) }}"><small>删除</small></a>
+                         </td>
+
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_area_businessDistrict_list",{'page':k})}}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+
+     </div>
+
+
+ {% endblock %}

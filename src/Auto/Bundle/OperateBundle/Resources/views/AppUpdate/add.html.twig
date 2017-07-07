@@ -1,0 +1,59 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['app','show'] %}
+{% block content %}
+    <div class="top-menu">
+        app
+        <a href="{{ path("auto_operate_index") }}" class="left-cont"><b></b></a>
+        <span><a  href="javascript:window.location.reload();" >刷新</a></span>
+    </div>
+    <div class="container">
+<form class="verify-data" action="{{ path('auto_operate_app_update_addappdata') }}"  method="post"  enctype="multipart/form-data" >
+        <section class="cont">
+            <div class="menu-li">
+                <label for="color-input">versionCode</label>
+                <span class="text-r">
+                    <input type="text" name="versionCode" placeholder="versionCode"  />
+                </span>
+            </div>
+            <div class="menu-li">
+                <label for="color-input">version</label>
+                <span class="text-r">
+                    <input type="text" name="version" placeholder="version"  />
+                </span>
+            </div>
+        </section>
+        <section class="cont">
+            <div class="menu-li">
+                <label for="color-input">是否强制更新</label>
+                <span class="text-r">
+                    <select name="forceUpgrade" class="dropdown ">
+                        <option value="0">不强制更新</option>
+                        <option value="1">强制更新</option>
+                    </select>
+                </span>
+            </div>
+            </section>
+            <section class="cont">
+            <div class="menu-li">
+                <label for="color-input">上传文件</label>
+                <span class="text-r">
+                    <input type="file" name="downloadsite" id="upload" />
+                </span>
+            </div>
+        </section>
+    <section class="cont explaincont">
+        <div class="menu-li">
+            <span class="addexplain" explainnum="1">点击添加原因</span>
+        </div>
+            <div class="menu-li">
+                <label for="color-input">1:</label>
+                <span class="text-r">
+                    <input type="text" class="explain" name="explain" placeholder="explain" />
+                </span>
+            </div>
+        </section>
+    <input type="hidden" class="explainjson" name="explainjson" placeholder="explainjson" />
+        <button class="submit-data" type="submit">确认添加</button>
+    </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'online'] %}
+{% block content %}
+    <div class="top-menu">
+        整备上线
+        <a href="{{ path("auto_operate_rental_car_show",{"id":id})  }}" class="left-cont"><b></b></a>
+        <span><a href="{{ path('auto_operate_car_online_list',{"id":id}) }}">记录</a></span>
+    </div>
+    <section class="car-menu">
+        {% for requireReason in onlineReasons["require"] %}
+            <li><label for="check1" >{{ requireReason.reasons }}<span class="color-red">*</span></label>
+            <span class="text-r" style="display: none">
+                <input type="checkbox"  class=" require checked"  id="check{{ requireReason.id }}" chId="{{ requireReason.id }}" name="check{{ requireReason.id }}" value="{{ requireReason.reasons }}"></span>
+            </li>
+        {% endfor %}
+    </section>
+
+    <section class="car-menu">
+        {% for requireReason in onlineReasons["unrequire"] %}
+            <li><label for="check1" >{{ requireReason.reasons }}</label>
+            <span class="text-r" style="display: none">
+                <input type="checkbox"  class="checked"  id="check{{ requireReason.id }}" chId="{{ requireReason.id }}" name="check{{ requireReason.id }}" value="{{ requireReason.reasons }}"></span>
+            </li>
+        {% endfor %}
+    </section>
+    <section class="car-menu">
+
+        <li>
+            <p><label for="check12">备注信息（最多100字）</label></p>
+            <textarea placeholder="请填写..." maxlength="100"></textarea>
+        </li>
+    </section>
+    <button type="button" carId="{{ id }}" userId="{{ app.user.token }}">车辆上线</button>
+    <form action="{{ path("auto_operate_rental_car_online_update") }}" method="post">
+        <input class="text" name="text" type="hidden" />
+        <input class="id" name="id" type="hidden" value="{{ id }}" />
+    </form>
+{% endblock %}

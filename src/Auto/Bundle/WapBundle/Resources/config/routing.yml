@@ -1,0 +1,65 @@
+auto_wap_check:
+    pattern:  /sign-in
+    methods:  [POST]
+
+auto_wap_logout:
+    pattern:  /sign-out
+
+_auto_wap_homepage:
+    resource: @AutoWapBundle/Controller/DefaultController.php
+    type:     annotation
+_auto_wap_pay:
+    resource: @AutoWapBundle/Controller/PayController.php
+    type:     annotation
+_auto_wap_rental_car:
+    resource: @AutoWapBundle/Controller/RentalCarController.php
+    type:     annotation
+
+_auto_wap_order:
+    resource: @AutoWapBundle/Controller/OrderController.php
+    type:     annotation
+_auto_wap_vote:
+    resource: @AutoWapBundle/Controller/VoteController.php
+    type:     annotation
+_auto_wap_account:
+    resource: @AutoWapBundle/Controller/AccountController.php
+    type:     annotation
+_auto_wap_coupon:
+    resource: @AutoWapBundle/Controller/CouponController.php
+    type:     annotation
+_auto_wap_site:
+    resource: @AutoWapBundle/Controller/StationController.php
+    type:     annotation
+_auto_wap_illegalRecord:
+    resource: @AutoWapBundle/Controller/IllegalRecordController.php
+    type:     annotation
+_auto_wap_car:
+    resource: @AutoWapBundle/Controller/CarController.php
+    type:     annotation
+_auto_wap_activity:
+    resource: @AutoWapBundle/Controller/ActivityController.php
+    type:     annotation
+_auto_wap_rentalCar2:
+    resource: @AutoWapBundle/Controller/RentalCar2Controller.php
+    type:     annotation
+_auto_wap_order2:
+    resource: @AutoWapBundle/Controller/Order2Controller.php
+    type:     annotation
+_auto_wap_coupon2:
+    resource: @AutoWapBundle/Controller/Coupon2Controller.php
+    type:     annotation
+_auto_wap_default2:
+    resource: @AutoWapBundle/Controller/Default2Controller.php
+    type:     annotation
+_auto_wap_account2:
+    resource: @AutoWapBundle/Controller/Account2Controller.php
+    type:     annotation
+_auto_wap_illegalRecord2:
+    resource: @AutoWapBundle/Controller/IllegalRecord2Controller.php
+    type:     annotation
+_auto_wap_car2:
+    resource: @AutoWapBundle/Controller/Car2Controller.php
+    type:     annotation
+_auto_wap_pay2:
+    resource: @AutoWapBundle/Controller/Pay2Controller.php
+    type:     annotation

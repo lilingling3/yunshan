@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,initial-scale=1,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>你敢不敢，看我脱光我自己？</title>
+    <style>
+        * { padding: 0px; margin: 0px; }
+    </style>
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/js/zepto.min.js') }}" ></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+</head>
+<body>
+<img src="" class="imgdata" />
+<div class="divdom" style="width: 100px; height: 100px; background-color: red" onclick="paizhao()" ></div>
+<span id="sn">qqqqqqqqq</span>
+<script>
+    wx.config({
+        'debug': true,
+        'appId': '{{ signPackage.appId }}',
+        'timestamp': '{{ signPackage.timestamp }}',
+        'nonceStr': '{{ signPackage.nonceStr }}',
+        'signature': '{{ signPackage.signature }}',
+        'jsApiList': ['chooseImage',"checkJsApi"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    function paizhao(){
+        alert("aaaaaaaaaaaaaa");
+        wx.chooseImage({
+            count: 1, // 默认9
+            sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+            sourceType: ['camera'], // 可以指定来源是相册还是相机，默认二者都有
+            success: function (res) {
+                var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+                $(".imgdata").attr("src",localIds);
+            }
+        });
+    }
+    document.getElementById("sn").onclick=function(){
+        alert("sswwwwwwwwwewe");
+    }
+</script>
+</body>
+
+</html>

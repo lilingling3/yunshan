@@ -1,0 +1,110 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['account', 'auth'] %}
+{% block content %}
+<div class="container">
+    <section class="cont">
+        <div class="row-cont">
+            <span class="rname">手机号</span>
+            <div class="fr">
+                <span class="text">{{ app.user.mobile//100000000 }}****{{ app.user.mobile%10000 }}</span>
+                <span class="arrow hide"></span>
+            </div>
+        </div>
+        <div class="row-cont account-identify">
+        {% if auth.status !=299  %}
+            <a class="href" href="{{ path('auto_mobile_account_identify') }}"></a>
+        {% endif %}
+            <span class="rname">认证信息</span>
+            <div class="fr">
+                {% if auth.status ==200  %}
+                    <span class="text text{{ auth.status }}">未认证</span>
+                {% elseif auth.status ==201 %}
+                    <span class="text text{{ auth.status }}">认证中…</span>
+                {% elseif auth.status ==202 %}
+                    <span class="text text{{ auth.status }}">认证失败</span>
+                {% elseif auth.status ==299 %}
+                    <span class="text text{{ auth.status }}">认证成功</span>
+                {% elseif auth.status ==203 %}
+                    <span class="text text{{ auth.status }}">认证过期</span>
+                {% endif %}
+                <span class="arrow"></span>
+            </div>
+        </div>
+
+
+         <div class="row-cont">
+            <a class="href" href="{{ path('auto_mobile_coupon_useablelist') }}"></a>
+            <span class="rname">优惠券</span>
+            <div class="fr">
+                <span class="text">{{ couponsCount }}张</span>
+                <span class="arrow"></span>
+            </div>
+        </div>
+
+
+        <div class="row-cont">
+            <a class="href" href="{{ path('auto_mobile_rental_order_list') }}"></a>
+            <span class="rname">行程</span>
+            <div class="fr">
+                 <span class="arrow"></span>
+            </div>
+        </div>
+
+        <div class="row-cont">
+            <a class="href" href="{{ path('auto_mobile_deposit_list',{ id:1 }) }}"></a>
+            <span class="rname">押金</span>
+            <div class="fr">
+                 <span class="arrow"></span>
+            </div>
+        </div>
+
+        <div class="row-cont">
+            <a class="href" href="{{ path('auto_mobile_recharge_show') }}"></a>
+            <span class="rname">充值</span>
+            <div class="fr">
+                <span class="text">余额{{wallet|default(0) }}元</span>
+                <span class="arrow"></span>
+            </div>
+        </div>
+    </section>
+
+     <section class="cont">
+         <div class="row-cont">
+            <a class="href" href="{{ path('auto_mobile_document_about') }}"></a>
+            <span class="rname">关于我们</span>
+            <div class="fr">
+                <span class="arrow"></span>
+            </div>
+        </div>
+         <div class="row-cont">
+            <a class="href" href="{{ path('auto_mobile_document_protocol') }}"></a>
+            <span class="rname">用户协议</span>
+            <div class="fr">
+                <span class="arrow"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="cont">
+
+        <div class="row-cont exit-cont">
+            <a class="href" href="{{ path('auto_mobile_out') }}"></a>
+            <p class="rname exit">退出登录</p>
+        </div>
+    </section>
+</div>
+
+    
+
+{% endblock %}
+
+{% block footer %}
+    <div class="footer">
+        <div class="foot-row">
+            <p class="foot-t">客服专线(8:30~23:00)：<a class="tel" href="tel:400-111-8220"><span class="blue">400-111-8220</span></a></p>
+        </div>
+        <div class="foot-row">
+            <p class="foot-t1">©云杉智慧新能源技术有限公司</p>
+        </div>
+    </div>
+{% endblock %}

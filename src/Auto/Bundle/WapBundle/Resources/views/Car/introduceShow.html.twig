@@ -1,0 +1,279 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['car', 'show'] %}
+{% block title %}{% if car.carID==2 %}北汽EV系列{% elseif car.carID==6 %}奇瑞eQ{% else %}{{ car.name }}{% endif %}{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="top-cont"></div>
+        <div class="top-incont">
+            <div class="title">
+                {% if car.carID==2 %}北汽新能源电动汽车
+                {% elseif car.carID==4 %}江淮iEV5新能源电动汽车
+                {% elseif car.carID==8 %}吉利帝豪EV电动汽车
+                {% else %}奇瑞eQ新能源电动汽车
+                {% endif %}
+                <span class="circle">&bull;</span>使用须知</div>
+            <div class="img-cont"><img  src="{{ asset('/bundles/autowap/images/car'~car.carID~'-img.png') }}" /></div>
+        </div>
+
+
+        <div class="car-cont">
+            <div class="left-line"></div>
+
+            <!---1111--->
+            <div class="car-incont">
+                <div class="car-title">
+                    <span class="greenl"><img src="{{ asset('/bundles/autowap/images/car-title-left.png') }}" /></span>
+                    <p>
+                        {% if car.carID==2 %}北汽EV系列仪表盘常见指示灯
+                        {% elseif car.carID==4 %}江淮iEV5仪表盘常见指示灯
+                        {% elseif car.carID==8 %}帝豪EV仪表盘常见指示灯
+                        {% else %}奇瑞eQ仪表盘常见指示灯
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="car-img small-icon">
+                    <div class="col">
+                        <div class="row">
+                            <span class="small-img"><img src="{% if car.carID==6 %}{{ asset('/bundles/autowap/images/car-icon1-eq.png') }}{% else %}{{ asset('/bundles/autowap/images/car-icon1.png') }}{% endif %}" /></span>
+                            <p>手刹(脚刹)警告灯</p>
+                        </div>
+                        <div class="row">
+                            <span class="small-img"><img src="{% if car.carID==8 %}{{ asset('/bundles/autowap/images/car-icon2-dihao.png') }}{% else %}{{ asset('/bundles/autowap/images/car-icon2.png') }}{% endif %}" /></span>
+                            <p>车门开启警示灯</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <span class="small-img"><img src="{{ asset('/bundles/autowap/images/car-icon3.png') }}" /></span>
+                            <p>安全带警示灯</p>
+                        </div>
+                        <div class="row ">
+                            <span class="small-img"><img src="{{ asset('/bundles/autowap/images/car-icon4.png') }}" /></span>
+                            <p>充电警示灯</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!----2222--->
+            <div class="car-incont">
+                <div class="car-title">
+                    <span class="greenl"><img src="{{ asset('/bundles/autowap/images/car-title-left.png') }}" /></span>
+                    <p>{% if car.carID==8 %}如何启动车辆(不踩刹车只能开启中控){% else %}如何启动车辆{% endif %}</p>
+                </div>
+                <div class="car-img big-icon">
+                    <div class="col">
+                        <div class="row" >
+                            <div class="big-img">
+                                <span class="tag">1</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module1-1.png') }}" />
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="big-img">
+                                <span class="tag">3</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module1-3.png') }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="big-img">
+                                <span class="tag">2</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module1-2.png') }}" />
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="big-img">
+                                <span class="tag">4</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module1-4.png') }}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!----3333--->
+            <div class="car-incont">
+                <div class="car-title">
+                    <span class="greenl"><img src="{{ asset('/bundles/autowap/images/car-title-left.png') }}" /></span>
+                    <p>{% if car.carID==8 %}如何使用电子手刹（停车后请挂P档）{% else %}如何解除手刹（停车后请拉起手刹）{% endif %}</p>
+                </div>
+                <div class="car-img big-icon">
+                    <div class="col">
+                        <div class="row" >
+                            <div class="big-img">
+                                <span class="tag">1</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module2-1.png') }}" />
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="big-img">
+                                <span class="tag">3</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module2-3.png') }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="big-img">
+                                <span class="tag">2</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module2-2.png') }}" />
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="big-img">
+                                <span class="tag">4</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module2-4.png') }}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!----4444--->
+            <div class="car-incont">
+                <div class="car-title">
+                    <span class="greenl"><img src="{{ asset('/bundles/autowap/images/car-title-left.png') }}" /></span>
+                    <p>
+                        {% if car.carID==2 %}EV150换档的方法
+                        {% elseif car.carID==4 %}江淮iEV5换档的方法
+                        {% elseif car.carID==8 %}帝豪EV换档的方法
+                        {% else %}奇瑞eQ换档的方法
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="car-img big-icon">
+                    <div class="col">
+                        <div class="row" >
+                            <div class="big-img">
+                                <span class="tag">1</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module3-1.png') }}" />
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="big-img">
+                                <span class="tag">3</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module3-3.png') }}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="big-img">
+                                <span class="tag">2</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module3-2.png') }}" />
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="big-img">
+                                <span class="tag">4</span>
+                                <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module3-4.png') }}" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% if car.carID==2 or car.carID==8 %}
+                <!----5555--->
+                <div class="car-incont">
+                    <div class="car-title">
+                        <span class="greenl"><img src="{{ asset('/bundles/autowap/images/car-title-left.png') }}" /></span>
+                        <p>{% if car.carID==8 %}帝豪EV R档（倒车档）的换挡方式{% else %}EV160/200换档的方法{% endif %}</p>
+                    </div>
+                    <div class="car-img big-icon">
+                        <div class="col">
+                            <div class="row" >
+                                <div class="big-img">
+                                    <span class="tag">1</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module4-1.png') }}" />
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="big-img">
+                                    <span class="tag">3</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module4-3.png') }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="big-img">
+                                    <span class="tag">2</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module4-2.png') }}" />
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="big-img">
+                                    <span class="tag">4</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module4-4.png') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if car.carID==2 %}<p class="comment">注：E档时抬起油门有明显的减速感</p>{% endif %}
+            {% endif %}
+
+
+
+
+            <!----6666--->
+            {% if car.carID==8 %}
+                <div class="car-incont">
+                    <div class="car-title">
+                        <span class="greenl"><img src="{{ asset('/bundles/autowap/images/car-title-left.png') }}" /></span>
+                        <p>其他注意事项</p>
+                    </div>
+                    <div class="car-img big-icon">
+                        <div class="col">
+                            <div class="row" >
+                                <div class="big-img">
+                                    <span class="tag">1</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module5-1.png') }}" />
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="big-img">
+                                    <span class="tag">3</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module5-3.png') }}" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="row">
+                                <div class="big-img">
+                                    <span class="tag">2</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module5-2.png') }}" />
+                                </div>
+                            </div>
+                            <div class="row ">
+                                <div class="big-img">
+                                    <span class="tag">4</span>
+                                    <img src="{{ asset('/bundles/autowap/images/car'~car.carID~'-module5-4.png') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endif %}
+
+
+        </div>
+    </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

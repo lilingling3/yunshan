@@ -1,0 +1,11 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td{margin: 0; padding: 0;}
+table {border-collapse: collapse;border-spacing: 0;}
+th { font-weight:normal;}
+body{margin:0 auto; font:14px "Microsoft YaHei"; color:#000; font-family:"Microsoft YaHei";}
+input { font:14px "Microsoft YaHei"; text-indent:4px;*text-indent:0px; font-family:"Microsoft YaHei"; color:#999;outline: none;}
+textarea,input{word-wrap:break-word; word-break:break-all; padding:0px;}
+ul,li{list-style-type:none;}
+input,button,select,textarea{outline:none;}
+.contianer { height: 100%; padding: 10px; }
+.markercont {  background: url('../images/equipmenton.png') no-repeat center;  background-size: contain;  width: 93px;  text-align: center;  height: 46px;  line-height: 40px;  text-indent: 8px;  }
+.offline {  background: url('../images/equipmentoff.png') no-repeat center;  background-size: contain;  color:red;  }

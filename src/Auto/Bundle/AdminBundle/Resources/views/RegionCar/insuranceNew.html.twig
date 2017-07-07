@@ -1,0 +1,16 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['regioncarinsurance', 'new'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'车辆保险管理'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+            {% include "AutoAdminBundle:RegionCar:insuranceForm.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

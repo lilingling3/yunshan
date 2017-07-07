@@ -1,0 +1,102 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'车型折扣'} %}
+     <div class="ui main-content grid">
+         <div class="ui top attached menu tabular no_border" style="padding-left: 0;">
+             <a class="item " href="{{ path('auto_admin_rental_price_list') }}">定价管理</a>
+             <a class="active item font-normal bk_gray no_border " >车型折扣</a>
+             <a class="item" href="{{ path('auto_admin_rental_station_discount_list') }}">租赁点折扣</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_car_discount_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td>
+                             <select name="carId" id="carId" class="ui dropdown" style="width: 100px;">
+                                 <option value="">车型</option>
+                                 {% for  car in cars %}
+                                     <option value="{{ car.id }}">{{ car.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+
+                         <td>
+                             <button class="ui teal button  " type="submit">查询</button>
+                         </td>
+                         <td style="width: 45%;"></td>
+
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_car_discount_new') }}">添加车型折扣 </a>
+                         </td>
+
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+
+                     <th>车型名称</th>
+                     <th>开始日期</th>
+                     <th>结束日期</th>
+
+                     <th>折扣</th>
+
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for v in lists %}
+                     <tr>
+                         <td>{{ v.car.name }}</td>
+                         <td>{{ v.startTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ v.endTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ v.discount * 10 }}折</td>
+                         <td><a href="{{ path('auto_admin_car_discount_edit',{'id':v.id}) }}"><small>编辑</small></a>
+                             |<a href="{{ path('auto_admin_car_discount_delete',{'id':v.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_car_discount_list",{'page':k,'carId':carId}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+
+
+     </div>
+
+
+ {% endblock %}

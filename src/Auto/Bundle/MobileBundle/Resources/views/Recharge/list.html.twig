@@ -1,0 +1,62 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['recharge', 'list'] %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        html,body {
+            position: relative;
+            height: 100%;
+            background-color:white;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    <div class="orderlist" pagecount="{{ operates.pageCount|default(0) }}" page="{{ operates.page|default(0) }}" >
+    {% for oper in operates['list'] %}
+                <div class="order-li status102">
+                    <div class="row rowpadding">
+                        <div class="column column-info">
+                            <div class="item1">
+                                <p class="b">
+                                    {{ oper.operate }}
+                                </p>
+                                <p class="time">
+                                    {{ oper.createTime }}
+                                </p>
+                            </div>
+                            <div class="item">
+                            <span class=" status-top102">
+                                   {% if oper.operateID==1 or oper.operateID==2 %}
+                                      <span  class="status-green">
+                                           +{{ oper.amount }}
+                                     </span>
+                                   {% else %}
+                                      <span  class="status-orange">
+                                           -{{ oper.amount }}
+                                     </span>
+                                   {% endif %}
+                            </span>
+                                <p class="result">
+                                    余额{{ oper.wallet }}元
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    {% endfor %}
+        </div>
+
+    {% if  operates.pageCount > 1 %}
+        <div class="moreorderbtn">
+            加载更多
+        </div>
+    {% endif %}
+    <input type="hidden" id="userID" value="{{ app.user.token }}" />
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

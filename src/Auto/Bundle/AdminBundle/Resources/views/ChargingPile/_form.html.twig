@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.no) }}</label>
+        {{ form_widget(form.no,{'attr': {'placeholder':'电桩编号'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.ident) }}</label>
+        {{ form_widget(form.ident,{'attr': {'placeholder':'系统唯一编号'}}) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.station) }}</label>
+        {{ form_widget(form.station,{'attr': {'placeholder':'站点','class':'ui dropdown'}} ) }}
+    </div>
+
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

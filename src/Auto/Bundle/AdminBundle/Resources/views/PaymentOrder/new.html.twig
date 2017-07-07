@@ -1,0 +1,30 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['payment_order', 'new'] %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'缴费记录'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:PaymentOrder:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+     <div class="payorder-ok door" >
+         <div>
+             <p><span class="left-row">手机：</span><span class="phone"></span></p>
+             <p><span class="left-row">姓名：</span><span class="name"></span></p>
+             <p><span class="left-row">缴费金额：</span><span class="money"></span></p>
+             <p><span class="left-row">缴费类型：</span><span class="paytype"></span></p>
+             <button class="ui teal button payorder-cancel">取消</button>
+             <button class="ui teal button right payorder-do">确认</button>
+         </div>
+     </div>
+ {% endblock %}

@@ -1,0 +1,94 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['account2', 'auth'] %}
+{% block content %}
+    <div class="authinfo">
+        <div class="info">
+            <div class="head">
+                <img src="{{ asset('/bundles/autowap/images/2.0-person.png') }}"/>
+            </div>
+            <div class="info-text">
+                <p>
+                    {% if app.user.name %}
+                    <span>{{ app.user.name }}</span><span class="moblie">{{ app.user.mobile//100000000 }}****{{ app.user.mobile%10000 }}</span></p>
+                    {% else %}
+                    <span>{{ app.user.mobile }}</span>
+                    {% endif %}
+                <p class="auth-status ">
+                    {% if auth.status ==200  %}
+                        <span class="red">未认证</span>
+                    {% elseif auth.status ==201 %}
+                        <span class="blue">认证中…</span>
+                    {% elseif auth.status ==202 %}
+                        <span class="red">认证失败</span>
+                    {% elseif auth.status ==299 %}
+                        <span class="green">认证成功 - 有效期至{{ auth.licenseEndDate }}</span>
+                    {% elseif auth.status ==203 %}
+                        <span class="red">驾驶证过期- 有效期至{{ auth.licenseEndDate }}</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+         {% if auth.status !=299 %}
+        <div class="btn"><a href="{{ path('auto_wap_account_identify2') }}"></a>立即认证</div>
+        {% endif %}
+        <div class="trip">
+            <div class="inner">
+                <p class="title">出行</p>
+                <p class="t"><span class="num">{{ ordersCount }}</span>次</p>
+            </div>
+            <div class="inner">
+                <p class="title">行驶</p>
+                <p class="t"><span class="num">{{ mileages }}</span>公里</p>
+            </div>
+            <div class="inner">
+                <p class="title">优惠券</p>
+                <p class="t"><span class="num">{{ couponsCount }}</span>张</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row balance">
+
+            {{ rechargeActivity|default("余额") }}<span class="r-text">{% if  rechargeActivity %}余额{% endif %}{{ app.user.wallet|default('0') }}元</span>
+        </div>
+        <div class="row">
+            <a class="a-href" href="{{ path('auto_wap_forget2') }}"></a>
+            修改密码
+        </div>
+        <div class="row">
+            <a class="a-href" href="{{ path('auto_wap_logout') }}" ></a>
+            退出登录
+        </div>
+    </div>
+
+     <div class="footdiv">
+        <a class="foota"  href="{{ path('auto_wap_index3') }}">
+            <img src="{{ asset('/bundles/autowap/images/2.0-home.png') }}"/>
+        </a>
+
+        <a class="foota" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653" >
+            <img src="{{ asset('/bundles/autowap/images/2.0-down.png') }}"/>
+        </a>
+    </div>
+    <div class="black-layer"></div>
+    <div class="layer">
+        <div class="close-cont">
+            <span class="close"></span>
+            <img src="{{ asset('/bundles/autowap/images/2.0-close1.png') }}"/>
+        </div>
+        <div class="layer-bg"><img src="{{ asset('/bundles/autowap/images/2.0-down-layer.png') }}"/></div>
+        <div class="text">
+            <div class="text-inner">
+                <p>亲，请下载客户端充值哦！</p>
+                <p>还有更多优惠活动，么么哒~</p>
+            </div>
+        </div>
+        <div class="btn">
+            <a href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653"></a>
+            下载客户端
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

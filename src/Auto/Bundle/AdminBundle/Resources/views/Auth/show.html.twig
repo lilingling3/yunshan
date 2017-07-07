@@ -1,0 +1,29 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['auth', 'show'] %}
+
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'审核','prenav':'新用户认证'} %}
+     {% include "AutoAdminBundle:Auth:_auth.html.twig" %}
+
+     <a href="{{ path('auto_admin_authmember_auth_list') }}">
+         <sapn class="ui teal button">返回</sapn>
+     </a>
+
+     <a href="{{ path('auto_admin_auth_reset',{ 'id':auth.id }) }}" class="reset" style="margin:26px 6px;">
+         <sapn class="ui teal button">重置认证信息</sapn>
+     </a>
+     <a href="{{ path('auto_admin_auth_step1',{ 'id':auth.id }) }}">
+         <sapn class="ui teal button" >编辑</sapn>
+     </a>
+
+
+
+     <div class="apply-ok door">
+         <div>
+             <p>确定重置认证信息？</p>
+             <button class="ui teal button cancel">取消</button>
+             <button class="ui teal button right submit-do" >确认</button>
+
+         </div>
+     </div>
+ {% endblock %}

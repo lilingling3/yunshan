@@ -1,0 +1,30 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'detail'] %}
+{% import "AutoOperateBundle:RentalOrder:_status.html.twig" as status %}
+
+{% block content %}
+    <div class="top-menu">
+        车辆详情
+        <a href="{{ path("auto_operate_rental_car_show",{'id':rentalCar.id}) }}"  class="left-cont"><b></b></a>
+    </div>
+
+    <section class="car-menu">
+        <li>车型<span class="text-r">{{ rentalCar.name }}</span></li>
+        <li>颜色<span class="text-r">{{ rentalCar.color }}</span></li>
+        <li>车牌归属地<span class="text-r">{{ rentalCar.licensePlace }}</span></li>
+        <li>车牌号<span class="text-r">{{ rentalCar.licensePlate }}</span></li>
+        <li>发动机号<span class="text-r">{{ rentalCar.engineNumber }}</span></li>
+        <li>车架号<span class="text-r">{{ rentalCar.chassisNumber }}</span></li>
+    </section>
+
+    <section class="car-menu">
+        <li>租赁点<span class="text-r">{{ rentalCar.rentalStation }}<a href="{{ path("auto_operate_station_list",{'rentalCar':rentalCar.id}) }}"> &nbsp; 移库 &nbsp;</a></span></li>
+        <li>归属公司<span class="text-r">{{ rentalCar.company }}</span></li>
+    </section>
+
+
+    <section class="car-menu">
+        <li>在线状态<span class="text-r">{% if not rentalCar.online or rentalCar.online.status==0 %}已下线{% else %}已上线{% endif %}</span></li>
+    </section>
+
+{% endblock %}

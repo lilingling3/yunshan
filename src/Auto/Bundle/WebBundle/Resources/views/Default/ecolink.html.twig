@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!--http://www.alixixi.com/web/a/2015031794526.shtml
+
+	http://www.ifrans.cn/pageslider/?replytocom=38914
+	-->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+	<meta content="telephone=no" name="format-detection"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+	<title>邀请函</title>
+	<link rel="stylesheet" href="{{ asset('/bundles/autoweb/css/font.css') }}">
+	<link rel="stylesheet" href="{{ asset('/bundles/autoweb/css/style.css') }}">
+	<style>
+		html,body{
+			width:100%;
+			height:100%;
+			margin:0 ;
+			padding:0 ;
+			/*overflow:hidden;/*/
+		}
+		.pages{
+			width: 100%;
+			height: 100%;
+			position: relative;
+
+		}
+		.page {
+			/*font-size:100px;*/
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			/*overflow: hidden;*/
+			transform: translate3d(0px, 100%, 0px);
+			-webkit-transform: translate3d(0px, 100%, 0px);
+			-moz-transform: translate3d(0px, 100%, 0px);
+			transition: transform .5s ease-out;
+			-webkit-transition: -webkit-transform .5s ease-out;
+			-moz-transition: -moz-transform .5s ease-out;
+		}
+		/*.page1{background:red;}*/
+		/*.page2{background:green;}*/
+		/*.page3{background:blue;}*/
+
+		/* the box animation */
+		/*.box{*/
+			/*width:100px ;*/
+			/*height:100px;*/
+			/*background:black ;*/
+		/*}*/
+		/*.play .myAnimation{*/
+			/*animation:move 1s ease 1 both ;*/
+			/*-webkit-animation: move 1s ease 1 both ;*/
+		/*}*/
+		/*@-webkit-keyframes move{*/
+			/*100%{*/
+				/*-webkit-transform:translate3d(150px,0,0);*/
+				/*transform:translate3d(150px,0,0);*/
+				/*-ms-transform: translate3d(150px,0,0);*/
+			/*}*/
+		/*}*/
+	</style>
+<body>
+<div class="pages">
+	<!--DOM结构-->
+	<div class="section sec1 page page1">
+		<div class="indexBg">
+			<b class="arrow"></b>
+		</div>
+	</div>
+	<div class="section sec2 page page2">
+		<h3 class="headTitle"></h3>
+		<div class="describeCon">
+			<h4>尊敬的朋友</h4>
+			<p>您好！值此新春之际，乐视车联即将召开战略发布会。</p>
+			<p>作为乐视SEE计划中“智能化、互联网化”的代表，无论是广州车展时ecolink系统的发布，还是美国CES展上为阿斯顿•马丁打造的全新车联网系统，乐视车联的每一次大动作都备受瞩目。我们希望能够通过这次战略发布会，向您解读<strong>乐视车联的开放生态战略及跨行业合作</strong>，邀您一同见证前所未见的汽车生态大场面。</p>
+		</div>
+		<div class="describeDetails">
+			<div class="segment">
+				<p><b>时间</b></p>
+				<p><span>2016年3月16日 14:00-16:00</span></p>
+			</div>
+			<div class="segment">
+				<p><b>地点</b></p>
+				<p><span>酒仙桥路四号751时尚广场-东区故事D-live生活馆</span></p>
+			</div>
+			<div class="segment">
+				<p><b>内容</b></p>
+				<p><span>乐视车联战略发布会</span></p>
+			</div>
+		</div>
+		<div class="describeFooter">
+			<p>我们诚挚的邀请您百忙之中,拨冗参加乐视车联战略发布会。</p>
+			<p>期待您的莅临，感谢您对乐视车联的支持</p>
+			<div class="map" id="map">
+				<img src="{{ asset('/bundles/autoweb/images/map.png') }}">
+				<b class="arrow2"></b>
+			</div>
+		</div>
+
+		<div class="mapMax" id="mapMax">
+			<div class="layout"></div>
+            <img src="{{ asset('/bundles/autoweb/images/map.png') }}">
+		</div>
+	</div>
+	<div class="section sec3 page page3">
+		<div class="headBg">
+            <img src="{{ asset('/bundles/autoweb/images/headBg.png') }}">
+		</div>
+		<div class="container">
+			<h3>尊敬的朋友:</h3>
+			<p>感谢您对乐视车联的支持,请填写相关资料报名参加</p>
+			<form action="action"></form>
+			<div class="columns">
+				<div class="segment">
+					<input type="text" placeholder="姓名" class="input" id="iptName" >
+				</div>
+				<div class="segment">
+					<input type="text" placeholder="电话" class="input" id="iptIphone">
+				</div>
+				<div class="segment">
+					<input type="text" placeholder="邮箱" class="input" id="iptEmail" >
+				</div>
+				<div class="segment">
+					<input type="text" placeholder="职位" class="input" id="iptPosition">
+				</div>
+				<div class="segment">
+					<input type="text" placeholder="公司" class="input" id="iptCompany">
+				</div>
+				<div class="segment">
+					<!--<a href="javascript:void(0);" id="submitButton" class="submitButton">提交</a>-->
+					<input type="button"  id="submitButton" class="submitButton" value="提交" onClick="sendMsg()" />
+				</div>
+			</div>
+		</div>
+		<div class="logo">
+			<h3></h3>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript">
+		new function (){
+			var _self = this;
+			_self.width = 640;//设置默认最大宽度
+			_self.fontSize = 100;//默认字体大小
+			_self.widthProportion = function(){var p = (document.body&&document.body.clientWidth&&document.getElementsByTagName("html")[0].offsetWidth)/_self.width;return p>1?1:p<0.5?0.5:p;};
+			_self.changePage = function(){
+				document.getElementsByTagName("html")[0].setAttribute("style","font-size:"+_self.widthProportion()*_self.fontSize+"px !important");
+			}
+			_self.changePage();
+			window.addEventListener("resize",function(){_self.changePage();},false);
+		};
+	</script>
+
+<script src="{{ asset('/bundles/autoweb/js/slider.js') }}"></script>
+<!--<script src="http://cdn.bootcss.com/zepto/1.0rc1/zepto.min.js"></script>-->
+<script src="{{ asset('/bundles/autoweb/js/jquery-2.1.4.js') }}"></script>
+<script type='text/javascript'>
+	$("#map").click(function(){
+		$("#mapMax").css("display","inline-block");
+	});
+	$("#mapMax").click(function(){
+		$("#mapMax").css("display","none");
+	});
+	function sendMsg(){
+		if(register()){
+		var  name ="name";
+//		var data = {"queryper":{"NAME":"","phone":"","email":"","position":"","company":""}};
+		var data = {"queryper":{"name":"","mobile":"","email":"","job":"","company":""}};
+		var name = $("#iptName").val();
+		var mobile = $("#iptIphone").val();
+		var email = $("#iptEmail").val();
+		var job = $("#iptPosition").val();
+		var company = $("#iptCompany").val();
+		var seqParam = {
+			modulename : "activity_manager",
+			tag		   : "ext-gen2622",
+			operation  : "insert",
+			tokenid    : "451e7a977c5d4a8ebb58ff6d6ab606b3",
+			data	   : data
+		};
+		$.ajax({
+			url : "/api/car/ecolink",
+			method :"POST",
+			dataType : 'json',
+			data : {
+                name: name,
+                mobile: mobile,
+                email: email,
+                job: job,
+                company : company
+			},
+			success : function(req){
+				window.location.href = "/finish";
+			}
+		});
+	}
+	}
+</script>
+	<script>
+		function  register(){
+			if($("#iptName").val()==""){
+				alert("请输入姓名");
+				return false;
+			}
+			else if($("#iptIphone").val()==""){
+				alert("请输入电话");
+				return false;
+			}
+			else if($("#iptEmail").val()==""){
+				alert("请输入邮箱");
+				return false;
+			}
+			else if($("#iptPosition").val()==""){
+				alert("请输入职位");
+				return false;
+			}
+			else if($("#iptCompany").val()==""){
+				alert("请输入公司");
+				return false;
+			}
+			else{
+				return true;
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,276 @@
+#admin.rentalstation,#admin.area.business-list,#admin.area.new,#admin.area.edit{
+    #allmap,#area-business-allmap{width:100%;height:500px;}
+}
+
+#admin.rentalstation.rtsl,#admin.rentalcar.orientation{
+    .amap-marker-content div {
+        background-size: contain;
+    }
+    .amap-controls,.amap-logo {
+        display: none;
+    }
+    #allmap{width:100%;height:500px;}
+
+    #container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .button-group {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 12px;
+        padding: 10px;
+    }
+
+    .button-group .button {
+        height: 28px;
+        line-height: 28px;
+        background-color: #0D9BF2;
+        color: #FFF;
+        border: 0;
+        outline: none;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 3px;
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
+    .button-group .inputtext {
+        height: 26px;
+        line-height: 26px;
+        border: 1px;
+        outline: none;
+        padding-left: 5px;
+        padding-right: 5px;
+        border-radius: 3px;
+        margin-bottom: 4px;
+        cursor: pointer;
+    }
+
+    #tip {
+        background-color: #fff;
+        padding-left: 10px;
+        padding-right: 10px;
+        position: absolute;
+        font-size: 12px;
+        right: 10px;
+        top: 20px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        line-height: 30px;
+    }
+
+    .amap-info-content {
+        font-size: 12px;
+    }
+
+    #myPageTop {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        background: #fff none repeat scroll 0 0;
+        border: 1px solid #ccc;
+        margin: 10px auto;
+        padding:6px;
+        font-size: 14px;
+
+    }
+    #myPageTop label {
+        margin: 0 20px 0 0;
+        color: #666666;
+        font-weight: normal;
+    }
+    #myPageTop input {
+        width: 170px;
+    }
+    #myPageTop .column2{
+        padding-left: 25px;
+    }
+    .map-cont { height: 700px; }
+    .button-cont {
+        .button-group {
+            position: relative;
+        }
+    }
+    .active {
+        background-color: rgba(204, 204, 204, 1) !important;
+    }
+    .layer-button {
+        position: absolute;
+        width: calc(100% - 2rem);
+        height: 64px;
+        z-index: 1000;
+        .layer-btn-cont{
+            position: absolute;
+            width: calc(100% - 2px);
+            height: 40px;
+            top: 12px;
+            left: 12px;
+            form {
+                display: inline-block;
+            }
+            .choose-text {
+                width: 184px;
+                font-size: 14px;
+                color: #999999;
+                border: 1px solid #ddd;
+                position: absolute;
+                z-index: 100;
+                left: 282px;
+                background: white;
+                margin-top: -1px;
+                height: auto;
+                max-height: 309px;
+                overflow: scroll;
+                &.hide {
+                    display: none;
+                }
+                table {
+                    width: 100%;
+                    tr {
+                        width: auto;
+                        min-width: 355px;
+                        td {
+                            cursor: pointer;
+                            width: 100%;
+                            text-align: left;
+                            height: 30px;
+                            line-height: 30px;
+                            white-space: nowrap;
+                            border-bottom: 1px solid #ddd;
+                        }
+                        &.hover {
+                            background-color: rgb(233, 90, 104);
+                            color: white;
+                        }
+                    }
+                }
+            }
+            .error {
+                position: absolute;
+                width: 100%;
+                bottom: -26px;
+                left: 335px;
+                font-size: 12px;
+                text-align: left;
+                color: red;
+                display: none;
+            }
+            .choosestation {
+                display: inline-block;
+                position: relative;
+
+
+            }
+            .mian-string {
+                display: inline-block;
+                height: 37px;
+                border-left:1px dashed white ;
+                width: 1px;
+                box-sizing: border-box;
+                position: relative;
+                top: -10px;
+                margin-right: 9px;
+            }
+
+            .inputwidth {
+                width: 116px;
+            }
+        }
+    }
+    .layer-bg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        background-color: black;
+        opacity: 0.5;
+    }
+    .right {
+        float: right;
+    }
+    .layer-side {
+        position: absolute;
+        top: 94px;
+        left: 1em;
+        width: 240px;
+        z-index: 100;
+        font-size: 12px;
+        color: white;
+        height: 183px;
+        .side-cont {
+            position: relative;
+            width: 100%;
+            height: 148px;
+            padding: 12px;
+            ul {
+                width: calc(100% - 12px);
+                position: absolute;
+                li{
+                    padding: 10px 0px;
+                    .checkbox {
+                        position: relative;
+                        top: 3px;
+                        margin-right: 2px;
+                    }
+                }
+            }
+            .line-botton {
+                border-bottom: 1px dashed white;
+
+            }
+        }
+        .side-cont2 {
+            height: 260px;
+            margin-top: 12px;
+        }
+        .car-detail {
+
+            .close {
+                font-size: 20px;
+                color: white;
+                position: absolute;
+                bottom: 14px;
+                width: 100%;
+                left: 0px;
+                text-align: center;
+            }
+        }
+
+    }
+    .markercont {
+        background: url('../images/equipmenton.png') no-repeat center;
+        background-size: contain;
+        width: 93px;
+        text-align: center;
+        height: 46px;
+        line-height: 40px;
+        text-indent: 8px;
+    }
+    .offline {
+        background: url('../images/equipmentoff.png') no-repeat center;
+        background-size: contain;
+        color:red;
+    }
+    .hide {
+        display: none !important;
+    }
+    .visiableno {
+        visibility: hidden;
+    }
+    .main-left,.confirm {
+        display: none;
+    }
+    #yui_3_14_1_1_1488339976742_23 {
+        width: 100% !important;
+    }
+
+}

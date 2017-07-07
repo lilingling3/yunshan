@@ -1,0 +1,78 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'发票管理'} %}
+     <div class="ui main-content" style="padding-bottom: 10px;">
+         <div class="ui top attached menu tabular no_border">
+             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_FINANCE') %}
+             <a class="active item font-normal bk_gray no_border">未开票</a>
+             {% endif %}
+             <a class="item " href="{{ path("auto_admin_invoice_invoicedList") }}">已开票</a>
+             <a class="item " href="{{ path("auto_admin_express_company_list") }}">快递公司</a>
+         </div>
+     </div>
+     <div class="ui main-content grid" style="padding-top: 0px">
+         <div class="fifteen wide column" style="padding: 0px">
+             <table class="ui very basic table">
+                 <thead class="bk_gray">
+                 <tr>
+                     <th style="padding-top: 20px;padding-left: 20px">申请人手机号</th>
+                     <th style="padding-top: 20px">申请发票金额</th>
+                     <th style="padding-top: 20px">申请时间</th>
+                     <th style="padding-top: 20px">操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for invoice in invoices %}
+                     <tr>
+                         <td >{% if invoice.applyMember %}
+                             {{ invoice.applyMember.mobile }}
+                            {% endif %}
+                         </td>
+                         <td >{{ invoice.amount }}</td>
+                         <td>
+                             {{ invoice.createTime|date('Y-m-d H:i:s') }}
+                         </td>
+                         <td >
+                             <a href="{{ path('auto_admin_invoice_verify',
+                             {'id':invoice.id}) }}"><small>开票</small></a>
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_rentalcar_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+     </div>
+
+
+ {% endblock %}

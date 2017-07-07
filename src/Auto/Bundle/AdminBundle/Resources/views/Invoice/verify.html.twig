@@ -1,0 +1,151 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['Invoice', 'verifyInvoice'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'开票','prenav':'发票管理'} %}
+
+     <div class="ui main-content grid">
+     <div class="sixteen wide column">
+             <h4 class="ui horizontal  header"> 申请人信息 </h4>
+             <table class="ui teal table" style="margin:0px;border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>手机号</th>
+                     <th>姓名</th>
+                     <th>账户余额（元）</th>
+                     <th> </th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% if  invoice%}
+                 <tr>
+                     <td>
+                         {{ invoice.applyMember.mobile }}
+                     </td>
+                     <td>
+                         {{ invoice.applyMember.name }}
+
+                     </td>
+                     <td>
+                         {{ invoice.applyMember.wallet }}
+                     </td>
+                     <td> </td>
+                 </tr>
+                 {% endif %}
+                  <thead>
+                 <tr>
+                     <th>已开票金额（元）</th>
+                     <th>可开票金额（元）</th>
+                     <th>已开票张数（张）</th>
+                     <th>待开票张数（张）</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% if  invoice%}
+                 <tr>
+                     <td>{{ invoice_amount|default(0) }}</td>
+                     <td>{{ order_amount }}</td>
+                     <td> {{ invoiced_count }}</td>
+                     <td> {{ invoice_waiting }}</td>
+                 </tr>
+                 {% endif %}
+                 <thead>
+                 <tr>
+                     <th>申请时间</th>
+                     <th>操作</th>
+                     <th></th>
+                     <th></th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% if  invoice%}
+                 <tr>
+                     <td>{{ invoice.createTime|date('Y-m-d H:i:s') }}</td>
+                     <td><a href="{{ path('auto_admin_invoice_account_show',{id:invoice.applyMember.id,invoiceid:invoice.id}) }}">实付流水</a></td>
+                     <td></td>
+                     <td></td>
+                 </tr>
+                 {% endif %}
+                 </tbody>
+             </table>
+
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+     <div class="sixteen wide column">
+         <h4 class="ui horizontal  header">发票信息 </h4>
+         <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+             <thead>
+             <tr>
+                 <th>申请发票金额（元）</th>
+                 <th>发票内容</th>
+                 <th>发票抬头</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% if  invoice%}
+             <tr>
+                 <td>
+                     {{ invoice.amount}}
+                 </td>
+                 <td>
+                     车辆租赁服务
+                 </td>
+                 <td>{{ invoice.title}}</td>
+             </tr>
+            {% endif %}
+             </tbody>
+         </table>
+     </div>
+     </div>
+
+
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal  header">收件信息 </h4>
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>收件人</th>
+                     <th>联系方式</th>
+                     <th>收件地址</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% if  invoice%}
+                 <tr>
+                     <td>{{ invoice.deliveryName}}</td>
+                     <td>{{ invoice.deliveryMobile }}</td>
+                     <td>{{ invoice.deliveryAddress }}</td>
+                 </tr>
+                 {% endif %}
+
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <div style="width: 20%;margin: 0 auto">
+             <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+             <button class="ui teal button " id='invoice' type="submit" >确认开票</button>
+             </div>
+         </div>
+
+
+     </div>
+
+
+     <div class="invoice door">
+         <div>
+             <h4 style="height: 63%;line-height: 11;text-align: center;font-weight: normal">确认给此申请人开具发票吗？</h4>
+             <button class="ui teal button cancel">取消</button>
+             <a class="ui teal button right invoice-yes" data-invoiceid="{{ invoice.id }}" data-member="{{ app.user.id }}" style="display: block;width: 45%">确认</a>
+         </div>
+     </div>
+
+
+
+ {% endblock %}

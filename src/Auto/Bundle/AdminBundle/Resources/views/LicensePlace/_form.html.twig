@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>归属地简称</label>
+        {{ form_widget(form.name,{'attr': {'placeholder':'车牌归属地'}} ) }}
+    </div>
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

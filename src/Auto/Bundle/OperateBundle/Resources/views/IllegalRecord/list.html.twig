@@ -1,0 +1,47 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['illegal_record', 'list'] %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% block content %}
+    <div class="top-menu">
+        待处理违章
+        <a href="javascript:history.go(-1);" class="left-cont"><b></b></a>
+    </div>
+    {% if not illegals %}
+        <div class="show_info">暂无未处理违章^_^</div>
+    {% endif %}
+    {% for illegal in illegals %}
+        <div class="rental-order clearfix">
+            <a   class="rental-ahref" href="{{ path("auto_operate_illegal_show",{'id':illegal.id}) }}"></a>
+            <div class="row id">{{ illegal.createTime|date('Y/m/d') }}
+            </div>
+            <div class="row row-style clearfix">
+                <div class="left">
+                    <div class="text">
+                        <p><span class="t-name">号牌&nbsp;:&nbsp;</span>{{ illegal.rentalCar.license }}</p>
+
+                       <p><span class="t-name">用户&nbsp;:&nbsp;</span>
+                            {% if illegal.order and illegal.order.member and illegal.order.member.name %}{{ illegal.order.member.name }}{% else %}--{% endif %}</p>
+                        <p><span class="t-name">记分&nbsp;:&nbsp;</span>{% if  illegal.illegalScore %}<span class="color-red">{{ illegal.illegalScore }}分</span>{% else %}-{% endif %}</p>
+
+                    </div>
+                </div>
+
+                <div class="right">
+                    <div class="text">
+                        <p><span class="t-name">车型&nbsp;:&nbsp;</span>{{ illegal.rentalCar.car.name }}</p>
+                        <p><span class="t-name">手机&nbsp;:&nbsp;</span>
+                            {% if illegal.order and illegal.order.member %}{{ illegal.order.member.mobile }}
+                            {% else %}--{% endif %}
+                        </p>
+                        <p><span class="t-name">罚款&nbsp;:&nbsp;</span>{% if illegal.illegalAmount %}<span class="color-red">{{ illegal.illegalAmount }}元</span>{% else %}-{% endif %}</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    {% endfor %}
+
+{% endblock %}

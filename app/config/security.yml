@@ -1,0 +1,138 @@
+security:
+
+
+    encoders:
+        Auto\Bundle\ManagerBundle\Entity\Member:
+            algorithm:          sha1
+            encode_as_base64:   true
+            iterations:         1
+
+    providers:
+        member:
+            entity:
+                class:    Auto\Bundle\ManagerBundle\Entity\Member
+                property: mobile
+
+        api_key_user_provider:
+            id: auto_api.api_key_user_provider
+
+    firewalls:
+        api_2:
+            host:  %auto_api_2.route.host%
+            pattern: ^%auto_api_2.route.prefix%(/account/(logout|user|info)|/coupon/(list|orderShare|draw|usable/list|unusable/list)|/order|/rentalCar/(order|inUse|)|/recharge|/remind|/illegalRecord|/message/(list)|/invoice|/pay|/payment|/deposit/(list|order|refund)|/invite/(share/content|reward/list))
+            stateless: true
+            simple_preauth:
+                authenticator: auto_api.apikey_authenticator
+            provider: api_key_user_provider
+            access_denied_handler: auto_api.listener_access_denied
+        dev:
+            pattern: ^/(_(profiler|wdt|error)|css|images|js)/
+            security: false
+
+        admin:
+            pattern:            ^/admin
+            anonymous:          ~
+            access_denied_url: /denied
+            form_login:
+                username_parameter: _mobile
+                login_path:     auto_admin_login
+                check_path:     auto_admin_check
+                default_target_path: auto_admin_index
+                provider:       member
+            logout:
+                path:           auto_admin_logout
+                target:         auto_admin_login
+            remember_me:
+                 key:            %secret%
+                 lifetime:       2592000
+                 path:           /
+                 domain:         ~
+                 always_remember_me: true
+
+        mobile:
+            pattern:            ^/m
+            anonymous:          ~
+            form_login:
+                username_parameter: _mobile
+                login_path:     auto_mobile_login
+                check_path:     auto_mobile_check
+                default_target_path: auto_mobile_index
+                provider:       member
+            logout:
+                path:           auto_mobile_logout
+                target:         auto_mobile_index
+            remember_me:
+                 key:            %secret%
+                 lifetime:       2592000
+                 path:           /
+                 domain:         ~
+                 always_remember_me: true
+
+        wap:
+            pattern:            ^/wap
+            anonymous:          ~
+            form_login:
+                username_parameter: _mobile
+                login_path:     auto_wap_codelogin2
+                check_path:     auto_wap_check
+                default_target_path: auto_wap_index3
+                provider:       member
+            logout:
+                path:           auto_wap_logout
+                target:         auto_wap_index3
+            remember_me:
+                 key:            %secret%
+                 lifetime:       2592000
+                 path:           /
+                 domain:         ~
+                 always_remember_me: true
+
+        operate:
+            pattern:            ^/o
+            anonymous:          ~
+            form_login:
+                username_parameter: _mobile
+                login_path:     auto_operate_login
+                check_path:     auto_operate_check
+                default_target_path: auto_operate_index
+                provider:       member
+            logout:
+                path:           auto_operate_logout
+                target:         auto_operate_index
+            remember_me:
+                 key:            %secret%
+                 lifetime:       2592000
+                 path:           /
+                 domain:         ~
+                 always_remember_me: true
+
+
+    access_control:
+           - { path: ^/admin/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/admin/(rentalcar/carinfo.*$|rentalcar/carBaseInfo.*$|rentalcar/carControl.*$|rentalcar/carRunningInfo.*$), roles: [ROLE_OPERATE,ROLE_ADMIN] }
+           - { path: ^/mobile/(index|out|wechat/login|wechat/order|seek|login|register|forget|feedback|vote|provision|document/.*$|activity.*$|car.*$), roles:IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/o/(login|register|forget), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/admin/(index|area.*$|statistics/station.*$), roles: [ROLE_ADMIN,ROLE_SERVER,ROLE_FINANCE,ROLE_COO,ROLE_MARKET,ROLE_REGION_MANAGER] }
+           - { path: ^/admin/(operator.*$|licensePlace.*$|company.*$|equipmentCompany.*$|insuranceCompany.*$), roles: [ROLE_ADMIN,ROLE_COO,ROLE_REGION_MANAGER] }
+           - { path: ^/admin/(region.*$), roles: [ROLE_ADMIN,ROLE_REGION_MANAGER] }
+           - { path: ^/admin/(rentalOrder.*$), roles: [ROLE_ADMIN,ROLE_SERVER,ROLE_FINANCE,ROLE_COO] }
+           - { path: ^/admin/(coupon.*$), roles: [ROLE_ADMIN,ROLE_MARKET,ROLE_COO,ROLE_SERVER,ROLE_REGION_MANAGER] }
+           - { path: ^/admin/(statistics.*$), roles: [ROLE_ADMIN,ROLE_SERVER,ROLE_MARKET,ROLE_COO] }
+           - { path: ^/admin/(blacklist.*$|appeal.*$), roles: [ROLE_ADMIN,ROLE_SERVER,ROLE_COO,ROLE_REGION_MANAGER] }
+           - { path: ^/admin/(member/auth.*$|rentalcar.*$|illegalRecord/list), roles: [ROLE_ADMIN,ROLE_SERVER,ROLE_COO] }
+           - { path: ^/admin/(rentalstation.*$|car.*$|maintenanceRecord.*$|illegalRecord.*$|inspection.*$|rentalPrice.*$|dataChart.*$|insuranceRecord.*$), roles: [ROLE_ADMIN,ROLE_COO] }
+           - { path: ^/admin/(marketActivity.*$|rechargeActivity.*$), roles: [ROLE_ADMIN,ROLE_MARKET] }
+           - { path: ^/admin/(orderFlow.*$|invoice.*$|expressCompany.*$), roles: [ROLE_ADMIN,ROLE_FINANCE,ROLE_SERVER] }
+           - { path: ^/admin/(authMember.*$|sms.*$|operateRecord.*$), roles:[ROLE_SERVER,ROLE_ADMIN] }
+           - { path: ^/admin/(auth.*$|sms.*$|operateRecord.*$), roles:[ROLE_SERVER,ROLE_ADMIN] }
+           - { path: ^/admin/(refundRecord.list.*$|refundRecord.new$|refundRecord.create$|refundRecord.show.\d+$), roles:[ROLE_SERVER,ROLE_ADMIN,ROLE_FINANCE] }
+           - { path: ^/admin/(refundRecord.*$), roles:[ROLE_FINANCE,ROLE_ADMIN] }
+           - { path: ^/admin/(daily.*$), roles:[ROLE_ADMIN] }
+           - { path: ^/admin/.*$, roles: ROLE_ADMIN }
+           - { path: ^/(mobile/), roles: ROLE_USER }
+           - { path: ^/(o/), roles: [ROLE_OPERATE]  }
+           - { path: ^/(api/2/operator), roles: [ROLE_OPERATE]  }
+           - { path: ^/(api/2), roles: [ROLE_USER]  }
+           - { path: ^/admin/photograph/$, roles: ROLE_ADMIN }
+           - { path: ^/wap/(index|2/index|2/codelogin|rent|login|game|weChat|app/down|coupon/foolDay|share.*$|register|forget|fuli|protocol|apiAbout|feedback|coupon/share.*$|more|vote|provision|car.*$|activity.*$|questionnaire/(index)|document/.*$), roles:IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/(wap/), roles: ROLE_USER }

@@ -1,0 +1,24 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'运营人员'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+            {% include "AutoAdminBundle:Operator:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">添加运营人员 </a>
+                 <a class="item" href="{{ path('auto_admin_operator_list') }}">运营人员列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

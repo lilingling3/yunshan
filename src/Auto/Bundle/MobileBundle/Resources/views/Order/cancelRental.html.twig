@@ -1,0 +1,22 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order', 'show'] %}
+{% block content %}
+
+
+    {% include "AutoMobileBundle:Order:_car.html.twig" %}
+    <div class="order-info order-status{{ rentalOrder.status }}">
+        {% include "AutoMobileBundle:Order:_order.html.twig" %}
+
+    </div>
+
+   <!-- 已取消 -->
+   <span class="cancel"><a style="color:#00b8eb;text-align:center;display:block;margin-top:10px;" href="{{ path('auto_mobile_index') }}" class="check">返回首页</a></span>
+
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

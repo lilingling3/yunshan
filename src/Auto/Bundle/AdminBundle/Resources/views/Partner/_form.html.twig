@@ -1,0 +1,64 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div>
+
+        <div class="fields">
+            <div class="four wide field">
+                <label>合作伙伴名称</label>
+                {{ form_widget(form.name ,{'attr': {'required':'required','class':'ui dropdown partnername' }}) }}
+            </div>
+            <div class="four wide field">
+                <label>折扣</label>
+                {{ form_widget(form.discount,{'attr': {'placeholder':'discount','class':'ui dropdown' }}  ) }}
+            </div>
+            <div class="four wide field">
+                <label>状态</label>
+                {{ form_widget(form.status,{'attr': {'placeholder':'status','class':'ui dropdown' }} ) }}
+            </div>
+            <div class="four wide field">
+                <label>每小时操作限制次数</label>
+                {{ form_widget(form.operateLimit,{'attr': {'type':'number','class':'ui dropdown operatenum' }}) }}
+            </div>
+        </div>
+
+        <div class="fields">
+            <div class=" eight wide field">
+                <label>操作人员ID</label><input type="text" id="operaterIDinput" />
+            </div>
+            <div class=" eight wide field"><label>&nbsp;</label><span class="ui teal button addoperaterID">添加</span></div>
+
+        </div>
+        <div class="fields">
+            <div class=" sixteen wide field operaterIDCont">
+                {{ form_widget(form.operatorIds, {'attr': {'type':'hidden','class':'ui dropdown operaterID hide' }} ) }}
+            </div>
+        </div>
+
+        <div class="fields">
+            <div class=" eight wide field">
+                <label>操作车辆</label><input type="text" id="operateCarInput" />
+            </div>
+            <div class=" eight wide field"><label>&nbsp;</label><span class="ui teal button addoperateCars">添加</span></div>
+
+        </div>
+        <div class="fields">
+            <div class=" sixteen wide field operateCarsCont">
+               <input type="hidden" id="operateCarsIdLs" value="{{ car }}" />
+                {{ form_widget(form.visibleCars, {'attr': {'type':'hidden','class':'ui dropdown operateCars hide' }} ) }}
+                {% for c  in  car  %}
+                    <span class="ui twitter  button"><b carid="{{ c.id }}">{{ c.plate }}</b><i class="close">&Chi;</i></span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div style="margin: 10px 0px;width: 25%;">
+        <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+        <button class="ui teal button butnsubmit" >保存</button>
+    </div>
+</div>
+
+{{ form_end(form) }}
+  <div class="layer hide"></div>

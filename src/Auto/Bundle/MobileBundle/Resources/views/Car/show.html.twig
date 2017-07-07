@@ -1,0 +1,203 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['car', 'show'] %}
+{% block title %}{% if id==1 %}奇瑞EQ手册{% elseif id==2 %}北汽EV160手册{% else %}北汽EU260手册{% endif %}{% endblock %}
+{% block stylesheets %}
+
+    {{ parent() }}
+
+    <style>
+        html,body {
+            min-height: 100% !important;
+
+            background-color: white !important;;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+
+    <div class="container">
+        <div class="tabcont">
+            <div class="tab active" tab-d=".dangwei">档位</div>
+            <div class="tab" tab-d=".qidong">启动</div>
+            <div class="tab" tab-d=".xingshi">行驶</div>
+            <div class="tab" tab-d=".zuoyi">座椅</div>
+            <div class="tab" tab-d=".qita">其他</div>
+        </div>
+        <div class="tabdata-cont">
+            <div class="tabdata dangwei active">
+                {% if id==1 %}
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-dangwei1.png') }}"/>
+                </section>
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-dangwei2.png') }}"/>
+                </section>
+                <section>
+                    <h4>TIPS</h4>
+                    <p class="mt5">旋钮式档位将旋钮转向需要使用的档位即可，档位切换后相应的字母会亮起，同时仪表盘上也会有相应的档位提示。</p>
+                </section>
+                {% elseif id==2 %}
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/ev160-dangwei1.png') }}"/>
+                    </section>
+                    <section>
+                        <h4>TIPS</h4>
+                        <p class="mt5">将旋钮转向需要使用的档位即可，档位切换后相应的档位的字母会亮起，同时仪表盘上也会有相的档位提示。</p>
+                    </section>
+                {% else %}
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eu260-dangwei1.png') }}"/>
+                    </section>
+                    <section>
+                        <h4>TIPS</h4>
+                        <p class="mt5">将旋钮转向需要使用的档位即可，档位切换后相应的档位的字母会亮起，同时仪表盘上也会有相应的档位提示</p>
+                    </section>
+                {% endif %}
+            </div>
+            <div class="tabdata qidong">
+                {% if id==1 %}
+                <section>
+                    <p class="text"><span class="num">1.</span>首先确认档位为“<span class="green">N</span>”档。</p>
+                    <p class="text"><span class="num">2.</span>将刹车踩到底。</p>
+                    <p class="text"><span class="num">3.</span>将点火开关向车头方向拧动到头，再将点火开关拧动到头（共计两次）。</p>
+                    <p class="text"><span class="num">4.</span>仪表盘上显示绿色指示灯“<span class="green">READY</span>”亮起，车辆启动成功。</p>
+                </section>
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eq-qidong1.png') }}"/>
+                    </section>
+                {% elseif id==2 %}
+                    <section>
+                        <p class="text"><span class="num">1.</span>首先确认档位为“<span class="green">N</span>”档。</p>
+                        <p class="text"><span class="num">2.</span>将刹车踩到底。</p>
+                        <p class="text"><span class="num">3.</span>将钥匙向车头方向拧动到头，再将点火开关拧动到头（共计两次）。</p>
+                        <p class="text"><span class="num">4.</span>仪表盘上显示绿色指示灯“<span class="green">READY</span>”亮起，车辆启动成功。</p>
+                    </section>
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/ev160-qidong1.png') }}"/>
+                    </section>
+                {% else %}
+
+                    <section>
+                        <p class="text"><span class="num">1.</span>首先确认档位为“<span class="green">N</span>”档。</p>
+                        <p class="text"><span class="num">2.</span> 将刹车踩到底。</p>
+                        <p class="text"><span class="num">3.</span>按下档位前的“<span class="green">START</span>”启动开关，仪表盘显示绿色
+                            “<span class="green">READY</span>”标识则启动成功。</p>
+                        <p class="text"><span class="num">4.</span>如需熄火，需将档位调至“<span class="green">N</span>”档，再次按下“<span class="green">START</span>”
+                            键熄火即可。</p>
+                    </section>
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eu260-qidong1.png') }}"/>
+                    </section>
+                {% endif %}
+            </div>
+            <div class="tabdata xingshi">
+                {% if id==1 %}
+                <section>
+                    <p class="text"><span class="num">1.</span>启动成功后踩住刹车，将档位转至“<span class="green">D</span>”档松开刹车车辆即可上路行驶（请系好安全带以及松开手刹）。</p>
+                    <p class="text"><span class="num">2.</span>如需倒车，踩住刹车，将档位转至“<span class="green">R</span>”档，松开刹车即可倒车（请注意观察后视镜及控制车速）。</p>
+                    <p class="text"><span class="num">3.</span>倒车雷达：车辆挂入倒档，向后倒车，距离物体越近“嘀嘀”提示声越急促，直至长鸣时离物体距离最近。</p>
+                </section>
+                {% elseif id==2 %}
+                    <section>
+                    <p class="text"><span class="num">1.</span>启动成功后踩住刹车，将档位转至“<span class="green">D</span>”档松开刹车，车辆可上路行驶（请系好安全带以及松开手刹）。</p>
+                    <p class="text"><span class="num">2.</span>如需倒车，踩住刹车，将档位转至“<span class="green">R</span>”档，松开刹车即可倒车（请注意观察后视镜及控制车速）。</p>
+                    <p class="text"><span class="num">3.</span>倒车雷达的使用：车辆挂入倒档，向后倒车，距离物体越近“嘀嘀”提示声越急促，直至长鸣时离物体距离最近。</p>
+                    </section>
+                {% else %}
+                    <section>
+                        <p class="text"><span class="num">1.</span>启动成功后踩住刹车，将档位转至“<span class="green">d</span>”档松开刹车，
+                            车辆可上路行驶（请系好安全带以及松开手刹）。</p>
+                        <p class="text"><span class="num">2.</span>如需倒车，踩住刹车将档位转至“<span class="green">r</span>”档，松开刹车即
+                            可倒车（请注意观察后视镜及控制车速）。</p>
+                        <p class="text"><span class="num">3.</span>倒车雷达的使用：车辆挂入倒档，向后倒车，距离物
+                            体越近“嘀嘀”提示声越急促，直至长鸣时离物体距离
+                            最近。</p>
+                    </section>
+                {% endif %}
+            </div>
+            <div class="tabdata zuoyi">
+                {% if id==1 %}
+                <section>
+                    <p class="text"><span class="num">1.</span>前后移动，拉动主驾驶位与座椅位置下面拉杆即可。前后调整座椅。</p>
+                    <p class="text"><span class="num">2.</span>副驾驶拉杆同样位与座椅位置下。</p>
+                    <p class="text"><span class="num">3.</span>调整座椅靠背角度，向上拉动主驾驶位于左侧拉杆，即可调整座椅角度。</p>
+                    <p class="text"><span class="num">4.</span>副驾驶靠背拉杆位于右侧。</p>
+                </section>
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-zuoyi1.png') }}"/>
+                </section>
+                    {% elseif id==2 %}
+                        <section>
+                            <p class="text"><span class="num">1.</span>前后移动，拉动主驾驶位与座椅位置下面拉杆即可。前后调整座椅。</p>
+                            <p class="text"><span class="num">2.</span>副驾驶拉杆同样位与座椅位置下。</p>
+                            <p class="text"><span class="num">3.</span>调整座椅靠背角度，向上拉动主驾驶位于左侧拉杆，即可调整座椅角度。</p>
+                            <p class="text"><span class="num">4.</span>副驾驶靠背拉杆位于右侧。</p>
+                        </section>
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/ev160-zuoyi1.png') }}"/>
+                        </section>
+                    {% else %}
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/eu260-zuoyi1.png') }}"/>
+                        </section>
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/eu260-zuoyi2.png') }}"/>
+                        </section>
+                        {% endif %}
+            </div>
+            <div class="tabdata qita">
+                {% if id==1 %}
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-qita1.png') }}"/>
+                </section>
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-qita2.png') }}"/>
+                </section>
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-qita3.png') }}"/>
+                </section>
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-qita4.png') }}"/>
+                </section>
+                <section>
+                    <img src="{{ asset('/bundles/automobile/images/eq-qita5.png') }}"/>
+                </section>
+                    {% elseif id==2 %}
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/ev160-qita1.png') }}"/>
+                        </section>
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/ev160-qita2.png') }}"/>
+                        </section>
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/ev160-qita3.png') }}"/>
+                        </section>
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/ev160-qita4.png') }}"/>
+                        </section>
+                        <section>
+                            <img src="{{ asset('/bundles/automobile/images/ev160-qita5.png') }}"/>
+                        </section>
+                        {% else %}
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eu260-qita1.png') }}"/>
+                    </section>
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eu260-qita2.png') }}"/>
+                    </section>
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eu260-qita3.png') }}"/>
+                    </section>
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eu260-qita4.png') }}"/>
+                    </section>
+                    <section>
+                        <img src="{{ asset('/bundles/automobile/images/eu260-qita5.png') }}"/>
+                    </section>
+                            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

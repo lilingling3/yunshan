@@ -1,0 +1,30 @@
+{{ form_start(form) }}
+<div class="ui form">
+        <div class=" field">
+            <label>投票名称</label>
+            {{ form_widget(form.name,{'attr': {'placeholder':'投票名称' }} ) }}
+        </div>
+
+    <div class=" field">
+        <label>最多投票数量(0表示不限制)</label>
+        {{ form_widget(form.countPrePerson,{'attr': {'placeholder':'最多投票数量' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>每天最多投票数量(0表示不限制)</label>
+        {{ form_widget(form.countPreDay,{'attr': {'placeholder':'每天最多投票数量' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>每个选项最多投票数量(0表示不限制)</label>
+        {{ form_widget(form.countPreOptionPerson,{'attr': {'placeholder':'每个选项最多投票数量' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>每个选项每天最多投票数量(0表示不限制)</label>
+        {{ form_widget(form.countPreOptionDay,{'attr': {'placeholder':'每个选项每天最多投票数量' }} ) }}
+    </div>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+
+{{ form_end(form) }}

@@ -1,0 +1,116 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'车辆维修'} %}
+     <div class="ui main-content grid">
+         <div class="ui top attached menu tabular no_border" style="padding-left: 0px;">
+             <a class="item" href="{{ path("auto_admin_region_maintenance_record_list") }}">车辆维修</a>
+             <a class="active item font-normal bk_gray no_border " >理赔记录</a>
+             <a class="item" href="{{ path("auto_admin_region_repair_factory_list") }}">修理厂</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_region_settle_claim_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td>
+                             <select name="type" id="type" class="ui dropdown">
+                                 <option value="">保险类型</option>
+                                 <option value="1">事故维修</option>
+                                 <option value="2">故障维修</option>
+                             </select>
+                         </td>
+                         <td id="yui_3_14_1_1_1461549608378_20">
+                             <select name="licensePlace" id="licensePlace" class="ui dropdown">
+                                 {% for  licensePlace in licensePlaces %}
+                                     <option value="{{ licensePlace.id }}">{{ licensePlace.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td>
+                             <input class=" time_input" type="text"  name="rentalCarId" placeholder="请输入车牌" value="">
+
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">查询</button>
+                         </td>
+                         <td style="width: 48%;"></td>
+                         <td>
+                             {#<a class="ui teal button" href="{{ path('auto_admin_region_settle_claim_new') }}">添加理赔 </a>#}
+                         </td>
+
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车牌号码</th>
+                     <th>事故时间</th>
+                     <th>保险类型</th>
+                     <th>理赔金额（元）</th>
+                     <th>交案时间</th>
+                     <th>理赔款到账时间</th>
+                     <th>理赔状态</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for record in claimRecords %}
+                     <tr>
+                         <td>{{  record.insuranceRecord.rentalCar.license }}</td>
+                         <td>{{ record.claimTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ record.insuranceRecord.insurance.name }}</td>
+                         <td>{{ record.claimAmount }}</td>
+                         <td>{{ record.applyTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ record.settleTime|date('Y-m-d H:i:s') }}</td>
+                         <td>理赔状态</td>
+
+                         <td><a href="{{ path('auto_admin_region_settle_claim_edit',{'id':record.id}) }}"><small>编辑</small></a>
+                             |<a href="{{ path('auto_admin_region_settle_claim_delete',{'id':record.id}) }}"><small>删除</small></a>
+                         </td>
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_region_settle_claim_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+
+     </div>
+
+
+ {% endblock %}

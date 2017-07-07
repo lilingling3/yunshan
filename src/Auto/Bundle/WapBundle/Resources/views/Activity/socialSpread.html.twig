@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/autowap/css/spread_reset.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/autowap/css/spread_base.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/js/zepto.min.js') }}" ></script>
+    <title>面对这样无助的女孩你会怎么做？</title>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            'debug': false,
+            'appId': '{{ signPackage.appId }}',
+            'timestamp': '{{ signPackage.timestamp }}',
+            'nonceStr': '{{ signPackage.nonceStr }}',
+            'signature': '{{ signPackage.signature }}',
+            'jsApiList': ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+
+            //自定义内容
+            var dataForWeixin = {
+                title: '面对这样无助的女孩你会怎么做',
+                desc: '你会选择冷漠的面对她的求助么？',
+                imgUrl: 'http://lecarshare.com/photograph/3a/2d/3a2d2dcf4fe39efe29044cc32303ac114b78fa6b.jpeg',
+                link: '{{ url }}'
+            };
+
+            //分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: dataForWeixin.title, // 分享标题
+                link: dataForWeixin.link, // 分享链接
+                imgUrl: dataForWeixin.imgUrl,  // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            //分享给朋友
+            wx.onMenuShareAppMessage({
+                title: dataForWeixin.title, // 分享标题,
+                desc: dataForWeixin.desc, // 分享标题,
+                link: dataForWeixin.link, // 分享标题, // 分享链接
+                imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            //分享给qq
+            wx.onMenuShareQQ({
+                title: dataForWeixin.title, // 分享标题,
+                desc: dataForWeixin.desc, // 分享标题,
+                link: dataForWeixin.link, // 分享标题, // 分享链接
+                imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+        });
+
+    </script>
+
+</head>
+<body>
+<i class="logo"><img src="{{ asset('/bundles/autowap/images/spread_logo.png') }}" /></i>
+<a class="rule" href="{{ path("auto_wap_activity_socialSpread_protocol") }}">活动规则</a>
+<div class="page page1" id='page1'>
+    <img src="{{ asset('/bundles/autowap/images/spread_bg1.png') }}" class="bg" />
+    <div class="inner-cont">
+        <i class="spread_text text"><img src="{{ asset('/bundles/autowap/images/spread_text1.png') }}" /></i>
+        <b class="btn lr-center"><img src="{{ asset('/bundles/autowap/images/spread_btn1.png') }}" /></b>
+    </div>
+</div>
+<div class="page page2">
+    <img src="{{ asset('/bundles/autowap/images/spread_bg2.png') }}" class="bg" />
+    <div class="inner-cont">
+        <div class="video-cont lr-center">
+            <iframe id='show1' src="http://minisite.letv.com/tuiguang/index.shtml?vid=25270493&amp;typeFrom=forum&amp;ark=419&amp;autoplay=0
+				" frameborder="0" allowfullscreen="" style="width:100%; height: 100%;"></iframe>
+        </div>
+        <i class="spread_text2 text"><img src="{{ asset('/bundles/autowap/images/spread_text2.png') }}" /></i>
+        <div class='btn_con'>
+            <img src="{{ asset('/bundles/autowap/images/spread_choice1.png') }}" />
+            <img src="{{ asset('/bundles/autowap/images/spread_choice2.png') }}" />
+            <img src="{{ asset('/bundles/autowap/images/spread_choice3.png') }}" />
+            <img src="{{ asset('/bundles/autowap/images/spread_choice4.png') }}" />
+        </div>
+    </div>
+</div>
+
+<div class="page page3">
+    <img src="{{ asset('/bundles/autowap/images/spread_bg3.png') }}" class="bg" />
+</div>
+<div class="page page4">
+    <img src="{{ asset('/bundles/autowap/images/spread_bg4.png') }}" class="bg" />
+</div>
+
+<div style="display: none;"><script src="http://s95.cnzz.com/z_stat.php?id=1258676939&web_id=1258676939" defer="true" language="JavaScript"></script></div>
+
+<script type="text/javascript" src="{{ asset('/bundles/autowap/js/spread.js') }}" ></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_order', 'end_result'] %}
+{% block content %}
+<div class="top-menu">
+    租赁车辆
+    <a href="{{ path('auto_operate_rental_order_show',{'id':id}) }}"  class="left-cont"><b></b></a>
+</div>
+    <div class="info"> 人工还车成功！</div>
+{% endblock %}

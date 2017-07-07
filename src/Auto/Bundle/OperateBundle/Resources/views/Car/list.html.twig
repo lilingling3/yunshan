@@ -1,0 +1,45 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['car','list'] %}
+
+{% block content %}
+    <div class="top-menu">
+        所有车型
+        <a href="{{ path("auto_operate_index") }}" class="left-cont"><b></b></a>
+        <span><a href="{{ path("auto_operate_car_add") }}" >添加</a></span>
+    </div>
+    <div class="container">
+        {% for car in cars %}
+            <div class="car-cont  ">
+                <div class="row clearfix">
+                    <div class="left-cont">
+                        <div class="img-cont">
+                            <img src="{{ car.image }}">
+                        </div>
+                    </div>
+                    <div class="right-cont">
+                        <div class="l-text">
+                            <div class="text">
+                                <p><span class="car-t">车型：</span>{{ car.name }}</p>
+                                <p><span class="car-t">结构：</span>{{ car.bodyType.name }}</p>
+                                <p><span class="car-t">级别：</span>{{ car.level.name }}</p>
+                            </div>
+                        </div>
+                        <div class="r-text">
+                            <div class="text">
+                                <p><span class="car-t">续航：</span>
+                                    {% if car.driveMileage %}
+                                        {{ car.driveMileage }} km
+                                    {% else %}
+                                        <span class="color-red">异常</span>
+                                    {% endif %}
+                                <p><span class="car-t">座位：</span>{{ car.seats }}</p>
+                                <p><span class="car-t">车门：</span>{{ car.doors }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

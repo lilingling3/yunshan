@@ -1,0 +1,243 @@
+auto_admin_check:
+    pattern:  /sign-in
+    methods:  [POST]
+
+auto_admin_logout:
+    pattern:  /sign-out
+
+_auto_admin_default:
+    resource: @AutoAdminBundle/Controller/DefaultController.php
+    type:     annotation
+    prefix:   /
+
+_auto_admin_car:
+    resource: @AutoAdminBundle/Controller/CarController.php
+    type:     annotation
+
+_auto_admin_car_discount:
+    resource: @AutoAdminBundle/Controller/CarDiscountController.php
+    type:     annotation
+
+_auto_admin_carproblem:
+    resource: @AutoAdminBundle/Controller/CarProblemController.php
+    type:     annotation
+
+_auto_admin_rentalcar:
+    resource: @AutoAdminBundle/Controller/RentalCarController.php
+    type:     annotation
+
+_auto_admin_insurance_record:
+    resource: @AutoAdminBundle/Controller/InsuranceRecordController.php
+    type:     annotation
+
+_auto_admin_maintenance_record:
+    resource: @AutoAdminBundle/Controller/MaintenanceRecordController.php
+    type:     annotation
+
+_auto_admin_illegal_record:
+    resource: @AutoAdminBundle/Controller/IllegalRecordController.php
+    type:     annotation
+
+_auto_admin_inspection:
+    resource: @AutoAdminBundle/Controller/InspectionController.php
+    type:     annotation
+
+_auto_admin_area:
+    resource: @AutoAdminBundle/Controller/AreaController.php
+    type:     annotation
+
+_auto_admin_rental_station:
+    resource: @AutoAdminBundle/Controller/RentalStationController.php
+    type:     annotation
+
+_auto_admin_rental_price:
+    resource: @AutoAdminBundle/Controller/RentalPriceController.php
+    type:     annotation
+
+_auto_admin_rental_station_discount:
+    resource: @AutoAdminBundle/Controller/RentalStationDiscountController.php
+    type:     annotation
+
+_auto_admin_charging_station:
+    resource: @AutoAdminBundle/Controller/ChargingStationController.php
+    type:     annotation
+
+_auto_admin_charging_pile:
+    resource: @AutoAdminBundle/Controller/ChargingPileController.php
+    type:     annotation
+
+_auto_admin_rental_order:
+    resource: @AutoAdminBundle/Controller/RentalOrderController.php
+    type:     annotation
+
+_auto_admin_coupon:
+    resource: @AutoAdminBundle/Controller/CouponController.php
+    type:     annotation
+
+_auto_admin_member:
+    resource: @AutoAdminBundle/Controller/MemberController.php
+    type:     annotation
+
+_auto_admin_vote:
+    resource: @AutoAdminBundle/Controller/VoteController.php
+    type:     annotation
+auto_admin_photograph_create:
+    pattern:        /photograph/
+    methods:        [POST]
+    defaults:       { _controller: MojomajaPhotographBundle:Default:create }
+
+_auto_admin_device:
+    resource: @AutoAdminBundle/Controller/DeviceController.php
+    type:     annotation
+
+_auto_admin_sms:
+    resource: @AutoAdminBundle/Controller/SMSController.php
+    type:     annotation
+
+_auto_admin_operator:
+    resource: @AutoAdminBundle/Controller/OperatorController.php
+    type:     annotation
+
+_auto_admin_message:
+    resource: @AutoAdminBundle/Controller/MessageController.php
+    type:     annotation
+_auto_admin_color:
+    resource: @AutoAdminBundle/Controller/ColorController.php
+    type:     annotation
+_auto_admin_bodytype:
+    resource: @AutoAdminBundle/Controller/BodyTypeController.php
+    type:     annotation
+_auto_admin_carlevel:
+    resource: @AutoAdminBundle/Controller/CarLevelController.php
+    type:     annotation
+_auto_admin_licenseplace:
+    resource: @AutoAdminBundle/Controller/LicensePlaceController.php
+    type:     annotation
+_auto_admin_company:
+    resource: @AutoAdminBundle/Controller/CompanyController.php
+    type:     annotation
+_auto_admin_authMember:
+    resource: @AutoAdminBundle/Controller/AuthMemberController.php
+    type:     annotation
+_auto_admin_statistics:
+    resource: @AutoAdminBundle/Controller/StatisticsController.php
+    type:     annotation
+_auto_admin_blackList:
+    resource: @AutoAdminBundle/Controller/BlackListController.php
+    type:     annotation
+_auto_admin_operateRecord:
+    resource: @AutoAdminBundle/Controller/OperateRecordController.php
+    type:     annotation
+_auto_admin_appeal:
+    resource: @AutoAdminBundle/Controller/AppealController.php
+    type:     annotation
+_auto_admin_marketActivity:
+    resource: @AutoAdminBundle/Controller/MarketActivityController.php
+    type:     annotation
+_auto_admin_dataChart:
+    resource: @AutoAdminBundle/Controller/DataChartController.php
+    type:     annotation
+_auto_admin_dispatch:
+        resource: @AutoAdminBundle/Controller/DispatchController.php
+        type:     annotation
+_auto_admin_rechargeActivity:
+    resource: @AutoAdminBundle/Controller/RechargeActivityController.php
+    type:     annotation
+_auto_admin_equipmentCompany:
+    resource: @AutoAdminBundle/Controller/EquipmentCompanyController.php
+    type:     annotation
+_auto_admin_insuranceCompany:
+    resource: @AutoAdminBundle/Controller/InsuranceCompanyController.php
+    type:     annotation
+_auto_admin_carDiscount:
+    resource: @AutoAdminBundle/Controller/CarDiscountController.php
+    type:     annotation
+_auto_admin_invoice:
+    resource: @AutoAdminBundle/Controller/InvoiceController.php
+    type:     annotation
+_auto_admin_orderFlow:
+    resource: @AutoAdminBundle/Controller/OrderFlowController.php
+    type:     annotation
+_auto_admin_settleClaim:
+    resource: @AutoAdminBundle/Controller/SettleClaimController.php
+    type:     annotation
+_auto_admin_expressCompany:
+    resource: @AutoAdminBundle/Controller/ExpressCompanyController.php
+    type:     annotation
+_auto_admin_repairFactory:
+    resource: @AutoAdminBundle/Controller/RepairFactoryController.php
+    type:     annotation
+_auto_admin_role:
+    resource: @AutoAdminBundle/Controller/RoleController.php
+    type:     annotation
+_auto_admin_rental_company:
+    resource: @AutoAdminBundle/Controller/RentalCompanyController.php
+    type:     annotation
+_auto_admin_upkeep:
+    resource: @AutoAdminBundle/Controller/UpkeepController.php
+    type:     annotation
+_auto_admin_payment_order:
+    resource: @AutoAdminBundle/Controller/PaymentOrderController.php
+    type:     annotation
+_auto_admin_refund_record:
+    resource: @AutoAdminBundle/Controller/RefundRecordController.php
+    type:     annotation
+_auto_admin_parking_record:
+    resource: @AutoAdminBundle/Controller/ParkingRecordController.php
+    type:     annotation
+
+
+
+_auto_admin_auth:
+    resource: @AutoAdminBundle/Controller/AuthController.php
+    type:     annotation
+_auto_admin_region:
+    resource: @AutoAdminBundle/Controller/RegionController.php
+    type:     annotation
+_auto_admin_Region_rental_order:
+    resource: @AutoAdminBundle/Controller/RegionRentalOrderController.php
+    type:     annotation
+_auto_admin_region_operator:
+    resource: @AutoAdminBundle/Controller/RegionOperatorController.php
+    type:     annotation
+_auto_admin_region_rental_station:
+    resource: @AutoAdminBundle/Controller/RegionRentalStationController.php
+    type:     annotation
+_auto_admin_regioncar:
+    resource: @AutoAdminBundle/Controller/RegionCarController.php
+    type:     annotation
+_auto_admin_regionMaintenance:
+    resource: @AutoAdminBundle/Controller/RegionMaintenanceController.php
+    type:     annotation
+_auto_admin_RegionSettleClaim:
+    resource: @AutoAdminBundle/Controller/RegionSettleClaimController.php
+    type:     annotation
+_auto_admin_RegionRepairFactory:
+    resource: @AutoAdminBundle/Controller/RegionRepairFactoryController.php
+    type:     annotation
+_auto_admin_region_illegal_record:
+    resource: @AutoAdminBundle/Controller/RegionIllegalRecordController.php
+    type:     annotation
+_auto_admin_region_inspection:
+    resource: @AutoAdminBundle/Controller/RegionInspectionController.php
+    type:     annotation
+_auto_admin_region_statistics:
+    resource: @AutoAdminBundle/Controller/RegionStatisticsController.php
+    type:     annotation
+_auto_admin_region_dataChart:
+    resource: @AutoAdminBundle/Controller/RegionDataChartController.php
+    type:     annotation
+_auto_admin_deposit:
+    resource: @AutoAdminBundle/Controller/DepositController.php
+    type:     annotation
+_auto_admin_partner:
+    resource: @AutoAdminBundle/Controller/PartnerController.php
+    type:     annotation
+
+_auto_admin_invite:
+    resource: @AutoAdminBundle/Controller/InviteController.php
+    type:     annotation
+
+_auto_admin_daily:
+    resource: @AutoAdminBundle/Controller/DailyReportController.php
+    type:     annotation

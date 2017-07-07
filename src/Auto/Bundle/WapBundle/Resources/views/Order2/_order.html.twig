@@ -1,0 +1,29 @@
+
+<div class="column-new">
+<div class="left-column-new">
+    <p class="title">状态</p>
+    <p class="text">{{ status.name(rentalOrder) }}</p>
+    {% if rentalOrder.cancelTime is null %}
+    <p class="title">已用时长</p>
+    <p class="text blue">{{ rentalOrder.offset and rentalOrder.offset!=0 ? time.name(rentalOrder.offset):'-' }}</p>
+    {% endif %}
+</div>
+
+
+<div class="right-column-new">
+    <p class="title">下单时间</p>
+    <p class="text">{{ rentalOrder.createTime }}</p>
+    {% if rentalOrder.cancelTime is null  %}
+    {% if  rentalOrder.status ==101 or  rentalOrder.status ==102 %}
+    <p class="title">用车费用-含保险及不计免赔</p>
+    <p class="text red">{{ rentalOrder.costDetail.cost }}元</p>
+    {% else %}
+        <p class="title">{% if rentalOrder.useTime is null  %}取消时间{% else %}还车时间{% endif %}</p>
+        <p class="text ">{{ rentalOrder.endTime and rentalOrder.endTime!=0 ? rentalOrder.endTime:'-' }}</p>
+    {% endif %}
+    {% endif %}
+</div>
+
+</div>
+
+

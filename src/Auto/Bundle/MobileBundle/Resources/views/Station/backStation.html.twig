@@ -1,0 +1,57 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['station', 'back'] %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css" xmlns="http://www.w3.org/1999/html"/>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=3dc0d24d401640b9b8249da6c4dd5a72&plugin=AMap.Autocomplete,AMap.Walking"></script>
+    <script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script type="text/javascript" type="text/css" href="{{ asset('/bundles/autowap/js/zepto.min.js') }}"> </script>
+
+    {{ parent() }}
+
+    <style>
+        .amap-sug-result {
+            margin-top: -60px;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="top-menu" style="z-index: 1000;position: absolute; top: 0px; display: none;">
+        云杉智慧
+        <a  {% if orderID %} class="ordershow" href="{{ path('auto_mobile_rental_order_show',{'id':orderID}) }}"{% else %} class="gocarshow" {% endif %}><b></b></a>
+    </div>
+    <div class="search">
+        <div class="input-cont">
+            <input type="text" id="tipinput" placeholder="输入目的地，查询还车点" />
+        </div>
+        <span class="btn"></span>
+    </div>
+    <div class="container" id="container">
+
+    </div>
+
+    <div class="sinfo">
+        <div class="stop">
+            <p class="sname">租赁点</p>
+            <p class="sicon">
+                <span class="le-icon">云随还</span>
+            </p>
+
+            <span class="queding">还到此处</span>
+
+        </div>
+        <div class="info">
+            <p>北京市朝阳区</p>
+        </div>
+    </div>
+
+    <form id="backstion" method="post" action="{{ path('auto_mobile_rental_car_show_back') }}">
+        <input type="hidden" name="backSid" id="backS" backType="{{ backStation.backType }}" lng="{{ backStation.longitude }}" lat="{{ backStation.latitude }}"  value="{{ backStation.rentalStationID }}" />
+        <input type="hidden" name="rentalCarID"  value="{{ rentalCarID }}" />
+        <input type="hidden" name="orderID" id="orderID"  value="{{ orderID }}" />
+        <input type="hidden" name="user" id="user"  value="{{ app.user.token }}" />
+    </form>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

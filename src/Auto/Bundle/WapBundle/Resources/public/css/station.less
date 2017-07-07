@@ -1,0 +1,263 @@
+@import "parameter";
+#page.station.list{
+  position: relative;
+/*station*/
+	.station {	
+		margin-top: 10px;
+		background-color: #fff;
+		padding:10px 2%;
+		color: @color-secondary;
+		font-size: 14px;
+	  border-top: 1px solid @color-gray;
+	  border-bottom: 1px solid @color-gray;
+/*station-top*/	   
+		.station-top {
+		  position: relative;
+
+			b{
+			  position: absolute;
+			  right: 0px;
+			  background:url("../images/ligo.png") no-repeat 0px 5px;
+			  width: 17px;
+			  height: 30px;
+			  background-size: 10px 20px;
+			  top:50%;
+			  transform: translate(0%,-50%);
+			  -webkit-transform: translate(0%,-50%);
+			  -moz-transform: translate(0%,-50%);
+			  -ms-transform: translate(0%,-50%);
+			  -o-transform: translate(0%,-50%);
+			}
+
+			h3 {
+				padding: 3px 0px;
+				color:#000;
+				font-size: 16px;
+			  font-weight: normal;
+			}
+		  .back-station {
+			color:white;
+			background-color: #ff7200;
+			padding: 0px 3px;
+			display: inline-block;
+			margin-left: 6px;
+			font-size: 16px;
+		  }
+		 }
+		 .station-cont{
+		    font-size: 12px;	
+		    .station-t {
+		    	color: @color-secondary;
+			  font-size: 14px;
+		    }
+		    .station-detail  {
+			  font-size: 14px;
+				 color:@color-secondary;
+			  padding: 6px 35px 6px 0px;
+		    }
+		  }
+		    
+	}
+	/*station-car*/
+	.station-car {
+		margin-top: 3px;
+		isplay:-moz-box;
+	    display:-webkit-box;
+	    display:box;
+	    -webkit-box-orient: horizontal;
+		-moz-box-orient: horizontal;
+		box-orient: horizontal;
+		text-align: center;
+		.column {
+			padding-top: 10px;
+			-moz-box-flex:1;
+		    -webkit-box-flex:1;
+		    text-align: left;
+		    box-flex:1;
+		    font-size:12px;
+		    border-top: 1px #e7e7e7 solid;
+		    .car-title {
+		    	color: @color-secondary;
+			  font-size: 14px;
+		    }
+		    .car-num {
+		    	padding-top: 2px;
+		    	color:#ff6000;
+		    }
+		  .color-blue {
+			color:@color-blue;
+		  }
+		  .color-green {
+			color:@color-primary;
+		  }
+		  .geoinfo_show {
+			border-left: 1px solid @color-gray;
+			padding-left: 8px;
+			margin-left: 4px;
+		  }
+		}
+	}
+  .geomap{
+	display: none;
+  }
+
+  .monkey-container {
+	.lr-center { left: 50%; transform: translate(-50%,0%); -webkit-transform: translate(-50%,0%); -ms-transform: translate(-50%,0%); -moz-transform: translate(-50%,0%); -o-transform: translate(-50%,0%);}
+	&.tblr-center,.tblr-center { transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); -moz-transform: translate(-50%,-50%); -o-transform: translate(-50%,-50%);}
+	.tb-center { transform: translate(0%,-50%); -webkit-transform: translate(0%,-50%); -ms-transform: translate(0%,-50%); -moz-transform: translate(0%,-50%); -o-transform: translate(0%,-50%);}
+	color: white; font-size: 16px; width: 90%; position: fixed;top: 50%; left: 50%;
+	.ch-bg {width: 100%;  z-index: 0;  }
+	.inner-cont { position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; }
+	.title { position: absolute; font-size: 0.5em; top: 4%;left: 5%;   z-index: 1;}
+	.close {z-index: 100; position:absolute; right: 10px; top: 10px; width: 15px; height: 15px; background: url(../images/monkey-close.png) no-repeat center; background-size: cover;}
+	.text-title { position: absolute; top: 50%; left:3%; margin-top: -16px;
+	  transform: translateY(-50%);
+	  -webkit-transform: translateY(-50%);
+	  -moz-transform: translateY(-50%);
+	  -ms-transform: translateY(-50%);
+	}
+	.text-title  img { width: 80%;}
+	.text { position: absolute; width: 100%; bottom: 0px;}
+	.text  img { width: 100%;}
+	.monkey { position: absolute; width: 48%; right: 0px; top: 0px;}
+	.monkey img { width: 100%;}
+	.packet {display: block; width:100%; position: absolute; left:0px; bottom:3px;
+	  -webkit-animation: breathe 0.6s linear 0s both;
+	}
+	/*.packet img { width: 100%;}*/
+	.foot-text { position: absolute; font-size: 0.5em;text-align: right; bottom: 5%; right: 1.5%;}
+	z-index: 101;
+	display: none;
+
+  }
+  .monkey-all { display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background-color: #666;
+	opacity: 0.5;
+	z-index: 100;}
+  @media screen and (min-width: 480px) {
+	.monkey-container {
+	  width: auto;
+	  height: 80%;
+	  font-size: 14px;
+	  .ch-bg {
+		width: auto;
+		height: 100%;
+	  }
+	  .packet {
+		bottom: 0px;
+	  }
+	}
+
+  }
+  @-webkit-keyframes breathe {
+	0% {
+	  -webkit-transform-origin:top right;
+	  -webkit-transform: scale(0.2, 0.2);
+	  opacity: 1;
+	}
+
+	100% {
+	  -webkit-transform-origin:top right;
+	  -webkit-transform: scale(1, 1);
+	  opacity: 1;
+	}
+  }
+  @-moz-keyframes breathe {
+	0% {
+	  -moz-transform-origin:top right;
+	  -moz-transform: scale(0.2, 0.2);
+	  opacity: 1;
+	}
+	100% {
+	  -moz-transform-origin:top right;
+	  -moz-transform: scale(1, 1);
+	  opacity: 1;
+	}
+  }
+  @-ms-keyframes breathe {
+	0% {
+	  -ms-transform-origin:top right;
+	  -ms-transform: scale(0.2, 0.2);
+	  opacity: 1;
+	}
+	100% {
+	  -ms-transform-origin:top right;
+	  -ms-transform: scale(1, 1);
+	  opacity: 1;
+	}
+  }
+  @keyframes breathe {
+	0% {
+	  transform-origin:top right;
+	  transform: scale(0.2, 0.2);
+	  opacity: 1;
+	}
+	100% {
+	  transform-origin:top right;
+	  transform: scale(1, 1);
+	  opacity: 1;
+	}
+  }
+
+  .alert-cont {
+	display: none;
+	color: white; font-size: 16px; width: 90%; position: fixed;top: 50%; left: 50%;
+	&.lr-center,.lr-center { left: 50%; transform: translate(-50%,0%); -webkit-transform: translate(-50%,0%); -ms-transform: translate(-50%,0%); -moz-transform: translate(-50%,0%); -o-transform: translate(-50%,0%);}
+	&.tblr-center,.tblr-center { transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%); -ms-transform: translate(-50%,-50%); -moz-transform: translate(-50%,-50%); -o-transform: translate(-50%,-50%);}
+	&.tb-center,.tb-center { transform: translate(0%,-50%); -webkit-transform: translate(0%,-50%); -ms-transform: translate(0%,-50%); -moz-transform: translate(0%,-50%); -o-transform: translate(0%,-50%);}
+	color: white; font-size: 16px; width: 90%; position: fixed;top: 50%; left: 50%;
+	.alert-bg {width: 100%;  z-index: 0;  }
+	.inner-cont { position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; }
+	.close {z-index: 100; position:absolute; right: 10px; top: 10px; width: 15px; height: 15px; background: url(../images/alert-close.png) no-repeat center; background-size: cover;}
+	@media screen and (min-width: 480px) {
+	  &.alert-cont {
+		width: auto;
+		height: 80%;
+		font-size: 14px;
+	  }
+	  .alert-bg {
+		width: auto;
+		height: 100%;
+	  }
+	}
+  }
+
+  .alert-all { display: none;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0px;
+	background-color: #666;
+	opacity: 0.5;
+	z-index: 100;}
+
+}
+
+
+#page.station.map{
+.geomap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  #container{
+	  height: 100%;
+	  margin: 0px;
+	}
+  #panel {
+	display: none;
+	z-index: 999;
+	position: absolute;
+	background-color: white;
+	max-height: 20%;
+	overflow-y: auto;
+	right: 0;
+	width: 280px;
+  }
+	}
+}

@@ -1,0 +1,18 @@
+<table class="ui teal table">
+    <thead>
+    <tr>
+        <th>车型名称</th>
+        <th>保养项目</th>
+        <th>保养费用</th>
+        <th>保养时间</th>
+    </tr></thead><tbody>
+    {% for record in maintenances %}
+    <tr>
+        <td>{{ record.rentalCar.car.name }}</td>
+        <td>{{ record.maintenance.name }}</td>
+        <td>{{ record.maintenanceAmount }}元</td>
+        <td>{{ record.maintenanceDate|date('Y-m-d') }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

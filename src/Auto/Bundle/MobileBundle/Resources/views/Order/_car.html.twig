@@ -1,0 +1,63 @@
+<div class="carcont">
+    <div class="topcont ">
+        <div class="inner ">
+            <div class="left-cont">
+                <div class="img-cont">
+                    <img src="{{ rentalOrder.rentalCar.image|default('/bundles/automobile/images/car.png') }}" />
+                </div>
+            </div>
+
+            <div class="right-cont tb-center">
+                <p><span class="license-cont"><span class="license">{{ rentalOrder.rentalCar.license }}</span></span></p>
+                <p class="model">{{ rentalOrder.rentalCar.car.name }}</p>
+
+
+
+
+               
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="row-line"></div>
+    {# address#}
+    <div class="station-cont">
+        <div class="inner innerpadingbm">
+            <div class="name">
+                <p><span class="carstitle">取车</span><span class="cricle cricle1"></span></p>
+                <span class="point"></span>
+            </div>
+            <div class="sinfo">
+                <p class="sname">{{ rentalOrder.pickUpRentalStation.name }}</p>
+                <p class="street">{{ rentalOrder.pickUpRentalStation.street }}</p>
+            </div>
+        </div>
+
+        <div class="inner">
+            <div class="name">
+                <p><span class="carstitle">还车</span><span class="cricle cricle2"></span></p>
+            </div>
+            <div class="sinfo  {% if (rentalOrder.pickUpRentalStation.backType==601 and  rentalOrder.endTime is null) and rentalOrder.cancelTime is null  %}sinfo2{% endif %}">
+                <p class="sname">{{ rentalOrder.returnRentalStation.name }}</p>
+                <p class="street">{{ rentalOrder.returnRentalStation.street }}</p>
+                {% if (rentalOrder.pickUpRentalStation.backType==601 and  rentalOrder.endTime is null) and rentalOrder.cancelTime is null  %}
+                    <span class="change-s">更改</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% if (rentalOrder.pickUpRentalStation.backType==601 and  rentalOrder.endTime is null) and rentalOrder.cancelTime is null  %}
+    <form method="post" id="change-station" action="{{ path('auto_mobile_back_station') }}">
+        <input type="hidden" name="rentalCarID"  value="{{ rentalOrder.rentalCar.rentalCarID }}" />
+        <input type="hidden" name="backSid"  value="{{ rentalOrder.returnRentalStation.rentalStationID }}" />
+        <input type="hidden" name="orderID"  value="{{ rentalOrder.orderID }}" />
+    </form>
+{% endif %}
+
+
+

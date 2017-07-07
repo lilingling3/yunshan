@@ -1,0 +1,87 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_order', 'show'] %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% block content %}
+    <div class="top-menu">
+        租赁订单
+        <a  href="{{ path('auto_operate_rental_order_list',{'id':rentalOrder.rentalCar.rentalCarID}) }}"  class="left-cont"><b></b></a>
+    <span class="cancel-order" order-data="{{ rentalOrder.orderID }}" user-data="{{ app.user.token }}">
+        {% if rentalOrder.status==100 %}取消订单{% endif %}</span>
+    </div>
+
+
+
+    <div class="order-details">
+        <div class="order-info">
+            {{ rentalOrder.createTime|date('Ymd') }}{{ rentalOrder.orderID }}
+            <p class="info-status info-status{{ rentalOrder.status }}"> {{ status.name(rentalOrder) }}</p>
+        </div>
+        <div class="in-cont">
+            <p><b>车辆号牌&nbsp;:&nbsp;</b>{{ rentalOrder.rentalCar.license }}</p>
+            <p><b>车辆型号&nbsp;:&nbsp;</b>{{ rentalOrder.rentalCar.car.name }}</p>
+            <p><b>租赁点&nbsp;:&nbsp;</b>{{ rentalOrder.rentalCar.rentalStation.name }}</p>
+            <p><b>下单时间&nbsp;:&nbsp;</b>{{ rentalOrder.createTime }}</p>
+            <p><b>取车时间&nbsp;:&nbsp;</b>{{ rentalOrder.useTime|default('-') }}</p>
+            <p><b>支付时间&nbsp;:&nbsp;</b>{{ rentalOrder.payTime|default('-') }}</p>
+            <p><b>租赁时长&nbsp;:&nbsp;</b>
+                {% if rentalOrder.status==101 %}
+                    -
+                {% elseif rentalOrder.offset %}
+                    {{ time.name(rentalOrder.offset) }}
+                {% else %}-
+                {% endif %}
+            </p>
+            <p><b>行驶里程&nbsp;:&nbsp;</b>{% if rentalOrder.mileage %}{{ rentalOrder.mileage }}公里{% else %}-{% endif %}</p>
+            <p><b>产生费用&nbsp;:&nbsp;</b>{% if rentalOrder.costDetail.cost %}{{ rentalOrder.costDetail.cost }}元{% else %}-{% endif %}</p>
+            <p><b>优惠券&nbsp;:&nbsp;</b>{{ rentalOrder.coupon.amount|default('-') }}</p>
+            <p><b>实付费用&nbsp;:&nbsp;</b>{{ rentalOrder.amount|default('-') }}</p>
+        </div>
+
+    </div>
+
+    {% if rentalOrder.costDetail.charge and rentalOrder.status!=100 and rentalOrder.useTime %}
+        <div class="rental-settle">
+            <div class="row">
+                {% for price in rentalOrder.costDetail.charge.rentalPrice %}
+                    <p><b class="t-name">{{ price.name }}时长:</b>{{ time.name(price.time) }}
+                        <span><b class="t-name">{{ price.name }}费用:</b><b class="t-text">{{ price.amount }}元</b></span></p>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="rental-settle">
+            <div class="row">
+                <p><b class="t-name">日间时长:</b>-
+                    <span><b class="t-name">日间费用:</b><b class="t-text">-</b></span></p>
+                <p><b class="t-name">夜间时长:</b>-
+                    <span><b class="t-name">夜间费用:</b><b class="t-text">-</b></span></p>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <div class="order-member">
+
+        <div class="l-member">
+            <p class="menber-detail clearfix"><span class="customer-t">用&nbsp;&nbsp;&nbsp;户：</span>{{ rentalOrder.userName }}</p>
+            <p class="tel clearfix"><span class="customer-t">手机号：</span><a href="tel:{{ rentalOrder.userMobile }}">{{ rentalOrder.userMobile }}</a></p>
+           {# <p class="menber-detail clearfix"><span class="customer-t">证&nbsp;&nbsp;&nbsp;号：</span>{{ memberDetail.IDNumber }}</p>
+            <p class="menber-detail clearfix"><span class="customer-t">档案号：</span>{{ memberDetail.documentNumber }}</p>
+            <p class="menber-detail clearfix"><span class="customer-t">驾证有效日期：</span>{{ memberDetail.licenseStartDate }}至{{ memberDetail.licenseEndDate }}</p>#}
+        </div>
+
+    </div>
+
+
+
+    {% if rentalOrder.status==102 %}
+        <div class="cancel-rental-button">
+            <a href="{{ path('auto_operate_rental_order_end_rental',{'id':rentalOrder.orderID}) }}">
+                <button type="submit" id="rental-submit">人工还车</button>
+            </a>
+        </div>
+    {% endif %}
+
+{% endblock %}

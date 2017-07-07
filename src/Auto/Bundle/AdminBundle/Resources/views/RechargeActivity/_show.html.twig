@@ -1,0 +1,40 @@
+<div class="ui  grid" style="margin-left:6px;background-color:#fff;line-height: 35px;">
+
+
+
+
+    <div class="column">
+        <table class="ui very basic table">
+            <thead>
+            <tr >
+                <th colspan="2" style="width:44%;">活动名称<br>{{ recharge.name }}</th>
+                <th>开始时间<br>{{ recharge.startTime }}</th>
+                <th>结束时间<br>{{ recharge.endTime }}</th>
+                <th style="width:11%;">活动状态<br></th>
+            </tr>
+            </thead>
+            </table>
+        </div>
+    </div>
+
+
+<div class="ui  grid" style="margin-left:6px;background-color:#fff;line-height: 35px;">
+    {% for step in stepPrice %}
+    <div class="seven wide column">
+        <table class="ui very basic table">
+            <thead>
+            <tr>
+                <th >阶梯{{ loop.index }}实付（元）<br>{{ step.amount }}</th>
+                <th>阶梯{{ loop.index }}返现（元）<br> {{ step.discountAmount }}</th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+    {% endfor %}
+    </div>
+
+    <div class="field" style="    margin-left: 3%;margin-top:2%;">
+        <button class="ui teal button" onclick="JavaScript:history.back(-1);">返回</button>
+        <a class="ui teal button" href="{{ path("auto_admin_rechargeActivity_edit",{'id': recharge.activity}) }}">编辑</a>
+    </div>
+</div>

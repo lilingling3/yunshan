@@ -1,0 +1,32 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['order', 'depositlist'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        html,body {
+            position: relative;
+            height: 100%;
+            background-color:white;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="deposit">
+        <div class="left-cont">
+            <div class="left-top">押金(元)</div>
+            <div class="left-bottom" >0</div>
+        </div>
+        <div class="right-cont" style="color:white;float:right;display: inline-block;width:40%;height:148px;font-size:14px;position:relative;"><span style="border-radius:33px;position:absolute;margin:32% 14%;width:94px;height:50px;background-color:#00c21d;display:inline-block;text-align:center;line-height:50px;">缴纳押金</span></div>
+    </div>
+    <div class="deposit-center" style="font-size:14px;">
+        <p>部分城市租赁车辆前需缴纳押金。</p>
+        <p>租车结算后可申请退还押金，押金最晚于30日内退还回您的账户。</p>
+    </div>
+
+
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

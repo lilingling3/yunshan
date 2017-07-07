@@ -1,0 +1,117 @@
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+{% endblock %}
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.MarketActivity.title) }}</label>
+        {{ form_widget(form.MarketActivity.title,{'attr': {'placeholder':'活动名称' }} ) }}
+    </div>
+
+
+        <div class="field">
+            <label>{{ form_label(form.MarketActivity.link) }}</label>
+            {{ form_widget(form.MarketActivity.link,{'attr': {'placeholder':'活动链接' }} ) }}
+        </div>
+
+       <div class="field" style="margin-top: 35px">
+           <label>{{ form_label(form.MarketActivity.kind) }}</label>
+            {{ form_widget(form.MarketActivity.kind,{'attr': {'placeholder':'活动类型' }}  ) }}
+        </div>
+
+        <div class="field" style="margin-top: 35px">
+           <label>{{ form_label(form.MarketActivity.subject) }}</label>
+            {{ form_widget(form.MarketActivity.subject,{'attr': {'placeholder':'内部广告跳转位置' }}  ) }}
+        </div>
+
+    <div class="fields">
+    <div class="eight wide field">
+        <label>{{ form_label(form.startTime) }}</label>
+        {{ form_widget(form.startTime,{'attr': {'placeholder':'开始时间' }} ) }}
+    </div>
+    <div class="eight wide field">
+        <label>{{ form_label(form.endTime) }}</label>
+        {{ form_widget(form.endTime,{'attr': {'placeholder':'结束时间' }} ) }}
+    </div>
+    </div>
+
+    <div class="photographs" style="margin-top: 35px">
+        <div class="field">
+        <label>{{ form_label(form.MarketActivity.thumb) }}</label>
+        {% if form.MarketActivity.thumb.vars.value %}
+            <div class="photograph">
+                <img src="{{ form.MarketActivity.thumb.vars.value|photograph }}">
+                {{ form_widget(form.MarketActivity.thumb) }}
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        {% endif %}
+        <button type="button" class="ui basic button add-file scalar btn btn-primary"
+                data-dismiss="photograph">选择文件</button>
+        <script type="text/x-handlebars-template" class="template">
+            <div class="photograph">
+                <img src="{{ '{{ path }}' }}">
+                <input type="hidden" name="{{ form.MarketActivity.thumb.vars.full_name }}" value="{{ '{{ localname }}' }}">
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        </script>
+            </div>
+    </div>
+    {% do form.MarketActivity.thumb.setRendered %}
+
+
+    <div class="photographs" style="margin-top: 35px">
+        <div class="field">
+            <label>{{ form_label(form.MarketActivity.image) }}</label>
+        {% if form.MarketActivity.image.vars.value %}
+            <div class="photograph">
+                <img src="{{ form.MarketActivity.image.vars.value|photograph }}">
+                {{ form_widget(form.MarketActivity.image) }}
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        {% endif %}
+        <button type="button" class="ui basic button add-file scalar btn btn-primary"
+                data-dismiss="photograph">选择文件</button>
+        <script type="text/x-handlebars-template" class="template">
+            <div class="photograph">
+                <img src="{{ '{{ path }}' }}">
+                <input type="hidden" name="{{ form.MarketActivity.image.vars.full_name }}" value="{{ '{{ localname }}' }}">
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        </script>
+        </div>
+    </div>
+    {% do form.MarketActivity.image.setRendered %}
+
+
+
+</div>
+
+
+
+<button class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+<button class="ui teal button" type="submit">提交</button>
+
+<script>
+    var start = {
+        elem: '#form_startTime',
+        format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+//        max: laydate.now(-1),
+        choose: function(datas){
+            end.min = datas; //开始日选好后，重置结束日的最小日期
+            end.start = datas //将结束日的初始值设定为开始日
+        }
+    }
+    var end = {
+        elem: '#form_endTime',
+        format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+//        max: laydate.now(-1),
+        choose: function(datas){
+            start.max = datas; //结束日选好后，重置开始日的最大日期
+        }
+    }
+    laydate(start);
+    laydate(end);
+</script>
+
+
+{{ form_end(form) }}

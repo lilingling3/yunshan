@@ -1,0 +1,16 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['IllegalRecord', 'agentNew'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加代处理','prenav':'车辆违章 '} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:IllegalRecord:_form.html.twig" %}
+         </div>
+
+     </div>
+
+
+ {% endblock %}

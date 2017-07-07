@@ -1,0 +1,189 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Account:_authError.html.twig" as autherror %}
+{% set page_id  = ['account', 'identify'] %}
+{% block content %}
+
+<form class="verify-data" action="{{ path('auto_mobile_account_auth_upload') }}"  method="post" enctype="multipart/form-data">
+    {% if auth.status ==200 %}
+        <span class="note">请按照范例图上传本人相关证件照片</span>
+    {% elseif auth.status ==201 %}
+        <span class="note"></span>
+    {% elseif auth.status ==299 %}
+        <span class="note">恭喜您认证成功，可以立即使用车辆。</span>
+    {% else %}
+        <span class="note">{% if auth.validateDetailError %}{{ auth.validateDetailError }}{% else %}认证失败请重新提交{% endif %}</span>
+    {% endif %}
+
+    <ul>
+        <li>
+            <div id="licenseimage" class="auth-file"
+                 img-flag="{% if auth.status !=200  and  auth.authImageMessage.licenseAuthError%}1{% else %}0{% endif %}"
+                 authstatus="{{ auth.status }}">
+                {% if auth.status !=200 and auth.authImage.licenseImage %}
+                    <img src="{{ auth.authImage.licenseImage }}">
+                {% else %}
+                    <img src="{{ asset('/bundles/automobile/images/example-license.png') }}">
+                {% endif %}
+                <div class="upload-content">
+                    <input type="file" style="display:none;" name="licenseImage" img-data="#licenseimage" class="upload" capture="camera" accept="image/*">
+                </div>
+            </div>
+
+            <div class="
+                {% if auth.status ==201 or auth.status ==299 %} 
+                    cover-verify 
+                {% else %} 
+                    {% if auth.status ==200 %}
+                        cover
+                    {% else %}
+                        {% if auth.authImageMessage.licenseAuthError %}
+                            cover
+                        {% else %}
+                            cover-verify
+                        {% endif %}
+                    {% endif %}
+                 {% endif %}" >
+                <div class="cover-inner">
+                    {% if auth.status !=201 %}
+                        {% if auth.status ==202 or auth.status ==203 %}
+                            {% if auth.authImageMessage.idHandImageAuthError %}
+                                <img src="{{ asset('/bundles/automobile/images/camera.png') }}" height="35" width="50">
+                            {% endif %}
+                        {% elseif auth.status !=299 %}
+                            <img src="{{ asset('/bundles/automobile/images/camera.png') }}" height="35" width="50">
+                        {% endif %}
+                    {% endif %}
+                    {% if auth.status ==200 or auth.status ==201 %}
+                        {% if auth.status ==200 %}
+                            <h6> 驾驶证正副本照片 </h6>
+                        {% else %}
+                            <h6> 审核中... </h6>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+                
+            {% if  auth.status !=200 and auth.authImageMessage.licenseAuthError %}
+                <p class="error">
+                    {{ auth.authImageMessage.licenseAuthError }}
+                </p>
+            {% endif %}
+        </li>
+        <li>
+            <div id="idimage" class="auth-file" img-flag="{% if  auth.status !=200 and auth.authImageMessage.idImageAuthError %}1{% else %}0{% endif %}">
+                {% if  auth.status !=200 and  auth.authImage.idImage %}
+                    <img src="{{ auth.authImage.idImage }}" >
+                {% else %}
+                    <img src="{{ asset('/bundles/automobile/images/example-idcard.png') }}">
+                {% endif %}
+                <div class="upload-content">
+                    <input type="file" img-data="#idimage" style="display:none;" name="idImage"  class="upload" capture="camera" accept="image/*"  />
+                </div>
+            </div>
+                 
+            <div class="
+                {% if auth.status ==201 or auth.status ==299 %} 
+                    cover-verify 
+                {% else %} 
+                    {% if auth.status ==200 %}
+                        cover
+                    {% else %}
+                        {% if auth.authImageMessage.idImageAuthError %}
+                            cover
+                        {% else %}
+                            cover-verify
+                        {% endif %}
+                    {% endif %}
+                 {% endif %}" >
+
+                <div class="cover-inner">
+                    {% if auth.status !=201 %}
+                        {% if auth.status ==202 or auth.status ==203 %}
+                            {% if auth.authImageMessage.idHandImageAuthError %}
+                                <img src="{{ asset('/bundles/automobile/images/camera.png') }}" height="35" width="50">
+                            {% endif %}
+                        {% elseif auth.status !=299 %}
+                            <img src="{{ asset('/bundles/automobile/images/camera.png') }}" height="35" width="50">
+                        {% endif %}
+                    {% endif %}
+                    {% if auth.status ==200 or auth.status ==201 %}
+                        {% if auth.status ==200 %}
+                            <h6> 身份证正面照 </h6>
+                        {% else %}
+                            <h6> 审核中... </h6>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if  auth.status !=200 and auth.authImageMessage.idImageAuthError %}
+                <p class="error">
+                    {{ auth.authImageMessage.idImageAuthError }}
+                </p>
+            {% endif %}
+        </li>
+        <li>
+            <div id="idhandimage" class="auth-file" img-flag="{% if  auth.status !=200 and auth.authImageMessage.idHandImageAuthError %}1{% else %}0{% endif %}">
+                {% if  auth.status !=200 and auth.authImage.idHandImage %}
+                    <img src="{{ auth.authImage.idHandImage }}">
+                {% else %}
+                    <img src="{{ asset('/bundles/automobile/images/example-person.png') }}">
+                {% endif %}
+                <div class="upload-content">
+                    <input type="file" img-data="#idhandimage" style="display:none;" name="idHandImage" class="upload"  capture="camera" accept="image/*"  />
+                </div>
+            </div>
+            <div class="
+                {% if auth.status ==201 or auth.status ==299 %} 
+                    cover-verify 
+                {% else %} 
+                    {% if auth.status ==200 %}
+                        cover
+                    {% else %}
+                        {% if auth.authImageMessage.idHandImageAuthError %}
+                            cover
+                        {% else %}
+                            cover-verify
+                        {% endif %}
+                    {% endif %}
+                 {% endif %}" >
+
+                <div class="cover-inner">
+                    {% if auth.status !=201 %}
+                        {% if auth.status ==202 or auth.status ==203 %}
+                            {% if auth.authImageMessage.idHandImageAuthError %}
+                                <img src="{{ asset('/bundles/automobile/images/camera.png') }}" height="35" width="50">
+                            {% endif %}
+                        {% elseif auth.status !=299 %}
+                            <img src="{{ asset('/bundles/automobile/images/camera.png') }}" height="35" width="50">
+                        {% endif %}
+                    {% endif %}
+                    {% if auth.status ==200 or auth.status ==201 %}
+                        {% if auth.status ==200 %}
+                            <h6> 手持身份证照片-请保证面部与证件内容清晰可辨 </h6>
+                        {% else %}
+                            <h6> 审核中... </h6>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+
+            {% if  auth.status !=200 and auth.authImageMessage.idHandImageAuthError %}
+                <p class="error">
+                    {{ auth.authImageMessage.idHandImageAuthError }}
+                </p>
+            {% endif %}
+        </li>
+    </ul>
+
+    {% if auth.status !=201 and auth.status !=299 %}
+        <div class="btn gsbtn identify-submit">
+            <img class="btn-bg" src="/bundles/automobile/images/btn-bg3.png">
+            <span class="text tb-center">提交认证</span>
+        </div>
+    {% endif %}
+</form>
+    {% endblock %}
+{% block footer %}
+{% endblock %}

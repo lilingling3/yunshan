@@ -1,0 +1,131 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+<div class="three fields">
+    <div class=" field">
+        <label>{{ form_label(form.name) }}</label>
+        {{ form_widget(form.name,{'attr': {'placeholder':'车型' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>{{ form_label(form.brand) }}</label>
+        {{ form_widget(form.brand,{'attr': {'placeholder':'品牌' }} ) }}
+    </div>
+
+     <div class="field">
+           <label>{{ form_label(form.startType) }}</label>
+            {{ form_widget(form.startType,{'attr': {'placeholder':'启动方式' }}  ) }}
+     </div>
+
+</div>
+
+    <div class="three fields">
+
+        <div class="field">
+            <label>{{ form_label(form.length) }}</label>
+            {{ form_widget(form.length,{'attr': {'placeholder':'长' }} ) }}
+        </div>
+        <div class="field">
+            <label>{{ form_label(form.width) }}</label>
+            {{ form_widget(form.width,{'attr': {'placeholder':'宽' }} ) }}
+        </div>
+        <div class="field">
+            <label>{{ form_label(form.height) }}</label>
+            {{ form_widget(form.height,{'attr': {'placeholder':'高' }} ) }}
+        </div>
+    </div>
+    <div class=" fields">
+
+        <div class="eight wide field">
+            <label>{{ form_label(form.doors) }}</label>
+            {{ form_widget(form.doors,{'attr': {'placeholder':'车门数' }} ) }}
+        </div>
+
+        <div class=" eight wide field">
+            <label>{{ form_label(form.seats) }}</label>
+            {{ form_widget(form.seats,{'attr': {'placeholder':'车座数' }} ) }}
+        </div>
+    </div>
+
+    <div class=" fields">
+
+        <div class="eight wide field">
+            <label>{{ form_label(form.battery) }}(kWh)</label>
+            {{ form_widget(form.battery,{'attr': {'placeholder':'电池容量' }} ) }}
+        </div>
+
+        <div class=" eight wide field">
+            <label>{{ form_label(form.driveMileage) }}(km)</label>
+            {{ form_widget(form.driveMileage,{'attr': {'placeholder':'续航里程' }} ) }}
+        </div>
+    </div>
+
+    <div class=" fields">
+
+        <div class="eight wide field">
+            <label>{{ form_label(form.bodyType) }}</label>
+            {{ form_widget(form.bodyType,{'attr': {'class':'ui dropdown' }} ) }}
+        </div>
+
+        <div class=" eight wide field">
+            <label>{{ form_label(form.level) }}</label>
+            {{ form_widget(form.level,{'attr': {'class':'ui dropdown' }} ) }}
+        </div>
+    </div>
+
+    <div class=" fields">
+
+        <div class="eight wide field">
+            <label>{{ form_label(form.autoOfflineMileage) }}(km)</label>
+            {{ form_widget(form.autoOfflineMileage,{'attr': {'placeholder':'自动下线里程' }} ) }}
+        </div>
+
+        <div class=" eight wide field">
+
+        </div>
+    </div>
+
+
+
+
+   {# <div class=" field">
+        <label>{{ form_label(form.airbags) }}</label>
+        {{ form_widget(form.airbags,{'attr': {'placeholder':'气囊数' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>{{ form_label(form.insuranceAmount) }}</label>
+        {{ form_widget(form.insuranceAmount,{'attr': {'placeholder':'不计免赔保险' }} ) }}
+    </div>#}
+
+
+
+
+
+    <div class="photographs">
+        {% if form.image.vars.value %}
+            <div class="photograph">
+                <img src="{{ form.image.vars.value|photograph }}">
+                {{ form_widget(form.image) }}
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        {% endif %}
+        <button type="button" class="ui basic button add-file scalar btn btn-primary"
+                data-dismiss="photograph">选择文件</button><span style="color: rgba(0, 0, 0, 0.47);">* 请上传固定尺寸为420*315大小的图片</span>
+        <script type="text/x-handlebars-template" class="template">
+            <div class="photograph">
+                <img src="{{ '{{ path }}' }}">
+                <input type="hidden" name="{{ form.image.vars.full_name }}" value="{{ '{{ localname }}' }}">
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        </script>
+    </div>
+    {% do form.image.setRendered %}
+</div>
+
+
+
+<button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">提交</button>
+
+{{ form_end(form) }}

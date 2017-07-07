@@ -1,0 +1,24 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['marketActivity', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'活动广告'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:MarketActivity:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">添加活动 </a>
+                 <a class="item" href="{{ path('auto_admin_marketActivity_list') }}">活动列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

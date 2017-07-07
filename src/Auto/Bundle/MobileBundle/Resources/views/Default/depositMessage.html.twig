@@ -1,0 +1,17 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['default', 'message'] %}
+{% block content %}
+
+    <div class="details">
+        <p>{{ message }}</p>
+        <div class="row">
+            <a href="{{ path('auto_mobile_deposit_list',{ id:1 }) }}">
+                <div class="btn">
+                    <img class="btnbg" src="{{ asset('/bundles/automobile/images/btn-bg2.png')}}">
+                    <span class="tblr-center btn-t">立即支付</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

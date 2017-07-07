@@ -1,0 +1,23 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['account2', 'identify'] %}
+{% block content %}
+
+    <div class="top-menu">
+        个人信息
+        <a href="{{ path("auto_wap_account_auth2") }}"><b></b></a>
+
+    </div>
+    
+
+    <div class="auth-img-container">
+        <div class="auth-img-cont"><img class="auth-img" src="{{ auth.licenseImage }}"></div>
+        {% if  auth.status==202 %}
+            <p class="auth-fail">{{ auth.licenseImageMessage }}</p>
+
+        {% else  %}
+            <p>您上传的信息正在审核中，请耐心等待。</p>
+        {% endif %}
+
+    </div>
+
+{% endblock %}

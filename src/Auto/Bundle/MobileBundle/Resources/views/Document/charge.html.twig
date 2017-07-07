@@ -1,0 +1,27 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['document', 'about'] %}
+{% block title %}计费说明{% endblock %}
+{% block content %}
+
+    <div class="provision">
+       <div class="data-table">
+        </div>
+         <p class="text-left">全新的计费模式--只计时长，不计里程！</p>
+         <p class="text-left">云杉“驾呗”采用全新的定价模式，分为短租定价和长租定价，暂不计里程费。同一订单6小时以内部分为短租计费，6小时以上部分为长租计费。</p>
+        <p class="text-left">订单半小时起租，之后按分钟计费。</p>
+        <p class="text-left">举例：以广州地区奇瑞eQ为例，短租价格为0.25元/分钟，长租价格为0.1元/分钟，即短租15元/小时，长租6元/小时</p>
+        <p class="text-left">1、租车10分钟的价格为：7.5元（不足半小时按半小时计算）</p>
+        <p class="text-left">2、租车2小时的价格为：30元（7.5元+1.5小时*15元/小时=30元）</p>
+        <p class="text-left">3、租车7小时的价格为：96元（6小时*15元/小时+1小时*6元/小时=96元）</p>
+        <p class="text-left">4、租车24小时的价格为：198元（6小时*15元/小时+18小时*6元/小时=198元）</p>
+        <p class="text-left"><b>具体价格以显示价格为准，部分地区需缴纳押金后使用</b></p>
+        <p class="text-left">以上价格已包含保险，如不慎出险请及时报警、报案并及时联系客服，如没有保险公司认定的拒赔或免赔项目，则您不需承担车辆损失；如因您未报警、报案，所产生的车辆损失费用，将由您个人全部承担。
+            具体保险赔付范围请参阅《用户协议》
+        </p>
+
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+

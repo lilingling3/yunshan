@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block meta %}
+    {{ parent() }}
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+{% endblock %}
+{% block stylesheets %}
+    {% stylesheets "bundles/autowap/css/*.less" filter="less, cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('/jquery/jquery.min.js') }}"></script>
+    {% javascripts "bundles/autowap/js/*.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="page" class="{{ page_id|default([])|join(' ') }}">
+
+        {% block content %}
+            
+        {% endblock %}
+
+        {% block footer %}
+            <div class="footer">
+                <div class="mobile-cont">
+                    <div class="icon"><img  src="{{ asset('/bundles/autowap/images/2.0-phone.png') }}" /></div>
+                    <div class="phone-text">
+                        <p>二十四小时客服电话</p>
+                        <p><a href="tel:4001118220" class="tel">400-111-8220</a></p>
+                    </div>
+                </div>
+              
+                <p>©云杉智行网络科技（北京）有限公司</p>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

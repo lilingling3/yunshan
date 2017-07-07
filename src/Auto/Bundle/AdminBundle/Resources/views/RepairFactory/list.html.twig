@@ -1,0 +1,94 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'修理厂'} %}
+     <div class="ui main-content grid">
+         <div class="ui top attached menu tabular no_border" style="padding-left: 0px;">
+             <a class="item" href="{{ path("auto_admin_maintenance_record_list") }}">车辆维修</a>
+             <a class="item " href="{{ path("auto_admin_maintenance_record_third_list") }}">三者车记录</a>
+             <a class="item " href="{{ path("auto_admin_settle_claim_list") }}">理赔记录</a>
+             <a class="item active  font-normal bk_gray no_border">修理厂</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_repair_factory_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td>
+                             <input class=" time_input" type="text"  name="name" placeholder="请输入修理厂简称" value="">
+
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">搜索</button>
+                         </td>
+                         <td style="width: 60%;"></td>
+
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_repair_factory_new') }}">添加修理厂 </a>
+                         </td>
+
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>修理厂全称</th>
+                     <th>修理厂简称</th>
+                     <th>修理厂地址</th>
+                     <th>联系人</th>
+                     <th>联系电话</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for company in companys %}
+                     <tr>
+                         <td>{{ company.fullName }}</td>
+                         <td>{{ company.name }}</td>
+                         <td>{{ company.address }}</td>
+                         <td>{{ company.contactName }}</td>
+                         <td>{{ company.contactMobile }}</td>
+                         <td><a href="{{ path('auto_admin_repair_factory_edit',{'id':company.id}) }}"><small>编辑</small></a>|<a href="{{ path('auto_admin_repair_factory_delete',{'id':company.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_repair_factory_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,51 @@
+<div class="rental-info ">
+    <div class="row ">
+        <div class="car-img">
+            <img src="{{ rentalOrder.rentalCar.image }}" />
+
+        </div>
+        <div class="column-cont">
+            <div class="column">
+                <div class="item"><p class="car-detail-name">车牌</p><p class="item-detail">{{ rentalOrder.rentalCar.license }}</p></div>
+                <div class="item"><p class="car-detail-name">型号</p><p class="item-detail">{{ rentalOrder.rentalCar.car.name }}</p></div>
+                <div class="item">
+                    <p class="car-detail-name">结构/座位</p>
+                    <p class="item-detail">{{ rentalOrder.rentalCar.car.bodyType }}/{{ rentalOrder.rentalCar.car.seat }}座</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="rental-info">
+    <div class="row ">
+        <div class="address">
+            <p>取车&nbsp;|&nbsp;{{ rentalOrder.pickUpRentalStation.name }}</p>
+            {{ rentalOrder.pickUpRentalStation.street }}
+        </div>
+        {% if (rentalOrder.pickUpRentalStation.backType==601 and  rentalOrder.endTime is null) and rentalOrder.cancelTime is null  %}
+        <div class="address address-chs">
+            <p>还车&nbsp;|&nbsp;{{ rentalOrder.returnRentalStation.name }}<span class="chs">[更换]</span></p>
+             {{ rentalOrder.returnRentalStation.street }}
+        </div>
+            <form method="post" id="change-station" action="{{ path('auto_wap_rental_car2_change_station2') }}">
+               {# <input type="hidden" name="stationid"  value="{{ rentalOrder.pickUpRentalStation.rentalStationID }}" />#}
+                <input type="hidden" name="rentalCarID"  value="{{ rentalOrder.pickUpRentalStation.rentalStationID }}" />
+                <input type="hidden" name="backSid"  value="{{ rentalOrder.returnRentalStation.rentalStationID }}" />
+                <input type="hidden" name="orderID"  value="{{ rentalOrder.orderID }}" />
+               {# <input type="hidden" name="lng"  value="{{ lng }}" />
+                <input type="hidden" name="lat"  value="{{ lat }}" />#}
+            </form>
+        {% else %}
+        <div class="address">
+            <p>还车&nbsp;|&nbsp;{{ rentalOrder.returnRentalStation.name }}</p>
+            {{ rentalOrder.returnRentalStation.street }}
+        </div>
+       {% endif %}
+
+    </div>
+</div>
+
+
+
+
+

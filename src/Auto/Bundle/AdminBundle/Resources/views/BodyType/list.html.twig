@@ -1,0 +1,68 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'车型结构','prenav':'添加'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车型</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for type in types %}
+                     <tr>
+                         <td><a href="{{ path('auto_admin_body_type_edit',{'id':type.id}) }}">{{ type.name }}</a></td>
+
+                         <td><a href="{{ path('auto_admin_body_type_edit',{'id':type.id}) }}"><small>编辑</small></a>|<a href="{{ path('auto_admin_body_type_delete',{'id':type.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_body_type_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">车型列表</a>
+                 <a class="item" href="{{ path('auto_admin_body_type_new') }}">添加车型 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

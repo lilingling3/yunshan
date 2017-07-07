@@ -1,0 +1,104 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+    <div class="fields">
+        <div class="eight wide field ">
+        <label>{{ form_label(form.formType.name) }}</label>
+        {{ form_widget(form.formType.name,{'attr': {'placeholder':'请输入活动名称','class':'ui'}} ) }}
+            </div>
+        <div class="four wide field" id="starttime">
+            <label>开始时间</label>
+            {{ form_widget(form.startTime,{'attr': {'placeholder':'开始时间','class':'ui' }} ) }}
+        </div>
+        <div class="four wide field" id="endtime">
+            <label>结束时间</label>
+            {{ form_widget(form.endTime,{'attr': {'placeholder':'结束时间','class':'ui' }} ) }}
+        </div>
+    </div>
+
+    <div class="fields">
+        <div class="four wide field ui">
+            <label class="label1">阶梯一实付（元）</label>
+            {{ form_widget(form.priceStep1.price ) }}
+        </div>
+        <div class="four wide field ui">
+            <label>阶梯一返现（元）</label>
+            {{ form_widget(form.priceStep1.cashback ) }}
+        </div>
+        <div class="four wide field">
+            <label class="label2">阶梯二实付（元）</label>
+            {{ form_widget(form.priceStep2.price ) }}
+        </div>
+        <div class="four wide field">
+            <label>阶梯二返现（元）</label>
+            {{ form_widget(form.priceStep2.cashback ) }}
+        </div>
+    </div>
+
+    <div class="fields">
+        <div class="four wide field">
+            <label class="label3">阶梯三实付（元）</label>
+            {{ form_widget(form.priceStep3.price ) }}
+        </div>
+        <div class="four wide field">
+            <label>阶梯三返现（元）</label>
+            {{ form_widget(form.priceStep3.cashback ) }}
+        </div>
+        <div class="four wide field">
+            <label class="label4">阶梯四实付（元）</label>
+            {{ form_widget(form.priceStep4.price ) }}
+        </div>
+        <div class="four wide field">
+            <label>阶梯四返现（元）</label>
+            {{ form_widget(form.priceStep4.cashback ) }}
+        </div>
+    </div>
+
+    <div class="fields">
+        <div class="four wide field">
+            <label class="label5">阶梯五实付（元）</label>
+            {{ form_widget(form.priceStep5.price ) }}
+        </div>
+        <div class="four wide field">
+            <label>阶梯五返现（元）</label>
+            {{ form_widget(form.priceStep5.cashback ) }}
+        </div>
+        <div class="four wide field">
+            <label class="label6">阶梯六实付（元）</label>
+            {{ form_widget(form.priceStep6.price ) }}
+        </div>
+        <div class="four wide field">
+            <label>阶梯六返现（元）</label>
+            {{ form_widget(form.priceStep6.cashback ) }}
+        </div>
+    </div>
+
+    <div class="field">
+        <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+        <button class="ui teal button submit-tj" type="submit">保存</button>
+    </div>
+
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    <script>
+        var start = {
+            elem: '#form_startTime',
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            choose: function(datas){
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        }
+        var end = {
+            elem: '#form_endTime',
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            choose: function(datas){
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        }
+        laydate(start);
+        laydate(end);
+    </script>
+
+</div>
+
+{{ form_end(form) }}

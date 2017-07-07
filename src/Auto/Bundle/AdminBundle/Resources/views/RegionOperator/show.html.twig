@@ -1,0 +1,43 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['coo_operator', 'list'] %}
+ {% block content %}
+
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'站点列表','prenav':'运营人员'} %}
+     <div class="ui main-content grid">
+         <div class="ui big message" style="width: 100%">
+             {{ operator.member.name }} （ {{ operator.member.mobile }} ）
+             管辖省份：<span style="color: red;">{{ areacount.province }}</span>
+             管辖城市：<span style="color: red;">{{ areacount.city }}</span>
+             管辖城区：<span style="color: red;">{{ areacount.area }}</span>
+             站点数量：<span style="color: red;">{{ areacount.station }}</span>
+             <a href="{{ path('auto_admin_region_operator_list') }}" class="ui teal button" style="display: inline-block;float: right">返回</a>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>站点名称</th>
+                     <th>地区</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for station in stations %}
+                     <tr>
+                         <td>{{ station.name }}</td>
+                         <td>{{ station.area }}</td>
+                         <td><a href="{{ path('auto_admin_region_operator_delete',{'operator_id':operator.id,'station_id':station.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,75 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['illegalRecord', 'show'] %}
+{% block content %}
+
+    <div class="rules_cont">
+    <div class="rules_li {% if not illegal.handleTime  %} unhandle {% endif %}" >
+        <div class="row row-top">
+            <p class="b">
+                {{ illegal.createTime|date('Y/m/d') }}
+                {% if illegal.handleTime  %}
+                    <span class="status-handle">已处理</span>
+                {% else%}
+                    <span class="status-unhandle"><span class="triangle"></span>未处理</span>
+                {% endif %}
+            </p>
+        </div>
+        <div class="row">
+            <div class="column">
+                <div class="item">
+                    <p {% if illegal.handleTime is null %}class="light-gray"{% endif %}>车牌</p>
+                    {{ illegal.rentalCar.license }}
+
+                </div>
+
+                <div class="item">
+                    <p {% if illegal.handleTime is null %}class="light-gray"{% endif %}>车型</p>
+                    {{ illegal.rentalCar.car.name }}
+
+                </div>
+
+                <div class="item">
+                    <p {% if illegal.handleTime is null %}class="light-gray"{% endif %}>积分/罚款</p>
+                    <span {% if not  illegal.handleTime %} class="color-red" {% endif %} >{{ illegal.illegalScore|default('0')  }}</span>分&nbsp;
+                    <span {% if not  illegal.handleTime %} class="color-red" {% endif %} >{{ illegal.illegalAmount|default('0')  }}</span>元
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="rules_li">
+        <div class="row rowcol">
+            <div class="column-info">
+                <div class="text ">
+                    <p class="p-title">违章地点</p>
+                    <p {% if not  illegal.handleTime %} class="black" {% endif %}>{{ illegal.illegalPlace }}</p>
+                </div>
+            </div>
+            <div class="column-info column-bordert">
+                <div class="text">
+                    <p class="p-title">违法行为</p>
+                    <p {% if not  illegal.handleTime %} class="black" {% endif %}>{{ illegal.illegalReason }}</p>
+                </div>
+            </div>
+            {% if not  illegal.handleTime %}
+                <div class="column-info">
+                    <div class="text black">
+                        <p> {{ illegal.handleText }}</p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+    <div class="rules_li">
+        <div class="row">
+            <div class="column-info">
+                <p class=" phone-t">联系客服<a href="tel:4001118220" class="tel"><span class="blue">400-111-82200</span></a></p>
+            </div>
+        </div>
+    </div>
+        {% endblock %}
+        {% block footer %}
+{% endblock %}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>你敢不敢，看我脱光我自己？</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/autowap/css/tg0fd.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/js/zepto.min.js') }}" ></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+        wx.config({
+            'debug': false,
+            'appId': '{{ signPackage.appId }}',
+            'timestamp': '{{ signPackage.timestamp }}',
+            'nonceStr': '{{ signPackage.nonceStr }}',
+            'signature': '{{ signPackage.signature }}',
+            'jsApiList': ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+
+            //自定义内容
+            var dataForWeixin = {
+                title: '你敢不敢，看我脱光我自己？',
+                desc: '我敢脱，你，敢看么？',
+                imgUrl: 'http://lecarshare.com/photograph/8d/ea/8deab73e29e75a06194d20bbc521cb1d2db15633.jpeg',
+                link: '{{ url }}'
+            };
+
+            //分享到朋友圈
+            wx.onMenuShareTimeline({
+                title: dataForWeixin.title, // 分享标题
+                link: dataForWeixin.link, // 分享链接
+                imgUrl: dataForWeixin.imgUrl,  // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            //分享给朋友
+            wx.onMenuShareAppMessage({
+                title: dataForWeixin.title, // 分享标题,
+                desc: dataForWeixin.desc, // 分享标题,
+                link: dataForWeixin.link, // 分享标题, // 分享链接
+                imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+                type: 'link', // 分享类型,music、video或link，不填默认为link
+                dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+            //分享给qq
+            wx.onMenuShareQQ({
+                title: dataForWeixin.title, // 分享标题,
+                desc: dataForWeixin.desc, // 分享标题,
+                link: dataForWeixin.link, // 分享标题, // 分享链接
+                imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+        });
+
+    </script>
+</head>
+<body>
+<i class="logo"><img src="{{ asset('/bundles/autowap/images/tg0fd-logo.png') }}" /></i>
+<div class="page page1">
+    <img src="{{ asset('/bundles/autowap/images/tg0fd-bg1.png') }}"  class="bg" />
+    <div class="inner-cont">
+        <i class="text"><img   src="{{ asset('/bundles/autowap/images/tg0fd-text1.png') }}"  /></i>
+        <b class="btn lr-center"><img src="{{ asset('/bundles/autowap/images/tg0fd-btn1.png') }}" /></b>
+    </div>
+</div>
+<div class="page page2">
+    <img src="{{ asset('/bundles/autowap/images/tg0fd-bg1.png') }}" class="bg" />
+    <div class="inner-cont">
+        <div class="video-cont lr-center">
+            <iframe src="http://minisite.letv.com/tuiguang/index.shtml?vid=25275653&amp;typeFrom=forum&amp;ark=419&amp;autoplay=0" frameborder="0" allowfullscreen="" style="width:100%; height: 100%;"></iframe>
+        </div>
+        <i class="text"><img src="{{ asset('/bundles/autowap/images/tg0fd-text2.png') }}" /></i>
+        <b class="btn btn2"><img src="{{ asset('/bundles/autowap/images/tg0fd-btn2.png') }}"/></b>
+        <b class="btn btn22"><img src="{{ asset('/bundles/autowap/images/tg0fd-btn22.png') }}" /></b>
+    </div>
+</div>
+
+<div class="page page3">
+    <img src="{{ asset('/bundles/autowap/images/tg0fd-bg1.png') }}" class="bg" />
+    <div class="inner-cont">
+        <i class="text"><img src="{{ asset('/bundles/autowap/images/tg0fd-text3.png') }}" /></i>
+        <div class="input-cont">
+            <div class="in ">
+                <img src="{{ asset('/bundles/autowap/images/tg0fd-input-cont.png') }}" class="" />
+                <input maxlength="11" autocomplete="off" type="text" id="mobile" class="tblr-center" placeholder="请输入手机号码，我们车里见" />
+
+            </div>
+            <a class="href" href="{{ path('auto_wap_activity_tg0fd_protocol') }}">活动规则</a>
+
+        </div>
+        <b class="btn lr-center"><img src="{{ asset('/bundles/autowap/images/tg0fd-btn2.png') }}" /></b>
+    </div>
+</div>
+<div class="page page4">
+    <img src="{{ asset('/bundles/autowap/images/tg0fd-bg1.png') }}" class="bg" />
+    <div class="inner-cont">
+        <i class="text"><img src="{{ asset('/bundles/autowap/images/tg0fd-text5.png') }}" /></i>
+        <div class="a-cont lr-center">
+            <a class="a1" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653"><img src="{{ asset('/bundles/autowap/images/tg0fd-get-on.png') }}" /></a>
+            <a class="href" href="{{ path('auto_wap_activity_tg0fd_protocol') }}">活动规则</a>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="{{ asset('/bundles/autowap/js/module/tg0fd.js') }}" ></script>
+</html>

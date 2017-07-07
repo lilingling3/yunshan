@@ -1,0 +1,28 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'onlineList'] %}
+{% block content %}
+    <div class="top-menu">
+        整备记录
+        <a href="{{ path("auto_operate_rental_car_show",{"id":id})  }}"  class="left-cont"><b></b></a>
+        <span><a href="{{ path('auto_operate_logout') }}">记录</a></span>
+    </div>
+    <section class="car-menu">
+        <a href="{{ path("auto_operate_car_online_show",{"id":id})  }}">
+        <div class="car-li">
+            <div class="row">
+                <p>2015/10/30 11:35:50<b>程诚<span>13331195120</span></b></p>
+            </div>
+        </div>
+            </a>
+            <a href="{{ path("auto_operate_car_online_show",{"id":id})  }}">
+        <div class="car-li">
+            <div class="row">
+                <p>2015/10/30 11:35:50<b>程诚<span>13331195120</span></b></p>
+            </div>
+        </div>
+                </a>
+    </section>
+
+
+
+{% endblock %}

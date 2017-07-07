@@ -1,0 +1,22 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['rechargeActivity', 'new'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'查看','prenav':'充值活动'} %}
+     <div class="ui grid" >
+
+
+         <div class="column">
+             {% include "AutoAdminBundle:RechargeActivity:_show.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+         
+     </div>
+
+
+ {% endblock %}

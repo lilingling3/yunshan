@@ -1,0 +1,46 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rentalCar2', 'change-station'] %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css" xmlns="http://www.w3.org/1999/html"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=3dc0d24d401640b9b8249da6c4dd5a72&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    <script type="text/javascript" type="text/css" href="{{ asset('/bundles/autowap/js/zepto.min.js') }}"> </script>
+
+    {{ parent() }}
+
+<style>
+    .amap-sug-result {
+        margin-top: -60px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+    <div class="top-menu" style="z-index: 1000;position: absolute; top: 0px;">
+        云杉智行
+        <a  {% if orderID %} class="go-there" href="{{ path('auto_wap_rental_order_show2',{'id':orderID}) }}"{% else %} class="gocarshow" {% endif %}><b></b></a>
+    </div>
+    <div class="search">
+        <div class="input-cont">
+            <input type="text" id="tipinput" placeholder="输入目的地，查询还车点" />
+        </div>
+        <span class="btn"></span>
+    </div>
+    <div class="container" id="container">
+
+    </div>
+
+
+    <form id="backstion" method="post" action="{{ path('auto_wap_rental_car2_show') }}">
+        <input type="hidden" name="stationid" value="{{ stationid }}" />
+        <input type="hidden" name="backsid" id="backS" backType="{{ backStation.backType }}" lng="{{ backStation.longitude }}" lat="{{ backStation.latitude }}"  value="{{ backStation.rentalStationID }}" />
+        <input type="hidden" name="carid"  value="{{ rentalCarID }}" />
+        <input type="hidden" name="lng"  value="{{ lng }}" />
+        <input type="hidden" name="lat"  value="{{ lat }}" />
+        <input type="hidden" name="orderID" id="orderID"  value="{{ orderID }}" />
+        <input type="hidden" name="user" id="user"  value="{{ app.user.token }}" />
+    </form>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

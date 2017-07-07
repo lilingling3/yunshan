@@ -1,0 +1,122 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'list'] %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/AMap.WalkingRender1120.css"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=3dc0d24d401640b9b8249da6c4dd5a72&plugin=AMap.Walking"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/WalkingRender.js"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+    <div class="top-menu">
+        选择车辆
+        <a href="{{ path('auto_wap_station_list') }}"><b></b></a>
+       <span><a href="{{ path('auto_wap_station_map',{'id':rentalStation.rentalStationID}) }}"} >地图</a></span>
+    </div>
+
+    <div class="station station-info"  latitude="{{ rentalStation.latitude }}"  longitude="{{ rentalStation.longitude }}">
+    <h3>{{ rentalStation.name }}{% if rentalStation.backType==601 %}<span class="back-station">异地还车</span>{% endif %}</h3>
+  {#  <p><img src="{{ asset('/bundles/autowap/images/station1.png') }}" width="9px" height="11px">&nbsp;{{
+        rentalStation.street
+        }}</p>#}
+        <div class="station-cont">
+            <p class="station-detail">{{ rentalStation.street }}</p>
+        </div>
+        <div class="station-car">
+            <div class="column">
+                <p class="car-title">
+                    {% if rentalStation.usableRentalCarCount %}
+                        可用<span class="car-num">{{ rentalStation.usableRentalCarCount }}</span>辆
+
+                    {% else %}
+                        暂无可用车辆
+                    {% endif %}
+                    {#<span class="geoinfo_show"></span>#}
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+
+
+    {% if not rentalCars %}
+    <div class="rental-info">
+        <p class="nocar">很抱歉，暂时没有可用车辆</p>
+    </div>
+    {% else %}
+    <div class="car-list">
+    {% for rentalCar in rentalCars %}
+        {% if rentalCar.status ==300 %}
+            <a href="{{ path('auto_wap_rental_car_show',{'id':rentalCar.rentalCarID}) }}">
+
+        <li class="on">
+            <div class="left clearfix">
+            	<div class="image-cont">
+            		<img src="{{ rentalCar.image }}" />
+            	</div>
+            </div>
+            <div class="right">
+                <p class="license"><span class="license-cont"><span>{{ rentalCar.license }}</span></span></p>
+                <div class="row">
+                   <p><span class="car-info"></span>{{ rentalCar.car.name }}
+                      <span class="car-info">续航{{ rentalCar.mileage }}公里</span>
+                   </p>
+                </div>
+                <p class="price price-color">
+                        {% for price in rentalCar.rentalPrice %}
+                            <span>{{ price.name }}<b>&nbsp;{{ price.price }}</b>元/时</span>
+                        {% endfor %}
+
+                </p>
+            </div>
+
+        </li>
+            </a>
+        {% endif %}
+      
+        {% endfor %}
+        
+        
+        
+        {% for rentalCar in rentalCars %}
+            {% if rentalCar.status ==301 %}
+            <li>
+            <div class="left clearfix">
+            	<div class="image-cont">
+            		<img src="{{ rentalCar.image }}"> 
+            		<div class="shade"></div>
+            	</div>
+            </div>
+            <div class="right">
+                <p class="license"><span class="license-cont1"><span>{{ rentalCar.license }}</span></span></p>
+                <div class="row rentaling-car">
+                    <div class="column"><p class="car-charge">{{ rentalCar.car.name }}</p></div>
+
+                    <div class="column">
+
+                    </div>
+
+                </div>
+                <p class="price">
+
+                    车辆租赁使用中…
+
+                </p>
+            </div>
+
+        </li>
+   
+    
+    {% endif %}
+    {% endfor %}
+
+    </div>
+    {% endif %}
+    <div class="geomap">
+        <div id='container'></div>
+        <div id="panel"></div>
+    </div>
+{% endblock %}

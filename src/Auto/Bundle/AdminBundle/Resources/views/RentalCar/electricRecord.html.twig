@@ -1,0 +1,61 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['default', 'message'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'车辆日志','prenav':'租赁车辆'} %}
+     <div class="ui main-content grid">
+     <p>车型：{{ rentalCar.car.name }} | 车牌号：{{  rentalCar.license}}</p>
+     <div class="ui top attached menu tabular no_border" style="padding: 0;">
+         <a class=" item " href="{{ path("auto_admin_rentalcar_operateRecord",{'id':rentalCar.id}) }}">上下线</a>
+         <a class="item active font-normal bk_gray no_border" >通断电</a>
+         <a class="item " href="/admin/statistics/car/operate">开关门</a>
+         <a class="item " href="{{ path("auto_admin_rentalcar_dispatchRecord",{'id':rentalCar.id}) }}">移库记录</a>
+         <a class="item " href="{{ path("auto_admin_rentalcar_record",{'id':rentalCar.id}) }}">数据日志</a>
+         <button style="position: absolute;right: 35px;" class="ui teal button " onclick="history.go(-1)">返回</button>
+     </div>
+     <div class="ui bottom attached segment bk_gray no_border" style="padding-bottom: 0px;position: relative;">
+         <table class="ui very basic table no_border" style="margin: 0px">
+             <thead>
+             <tr>
+                 <th class="no_border">操作时间</th>
+                 <th class="no_border">操作人</th>
+                 <th class="no_border">操作人手机号</th>
+                 <th class="no_border">操作</th>
+             </tr>
+             </thead>
+         </table>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+
+                 <tbody>
+
+                 {% for operateRecord in electricRecords %}
+
+                     <tr>
+                         <td>
+                             {{ operateRecord.info.createTime|date('Y-m-d H:i:s')}}
+                         </td>
+                         <td> {{ operateRecord.info.member.name }}</td>
+                         <td>
+                             {{ operateRecord.info.member.mobile }}
+                         </td>
+                         <td>
+                             {% if operateRecord.info.status==1 %}
+                                 上线
+                             {%  elseif operateRecord.info.status==0 %}
+                                 下线
+                             {% endif %}
+                         </td>
+                     </tr>
+
+                 {% endfor %}
+
+                 </tbody>
+             </table>
+         </div>
+
+
+     </div>
+
+
+ {% endblock %}

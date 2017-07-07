@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>数据字典</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/automobile/css/database.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/automobile/js/module/jquery-1.9.0.min.js') }}" ></script>
+</head>
+<body>
+    <div class="container">
+
+        <p><span id="return1" >上传</span></p>
+
+        <p><span id="return2">list</span></p>
+
+        <p><span id="return3">删除</span></p>
+        <p><input type="text" id="deleteFile"></p>
+
+        <p><span id="return4">详情</span></p>
+
+        <p><span id="return5">删除所有</span></p>
+
+        <p><span id="return6">多图上传</span></p>
+
+        <img src="http://t.jiaab.com/group1/M00/00/01/rBAKBFkvyN-AKl8fAAA8lssVQB8971.jpg" alt="" height="200" width="300">
+    </div>
+
+    <script>
+
+        $('#return1').click(function () {
+            $.post("/api/fast/upload",
+                {
+
+                },
+                function(data,status){
+                    if(status){
+                        console.log("uploadResult:" + data.filePath);
+                    }
+                });
+        })
+
+        $('#return2').click(function () {
+            $.post("/api/fast/list",
+                {
+
+                },
+                function(data,status){
+                    if(status){
+                        console.log("listResult:" + data.list);
+                    }
+                });
+        })
+
+        $('#return3').click(function () {
+            $.post("/api/fast/delete",
+                {
+                    'delteFileName': $('#deleteFile').val()
+                },
+                function(data,status){
+                    if(status){
+                        console.log("deleteResult:" + data.filePath);
+                    }
+                });
+        })
+
+
+        $('#return4').click(function () {
+            $.post("/api/fast/detail",
+                {
+
+                },
+                function(data,status){
+                    if(status){
+                        console.log("detailResult:" + data);
+                    }
+                });
+        })
+
+
+        $('#return5').click(function () {
+            $.post("/api/fast/deleteAll",
+                {
+
+                },
+                function(data,status){
+                    if(status){
+                        console.log("detailAllResult:" + data);
+                    }
+                });
+        })
+
+
+        $('#return6').click(function () {
+            $.post("/api/fast/multiUpload",
+                {
+
+                },
+                function(data,status){
+                    if(status){
+                        console.log("multiuploadResult:" + data);
+                    }
+                });
+        })
+
+
+
+    </script>
+</body>
+</html>

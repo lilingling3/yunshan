@@ -1,0 +1,45 @@
+{% extends "::base.html.twig" %}
+
+
+{% block meta %}
+    {{ parent() }}
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no">
+{% endblock %}
+{% block stylesheets %}
+    {% stylesheets "bundles/automobile/css/*.less" filter="less, cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('/jquery/jquery.min.js') }}"></script>
+    {% javascripts "bundles/automobile/js/*.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="page" class="{{ page_id|default([])|join(' ') }}">
+        {% block content %}
+        {% endblock %}
+        {% block footer %}
+            <div class="footer">
+                <div class="foot-row">
+                    <p class="foot-t">客服专线(8:30~23:00)：<a class="tel" href="tel:400-111-8220"><span class="blue">400-111-8220</span></a></p>
+                </div>
+                <div class="foot-row">
+                    <div class="wrap">
+                        <!-- <div class="inner"><a class="href" href="{{ path('auto_mobile_car_list') }}"></a>使用帮助</div> -->
+                        <div class="inner"><a class="href" href="{{ path('auto_mobile_document_protocol') }}"></a>用户协议</div>
+                        <div class="inner"><a class="href" href="{{ path('auto_mobile_document_about') }}"></a>关于我们</div>
+                    </div>
+                </div>
+                <div class="foot-row">
+                    <p class="foot-t1">©云杉智慧新能源技术有限公司</p>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+{% endblock %}

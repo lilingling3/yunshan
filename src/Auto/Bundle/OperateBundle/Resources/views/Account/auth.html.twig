@@ -1,0 +1,21 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['account', 'auth'] %}
+
+{% block content %}
+    <div class="top-menu">
+        运营人个人信息
+        <a href="{{ path("auto_operate_station_list") }}"><b></b></a>
+    </div>
+    
+     <div class="member-info">
+    	<div class="img-cont">
+    		<img src="{{ asset('/bundles/autooperate/images/auth1.jpg') }}" />   	
+    	</div>
+    	<div class="info">
+    		<p>{{app.user.name}}</p>
+	     	<p>{{app.user.mobile}}</p> 
+    		<p>车辆运营专员</p>
+    	</div>
+    </div>
+   
+{% endblock %}

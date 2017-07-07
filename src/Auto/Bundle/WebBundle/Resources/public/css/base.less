@@ -1,0 +1,48 @@
+@import "parameter";
+html,body { height:100%; margin:0px; padding:0px;}
+#page.default.index{
+ background: url(../images/pc-bg.png) no-repeat 50% 50%; background-size: cover;
+.color-white { color: @color-white;}
+.color-green { color:@color-green;}
+.clearfix:after{ content: "020";  display: block;  height: 0;  clear: both;  visibility: hidden;  }
+.clearfix { zoom: 1; }
+
+overflow:hidden;
+	height:100%;
+	width:100%;
+	.content {
+		width:100%;
+			margin:@the-center;
+			position: relative;
+	    text-align: center;
+	    .head-icon { width: 262px; height: 86px; margin:90px auto 10px;
+	    	img { width: 26px;}
+	    }
+			
+		}		
+	.text  { margin-top: 40px;
+		 color: white;
+		.text-1 { opacity: 0;}
+		
+	}
+	.text-cont1 {
+	 width: 100%;
+		position: absolute; left: 50%;  margin-top: 90px; opacity: 0;
+		.text-2 { font-size: 40px; text-shadow: 3px 3px 3px #000; margin-top: 12px;}
+	}
+	
+	.text-1,.text-3 { font-size: 22px; text-shadow: 3px 3px 3px #000;}
+	.hre-button { width:260px; height:100px;line-height:100px; text-align:center;    background-color: red; border-radius: 74px;}
+	.from-div { z-index:10000; border:1px solid red; position: absolute;cursor: pointer; }
+	
+}
+@media (min-width: 320px) and (max-width: 480px) {
+	#page.default.index { 
+	
+		 background: url(../images/bg.png) no-repeat 50% 50%; background-size: cover;
+		 
+    height: 100%;
+    line-height: 1.5;
+	}
+	
+}

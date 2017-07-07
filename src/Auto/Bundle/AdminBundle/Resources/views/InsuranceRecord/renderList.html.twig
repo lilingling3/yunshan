@@ -1,0 +1,18 @@
+<table class="ui teal table">
+    <thead>
+    <tr>
+        <th>保险类型</th>
+        <th>保险金额</th>
+        <th>投保金额</th>
+        <th>投保时间</th>
+    </tr></thead><tbody>
+    {% for record in insurances %}
+    <tr>
+        <td>{{ record.insurance.name }}</td>
+        <td>{{ record.insuranceAmount }}元</td>
+        <td>{{ record.claimAmount }}元</td>
+        <td>{{ record.insuranceDate|date('Y-m-d') }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>

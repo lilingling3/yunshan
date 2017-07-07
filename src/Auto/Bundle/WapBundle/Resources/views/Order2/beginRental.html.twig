@@ -1,0 +1,71 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order2', 'show'] %}
+{% block content %}
+
+    {% include "AutoWapBundle:Order2:_car.html.twig" %}
+    <div class="order-info order-status{{ rentalOrder.status }}">
+        {% include "AutoWapBundle:Order2:_order.html.twig" %}
+        
+    </div>
+
+    <div class="shadow" >
+        <img src="{{ asset('/bundles/autowap/images/loading.gif') }}" />
+    </div>
+
+    <div class=" shadow-layer" ></div>
+    {% if not rentalOrder.useTime %}
+        <div class="adetail gray">
+            <p>计费后<span class="red">15分钟</span>内可免费取消行程。</p>
+            <p>每天仅限2次免费取消。1小时起租，续航以实际为准。</p>
+        </div>
+    {% endif %}
+
+    {% if rentalOrder.useTime %}
+        <div class="order-tcont">
+            <a class="inline" href="{{ path('auto_wap_index2') }}"><span>首页</span></a><span class="line">&nbsp;</span>
+            <span class="inline introduction" >车辆钥匙位置</span>
+
+        </div>
+    {% endif %}
+
+    <div class="footdiv">
+        <span class="foota findcar" >
+            <img src="{{ asset('/bundles/autowap/images/2.0-findcar.png') }}"/>
+        </span>
+        <span class="foota opencar">
+            <img src="{{ asset('/bundles/autowap/images/2.0-opencar.png') }}"/>
+        </span>
+        {% if rentalOrder.useTime %}
+            <a class="foota backcar" href="{{ path('auto_wap_rental_car_back2',{'id':rentalOrder.orderID}) }}">
+                <img src="{{ asset('/bundles/autowap/images/2.0-backcar.png') }}"/>
+            </a>
+        {% endif %}
+
+    </div>
+    {% if rentalOrder.useTime %}
+        <div class="key-notice"  >
+            <p>如图位置可找到车钥匙，离开车辆时请用钥匙锁门并保管好钥匙。</p>
+            <div class="key-img-cont">
+                <img src="{{ asset('/bundles/autowap/images/2.0-key.png') }}">
+            </div>
+            <button>我知道了</button>
+        </div>
+    {% endif %}
+    {% if not rentalOrder.useTime %}
+        <div class="order-tcont">
+            <a class="inline" href="{{ path('auto_wap_index3') }}"><span>首页</span></a><span class="line">&nbsp;</span>
+            <span class="cancel inline" >取消行程</span>
+
+        </div>
+    {% endif %}
+    <form class="orderinfo">
+        <input type="hidden" name="userID" id="userID" value="{{ app.user.token }}"/>
+        <input type="hidden" name="orderID" id="orderID" value="{{ rentalOrder.orderID }}"/>
+        <input type="hidden" name="useTime" id="useTime" value="{{ rentalOrder.useTime|default("") }}"/>
+    </form>
+{% endblock %}
+{% block footer %}
+{% endblock %}

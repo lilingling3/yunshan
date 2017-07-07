@@ -1,0 +1,70 @@
+.rule{
+    display: inline-block;
+    width: 20%;
+    position: absolute;
+    z-index: 100;
+    right: 4%;
+    font-size: 1rem;
+    top: 4.4%;
+    text-align: right;
+    color: #fff;
+    text-decoration: underline;
+}
+.spread_text{
+    width: 69%;
+    margin-left: 10%;
+}
+.btn {
+    width: 15%;
+    position: absolute;
+    left: 50%;
+    bottom: 3%;
+    display: inline-block;
+    animation: myfirst 1.5s infinite linear;
+    -moz-animation: myfirst 1.5s infinite linear; /* Firefox */
+    -webkit-animation: myfirst 1.5s infinite linear;  /* Safari 和 Chrome */
+    -o-animation: myfirst 1.5s infinite linear;
+}
+.spread_text2{
+    width: 78.2%;
+    top: 55%;
+    left: 10%;
+}
+.btn_con{
+    width: 78.2%;
+    top: 63%;
+    left: 10%;
+    position: absolute;
+}
+.btn_con img{
+    width: 100%;
+    margin-bottom: 10px
+}
+
+@keyframes myfirst
+{
+    0% {width: 15%;}
+    50% {width: 13%;}
+    100%{width: 15%;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+    0% {width: 15%;}
+    50% {width: 13%;}
+    100%{width: 15%;}
+}
+
+@-webkit-keyframes myfirst /* Safari and Chrome */
+{
+    0% {width: 15%;}
+    50% {width: 13%;}
+    100%{width: 15%;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+    0% {width: 15%;}
+    50% {width: 13%;}
+    100%{width: 15%;}
+}

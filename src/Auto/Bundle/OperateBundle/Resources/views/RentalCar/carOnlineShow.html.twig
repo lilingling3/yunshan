@@ -1,0 +1,27 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'onlineShow'] %}
+{% block content %}
+    <div class="top-menu">
+        整备上线
+        <a href="{{ path("auto_operate_car_online_list",{"id":onlin.rentalCar.id})  }}"  class="left-cont"><b></b></a>
+        <span><a href="javascript:window.location.reload();">刷新</a></span>
+    </div>
+    
+    <section class="car-menu">
+        {% for reasonsId in reasonsIds %}
+            {% if reasons[reasonsId] is defined  %}
+       <li><label for="check1">{{ reasons[reasonsId] }}</label>
+        </li>
+            {% endif %}
+        {% endfor %}
+    </section>
+    {% if  onlin.remark %}
+    <section class="car-menu">
+        <li>
+            <p><label for="check12">备注信息</label></p>
+                <textarea rows="3" cols="20" disabled="disabled">{{ onlin.remark }}
+                </textarea>
+        </li>
+    </section>
+    {% endif %}
+{% endblock %}

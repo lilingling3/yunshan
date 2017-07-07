@@ -1,0 +1,45 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['order2','change_coupon'] %}
+{% block content %}
+
+	<!--没有优惠券-->
+	{% if not coupons %}
+		<div class="no-coupon-t">
+			<p class="no-coupon">很抱歉，您暂时没有满足条件的优惠券！</p>
+		</div>
+	{% endif %}
+	{% if coupons %}
+<article class="content">
+  {% for coupon in coupons %}
+  <!--当前选中的优惠券--->
+<a href="{{ path('auto_wap_rental_order_show2',{id:order.id,coupon:coupon.couponID}) }}">
+	<section coupon-value="{{ coupon.amount }}" coupon-id="{{ coupon.couponID }}">
+		<div class="row">
+			<div class="coupon-cont">
+				<div class="incont"><span class="amount">{{ coupon.amount }}</span></div>
+			</div>
+			<div class="coup-text">
+				<p>{{ coupon.name }}</p>
+				<p class="date">有效期至{{ coupon.endTime }}</p>
+				<p class="needhour">条件:满{{ coupon.needHour }}小时 | {{ coupon.needAmount }} 元以上 |  {{ coupon.carLevel }}</p>
+			</div>
+
+			<div class="cheched">
+				{% if couponId and coupon.couponID== couponId %}
+				<span></span>
+				{% endif %}
+			</div>
+
+		</div>
+	</section>
+</a>
+	{% endfor %}
+</article>
+
+		<div class="unuse">
+			<a href="{{ path('auto_wap_rental_order_show2',{id:order.id,coupon:0}) }}"></a>
+			土豪不用优惠券
+		</div>
+		
+{% endif %}
+{% endblock %}

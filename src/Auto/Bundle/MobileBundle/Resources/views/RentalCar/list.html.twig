@@ -1,0 +1,81 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'list'] %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript">
+    wx.config({
+        'debug': false,
+        'appId': '{{ signPackage.appId }}',
+        'timestamp': '{{ signPackage.timestamp }}',
+        'nonceStr': '{{ signPackage.nonceStr }}',
+        'signature': '{{ signPackage.signature }}',
+        'jsApiList': ['openLocation','getLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+
+    function wxmap(){
+        wx.ready(function () {
+            wx.openLocation({
+                latitude: {{ rentalStation.latitude }}, // 纬度，浮点数，范围为90 ~ -90
+                longitude: {{ rentalStation.longitude }}, // 经度，浮点数，范围为180 ~ -180。
+                name:"{{ rentalStation.name }}" , // 位置名
+                address: "{{ rentalStation.street }}", // 地址详情说明
+                scale: 15, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+            });
+        });
+    }
+    console.log($("#page.rental_car.list .wxmap"));
+    $("#page.rental_car.list .wxmap").on("click",function(e){
+        e.preventDefault();
+        wxmap();
+    });
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="station-top" xmlns="http://www.w3.org/1999/html">
+            <p class="title">{{ rentalStation.name }}</p>
+            <div class="info">
+                <a class="href wxmap" href="{{ path('auto_mobile_station_map',{sid:rentalStation.rentalStationID}) }}"></a>
+                <span class="location"></span>
+                <p class="stress">{{ rentalStation.street }}</p>
+                <span class="right-icon"></span>
+            </div>
+        </div>
+
+
+        <div class="list">
+            {% for rentalCar in rentalCars %}
+            <div class="car-cont">
+                <div class="left-cont">
+                    <div class="img-cont"><img src="{{ rentalCar.image }}" /></div>
+                    <div class="bom-cartype">{{ rentalCar.car.name }}</div>
+                </div>
+                <div class="right-cont tb-center">
+                    <div class="inner">
+                        <p class="license">{{ rentalCar.license }}</p>
+                        <p class="endurance">续航{{ rentalCar.mileage }}公里</p>
+                        <span class="usecar-btn">
+                            <a class="href" href="{{ path('auto_mobile_rental_car_show',{'id':rentalCar.rentalCarID}) }}" ></a>
+                            <img class="btn1-bg" src="{{ asset('/bundles/automobile/images/btn1-bg.png') }}" />
+                            <span class="btn-text tblr-center">立即租车</span>
+                        </span>
+                    </div>
+                    <div class="inner price">
+                        <p>
+                            {% if rentalCar.rentalPrice|default %}
+                                {% for price in rentalCar.rentalPrice %}
+                                    {{ price.name }}{{ price.price }}{{ price.unit }}
+                                    {% if loop.first %} <span> | </span> {% endif %}
+                                {% endfor %}
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endblock %}
+{% block footer %}
+{% endblock %}

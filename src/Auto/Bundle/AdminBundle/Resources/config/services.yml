@@ -1,0 +1,8 @@
+services:
+#    auto_admin.example:
+#        class: Auto\Bundle\AdminBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+    twig.stringloader:
+        class: Twig_Loader_String
+        tags:
+            - { name: twig.loader }

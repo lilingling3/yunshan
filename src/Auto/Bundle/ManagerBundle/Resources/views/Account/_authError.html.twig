@@ -1,0 +1,22 @@
+{% macro error(status) %}
+
+    {% if status==1 %}
+        证件照片内容不清晰
+    {% endif %}
+    {% if status==2 %}
+        缺少驾驶证或驾驶证副页
+    {% endif %}
+    {% if status==3 %}
+        驾驶证领取时间未满1年
+    {% endif %}
+    {% if status==4 %}
+        驾驶证已过期
+    {% endif %}
+    {% if status==5 %}
+        驾驶证与驾驶证副页信息不符
+    {% endif %}
+    {% if status==6 %}
+        证件信息与交管系统信息不符
+    {% endif %}
+
+{% endmacro %}

@@ -1,0 +1,15 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default', 'message'] %}
+{% block content %}
+    <div class="top-menu">
+        消息
+    </div>
+
+    <div class="details">
+        <p>{{ message }}</p>
+        <div class="row">
+            <a href="{{ path("auto_wap_index2") }}"><button type="submit" class="login-in">返回首页</button></a>
+        </div>
+    </div>
+
+{% endblock %}

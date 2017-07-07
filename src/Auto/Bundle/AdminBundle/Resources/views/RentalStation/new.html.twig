@@ -1,0 +1,24 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['rentalstation', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'租赁点管理'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:RentalStation:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">添加租赁点 </a>
+                 <a class="item" href="{{ path('auto_admin_rental_station_list') }}">租赁点列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,36 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['more', 'list'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+      html, body {
+          height: 100%;
+      }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <section class="cont">
+            <div class="row-cont invoice">
+                <span class="rname ">开发票</span>
+                <div class="fr">
+                    <span class="arrow"></span>
+                </div>
+            </div>
+            <div class="row-cont">
+                <a class="href" href="tel:400-111-8220"></a>
+                <span class="rname">联系客服</span>
+                <div class="fr">
+                    <span class="text blue">400-111-8220</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+      <div class="phone">
+       客服专线(8:30~23:00)：<a class="mobile" href="tel:400-111-8220"><span>400-111-8220</span></a>
+    </div>
+{% endblock %}

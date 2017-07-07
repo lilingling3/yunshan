@@ -1,0 +1,35 @@
+<div class="ui main-top grid">
+    <div class="ten wide column">
+        <div class="ui breadcrumb">
+            <a class="section" href="{{ path('auto_admin_index') }}">首页</a>
+            <div class="divider"> / </div>
+            <a class="section">{{ prenav }}</a>
+            <div class="divider"> / </div>
+            <div class="active section">{{ nav }}</div>
+        </div>
+
+    </div>
+    <div class="five wide right aligned column">
+        <small>
+        {% if is_granted('ROLE_ADMIN') %}
+            管理员
+        {% endif %}
+        {% if is_granted('ROLE_SERVER') %}
+            客服
+        {% endif %}
+        {% if is_granted('ROLE_COO') %}
+            运营总监
+        {% endif %}
+        {% if is_granted('ROLE_REGION_MANAGER') %}
+            大区经理
+        {% endif %}
+        {% if is_granted('ROLE_FINANCE') %}
+            财务主管
+        {% endif %}
+        {% if is_granted('ROLE_MARKET') %}
+            市场主管
+        {% endif %}
+        <a href="{{ path("auto_admin_logout") }}">退出</a>
+        </small>
+    </div>
+</div>

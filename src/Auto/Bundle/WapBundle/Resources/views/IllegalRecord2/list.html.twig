@@ -1,0 +1,75 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+{% set page_id  = ['illegalRecord2', 'list'] %}
+{% block content %}
+
+
+    <div class="rules_cont">
+        {% if not illegals %}
+            <div class="show_info">好厉害，您没有违章^_^</div>
+        {% endif %}
+        {% for illegal in illegals %}
+
+            <a href="{{ path('auto_wap_illegalRecord_show2',{'id':illegal.illegalRecordID}) }}">
+                <div class="rules_li {% if not illegal.handleTime  %} unhandle {% endif %}" >
+                    <div class="row row-top">
+                        <p class="b">
+                            {{ illegal.createTime|date('Y/m/d') }}
+                            {% if illegal.handleTime  %}
+                                <span class="status-handle">已处理</span>
+                            {% else%}
+                                <span class="status-unhandle"><span class="triangle"></span>未处理</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <div class="item">
+                                <p>车牌</p>
+                                {{ illegal.rentalCar.license }}
+
+                            </div>
+
+                            <div class="item">
+                                <p>车型</p>
+                                {{ illegal.rentalCar.car.name }}
+
+                            </div>
+
+                            <div class="item">
+                                <p>积分/罚款</p>
+                                <span class="color-red" >{{ illegal.illegalScore|default('0')  }}</span>分&nbsp;
+                                <span class="color-red" >{{ illegal.illegalAmount|default('0')  }}</span>元
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+    {% if pageCount>1 %}
+
+        <div class="morebtn"  user="{{ app.user.token }}">
+            加载更多
+        </div>
+    {% endif %}
+
+
+    <div class="footdiv">
+        <a class="foota"  href="{{ path('auto_wap_index3') }}">
+            <img src="{{ asset('/bundles/autowap/images/2.0-home.png') }}"/>
+        </a>
+
+        <a class="foota" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653" >
+            <img src="{{ asset('/bundles/autowap/images/2.0-down.png') }}"/>
+        </a>
+    </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

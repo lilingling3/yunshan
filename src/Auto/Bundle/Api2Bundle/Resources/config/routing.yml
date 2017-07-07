@@ -1,0 +1,69 @@
+#_auto_api_2_station:
+#    resource: @AutoApi2Bundle/Controller/DefaultController.php
+#    type:     annotation
+_auto_api_2_account:
+    resource: @AutoApi2Bundle/Controller/AccountController.php
+    type:     annotation
+_auto_api_2_activity:
+    resource: @AutoApi2Bundle/Controller/ActivityController.php
+    type:     annotation
+_auto_api_2_coupon:
+    resource: @AutoApi2Bundle/Controller/CouponController.php
+    type:     annotation
+_auto_api_2_illegal_record:
+    resource: @AutoApi2Bundle/Controller/IllegalRecordController.php
+    type:     annotation
+_auto_api_2_invoice:
+    resource: @AutoApi2Bundle/Controller/InvoiceController.php
+    type:     annotation
+_auto_api_2_message:
+    resource: @AutoApi2Bundle/Controller/MessageController.php
+    type:     annotation
+_auto_api_2_order:
+    resource: @AutoApi2Bundle/Controller/OrderController.php
+    type:     annotation
+_auto_api_2_pay:
+    resource: @AutoApi2Bundle/Controller/PayController.php
+    type:     annotation
+_auto_api_2_recharge:
+    resource: @AutoApi2Bundle/Controller/RechargeController.php
+    type:     annotation
+_auto_api_2_remind:
+    resource: @AutoApi2Bundle/Controller/RemindController.php
+    type:     annotation
+_auto_api_2_rental_car:
+    resource: @AutoApi2Bundle/Controller/RentalCarController.php
+    type:     annotation
+_auto_api_2_station:
+    resource: @AutoApi2Bundle/Controller/StationController.php
+    type:     annotation
+_auto_api_2_payment:
+    resource: @AutoApi2Bundle/Controller/PaymentController.php
+    type:     annotation
+_auto_api_2_station_cars:
+    resource: @AutoApi2Bundle/Controller/StationCarsController.php
+    type:     annotation
+_auto_api_2_car:
+    resource: @AutoApi2Bundle/Controller/CarController.php
+    type:     annotation
+_auto_api_2_use_pay:
+    resource: @AutoApi2Bundle/Controller/UsePayController.php
+    type:     annotation
+_auto_api_2_rental_price:
+    resource: @AutoApi2Bundle/Controller/RentalPriceController.php
+    type:     annotation
+_auto_api_2_upgrade:
+    resource: @AutoApi2Bundle/Controller/UpgradeController.php
+    type:     annotation
+_auto_api_2_deposit:
+    resource: @AutoApi2Bundle/Controller/DepositController.php
+    type:     annotation
+_auto_api_2_area:
+    resource: @AutoApi2Bundle/Controller/AreaController.php
+    type:     annotation
+_auto_api_2_invite:
+    resource: @AutoApi2Bundle/Controller/InviteController.php
+    type:     annotation
+_auto_api2_qiniu:
+    resource: @AutoApi2Bundle/Controller/QiniuController.php
+    type:     annotation

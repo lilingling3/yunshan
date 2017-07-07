@@ -1,0 +1,3 @@
+_auto_web_homepage:
+    resource: @AutoWebBundle/Controller/DefaultController.php
+    type:     annotation

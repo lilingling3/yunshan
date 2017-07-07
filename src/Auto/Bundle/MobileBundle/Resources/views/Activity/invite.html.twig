@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>邀请好友</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/automobile/css/activityInvite.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/automobile/js/module/zepto.min.js') }}" ></script>
+</head>
+<body>
+    <div class="container">
+        <img class="bg" src="{{ asset('/bundles/automobile/images/inviteapp.jpg') }}">
+        <div class="content">
+        <div class="controltop" >
+            <p>填写手机号下载APP<br>与好友共享更多优惠</p>
+        </div>
+         <div class="controlbottom">
+              <input type="text" maxlength="11" name="mobile" class="input-t tb-center" id="mobile" placeholder="请输入手机号" />
+         </div>
+        <div class="footer">
+              <p class="btn">确 认</p>
+        </div>
+    </div>
+    </div>
+    <input type="hidden" id="utoken"  value="{{ utoken }}" />
+    <input type="hidden" id="useid"  value="{{ uid }}" />
+    <input type="hidden" id="channel"  value="{{ channel }}" />
+</body>
+<script type="text/javascript" src="{{ asset('/bundles/automobile/js/activity/activityInvite.js') }}" ></script>
+</html>

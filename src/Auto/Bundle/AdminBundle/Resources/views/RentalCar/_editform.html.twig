@@ -1,0 +1,101 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div>
+        <div class="fields">
+            <div class="four wide field">
+                <label>车牌归属地</label>
+                {{ form_widget(form.licensePlace,{'attr': {'placeholder':'车牌归属地','class':'ui dropdown'}} ) }}
+            </div>
+            <div class="twelve wide field">
+                <label>车牌号</label>
+                {{ form_widget(form.licensePlate,{'attr': {'placeholder':'车牌号' }} ) }}
+            </div>
+        </div>
+        <div class="fields">
+            <div class="four wide field">
+                <label>设备公司</label>
+                {{ form_widget(form.deviceCompany,{'attr': {'placeholder':'设备公司','class':'ui dropdown'}} ) }}
+            </div>
+            <div class="twelve wide field">
+                <label>设备号</label>
+                {{ form_widget(form.boxId,{'attr': {'placeholder':'设备号' }} ) }}
+            </div>
+        </div>
+        <div class="fields">
+            <div class="eight wide field">
+                <label>{{ form_label(form.buyPrice) }}</label>
+                {{ form_widget(form.buyPrice,{'attr': {'placeholder':'价格如：19.85' }} ) }}
+            </div>
+            <div class="eight wide field">
+                <label>{{ form_label(form.registerDate) }}</label>
+                {{ form_widget(form.registerDate,{'attr': {'placeholder':'车辆注册登记日期' }} ) }}
+            </div>
+        </div>
+
+
+        <div class=" fields" >
+            <div class="eight wide field">
+                <label>{{ form_label(form.car) }}</label>
+                {{ form_widget(form.car,{'attr': {'placeholder':'车型','class':'ui dropdown' }} ) }}
+            </div>
+            <div class="eight wide  field" >
+                <label>{{ form_label(form.company) }}</label>
+                {{ form_widget(form.company,{'attr': {'placeholder':'归属公司','class':'ui dropdown'}} ) }}
+            </div>
+        </div>
+
+        <div class=" fields" >
+            <div class="eight wide field">
+                {#<label>{{ form_label(form.car) }}</label>#}
+                <label>车辆使用性质</label>
+                {{ form_widget(form.operationKind,{'attr': {'placeholder':'车辆使用性质','class':'ui dropdown' }} ) }}
+            </div>
+            <div class="eight wide  field" >
+                <label>{{ form_label(form.color) }}</label>
+                {{ form_widget(form.color,{'attr': {'placeholder':'颜色','class':'ui dropdown'}} ) }}
+            </div>
+        </div>
+        <div class="fields">
+            <div class="eight wide field">
+                <label>{{ form_label(form.engineNumber) }}</label>
+                {{ form_widget(form.engineNumber,{'attr': {'placeholder':'发动机号' }} ) }}
+            </div>
+            <div class="eight wide field">
+                <label>{{ form_label(form.chassisNumber) }}</label>
+                {{ form_widget(form.chassisNumber,{'attr': {'placeholder':'车架号'}} ) }}
+            </div>
+        </div>
+        <div class=" field">
+        </div>
+
+    </div>
+
+    <div class="photographs">
+        {% set name = form.images.vars.prototype.vars.full_name|replace({'__name__': ''}) %}
+        {% for p in form.images %}
+            <div class="field photograph">
+                <label>{% if loop.index == 1 %}行驶证照片{% elseif loop.index == 2 %}保单照片 {% elseif loop.index == 3 %}其它图片{% else %}{% endif %}</label>
+                <img src="{{ p.vars.value starts with 'http://' ? p.vars.value : p.vars.value|photograph }}">
+                {{ form_widget(p, {full_name: name}) }}
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        {% endfor %}
+        <button class="ui basic button add-file watermark"><i class="icon photo"></i> 上传图片 </button>
+        <script type="text/x-handlebars-template" class="template">
+            <div class="field photograph">
+                <img src="{{ '{{ path }}' }}">
+                {{ form_widget(form.images.vars.prototype, {full_name: name, value: '{{ localname }}'}) }}
+
+                <button type="button" class="close" data-dismiss="photograph">&times;</button>
+            </div>
+        </script>
+
+    </div>
+    {% do form.images.setRendered %}
+
+    <div style="margin: 0 auto;width: 25%;">
+        <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+        <button class="ui teal button" type="submit">保存</button>
+    </div>
+</div>
+{{ form_end(form) }}

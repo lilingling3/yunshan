@@ -1,0 +1,107 @@
+@import "parameter";
+#page.more.list {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  min-height: 600px;
+  .footer {  position: absolute; bottom: 0px; width: 100%; }
+  .container {
+    position: relative;
+    font-size: 16px;
+
+    .cont {  position: relative;  margin-top: 12px;  background-color: white;
+      &:before{
+        content: " ";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 1px;
+        background-color: @color-grayd;
+        -webkit-transform-origin: 0 0;
+        -ms-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        -ms-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+      }
+      &:after{
+        content: " ";
+        position: absolute;
+        left: 0;
+        bottom: -0.5px;
+        width: 100%;
+        height: 1px;
+        background-color: @color-grayd;
+        -webkit-transform-origin: 0 0;
+        -ms-transform-origin: 0 0;
+        transform-origin: 0 0;
+        -webkit-transform: scaleY(0.5);
+        -ms-transform: scaleY(0.5);
+        transform: scaleY(0.5);
+      }
+
+      .row-cont {  position: relative;  height: 50px;  width: 97%; margin-left: 3%;
+        &:after{
+          content: " ";
+          position: absolute;
+          left: 0;
+          bottom: 0px;
+          width: 100%;
+          height: 1px;
+          background-color: @color-grayd;
+          -webkit-transform-origin: 0 0;
+          -ms-transform-origin: 0 0;
+          transform-origin: 0 0;
+          -webkit-transform: scaleY(0.5);
+          -ms-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+        }
+
+        &:last-child:after{
+          content: " ";
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 0px;
+          background-color: white;
+          -webkit-transform-origin: 0 0;
+          -ms-transform-origin: 0 0;
+          transform-origin: 0 0;
+          -webkit-transform: scaleY(0.5);
+          -ms-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+        }
+        &.exit-cont {  width: 100%; margin: 0px auto; }
+        &:last-child { border-bottom: none; }
+        .href { position: absolute; display: inline-block; width: 100%; height: 100%;top: 0px; left: 0px; z-index: 100; }
+        .rname { height: 50px; line-height: 50px;    text-indent: 6px;  display: inline-block; }
+        .fr { float: right; height: 50px; position: relative; right: 3%;
+          .text { color: @color-gray1;    height: 50px;  line-height: 50px;  margin-right: 25px; }
+          .text299 {  color: #1a8dc9;  }//认证成功
+          .text200 { color:#f15353;  }//未认证
+          .text201 { color: #1a8dc9;  }//认证中
+          .text202 {   color:#f15353;  }//认证失败
+          .text203 { color:#f15353;}//认证过期
+          .money { color: #ff7200; }
+          .arrow {  display: inline-block;  width: 20px;  height: 20px;  position: absolute;  right: 0%;  top: 50%;  margin-top: -10px;
+            background: url("../images/station-icon.png") no-repeat center;  background-size: auto 16px;  background-position: -13px 2px;
+          }
+          .hide { visibility: hidden; }
+        }
+        .blue { color: #1a8dc9; }
+
+        .exit { color: #f15353; text-align: center; width: 100%; }
+      }
+    }
+  }
+
+  .layer {  display: none;  z-index: 100; position: fixed; width: 100%; height: 100%; top: 0px; left: 0px; right: 0px; bottom: 0px; background-color: #000; opacity: 0.6;}
+  .floatlayer {display: none; max-width: 300px;   z-index: 101; position: fixed; top: 46%; left: 50%; width: 90%;
+    img { width: 100%; display: block;}
+    .closelayer { position: absolute; display: inline-block; width: 8.43949044585987%; height:8.9527027027027%; top: 0px; right:3.34394904458599%; }
+    .downapp { position: absolute; display: inline-block; width: 84%; height:15.2027027027027%; bottom: 3.37837837837838%;  left:9.39490445859873%; }
+  }
+  .show{ display: block; }
+}

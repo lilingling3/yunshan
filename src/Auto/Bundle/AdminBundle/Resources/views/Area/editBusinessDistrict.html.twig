@@ -1,0 +1,20 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['area', 'business-list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'修改','prenav':'商圈管理'} %}
+     <div class="ui main-content grid">
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:Area:_businessDistrictForm.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="item" href="{{ path('auto_admin_area_businessDistrict_list') }}">商圈列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

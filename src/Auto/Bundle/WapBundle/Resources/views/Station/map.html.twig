@@ -1,0 +1,25 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['station', 'map'] %}
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/main1119.css"/>
+    <link rel="stylesheet" href="http://cache.amap.com/lbs/static/AMap.WalkingRender1120.css"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=3dc0d24d401640b9b8249da6c4dd5a72&plugin=AMap.Walking"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/WalkingRender.js"></script>
+    <script type="text/javascript" src="http://cache.amap.com/lbs/static/addToolbar.js"></script>
+    {{ parent() }}
+{% endblock %}
+{% block content %}
+
+
+    <div class="top-menu">
+        租赁点位置
+        <a href="{{ path("auto_wap_rental_car_list",{'sid':station.rentalStationID}) }}"><b></b></a>
+        <span><a href="javascript:window.location.reload();" class="refresh"><b></b></a></span>
+    </div>
+    <div class="geomap station-info" latitude="{{ station.latitude }}"  longitude="{{ station.longitude }}"  >
+        <p class="car-title"></p>
+        <div id='container'></div>
+        <div id="panel"></div>
+    </div>
+{% endblock %}

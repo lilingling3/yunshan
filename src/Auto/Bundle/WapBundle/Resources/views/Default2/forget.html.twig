@@ -1,0 +1,44 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default2', 'forget'] %}
+{% block content %}
+    <div class="top-menu">
+        修改密码
+        <a href="{{ path("auto_wap_account_auth2") }}"><b></b></a>
+    </div>
+
+    <form action="{{ path('auto_wap_reset2') }}" method="post">
+
+        <div class="login-form">
+
+            <div class="noword">
+                {% if not app.user.password %}<p class="title">由于您没有密码请先进行密码设置</p>{% endif %}
+                <p class="t-text t-text1">您的手机<span class="blue">{{ app.user.mobile//100000000 }}****{{ app.user.mobile%10000 }}</span>会受到验证码，请注意查收。</p>
+                <p class="t-text">如未收到请重新获取验证码</p>
+            </div>
+
+            <li class="li-cont li-cont1">
+                <div class="in-cont">
+                    <input type="text" class="text" id="user-code"  required placeholder="请输入短信验证码">
+                </div>
+                <button type="button" class="code">获取验证码</button>
+
+            </li>
+            <li class="li-cont2">
+                <div class="in-cont">
+                    <input type="password" class="text" id="password" name="password"  required  placeholder="请输入新密码">
+                </div>
+            </li>
+           <div class="login-error black"> 密码由6-16位数字/字母组成</div>
+
+        </div>
+
+        <div class="submit-button">
+            <div class="row">
+                <button type="button" class="login-in">设置新密码</button>
+            </div>
+        </div>
+        <input type="hidden" id="userm" name="mobile" value="{{ app.user.mobile }}">
+    </form>
+
+
+{% endblock %}

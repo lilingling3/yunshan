@@ -1,0 +1,166 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['default', 'index'] %}
+{% block stylesheets %}
+
+<script type='text/javascript'>
+	localStorage.clear();
+</script>
+
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=3dc0d24d401640b9b8249da6c4dd5a72&plugin=AMap.Walking,AMap.Geocoder,AMap.Geolocation"></script>
+
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/WalkingRender.js"></script>
+	<script type="text/javascript" src="https://cache.amap.com/lbs/static/addToolbar.js"></script>
+	{{ parent() }}
+{% endblock %}
+{% block content %}
+	<div class="container">
+		<div class="top-cont">
+			<div class="top-row">
+				{% if not app.user %}
+				<div class="left">
+					<a class="href" href="{{ path('auto_mobile_login') }}"></a>
+					登录
+				</div>
+					{% else %}
+					<div class="member">
+					<a class="auth-href" href="{{ path('auto_mobile_account_auth') }}"></a>
+					<div class="left-m">
+						<p>{{ app.user.mobile//100000000 }}****{{ app.user.mobile%10000 }}</p>
+						<p>
+							{% if auth.status ==200  %}
+								<span class="approve approve200">未认证</span>
+							{% elseif auth.status ==201 %}
+								<span class="approve approve201">认证中…</span>
+							{% elseif auth.status ==202 %}
+								<span class="approve approve202">认证失败</span>
+							{% elseif auth.status ==299 %}
+								<span class="approve approve299">认证成功</span>
+							{% elseif auth.status ==203 %}
+								<span class="approve approve203">认证过期</span>
+							{% endif %}
+						</p>
+					</div>
+						<div class="head"><img src="
+					{% if app.user.portrait %}
+                        {{  app.user.portrait|photograph }}
+                     {% else %}
+					{{ asset('/bundles/automobile/images/head.png') }} {% endif %}"/>
+						</div>
+				</div>
+				{% endif %}
+			</div>
+
+			<img class="top-bg" src="{{ asset('/bundles/automobile/images/banner1.png') }}" />
+		</div>
+
+		<div class="center-cont">
+			<div class="input-cont">
+				<img class="btn-bg1" src="{{ asset('/bundles/automobile/images/index-btn1-bg.png') }}" />
+				<form id="lonlat" action="{{ path("auto_mobile_station_list") }}" method="POST">
+					<input type="text" class="input-t address tb-center" name="address" value=""  />
+					<input type="hidden" name="lng" class="lng" value="" />
+					<input type="hidden" name="lat" class="lat" value="" />
+				</form>
+			</div>
+
+		</div>
+		<form id="lonlatseek" action="{{ path("auto_mobile_seek") }}" method="POST">
+			<input type="hidden" class="input-t address tb-center" name="address" value=""  />
+			<input type="hidden" name="lng" class="lng" value="" />
+			<input type="hidden" name="lat" class="lat" value="" />
+		</form>
+
+
+		{% if isHasOrder  %}
+
+			<div class="orderlist">
+				<p class="label"><span>您有未完成行程，请处理后再租赁车辆</span></p>
+			    <a href="{{ path('auto_mobile_rental_order_show',{'id':rentalOrder.orderID}) }}">
+			        <div class="order-li status{{ rentalOrder.status }}">
+			            <div class="row border-bottom">
+			                <p class="b">
+			                    {{ rentalOrder.createTime }}
+			                    <span class="status-top1">
+				                    {% if rentalOrder.status ==101 %}
+				                    	未取车
+				                    {% elseif rentalOrder.status ==102 %}
+				                    	租赁中
+				                    {% elseif rentalOrder.status ==103 %}
+				                    	待支付
+				                    {% endif %}
+			                    </span>
+			                </p>
+			            </div>
+			            <div class="row rowpadding">
+			                <div class="column column-info">
+			                    <div class="item">
+			                        <p>车牌</p>
+			                        {{ rentalOrder.rentalCar.license }}
+			                    </div>
+
+			                    <div class="item">
+			                        <p>型号</p>
+			                        {{ rentalOrder.rentalCar.car.name }}
+			                    </div>
+			                    <div class="item">
+			                        <p>消费金额</p>
+			                        <span class="status-top1">{{ rentalOrder.costDetail.cost }}元</span>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </a>
+			</div>
+		{% else %}
+			<div class="stations-cont">
+				<div class="stitle-cont">
+					<div class="stitle stitle1 cur"><p>新开租赁点</p><span class="point"></span></div>
+					<div class="stitle"><p>最近使用</p><span class="point"></span></div>
+				</div>
+				<div class="stations-list">
+					<div class="list1 list">
+						{% if newStations %}{% else %}<p class="nonewStations tblr-center" >近期暂无新开租赁点</p>{% endif %}
+						{% for newStation in newStations %}
+						<div class="inner stations" lon="{{ newStation.longitude }}" lat="{{ newStation.latitude }}" >
+							<a class="href" href="{{ path('auto_mobile_rental_car_list',{ "sid":newStation.rentalStationID }) }}" ></a>
+							<p class="black row1"><span class="left-cont">{{ newStation.name }}</span><span class="useable">可用<span class="carnum">{{ newStation.usableRentalCarCount }}</span>辆</span></p>
+							<p class="row2">
+								<span class="left-cont">
+								{% if newStation.backType==601 %}<span class="yi">随</span>{% endif %}{{ newStation.street }}</span>
+								<span class="green mileage">>10公里</span>
+							</p>
+						</div>
+						{% endfor %}
+
+					</div>
+					<div class="list2 list">
+						{% if not app.user %}
+							<p class="notext">请登录后查看最近使用过的租赁点</p>
+						{% else %}
+							{% if not latelyStations  %}
+								<p class="notext">暂无租赁点</p>
+								{% else %}
+									{% for latelyStation in latelyStations %}
+										<div class="inner stations" lon="{{ latelyStation.longitude }}" lat="{{ latelyStation.latitude }}" >
+											<a class="href" href="{{ path('auto_mobile_rental_car_list',{ "sid":latelyStation.rentalStationID }) }}" ></a>
+											<p class="black row1"><span class="left-cont">{{ latelyStation.name }}</span><span class="useable">可用<span class="carnum">{{ latelyStation.usableRentalCarCount }}</span>辆</span></p>
+											<p class="row2">
+												<span class="left-cont">{% if latelyStation.backType==601 %}<span class="yi">随</span>{% endif %}{{ latelyStation.street }}</span>
+												<span class="green mileage">>10公里</span>
+											</p>
+										</div>
+									{% endfor %}
+							{% endif %}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+		{% endif %}
+	</div>
+	<div class="geomap">
+		<div id='mapcontainer' ></div>
+		<div id="panel"></div>
+	</div>
+
+{% endblock %}

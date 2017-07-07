@@ -1,0 +1,65 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'edit'] %}
+{% import "AutoOperateBundle:RentalOrder:_status.html.twig" as status %}
+
+{% block content %}
+    <div class="top-menu">
+        编辑车辆详情
+        <a href="{{ path("auto_operate_rental_car_show",{'id':rentalCar.id}) }}"  class="left-cont"><b></b></a>
+        <span class="submit">保存</span>
+    </div>
+    {{ form_start(form) }}
+    <section class="car-menu">
+        <li>车型<span class="text-r">
+                {{ form_widget(form.car.car,{'attr': {'placeholder':'车型','class':'ui dropdown' }} ) }}
+            </span>
+        </li>
+        <li>颜色<span class="text-r">
+                {{ form_widget(form.car.color,{'attr': {'placeholder':'颜色','class':'ui dropdown'}} ) }}
+            </span>
+        </li>
+        <li>车牌归属地<span class="text-r">
+               {{ form_widget(form.car.licensePlace,{'attr': {'placeholder':'车牌归属地','class':'ui dropdown'}} ) }}
+            </span>
+        </li>
+        <li>车牌号<span class="text-r">
+                {{ form_widget(form.car.licensePlate,{'attr': {'placeholder':'车牌号' }} ) }}
+            </span>
+        </li>
+        <li>发动机号<span class="text-r">
+                {{ form_widget(form.car.engineNumber,{'attr': {'placeholder':'发动机号' }} ) }}
+            </span>
+        </li>
+        <li>车架号<span class="text-r">
+                 {{ form_widget(form.car.chassisNumber,{'attr': {'placeholder':'车架号' }} ) }}
+            </span>
+        </li>
+    </section>
+
+    <section class="car-menu">
+        <li>租赁点<span class="text-r">
+                {{ form_widget(form.car.rentalStation,{'attr': {'placeholder':'租赁点','class':'ui dropdown'}} ) }}
+            </span>
+        </li>
+        <li>归属公司<span class="text-r">
+                {{ form_widget(form.car.company,{'attr': {'placeholder':'归属公司','class':'ui dropdown'}} ) }}
+            </span>
+        </li>
+    </section>
+
+    <section class="car-menu">
+        <li>控制设备公司<span class="text-r">
+                carStar
+            </span></li>
+        <li>设备号<span class="text-r">
+                {{ form_widget(form.tBox,{'attr': {'placeholder':'车架号' }} ) }}
+            </span>
+        </li>
+    </section>
+
+    <section class="car-menu">
+        <li>在线状态<span class="text-r">{% if not rentalCar.online or rentalCar.online.status==0 %}已下线{% else %}已上线{% endif %}</span></li>
+    </section>
+    {{ form_end(form) }}
+
+{% endblock %}

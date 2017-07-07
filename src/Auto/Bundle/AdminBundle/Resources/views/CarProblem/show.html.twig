@@ -1,0 +1,114 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'查看','prenav':'车辆问题 '} %}
+        <h4 class="ui horizontal  header"> 车辆问题</h4>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>手机号</th>
+                     <th>姓名</th>
+                     <th>车型</th>
+                     <th>车牌号</th>
+                     <th>上报时间</th>
+                     <th>处理状态</th>
+                     <th{%  if  carProblemResult.coupon == ''  %} style="display:none" {% endif %}>优惠券名称</th>
+                 </tr>
+                 </thead>
+               {#  {% for record in carProblemResult %}#}
+                 <tbody>
+                     <tr>
+                         <td>{{ carProblemResult.mobile }}</td>
+                         <td>{{ carProblemResult.name }}</td>
+                         <td>{{ carProblemResult.carType }}</td>
+                         <td>{{ carProblemResult.licensePlace }}{{ carProblemResult.plateNumber }}</td>
+                         <td>{{ carProblemResult.createTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ carProblemResult.state }}</td>
+                         <td{%  if  carProblemResult.coupon == ''  %} style="display:none" {% endif %}>{{ carProblemResult.coupon }}</td>
+                     </tr>
+                 </tbody>
+                {# {% endfor %}#}
+             </table>
+         </div>
+         <h4 class="ui horizontal  header"> 问题类型 </h4>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <tbody>
+                 {#{% for record in carProblemResult %}#}
+                     <tr>
+                         <td>{{ carProblemResult.problem }}</td>
+                     </tr>
+                 </tbody>
+                 {#{% endfor %}#}
+             </table>
+         </div>
+
+         <h4 class="ui horizontal  header"> 图片 </h4>
+         <div class="one wide column">
+             <img src="{{ qiniuImage }}" width="900px" height="300px">
+         </div>
+
+         <h4 class="ui horizontal  header"> 操作记录 </h4>
+
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>操作部门</th>
+                     <th>姓名</th>
+                     <th>操作人手机号</th>
+                     <th>操作时间</th>
+                     <th>操作内容</th>
+                 </tr>
+                 </thead>
+               {#  {% for record in carProblemResult %}#}
+                 <tbody>
+                     <tr>
+                         <td>{{ carProblemResult.mobile }}</td>
+                         <td>{{ carProblemResult.name }}</td>
+                         <td>{{ carProblemResult.carType }}</td>
+                         <td>{{ carProblemResult.licensePlace }}{{ carProblemResult.plateNumber }}</td>
+                         <td>{{ carProblemResult.createTime|date('Y-m-d H:i:s') }}</td>
+                     </tr>
+                 </tbody>
+                {# {% endfor %}#}
+             </table>
+         </div>
+
+
+         <h4 class="ui horizontal  header" {%  if  carProblemResult.coupon != ''  %} style="display:none" {% endif %}> 优惠券 </h4>
+         <div class="ten wide" {%  if  carProblemResult.coupon != ''  %} style="display:none" {% endif %}>
+             <form action="{{ path("auto_admin_carproblem_coupon") }}" method="get">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+                         <td>
+                             <input type="hidden" name="imageLabel" value="{{ carProblemResult.imageLabel }}">
+                         </td>
+                         <td>
+                             <select name="couponKind"  class="ui dropdown" style="width: 200px;">
+                                 <option value="" >优惠券列表</option>
+                                 {% for  coupon in couponKind %}
+                                     <option value="{{ coupon.id }}">{{ coupon.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+
+                         <td>
+                             <button class="ui teal button"  type="submit">确认发放</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+         <div class="black_button">
+             <a href="{{path ("auto_admin_carproblem_list") }}"class="ui teal button  " >返回</a>
+         </div>
+
+     </div>
+
+ {% endblock %}

@@ -1,0 +1,17 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['default', 'message'] %}
+{% block content %}
+
+    <div class="details">
+        <p>{{ message }}</p>
+        <div class="row">
+            <a href="javascript:history.go(-1)">
+                <div class="btn">
+                    <img class="btnbg" src="{{ asset('/bundles/automobile/images/btn-bg2.png')}}">
+                    <span class="tblr-center btn-t">返回</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}

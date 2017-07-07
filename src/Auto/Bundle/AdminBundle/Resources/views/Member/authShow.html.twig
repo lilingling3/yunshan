@@ -1,0 +1,117 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['member', 'authshow'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'详情','prenav':'用户认证'} %}
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+
+             <div class=" field" style="float:left;clear: none;">
+                 <label>用户证件照</label>
+                 <div class="field-img-cont clearfix jqzoom">
+                     <img  alt="证件照片"src="{##}{{ auth.licenseImage|photograph }} " style="width:440px;" class="main_img">
+                 </div>
+                 <label>用户身份证</label>
+                 <div class="field-img-cont clearfix jqzoom">
+                     <img  alt="证件照片"src="{##}{{ auth.idImage|photograph }} " style="width:440px;" class="main_img">
+                 </div>
+                 {#
+                 {% if blacked %}
+                     <p style="margin-top: 10px;"><span class="red" style="margin-right: 6px;">*此用户为黑名单用户</span><a href="{{ path('auto_admin_blacklist_show',{'id':blacked[0].id})}}">详情</a></p>
+                 {% endif %}
+                 #}
+             </div>
+             <div class="field other" style="float: left; width: 52%;margin-left: 5%;clear: none;">
+                 <table class="ui very basic table black">
+                     <tbody>
+                     <tr>
+                         <td  class="black_list_new_left">手机号</td>
+                         <td  class="black_list_new_left">注册时间</td>
+                         <td  class="black_list_new_left">认证时间</td>
+                         <td  class="black_list_new_left">状态</td>
+                     </tr>
+                     <tr>
+                         <td>{{ auth.member.mobile }}</td>
+                         <td>{{ auth.member.createTime|date('Y-m-d H:i:s') }}</td>
+                         <td>
+                             {% if auth.applyTime %}
+                                 {{ auth.applyTime|date('Y-m-d H:i:s') }}
+                             {% endif %}
+                         </td>
+                         <td > {% if blacked %}<a href="{{ path('auto_admin_blacklist_show',{'id':blacked[0].id})}}" class="red">已拉黑</a>{% else %}正常{% endif %}</td>
+                     </tr>
+                     <tr>
+                         <td  class="black_list_new_left">证件照审核</td>
+                     </tr>
+                     <tr>
+                         <td>
+                             {% if auth.licenseAuthError==0 %}
+                                 {% if  auth.licenseEndDate < today %}
+                                     证件过期
+                                 {% else %}
+                                     认证成功
+                                 {% endif %}
+                             {% else %}
+                                 认证失败
+                             {% endif %}
+                         </td>
+                     </tr>
+                     <tr  >
+                         <td  class="black_list_new_left">姓名</td>
+                         <td  class="black_list_new_left">性别</td>
+                         <td  class="black_list_new_left">民族</td>
+                     </tr>
+                     <tr >
+                         <td>{{member.name }}</td>
+                         <td>{% if member.sex == 901 %}男{% elseif member.sex == 902 %}女{% else %}未知{% endif %}</td>
+                         <td>{{member.nation }}</td>
+                     </tr>
+
+                     <tr  >
+                         <td  class="black_list_new_left">驾驶证号</td>
+                         <td class="black_list_new_left">档案号</td>
+                     </tr>
+                     <tr  >
+                         <td>{{ auth.IDNumber|default() }}</td>
+                         <td>{{ auth.documentNumber|default() }}</td>
+                     </tr>
+
+                     <tr  >
+                         <td  class="black_list_new_left">驾驶证有效开始日期</td>
+                         <td  class="black_list_new_left">驾驶证有效结束日期</td>
+                     </tr>
+                     <tr  >
+                         <td>
+                             {% if auth.licenseStartDate %}
+                                 {{ auth.licenseStartDate|default()|date('Y-m-d') }}
+                             {% else %}
+
+                             {% endif %}
+
+                         </td>
+                         <td> {% if auth.licenseEndDate %}
+                                 {{ auth.licenseEndDate|default()|date('Y-m-d') }}
+                             {% else %}
+                             {% endif %}
+                             </td>
+                     </tr>
+                     <tr  >
+                         <td  class="black_list_new_left">地址</td>
+                     </tr>
+                     <tr  >
+                         <td>{{ member.address }}</td>
+                     </tr>
+
+                     <tr  >
+                         <td>
+                     <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+                             <a class="ui teal button " href="{{ path('auto_admin_member_auth_edit',{'id':auth.id})}}">编辑</a>
+                     </td>
+                     </tr  >
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+
+ {% endblock %}

@@ -1,0 +1,95 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car','search'] %}
+
+{% block content %}
+<div class="top-menu">
+    负责车辆
+    <a href="{{ path("auto_operate_index") }}"  class="left-cont"><b></b></a>
+    <span><a href="{{ path("auto_operate_rental_car_add") }}" >添加</a></span>
+</div>
+    <div class="search-top" style="">
+        <div class="top-cont condit-status">
+            <div class="inner-cont">
+                <p class="top-text">
+                    {% if flag.status==-1 %}全部状态{% elseif flag.status==1 %}上线车辆{% elseif flag.status==0 %}下线车辆{% endif %}
+                </p>
+                <span class="arrow1"></span>
+            </div>
+            <div class="dropdown">
+                <div class="drop-li {% if flag.status==-1 %}check{% endif %}" ctypeid="-1"><span>全部状态</span><b>&radic;</b></div>
+                <div class="drop-li {% if flag.status==1 %}check{% endif %}" ctypeid="1"><span>上线车辆</span><b>&radic;</b></div>
+                <div class="drop-li {% if flag.status==0 %}check{% endif %}" ctypeid="0"><span>下线车辆</span><b>&radic;</b></div>
+            </div>
+        </div>
+        <div class="top-cont condit-type">
+            <div class="inner-cont">
+            <p class="top-text">
+                {% if flag.type==-1 %}全部车型
+                {% else %}
+                    {% for car in cars %}
+                        {% if car.id==flag.type %}
+                            {{ car.name }}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </p>
+                <span class="arrow1"></span>
+            </div>
+            <div class="dropdown">
+                <div class="drop-li {% if flag.type==-1 %} check {% endif %}" ctypeid="-1"><span>全部车型</span><b>&radic;</b></div>
+                {% for car in cars %}
+                <div class="drop-li {% if flag.type==car.id %} check {% endif %}" ctypeid="{{ car.id }}"><span>{{ car.name }}</span><b>&radic;</b></div>
+                {% endfor %}
+            </div>
+        </div>
+        {#<div class="top-cont"> <a href="{{ path("auto_operate_search_license") }}"><div>搜索</div></a></div>#}
+    </div>
+    <form class="car-search"  method="get" action="{{ path('auto_operate_car_search') }}" >
+        <input type="hidden"  class="car-staus" name="car-staus" value="{{  flag.status }}"/>
+        <input type="hidden" class="car-type" name="car-type" value="{{  flag.type }}" />
+    </form>
+    <div class="container">
+             {% if not rentalCars %} <div class="no-car">对不起，无此车辆信息。</div>{% endif %}
+    {% for rentalCar in rentalCars %}
+    <a href="{{ path('auto_operate_rental_car_show',{'id':rentalCar.rentalCarID}) }}">
+        <div class="car-cont {% if rentalCar.status==301  %}onrent{% endif %} ">
+            <div class="row clearfix">
+                <div class="left-cont">
+                    <div class="img-cont">
+                        <img src="{{ rentalCar.image }}">
+                    </div>
+                </div>
+                <div class="right-cont">
+                    <div class="text">
+                        <p>{{ rentalCar.license }}</p>
+                        <p><span class="car-t">车型：</span>{{ rentalCar.car.name }}&nbsp;&nbsp;
+                            <span class="car-t"> 续航：</span>
+                            {% if rentalCar.mileage %}
+                                {{ rentalCar.mileage }} km
+                            {% else %}
+                                <span class="color-red">异常</span>
+                            {% endif %}
+                        </p>
+                        <p class="status">
+                            {% if rentalCar.online ==1 %}已上线&nbsp;&nbsp;-{% else %}<span class="color-red">已下线&nbsp;&nbsp;-</span>{% endif %}
+                            {% if rentalCar.status == 300 %}<span class="color-green">未租赁</span>
+                            {% elseif rentalCar.status == 301 %}<span class="color-yellow">租赁中</span>
+                            {% endif %}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <p>
+                    {{ rentalCar.rentalStation.name }}
+                </p>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+    </div>
+    <div id="Loading" >Loading...</div>
+    <input type="hidden" name="page" id="carpage" value="{{ page }}" />
+    <input type="hidden" name="total" id="total" value="{{ total }}" />
+    <input type="hidden" name="userID" id="userID" value="{{ app.user.token }}" />
+<div class="all"></div>
+{% endblock %}

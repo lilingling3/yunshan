@@ -1,0 +1,35 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['regioninspection', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'车检'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {{ form_start(form) }}
+             <div class="ui form">
+                 <div class=" field">
+                     <label>租赁车辆</label>
+                     <select id="rentalCar" name="rentalCar" placeholder="租赁车辆" class="ui dropdown">
+                         {% for rentalcar in rentalcars %}
+                             <option value="{{ rentalcar.id }}">{{ rentalcar.licensePlace.name }}{{ rentalcar.licensePlate }}</option>
+                         {% endfor %}
+                     </select>
+                 </div>
+                 <div class=" field">
+                     <label>{{ form_label(form.inspectionTime) }}</label>
+                     {{ form_widget(form.inspectionTime) }}
+                 </div>
+
+                 <button class="ui teal button" type="submit">提交</button>
+             </div>
+             {{ form_end(form) }}
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

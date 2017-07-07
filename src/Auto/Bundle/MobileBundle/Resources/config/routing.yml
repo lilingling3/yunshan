@@ -1,0 +1,53 @@
+auto_mobile_check:
+    pattern:  /sign-in
+    methods:  [POST]
+
+auto_mobile_logout:
+    pattern:  /sign-out
+
+_auto_mobile_homepage:
+    resource: @AutoMobileBundle/Controller/DefaultController.php
+    type:     annotation
+_auto_mobile_pay:
+    resource: @AutoMobileBundle/Controller/PayController.php
+    type:     annotation
+_auto_mobile_rental_car:
+    resource: @AutoMobileBundle/Controller/RentalCarController.php
+    type:     annotation
+
+_auto_mobile_order:
+    resource: @AutoMobileBundle/Controller/OrderController.php
+    type:     annotation
+_auto_mobile_vote:
+    resource: @AutoMobileBundle/Controller/VoteController.php
+    type:     annotation
+_auto_mobile_account:
+    resource: @AutoMobileBundle/Controller/AccountController.php
+    type:     annotation
+_auto_mobile_coupon:
+    resource: @AutoMobileBundle/Controller/CouponController.php
+    type:     annotation
+_auto_mobile_site:
+    resource: @AutoMobileBundle/Controller/StationController.php
+    type:     annotation
+_auto_mobile_document:
+    resource: @AutoMobileBundle/Controller/DocumentController.php
+    type:     annotation
+_auto_mobile_illegalRecord:
+    resource: @AutoMobileBundle/Controller/IllegalRecordController.php
+    type:     annotation
+_auto_mobile_more:
+    resource: @AutoMobileBundle/Controller/MoreController.php
+    type:     annotation
+_auto_mobile_car:
+    resource: @AutoMobileBundle/Controller/CarController.php
+    type:     annotation
+_auto_mobile_activity:
+    resource: @AutoMobileBundle/Controller/ActivityController.php
+    type:     annotation
+_auto_mobile_deposit:
+    resource: @AutoMobileBundle/Controller/DepositController.php
+    type:     annotation
+_auto_mobile_recharge:
+    resource: @AutoMobileBundle/Controller/RechargeController.php
+    type:     annotation

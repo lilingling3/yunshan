@@ -1,0 +1,83 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'广告活动'} %}
+     <div class="ui main-content grid">
+
+
+
+
+         <div class="ten wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>活动名称</th>
+                     <th>活动链接</th>
+                     <th>开始时间</th>
+                     <th>结束时间</th>
+                     {#<th>图片</th>#}
+                     <th>操作</th>
+                 </tr>
+                 {#</thead>#}
+                 <tbody>
+                 {% for advert in adverts %}
+                     <tr>
+                         <td>{{ advert.title }}</td>
+                         <td><a href="{{ advert.link }}">{{ advert.link }}</a></td>
+                         <td>{{ advert.startTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ advert.endTime|date('Y-m-d H:i:s') }}</td>
+                         {#<td>{{ advert.startTime }}</td>#}
+
+                         <td><a href="{{ path('auto_admin_marketActivity_edit',{'id':advert.id}) }}"><small>编辑</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_marketActivity_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">车型列表 </a>
+                 <a class="item" href="{{ path('auto_admin_marketActivity_new') }}">添加活动 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

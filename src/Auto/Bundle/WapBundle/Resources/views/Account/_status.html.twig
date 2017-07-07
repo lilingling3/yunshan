@@ -1,0 +1,29 @@
+<div class="member-info">
+    <div class="portrait">
+        <img src="{{ asset('/bundles/autowap/images/tou1.png') }}"width="50px" />
+    </div>
+    {% if app.user %}
+    <div class="detail user">
+        {% if not app.user.name %}
+            <h4>{{ app.user.mobile }}</h4>
+        {% else %}
+            <h4>{{ app.user.name }}</h4>
+            <p>{{ app.user.mobile }}</p>
+        {% endif %}
+        {% if auth.status ==200  %}
+            <p class="reminder">驾驶证未认证</p>
+        {% elseif auth.status ==201 %}
+            <p class="reminder2">驾驶证认证中…</p>
+        {% elseif auth.status ==202 %}
+            <p class="reminder">驾驶证认证失败</p>
+        {% elseif auth.status ==299 %}
+            <p class="reminder1">认证成功（有效期至：{{ auth.licenseEndDate }}）</p>
+        {% elseif auth.status ==203 %}
+            <p class="reminder">驾驶证认证过期</p>
+        {% endif %}
+        
+    </div>
+    {% else %}
+        <div class="detail"><h4>用户登录/注册</h4><p>请登录后租赁车辆…</p></div>
+    {% endif %}
+</div>

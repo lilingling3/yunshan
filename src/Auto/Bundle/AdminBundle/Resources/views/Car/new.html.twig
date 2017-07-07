@@ -1,0 +1,26 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'车型管理'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+            {% include "AutoAdminBundle:Car:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         {#<div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">添加车型 </a>
+                 <a class="item" href="{{ path('auto_admin_car_list') }}">车型列表 </a>
+                 <a class="item" href="{{ path('auto_admin_body_type_new') }}">添加车型结构 </a>
+                 <a class="item" href="{{ path('auto_admin_car_level_new') }}">添加级别 </a>
+             </div>
+         </div>#}
+     </div>
+
+
+ {% endblock %}

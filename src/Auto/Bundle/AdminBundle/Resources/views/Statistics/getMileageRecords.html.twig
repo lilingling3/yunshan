@@ -1,0 +1,27 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['statistics', 'mileage-record'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'续航里程'} %}
+
+
+     <div class="ui main-content">
+         <div style="width: 100%">
+             <a href="#" onclick="history.go(-1)" class="ui teal button" style="display: inline-block;float: right">返回</a>
+         </div>
+
+         <table class="ui very basic table">
+            {% for mileage in mileage_list %}
+            <tr><td>{{ mileage.time }}</td><td>{{ mileage.mileage }}</td></tr>
+            {% endfor %}
+
+        </table>
+
+
+     </div>
+
+ {% endblock %}
+

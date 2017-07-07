@@ -1,0 +1,101 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['statistics', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'运营数据'} %}
+
+
+     <div class="ui main-content">
+         <div class="ui top attached menu tabular no_border">
+             <a class="item"  href="{{ path("auto_admin_statistics_operate_two") }}">运营数据</a>
+             <a class="active item font-normal bk_gray no_border">车辆数据</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border">
+             <form action="{{ path("auto_admin_statistics_car_operate") }}"  method="get">
+                 <table class="ui very basic table no_border">
+                     <thead >
+                     <tr>
+                         <th class="static_operate_th no_bt">租赁点</th>
+                         <th class="static_operate_th no_bt">时间段</th>
+                         <th class="static_operate_th no_bt"></th>
+                         <th class="static_operate_th no_bt"></th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td>
+                             <select   name="rental_station" id="rental_station" class="ui dropdown">
+                                 <option value="0">请选择</option>
+                                 {% for rentalStation in rentalStations %}
+                                     <option value="{{ rentalStation.id }}">{{ rentalStation.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td >
+                             <input class=" time_input Operatestarttime" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="{{ start_time }}" autocomplete="off">
+                         </td>
+                         <td >
+                             <input class=" time_input Operateendtime" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="{{ end_time }}" autocomplete="off">
+
+                         </td>
+                         <td>
+                             <button class="ui teal button operate_submit " type="submit" >搜索</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+         {% if  rentalStation%}
+             <div class="ui bottom attached segment bk_gray border_top">
+                 <p>{% if rentalStation %}{{ rentalStation.name }}
+                         |{{ start_time }}至{{ end_time }}
+                         |车型:<span class="red">{{ carTypes }}种</span>|车辆:<span class="red">{{ count_rentalCars }}辆</span>
+                     {% endif %}
+                 </p>
+                 <p>{% if count_rentalCars ==0%}<span class="red">对不起，无此数据结果，请更换搜索内容。</span>{% endif %}</p>
+             </div>
+         {% endif %}
+     </div>
+
+     <div class="ui main-content grid">
+         {% if rentalCars %}
+             <div class="fifteen wide column" >
+
+                     <table class="ui teal table no_border">
+                         <thead >
+                         <tr class="font_size_12_only">
+                             <th>车型</th>
+                             <th>车牌号</th>
+                             <th>整备时长(小时)</th>
+                             <th>待租赁时长(小时)</th>
+                             <th>已租赁时长(小时)</th>
+                             <th>下线时长(小时)</th>
+                             <th>上线时长(小时)</th>
+
+                         </tr>
+                         </thead >
+                         <tbody>
+                         {% for car in rentalCars %}
+                             <tr class="font_size_12_only">
+                                 <td>{{ car.car.name  }}</td>
+                                 <td>{{ car.license }}</td>
+                                 <td>{{ ((setup_time[car.rentalCarID]|default(0))/3600)|number_format(2) }}</td>
+                                 <td>{{ ((wait_rental_time[car.rentalCarID]|default(0))/3600)|number_format(2) }}</td>
+                                 <td>{{ ((rental_time[car.rentalCarID]|default(0))/3600)|number_format(2) }}</td>
+                                 <td>{{ ((offline_time[car.rentalCarID]|default(0))/3600)|number_format(2) }}</td>
+                                 <td>{{ ((online_time[car.rentalCarID]|default(0))/3600)|number_format(2) }}</td>
+                             </tr>
+                         {% endfor %}
+                         <tbody>
+                     </table>
+             </div>
+         {% endif %}
+     </div>
+
+
+
+ {% endblock %}

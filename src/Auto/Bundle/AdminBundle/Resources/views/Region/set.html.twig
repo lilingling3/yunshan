@@ -1,0 +1,38 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['region', 'set'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'分配区域','prenav':'运营区域分配'} %}
+     <div class="ui main-content grid">
+         <div class="ui big message" style="width: 100%">
+             {{ region.member.name }} （ {{ region.member.mobile }} ）
+             <a href="#" onclick="history.go(-1)" class="ui teal button" style="display: inline-block;float: right">返回</a>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <form name="form" method="post" action="{{ path('auto_admin_region_area_set_do',{'id':region.id}) }}">
+                 <div class="ui form">
+                     <div class=" field">
+                         <label>请选择要分配的区域</label>
+                     </div>
+                     <div class=" field">
+                         <select class="ui dropdown" id="area1" data-cascading="#area2" data-src="{{ path('auto_admin_area_all_two',{flag:'all'}) }}"></select>
+                     </div>
+                     <div class=" field">
+                         <select class="ui dropdown" id="area2" data-cascading="#area3"></select>
+                     </div>
+                     <div class=" field">
+                         <select class="ui dropdown" id="area3" name="area"></select>
+                     </div>
+                     <button class="ui teal button" type="submit">提交</button>
+                 </div>
+             </form>
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,38 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'移库','prenav':'租赁车辆 '} %}
+     <div class="ui main-content ">
+        <p>车型：{{ rentalCar.car.name }} | 车牌号：{{ rentalCar.license }}</p>
+         <div class="ui bottom attached segment no_border" >
+             <form action="{{ path("auto_admin_rentalcar_dispatch_create",{'id':rentalCar.id}) }}" method="get" >
+             <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td >
+                             租赁点<br/><br/>
+                             <select name="rentalStation" id="rentalStation" class="ui dropdown" style="width: 255px;
+                            border-radius: 5px;
+                            margin-bottom: 11px;">
+                                 {% for  rentalStation in rentalStations %}
+                                 <option value="{{ rentalStation.id }}" {% if rentalStation.id == rentalCar.rentalStation.id %} selected="selected" {% endif %}>{{ rentalStation.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+                 <button class="ui teal button" type="submit">保存</button>
+             </form>
+
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

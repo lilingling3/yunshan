@@ -1,0 +1,12 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['car2', 'list'] %}
+{% block content %}
+
+    <div class="member-li">
+        {% for car in cars %}
+            <a href="{{ path('auto_wap_car_introduce2',{'id':car.carID}) }}">
+                <li>{% if car.carID==2 %}北汽EV系列{% elseif car.carID==6 %}奇瑞eQ{% else %}{{ car.name }}{% endif %}<b></b></li>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

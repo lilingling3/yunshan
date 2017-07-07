@@ -1,0 +1,33 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+
+{% set page_id  = ['rental_order', 'back'] %}
+{% block content %}
+    <div class="top-menu">
+        还车检查
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+
+    </div>
+
+    <div class="back-notice">
+        <img src="{{ asset('/bundles/autowap/images/back1.jpg') }}" width="100%">
+        <p>
+            1.请将车辆驶回取车位置
+        </p>
+        <p>2.如图将车钥匙放回</p>
+        <p>3.关闭车窗并取出个人物品</p>
+        <p>4.关闭全部车门后点击“确认还车”</p>
+        <p>如未按提示操作还车，所带来的损失由租赁人承担 。</p>
+
+            <form action="{{ path('auto_wap_pay_rental_order') }}" method="post">
+                <input type="hidden" id="order-id" name="orderID" value="{{ rentalOrder.orderID }}">
+                <input type="hidden" id="user-id" name="userID" value="{{ app.user.token }}">
+                <button type="button">确认还车</button>
+            </form>
+        
+    </div>
+    <div class="shadow">
+        <img src="{{ asset('/bundles/autowap/images/loading.gif') }}">
+    </div>
+
+{% endblock %}

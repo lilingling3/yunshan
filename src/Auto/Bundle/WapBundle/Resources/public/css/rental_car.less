@@ -1,0 +1,820 @@
+@import "parameter";
+/*#page.rental_car.list  start*/
+#page.rental_car.list{
+
+  .station{
+    margin-top: 10px;
+    background-color: #fff;
+    padding: 10px 2%;
+    border-top: 1px solid @color-gray;
+    border-bottom: 1px solid @color-gray;
+    h3{
+      font-size: 16px;
+      font-weight: normal;
+      padding: 3px 0px;
+    }
+    .back-station {
+      color:white;
+      background-color: #ff7200;
+      padding: 0px 3px;
+      display: inline-block;
+      margin-left: 6px;
+      font-size: 16px;
+    }
+    .station-detail{
+      font-size: 14px;
+      color:@color-secondary;
+      padding: 6px 35px 6px 0px;
+    }
+    .car-title {
+      color: @color-secondary;
+      font-size: 14px;
+      .geoinfo_show {
+        border-left: 1px solid #d4d4d4;
+        padding-left: 8px;
+        margin-left: 4px;
+      }
+      .color-blue {
+        color: @color-blue;
+      }
+      .color-green {
+        color:@color-primary;
+      }
+      .car-num {
+        color:#ff6000;
+      }
+    }
+    .station-car {
+      margin-top: 3px;
+      isplay: -moz-box;
+      display: -webkit-box;
+      display: box;
+      -webkit-box-orient: horizontal;
+      -moz-box-orient: horizontal;
+      box-orient: horizontal;
+      text-align: center;
+      .column{
+        padding-top: 10px;
+        -moz-box-flex: 1;
+        -webkit-box-flex: 1;
+        text-align: left;
+        box-flex: 1;
+        font-size: 12px;
+        border-top: 1px #e7e7e7 solid;
+      }
+    }
+  }
+  .rental-info{
+    padding: 10px 0;
+    margin-top: 10px;
+    p {
+      font-size: 12px;
+      color: #626262;
+      text-align: center;
+      &.nocar{
+        color: #ff0000;
+        line-height: 25px;
+      }
+      span{
+        color: #000;
+      }
+    }
+  }
+
+  .car-list{
+    background-color: #fff;
+    overflow: hidden;
+    border-top: 1px solid @color-gray;
+    margin-top: 10px;
+    li{
+      overflow: hidden;
+      padding: 1rem 1%;
+      width: 98%;
+      color: @color-secondary;
+      &.on{
+        color: #000;
+      }
+
+      list-style: none;
+      height: 100px;
+      border-bottom: 1px solid @color-gray;
+      .left{
+        float: left;
+        width: 48%;
+        text-align: center;
+        height: 100px;
+        position: relative;
+        .image-cont {
+        	position: absolute;
+		    margin: 0px auto;
+		    height: 100px;
+
+		    top: 50%;
+		    left: 50%;
+		    -ms-transform: translate(-50% ,-50%);
+		    -moz-transform: translate(-50% ,-50%);
+		    -webkit-transform: translate(-50% ,-50%);
+		    -o-transform: translate(-50% ,-50%);
+			 img {
+		    	height: 100px;
+               min-width: 100px;
+		    }
+		    .car-img-bottom {
+              position: absolute;
+              height: 20px;
+              bottom: 0px;
+              line-height: 20px;
+              left: 0px;
+              right: 0px;
+              z-index: 100;
+              background:url("../images/graybg.png") no-repeat ;
+              background-size: cover;
+              text-align: center;
+              font-size: 12px;
+              color: white;
+            }
+		    .shade {
+		    	position: absolute;
+	    	 	top: 0px;
+	    	 	bottom: 0px;
+	    	 	left: 0px;
+	    	 	right: 0px;
+	    	 	z-index: 100;
+	    	 	background: url('../images/shade.png') no-repeat 50% 50%; 
+	    	 	background-size: cover;
+		    }
+		}
+        img{
+          max-height: 100px;
+        }
+      }
+      .right{
+        width: 52%;
+        float: right;
+        height: 100%;
+        padding-top: 4px;
+        .license{
+          font-size: 14px;
+          line-height: 30px;
+          .license-cont,.license-cont1 {
+            display: inline-block;
+            padding: 1px;
+            border: 1px solid #1e6bde;
+            height: 22px;
+            line-height: 22px;
+            span {
+              display: inline-block;
+              padding: 1px 4px;
+              background-color: #1e6bde;
+              color: white;
+              height: 20px;
+              line-height: 20px;
+            }
+          }
+          .license-cont1{
+            border: 1px solid #cbcbcb;
+            span {
+              background-color: #cbcbcb;
+            }
+          }
+        }
+        .row{
+          width: 100%;
+          overflow: hidden;
+          padding: 11px 0px 6px;
+          font-size: 14px;
+          .column{
+            width: 49.5%;
+            float: left;
+            font-size: 14px;
+
+            &:last-child{
+              width: 45.5%;
+               border-left: 1px solid @color-gray;
+              padding-left: 4%;
+              float: right;
+            }
+            p{
+              font-size: 14px;
+             	color:#000;
+              &.car-charge {
+              	color:@color-secondary;
+              }
+			.car-info{
+				 color: @color-secondary;
+			}
+            }
+            &:last-child {
+              .car-info,p{
+                color: #0d9e7a;
+              }
+            }
+          }
+          .car-info:last-child {
+            border-left: 1px solid @color-gray;
+            padding-left: 3px;
+            color: #0d9e7a;
+          }
+        }
+        .price{
+          color: @color-secondary;
+          font-size: 12px;
+          line-height: 30px;
+          height: 33.33%;
+          &.price-color{color: #000;}
+          span{
+            padding: 0.5px 0px;
+            &:last-child{
+              border-left: 1px solid @color-gray ;
+              margin-left: 2px;
+              padding-left: 6px;
+            }
+          }
+
+          b{
+            color: #ff8a00;
+          }
+        }
+        &.rentaling-car .row p {
+          color: #5d5d5d;
+        }
+      }
+    }
+  }
+  .geomap{
+    display: none;
+  }
+}
+
+/*#page.rental_car.list  end*/
+/*show,cost start*/
+
+#page.rental_car.show,#page.rental_car.cost{
+  .rental-top-info {
+    color: @color-red;
+    font-size: 12px;
+    margin-top: 5px;
+    padding: 9px 2%;
+    text-align: center;
+  }
+  .rental-info{
+    margin-top: 5px;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+    border-top: 1px solid #d4d4d4;
+    .row{
+      padding: 10px 0;
+      width: 96%;
+      margin: 0 auto;
+      overflow: hidden;
+      height: 100px;
+      border-bottom: 1px solid #e7e7e7;
+      .left{
+        width: 58%;
+        float: left;
+        height: 100%;
+        .column{
+          width: 100%;
+          height: 50%;
+          overflow: hidden;
+          padding-top:5px;
+          &:first-child{
+            border-bottom: 1px solid #e7e7e7;
+            padding-bottom: 5px;
+            padding-top: 0;
+          }
+          .item{
+            float: left;
+            height: auto;
+            width: 49%;
+            font-size: 14px;
+            &:first-child{
+              border-right: 1px solid #e7e7e7;
+            }
+            &:last-child{
+              width: 47%;
+              padding-left: 2%;
+            }
+            p{
+              font-size: 12px;
+              color: @color-secondary;
+            }
+          }
+        }
+      }
+      .right{
+        float: right;
+        width: 42%;
+        text-align: right;
+        position: relative;
+        height: 100px;
+        .image-cont{
+          position: absolute;
+          margin: 0px auto;
+          height: 100px;
+          text-align: center;
+          top: 50%;
+          left: 50%;
+          -ms-transform: translate(-50%, -50%);
+          -moz-transform: translate(-50%, -50%);
+          -webkit-transform: translate(-50%, -50%);
+          -o-transform: translate(-50%, -50%);
+          img {
+            height: 100px;
+            min-width: 100px;
+          }
+          .car-img-bottom {
+            position: absolute;
+            height: 20px;
+            bottom: 0px;
+            line-height: 20px;
+            left: 0px;
+            right: 0px;
+            z-index: 100;
+            background:url("../images/graybg.png") no-repeat ;
+            background-size: cover;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+          }
+        }
+        img{
+        }
+      }
+    }
+    .address{
+      font-size: 14px;
+      padding: 10px 0;
+      width: 96%;
+      margin: 0 auto;
+      position: relative;
+
+      p{
+        font-size: 12px;
+        color: @color-secondary;
+        line-height: 24px;
+      }
+      .street-back {
+        font-size: 14px;
+        color: black;
+        margin-right: 46px;
+      }
+      .street {
+        font-size: 14px;
+        color: black;
+      }
+      .href_a {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        display: inline-block;
+        z-index: 2;
+      }
+      &.borbor-top {
+        border-top: 1px solid @color-gray;
+      }
+      .change-station {
+        display: inline-block;
+        background-color: #179ed3;
+        color: white;
+        padding: 0px 3px;
+        margin-left: 3px;
+      }
+    }
+  }
+  
+  .rental-price{
+    background-color: #fff;
+    margin-top: 5px;
+    color: #575757;
+    p{
+      color: #000;
+      font-size: 12px;
+      text-align: center;
+      padding-bottom: 10px;
+    }
+    ul{
+      padding: 10px 0;
+      width: 96%;
+      margin: 0 auto;
+      li{
+        list-style: none;
+        font-size: 14px;
+        line-height: 25px;
+        b{
+          color: @color-secondary;
+          font-weight: normal;
+        }
+        span{
+          float: right;
+          b{
+            color: #ff8a00;
+          }
+        }
+      }
+    }
+
+
+  }
+.rental-news{
+  padding: 10px 2%;
+  color: #ff0000;
+  p{
+    font-size: 12px;
+
+    line-height: 20px;
+  }
+}
+.rental-news1{
+	color:#000;
+	text-align: center;
+	padding-top: 20px;
+}
+
+.rental-back{
+    margin-top: 5px;
+    background-color: #fff;
+    color: #575757;
+    #rental-cost{
+      display: none;
+    }
+
+    .row{
+      font-size: 14px;
+      padding: 20px 0;
+      width: 96%;
+      margin: 0 auto;
+      span{
+        float: right;
+        color: @color-primary;
+      }
+      &:last-child{
+        text-align: center;
+        border-top: 1px solid #d4d4d4;
+        b{
+          color: #ff0000;
+        }
+      }
+    }
+  }
+
+
+  .rental-notice{
+    padding-top: 10px;
+    text-align: center;
+    p{
+      color: #ff0000;
+      font-size: 14px;
+      line-height: 24px;
+      &.void{
+        color: #000;
+      }
+      &.time{
+        color: @color-secondary;
+      }
+    }
+    .row {
+      width: 96%;
+      padding: 0 2%;
+      margin-top: 4px;
+
+      .use {
+        width: 100%;
+        background-color: @color-third;
+        .radius(5px);
+        font-size: 18px;
+        height: 45px;
+        color: #fff;
+        border: none;
+        margin-bottom: 1rem;
+      }
+      .use1 {
+        width: 100%;
+        background-color: #ccc;
+        .radius(5px);
+        font-size: 18px;
+        height: 45px;
+        line-height: 45px;
+        color: #fff;
+        border: none;
+        margin-bottom: 1rem;
+      }
+    }
+
+  }
+
+  #choose-time{
+    text-align: center;
+    background-color: #eee;
+    position: fixed;
+    top: 30%;
+    display: none;
+    width: 80%;
+    left: 10%;
+    height: auto;
+    overflow: hidden;
+    padding: 20px 0;
+    select{
+      width: 15%;
+      margin: 0 5px;
+      &:first-child{
+        width: 45%;
+      }
+    }
+    button{
+      margin-top: 20px;
+      width: 90%;
+      background-color: @color-third;
+      .radius(5px);
+      font-size: 18px;
+      height: 45px;
+      color: #fff;
+      border: none;
+    }
+
+  }
+}
+
+/*show,cost end*/
+
+
+
+/*cost star*/
+#page.rental_car.cost {
+	.rental-back {
+      border-top:1px solid #d4d4d4;
+      border-bottom: 1px solid #d4d4d4;
+		.choose-time {
+			border-top:none;
+            text-align: left;
+			&:last-child{
+		 	border-top:none;
+              text-align: left;
+		 }
+		}
+		 
+	}
+	.rental-price {
+      display:none;
+	
+		 #rental-cost {
+		 	width: 96%;
+	    	margin: 0 auto;
+	    	overflow: hidden;
+		 	padding: 10px 0px;
+		 	 .title {
+			  text-align: left;
+			  font-size: 12px;
+			  color: #000;
+			  padding-bottom: 0px;
+			}
+			ul {
+				width: 100%;
+				color: #828282;
+			    text-align: left;
+			    font-size: 14px;
+			    line-height: 25px;
+			   li {
+			   	 .title-l {
+			   	 	float:left;
+			   	 	.time-name {
+			   	 		    float: left;
+						    width: 70px;
+						    text-align: right;
+			   	 	}
+			   	 }
+			   	 .cost-r {
+						float: right;
+						color: #828282;
+						width: 161px;
+						.time-name{
+							float: left;
+						    width: 98px;
+						    text-align: right;
+						}
+						.all-cost {
+						  color: black;
+						}
+					}
+			   }
+			}
+		 }
+		 
+		 .row {
+		 	 &:last-child{
+        text-align: center;
+        border-top: none;
+        b{
+          color: @color-secondary;
+        }
+      }
+		 }
+	}
+	/*rental-info start*/
+	.rental-info {
+      border-bottom: 1px solid @color-gray;
+      border-top: 1px solid @color-gray;
+		.row {
+		border-bottom: 1px solid @color-gray;
+			.left {
+				.column {
+				 &:first-child{
+				 	border-bottom: none;
+				 }
+					.item {
+						&:first-child{
+              border-right:none;
+            }
+					}
+				}
+			}
+		}
+	}
+	/*rental-info end*/
+}
+
+/* cost end*/
+
+
+/*show start*/
+#page.rental_car.show {
+	.rental-info {
+		.row-style {
+			border-bottom: 1px solid @color-gray;
+          height: 100px;
+			.left {
+				.column {
+					&:first-child {
+						border-right: none;
+						border-bottom: 0px;
+                      height: 45%;
+					}
+					.item {
+                      p{
+                        line-height: 20px;
+                      }
+						&:first-child {
+							border-right: none;
+						}
+									         													    
+					}
+				}
+			}
+		}
+      .row-style-height {
+        height: 100px;
+        .left .column {
+          height: 50px;
+        }
+        .right {
+          img {
+            max-height: 100px;
+          }
+        }
+      }
+	}
+
+	.rental-price{
+      border-top: 1px solid @color-gray;
+      border-bottom: 1px solid @color-gray;
+      color: #000;
+		.rental-price-title {
+			font-size:12px;
+			color:@color-secondary;
+			width: 96%;
+			padding: 10px 0px 0px;
+			margin: 0px auto;
+			text-align: left;
+			.favorable {
+				color:@color-red;
+				float:right;
+			}
+		}
+	}
+	
+}
+/*show end*/
+
+/*change_station*/
+#page.rental_car.change_station {
+  input::-webkit-input-placeholder {
+    color: @color-secondary;
+  }
+  input:-moz-placeholder {
+    color: @color-secondary;
+  }
+  input::-moz-placeholder{
+    color: @color-secondary;
+  }
+  input:-ms-input-placeholder {
+    color: @color-secondary;
+  }
+.container {
+  .seek {
+    padding: 10px 0px;
+    background-color: white;
+    border-top: 1px solid #d4d4d4;
+    border-bottom: 1px solid #d4d4d4;
+    margin-bottom: 10px;
+    position: relative;
+    .searchByName { position: relative; }
+    .seek-input {
+      border: none;
+      outline: none;
+      -webkit-appearance: none;
+      height: 40px;
+      line-height: 40px;
+      display: inline-block;
+      width: 98%;
+      margin-left: 2%;
+    }
+    .button {
+      display: inline-block;
+      width: 30px;
+      margin-top: -15px;
+      top: 50%;
+      height: 30px;
+      position: absolute;
+      right: 2%;
+      background: url("../images/search.png") no-repeat center;
+      background-size: cover;
+
+    }
+  }
+  .cont {
+    margin-top: 10px;
+    .no-stations { text-align: center; padding: 10px 0px; }
+    .row {
+      position: relative;
+      padding: 10px 10px;
+
+      border-bottom: 1px solid @color-gray;
+      .a_href {
+        display: block;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+      }
+        .text {
+          margin-right: 40px;
+          font-size: 12px;
+          color: black;
+          line-height: 24px;
+          .name { color: @color-secondary;}
+          p:last-child {
+            font-size: 14px;
+          }
+
+        }
+      .l-icon {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        width: 30px;
+        height: 60px;
+        background: url("../images/location.png") no-repeat center;
+        background-size: 70%;
+        transform: translate(0%,-50%);
+        -webkit-transform: translate(0%,-50%);
+        -ms-transform: translate(0%,-50%);
+        -moz-transform: translate(0%,-50%);
+        -o-transform: translate(0%,-50%);
+      }
+      .r-cont {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translate(0%,-50%);
+        -webkit-transform: translate(0%,-50%);
+        -ms-transform: translate(0%,-50%);
+        -moz-transform: translate(0%,-50%);
+        -o-transform: translate(0%,-50%);
+        .go-there {
+          color: @color-blue;
+          font-size: 12px;
+        }
+        .order-href { display: none;}
+        .order-go {color: @color-blue;  font-size: 12px; cursor: pointer; }
+      }
+      &.checked {
+        background-color: white;
+        .text  {
+            margin-left: 35px;
+        }
+        .r-cont {
+          display: inline-block;
+          width: 32px;
+          height: 32px;
+          background: url("../images/checked.png") no-repeat center;
+          background-size: 100%;
+        }
+      }
+    }
+  }
+}
+}
+/*change_station end*/

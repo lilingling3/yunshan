@@ -1,0 +1,58 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['default', 'message'] %}
+{% block content %}
+
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=U3WBZ-LRHR5-EI2IC-Q4VVX-NL3BS-3HFU3"></script>
+<script>
+ 
+<script>
+function getLocation(){
+    //判断是否支持 获取本地位置
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+        else{x.innerHTML="浏览器不支持定位.";}
+    }   
+    
+    function showPosition(position)
+    {
+        var lat=position.coords.latitude; 
+        var lng=position.coords.longitude;
+
+        //调用地图命名空间中的转换接口   
+        //type的可选值为 1:gps经纬度，2:搜狗经纬度，3:百度经纬度，
+        //4:mapbar经纬度，5:google经纬度，6:搜狗墨卡托
+        qq.maps.convertor.translate(new qq.maps.LatLng(lat,lng), 1, function(res){
+            //取出经纬度并且赋值
+            latlng = res[0];
+      
+            var map = new qq.maps.Map(document.getElementById("container"),{
+                center:  latlng,
+                zoom: 13
+            });
+
+            //设置marker标记
+            var marker = new qq.maps.Marker({
+                map : map,
+                position : latlng
+            });
+        });
+    }
+</script>
+</script>
+
+    <div class="details">
+        <p></p>
+        <div class="row">
+    
+                <div class="btn">
+                    <a class="a_href" href="{{ path("auto_mobile_index") }}"></a>
+                    <img class="btnbg" src="{{ asset('/bundles/automobile/images/btn-bg.png')}}">
+                    <span class="tblr-center btn-t">返回首页</span>
+                </div>
+
+        </div>
+    </div>
+
+{% endblock %}

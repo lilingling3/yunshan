@@ -1,0 +1,109 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['rentalPrice', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加定价','prenav':'定价管理  '} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {{ form_start(form) }}
+             <div class="ui form">
+                 <div class=" field">
+                     <label>车型名称</label>
+                     {{ form_widget(form.car,{'attr': {'placeholder':'车型','class':'ui dropdown' }} ) }}
+                 </div>
+
+                 <div class="fields">
+
+                     <div class="eight wide field">
+                         <label>省份/直辖市</label>
+                         <select class="ui dropdown" id="country" data-cascading="#{{ form.area.vars.id }}" data-src="{{ path('auto_admin_area_two_cascading') }}"></select>
+                     </div>
+
+
+                     <div class="eight wide field">
+                         <label>城市</label>
+                         {{ form_widget(form.area, {attr: {class: 'ui dropdown', 'data-value': form.area.vars.value}}) }}
+                     </div>
+
+                 </div>
+
+                 <div class="fields">
+
+                     <div class="eight wide field">
+                         <label>定价名称</label>
+                         {{ form_widget(form.name,{'attr': {'placeholder':'请输入定价名称'}} ) }}
+                     </div>
+                     <div class="eight wide field">
+                         <label>权重</label>
+                         {{ form_widget(form.weight,{'attr': {'class':'ui dropdown'}} ) }}
+                     </div>
+                 </div>
+
+                 <div class="fields">
+
+                     <div class="eight wide field">
+                         <label>{{ form_label(form.startDate) }}</label>
+                         {{ form_widget(form.startDate,{'attr': {'placeholder':'开始日期'}} ) }}
+                     </div>
+                     <div class="eight wide field">
+                         <label>{{ form_label(form.endDate) }}</label>
+                         {{ form_widget(form.endDate,{'attr': {'placeholder':'结束日期'}} ) }}
+                     </div>
+                 </div>
+
+
+
+
+                 <div class="fields">
+                     <div class="eight wide field">
+                         <div class="seven wide field" style="float: left;clear: none;">
+                             <label>开始时间  时</label>
+                             {{ form_widget(form.startTime.hour,{'attr': {'class':'ui dropdown'}}) }}
+                         </div>
+
+                         <div class="seven wide field" style="float: left;clear: none;">
+                             <label>分</label>
+                             {{ form_widget(form.startTime.minute,{'attr': {'class':'ui dropdown'}}) }}
+                         </div>
+                     </div>
+                     <div class="eight wide field">
+                         <div class="eight wide field" style="float: left;clear: none;">
+                             <label>结束时间   时</label>
+
+                             {{ form_widget(form.endTime.hour,{'attr': {'class':'ui dropdown'}}) }}
+                         </div>
+
+                         <div class="eight wide field" style="float: left;clear: none;">
+                             <label>分</label>
+                             {{ form_widget(form.endTime.minute,{'attr': {'class':'ui dropdown'}}) }}
+                         </div>
+                     </div>
+
+                 </div>
+
+                 <div class="fields">
+
+
+
+                 </div>
+
+
+                 <div class=" field">
+                     <label>价格（元/小时）</label>
+                     {{ form_widget(form.price,{'attr': {'placeholder':'请输入价格'}} ) }}
+                 </div>
+                 <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+                 <button class="ui teal button" type="submit">提交</button>
+             </div>
+             {{ form_end(form) }}
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

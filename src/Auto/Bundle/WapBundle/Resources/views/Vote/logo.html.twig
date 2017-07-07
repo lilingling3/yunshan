@@ -1,0 +1,77 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+
+{% block meta %}
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('/semantic/dist/semantic.min.css') }}">
+    {% stylesheets "bundles/autowap/css/vote.less" filter="less, cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('/jquery/jquery.min.js') }}"></script>
+    {% javascripts "bundles/autowap/js/vote.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block body %}
+    <div id="page" class="vote logo">
+
+        {% block content %}
+<div class="vote-content">
+
+       <div class="title"> <h2>云杉智行  LOGO 投票</h2></div>
+
+    <p>云杉智行”电动车分时租赁平台，应用全自助、全互联模式，构建极简出行平台！人们租车相关的所有操作只需一部手机就可以全部解决，而且可以分小时租赁，大家可以随时随地拿起身边的手机，开走一辆附近的电动汽车，驶向想去的地方！</p>
+        <p>产品主要功能点：</p>
+        <p>电动汽车的分时租赁；</p>
+
+        <p>设计思路：</p>
+        <p>1、绿色：绿色象征环保、绿色出行</p>
+        <p>2、嫩芽：象征生命初始，寓意打破污染让嫩芽破土而出</p>
+        <p>3、L造型：嫩芽构成的L代表乐享的"乐"首字母</p>
+        <p>4、表盘：整体构成时钟的透视角度，代表分时租赁，time-share</p>
+
+        <p>现在有6种不同的logo设计</p>
+        <p>每人只能投一次票，票选出大家最喜欢的一个~</p>
+
+</div>
+
+
+
+            <div class="ui one stackable cards">
+            {% for option in options %}
+                <div class="card">
+                    <div class="image">
+                        <img src="{{ option.image|photograph(400,300,"crop") }}">
+                    </div>
+                    <div class="content">
+                        <div class="header">{{ option.name }}</div>
+                    </div>
+                    <div class="extra content">
+                        <a class="friends">
+                            <i class="user icon"></i>
+                            <span class="option{{ option.id }}">{{ option.records|length }}</span>票
+                        </a>
+                    </div>
+                    <div option-data="{{ option.id }}" class="ui bottom add-vote teal attached button"><i class="add
+                    icon"></i> 投票 </div>
+
+                </div>
+            {% endfor %}
+            </div>
+
+            <input type="hidden" value="{{ vote.id }}" id="vote-id">
+            <input type="hidden" value="{{ user }}" id="vote-user">
+
+
+            <img src="http://lecarshare.com/photograph/94/a0/94a029c88797c3f1ca88b9aa3bdd062923e1d366.jpeg"
+                 width="100%">
+        {% endblock %}
+
+    </div>
+{% endblock %}

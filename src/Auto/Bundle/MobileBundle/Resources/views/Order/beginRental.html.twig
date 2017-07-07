@@ -1,0 +1,83 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order', 'show'] %}
+{% block content %}
+
+    {% include "AutoMobileBundle:Order:_car.html.twig" %}
+    <div class="order-info order-status{{ rentalOrder.status }}">
+        {% include "AutoMobileBundle:Order:_order.html.twig" %}
+
+    </div>
+
+    <div class="btndiv">
+        <div class="cont">
+            <div class="inner findcar">
+                <div class="img-cont">
+                    <img src="{{ asset('/bundles/automobile/images/caricon.png') }}" />
+                </div>
+                <p>找车</p>
+            </div>
+            <div class="inner opencar">
+                <div class="img-cont">
+                    <img src="{{ asset('/bundles/automobile/images/keyicon.png') }}" />
+                </div>
+                <p>开门</p>
+            </div>
+
+    <!-- lock car -->
+    {% if rentalOrder.useTime %}
+            <div class="inner lockcar">
+                <div class="img-cont">
+                    <img src="{{ asset('/bundles/automobile/images/lockicon.png') }}" />
+                </div>
+                <p>锁门</p>
+            </div>
+    {% endif %}
+
+    {% if rentalOrder.useTime %}
+            <div class="inner backcar">
+                <a class=" backcar" href="{{ path('auto_mobile_rental_car_back',{'id':rentalOrder.orderID}) }}">
+                </a>
+                <div class="img-cont">
+                    <img src="{{ asset('/bundles/automobile/images/backicon.png') }}" />
+                </div>
+                <p>还车</p>
+            </div>
+    {% endif %}
+        </div>
+    </div>
+    {% if rentalOrder.useTime is null %}
+       <div class="cancel"><span class="cancelcar">取消行程</span>  | <a class="cancel" href="{{ path('auto_mobile_index') }}">返回首页</a> </div>
+    {% else %}
+        <div class="cancel"><a class="cancel" href="{{ path('auto_mobile_index') }}">返回首页</a></div>
+    {% endif%}
+    <div class="shadow" >
+        <img src="{{ asset('/bundles/automobile/images/loading.gif') }}" />
+    </div>
+
+    <div class=" shadow-layer" ></div>
+
+    {% if rentalOrder.useTime %}
+        <div class="key-notice tblr-center"  >
+            <div class="key-img-cont">
+                <img src="{{ asset('/bundles/automobile/images/key.png') }}">
+
+                <div class="btn">
+                  <img class="btnbg" src="{{ asset('/bundles/automobile/images/btn-bg.png')}}">
+                  <span class="tblr-center">我知道了</span>
+                </div>
+            </div>
+          
+        </div>
+    {% endif %}
+
+    <form class="orderinfo">
+        <input type="hidden" name="userID" id="userID" value="{{ app.user.token }}"/>
+        <input type="hidden" name="orderID" id="orderID" value="{{ rentalOrder.orderID }}"/>
+        <input type="hidden" name="useTime" id="useTime" value="{{ rentalOrder.useTime|default("") }}"/>
+    </form>
+{% endblock %}
+{% block footer %}
+{% endblock %}

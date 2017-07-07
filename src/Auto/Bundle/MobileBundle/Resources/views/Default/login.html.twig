@@ -1,0 +1,44 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['default', 'login'] %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        html,body {
+            height: 100%;
+            position: relative;
+        }
+
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="login-cont">
+        <form action="{{ path('auto_mobile_login_verify') }}" id="loginform" method="post">
+            <div class="row">
+                <span class="icon icon1"></span>
+                <input type="text" maxlength="11" name="mobile" class="input-t tb-center" id="mobile" placeholder="请输入手机号" />
+            </div>
+
+            <div class="row">
+                <div class="inner">
+                    <span class="icon icon2"></span>
+                    <input type="text" maxlength="4" name="code" class="input-t tb-center" id="code" placeholder="请输入短信验证码" />
+                </div>
+
+                <div class="inner btn-code">
+                    <span class="blue code-t">获取验证码</span>
+                </div>
+
+                <p class="error"></p>
+            </div>
+        </form>
+
+        <div class="btn-subimt"><img class="btn-bg" src="{{ asset('/bundles/automobile/images/btn-bg2.png') }}"/>
+            <span class="tblr-center">登录</span>
+        </div>
+
+        <div class="protocol"><p>点击登录表示同意<a  href="{{ path('auto_mobile_document_protocol') }}"><span class="green">《云杉驾呗租赁服务协议》</span></a></p></div>
+    </div>
+
+
+{% endblock %}

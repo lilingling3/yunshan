@@ -1,0 +1,25 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+    <div class=" field">
+        <label>手机号</label>
+        {{ form_widget(form.mobile,{'attr': {'placeholder':'手机号' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>{{ form_label(form.message.kind) }}</label>
+        {{ form_widget(form.message.kind,{'attr': {'class':'ui dropdown' }} ) }}
+    </div>
+
+    <div class="field">
+        <label>{{ form_label(form.message.url) }}</label>
+        {{ form_widget(form.message.url,{'attr': {'placeholder':'链接' }} ) }}
+    </div>
+
+    <div class="field">
+        <label>{{ form_label(form.message.content) }}</label>
+        {{ form_widget(form.message.content,{'attr': {'placeholder':'内容' }} ) }}
+    </div>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

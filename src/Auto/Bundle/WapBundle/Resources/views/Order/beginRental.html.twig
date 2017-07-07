@@ -1,0 +1,67 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['rental_order', 'show'] %}
+{% block content %}
+    <div class="top-menu">
+        行程详情
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+        <span><a  href="javascript:window.location.reload();" class="refresh"><b></b></a></span>
+    </div>
+
+    <div class="rental-info order-status-car order-status{{ rentalOrder.status }}">
+
+        {% include "AutoWapBundle:Order:_car.html.twig" %}
+
+    </div>
+
+
+    <div class="order-info order-status{{ rentalOrder.status }}">
+        {% include "AutoWapBundle:Order:_order.html.twig" %}
+        <div class="row">
+            <div class="column">
+                已用时长
+                <p>
+                        {{ (rentalOrder.offset and rentalOrder.offset>59) ? time.name(rentalOrder.offset):'-' }}
+                </p>
+            </div>
+            <div class="column">
+                用车费用-含保险及不计免赔
+                <p class="b">{{ rentalOrder.costDetail.cost }}元</p>
+            </div>
+        </div>
+    </div>
+
+
+    {% if rentalOrder.useTime %}
+        <div class="use-car">
+            <a href="{{ path('auto_wap_rental_car_back',{'id':rentalOrder.orderID}) }}"> <button class="back">我要还车</button></a>
+        </div>
+
+    {% endif %}
+
+        <div class="car-open">
+            <button class="find" user-data="{{ app.user.token }}" order-data="{{ rentalOrder.orderID }}">寻车</button>
+            <button class="open" user-data="{{ app.user.token }}" order-data="{{ rentalOrder.orderID }}">开门</button>
+        </div>
+    {% if rentalOrder.useTime %}
+        <div class="use-car">
+            <p><a class="introduction">车辆钥匙位置</a></p>
+        </div>
+        <div class="key-notice"  >
+            <p>如图位置可找到车钥匙，离开车辆时请用钥匙锁门并保管好钥匙。</p>
+            <div class="key-img-cont">
+            <img src="{{ asset('/bundles/autowap/images/back1.jpg') }}">
+            </div>
+            <button>我知道了</button>
+        </div>
+    {% else %}
+    <div class="car-button car-button-h">
+        <span class="cancel cancel-rent" user-data="{{ app.user.token }}" order-data="{{ rentalOrder.orderID }}" >取消行程</span>
+    </div>
+    {% endif %}
+    <div class="shadow">
+        <img src="{{ asset('/bundles/autowap/images/loading.gif') }}" />
+    </div>
+{% endblock %}

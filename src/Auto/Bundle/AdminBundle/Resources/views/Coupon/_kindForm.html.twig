@@ -1,0 +1,31 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.name) }}</label>
+        {{ form_widget(form.name,{'attr': {'placeholder':'优惠名称' }} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.validDay) }}</label>
+        {{ form_widget(form.validDay,{'attr': {'placeholder':'获得起有效天数' }} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.amount) }}</label>
+        {{ form_widget(form.amount,{'attr': {'placeholder':'金额' }} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.needHour) }}</label>
+        {{ form_widget(form.needHour,{'attr': {'placeholder':'满几个小时' }} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.needAmount) }}</label>
+        {{ form_widget(form.needAmount,{'attr': {'placeholder':'满多少钱' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>{{ form_label(form.carLevel) }}</label>
+        {{ form_widget(form.carLevel,{'attr': {'class':'ui dropdown'}}) }}
+    </div>
+    <button class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

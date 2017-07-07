@@ -1,0 +1,27 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default', 'more'] %}
+{% block content %}
+    <div class="top-menu">
+        更多
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+    </div>
+    <div class="member-li">
+        <a href="{{ path('auto_wap_more_about') }}">
+            <li>关于<b></b></li>
+        </a>
+        <a href="{{ path('auto_wap_more_rent') }}">
+            <li>租赁协议<b></b></li>
+        </a>
+        <a href="{{ path('auto_wap_car_list') }}">
+            <li>车辆使用帮助<b></b></li>
+        </a>
+    </div>
+    {% if app.user %}
+        <div class="member-li">
+
+            <a href="{{ path('auto_wap_forget',{"id":1}) }}">
+                <li>修改密码<b></b></li>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

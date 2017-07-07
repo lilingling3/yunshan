@@ -1,0 +1,21 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['coupon', 'kind-edit'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'编辑','prenav':'优惠券类型'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column" >
+             {% include "AutoAdminBundle:Coupon:_kindForm.html.twig" %}
+         </div>
+
+
+         <div class="four wide monitor column" >
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">优惠券 </a>
+                 <a class="item" href="{{ path('auto_admin_coupon_kind_list') }}">优惠券列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

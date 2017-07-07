@@ -1,0 +1,53 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_order', 'check'] %}
+{% block content %}
+    <div class="top-menu">
+        租赁车辆
+        <a href="{{ path("auto_operate_station_list") }}"  class="left-cont"><b></b></a>
+    </div>
+
+    <div class="order-info">
+        {{ rentalOrder.rentalCar.license }} | {{ rentalOrder.rentalCar.car.name }}
+    </div>
+
+    <div class="order-details">
+        <div class="left">
+            <p>订单号</p>
+            <span>{{ rentalOrder.createTime|date('Ymd') }}{{ rentalOrder.orderID }}</span>
+            <p>下单时间</p>
+            {{ rentalOrder.createTime }}
+            <p>取车时间</p>
+            {{ rentalOrder.useTime|default }}
+        </div>
+        <div class="right">
+            未取车
+        </div>
+    </div>
+
+    <div class="order-member">
+        <p class="name">{{ member.name }}</p>
+    </div>
+
+    <form method="post" action="{{ path('auto_operate_rental_order_check_submit') }}">
+        <div class="check-items">
+            <div class="row">
+                已确认员工身份并收取工牌抵押<span><input name="check" type="checkbox"></span>
+            </div>
+            <div class="row">
+                已确认用户驾驶证<span><input name="check" type="checkbox"></span>
+            </div>
+            <div class="row">
+                已检查车辆并填写取车确认单<span><input name="check" type="checkbox"></span>
+            </div>
+        </div>
+
+        <div class="mileage">
+            取车时续航里程<span> <input type="text" name="mileage" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"  placeholder="请填写"></span>
+            <input type="hidden" name="orderID" value="{{ rentalOrder.orderID }}">
+        </div>
+
+        <div class="back-notice"><p>请认真核对以上信息</p>
+            <button type="submit" id="check-button">确认取车</button>
+        </div>
+    </form>
+{% endblock %}

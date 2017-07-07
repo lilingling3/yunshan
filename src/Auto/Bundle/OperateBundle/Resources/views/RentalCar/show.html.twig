@@ -1,0 +1,114 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'show'] %}
+{% import "AutoOperateBundle:RentalOrder:_status.html.twig" as status %}
+
+{% block content %}
+    <div class="top-menu">
+        租赁车辆
+        <a href="{{ path("auto_operate_rental_car_list",{'sid':rentalCar.rentalStation.rentalStationID }) }}" class="left-cont"><b></b></a>
+        <span>
+            <a  href="{{ path("auto_operate_rental_car_detail",{'id':rentalCar.rentalCarID}) }}">详情</a>
+        </span>
+    </div>
+
+    <div class="rental-info">
+        <div class="row">
+            <div class="left clearfix">
+                <div class="image-cont">
+                    <img src="{{ rentalCar.image }}"/>
+                    {% if rentalCar.online ==1 %}
+                        <div class="car-img-bottom">已上线</div>
+                    {% else %}
+                        <div class="car-img-bottom car-img-bottom-red">已下线</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="column {% if rentalCar.online !=1 %} color-gray {% endif %}">
+                    <p>{{ rentalCar.license }}</p>
+                    <p><span class="color-gray">型号&nbsp;:&nbsp;</span>{{ rentalCar.car.name }}&nbsp;&nbsp;
+                        <span class="color-gray">续航&nbsp;:&nbsp;{% if rentalCar.mileage %}{{ rentalCar.mileage }} km{% else %}<span class="color-red">异常</span>{% endif %}</span>
+                    </p>
+                    <p>{% if rentalCar.online ==1 %}已上线-
+                            {% if rentalCar.status == 300 %}<span class="color-red">未租赁</span>
+                            {% elseif rentalCar.status == 301 %}<span class="color-yellow">租赁中</span>
+                            {% endif %}
+                        {% else %}<span class="color-red">已下线-</span>
+                            {% if rentalCar.status == 300 %}<span class="color-red">待整备</span>
+                            {% elseif rentalCar.status == 301 %}<span class="color-yellow">租赁中</span>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="address">
+            {{ rentalCar.rentalStation.name }}
+            <p> {{ rentalCar.rentalStation.street }}</p>
+        </div>
+    </div>
+
+
+    <div class="rental-menu">
+        {% if rentalCar.online  %}
+            <a href="{{ path("auto_operate_car_offline",{'id':rentalCar.rentalCarID}) }}" ><li>车辆下线</li></a>
+        {% elseif rentalCar.status != 301 %}
+            <a href="{{ path("auto_operate_car_online",{'id':rentalCar.rentalCarID}) }}" ><li>整备上线</li></a>
+        {% endif %}
+        <a href="{{ path('auto_operate_rental_car_locate',{'id':rentalCar.rentalCarID}) }}"><li>车辆定位</li></a>
+        <a href="{{ path('auto_operate_rental_order_list',{'id':rentalCar.rentalCarID}) }}"><li>租赁订单{% if nopayorders %}<span class="color-red right">{{ nopayorders }}个未支付</span>{% endif %}</li></a>
+        {#<a href="{{ path('auto_operate_rental_car_charging',{'id':rentalCar.rentalCarID}) }}"><li>车辆充电</li></a>#}
+        <a href="{{ path("auto_operate_illegal_list",{"id":rentalCar.rentalCarID}) }}"><li>违章信息{% if illegal %}<span class="color-red right">{{ illegal }}条未处理</span>{% endif %}</li></a>
+
+
+    </div>
+
+    <div class="rental-lock {% if rentalCar.status == 301 %}progressing {% endif %} ">
+        <input type="hidden" id="rental-car-id" value="{{ rentalCar.rentalCarID }}">
+        <input type="hidden" id="user-id" value="{{  app.user.token }}"/>
+        <button class="find" operate="find" type="button">找车</button>
+        <button class="open" operate="open" status-data="0" type="button">开门解锁</button>
+        <button class="close" operate="close" status-data="1" type="button">锁车</button>
+    </div>
+    <div class="rental-lock {% if rentalCar.status == 301 %}progressing {% endif %} ">
+        <button class="reset-device" operate="reset" type="button">初始化</button>
+        <button class="charging-on" operate="on" type="button">通电</button>
+        <button class="charging-off" operate="off" type="button">断电</button>
+    </div>
+
+
+    <input type="hidden" id="car-license" value="{{ rentalCar.license }}" />
+
+    <!--alert-->
+    <div class="alert-min ">
+        <div class="title-top">操作提示</div>
+        <div class="alert-cont">
+            <p class="alert-t">
+                请慎重操作。
+            </p>
+            <div class="input-contp">
+                <div class="input-cont">
+                    <input type="text" class="input-data" placeholder="请输入车牌号"/>
+                </div>
+                <p class="input-error"></p>
+            </div>
+        </div>
+        <div class="button-div clearfix">
+            <span class="alert-cancel">取消</span>
+            <span class="alert-submit">确认提交</span>
+        </div>
+    </div>
+
+    <div class="all"></div>
+    <!--alert end-->
+
+
+
+    <div class="shadow">
+        <img src="{{ asset('/bundles/autowap/images/loading.gif') }}">
+    </div>
+
+{% endblock %}

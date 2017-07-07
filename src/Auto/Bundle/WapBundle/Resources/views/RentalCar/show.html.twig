@@ -1,0 +1,66 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'show'] %}
+
+{% block content %}
+    <div class="top-menu">
+        确认租赁
+        <a href="{{ path('auto_wap_rental_car_list',{'sid':rentalCar.rentalStation.rentalStationID}) }}"><b></b></a>
+        <span><a  href="javascript:window.location.reload();" class="refresh"><b></b></a></span>
+    </div>
+
+    <div class="rental-info">
+        <div class="row row-style">
+            <div class="left">
+                <div class="column"><div class="item"><p class="car-detail-name">车牌</p>{{ rentalCar.license }}</div><div class="item"><p class="car-detail-name">型号</p>{{ rentalCar.car.name }}</div></div>
+                <div class="column"><div class="item"><p>续航以实际为准</p>{{ rentalCar.mileage }}公里</div><div class="item"><p class="car-detail-name">结构/座位</p>{{ rentalCar.car.bodyType }}/{{ rentalCar.car.seat }}座</div></div>
+            </div>
+            <div class="right clearfix">
+                <div class="image-cont">
+                    <img src="{{ rentalCar.image }}" />
+                </div>
+            </div>
+        </div>
+        <div class="address">
+            {% if rentalCar.rentalStation.backType==600 %}
+            <p>取还车地点</p>
+            <p class="street">{{ rentalCar.rentalStation.street }}</p>
+            {% else %}
+            <p>取车地点</p>
+            <p class="street">{{ rentalCar.rentalStation.street }}</p>
+            {% endif %}
+        </div>
+    {% if rentalCar.rentalStation.backType==601 %}
+        <div class="address borbor-top">
+           <a class="href_a" href="{{ path('auto_wap_rental_car_change_station',{'id':rentalCar.rentalCarID,"backStation":backStation.rentalStationID }) }}"></a>
+            <p>还车地点</p>
+            <p class="street">{{ backStation.street }}<span class="change-station">更换</span></p>
+        </div>
+        {% endif %}
+    </div>
+    <div class="rental-price">
+        <p class="rental-price-title">费用说明<span class="favorable">已优惠50%</span></p>
+        <ul>
+            {% for price in rentalCar.rentalPrice %}
+                <li>
+                    {{ price.name }}<b>（{{ price.startTime }} - {{ price.endTime }}）</b><span><b>{{ price.price }}</b>元/小时</span>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div class="rental-news rental-news1">
+        <p>1小时起租，续航以实际里程为准</p>
+    </div>
+    <div class="rental-notice">
+        <div class="row">
+            <form method="post" action="{{ path('auto_wap_rental_car_order') }}">
+                <input type="hidden" name="userID" id="userID" value="{{ app.user.token }}" />
+                <input type="hidden" name="rentalCarID" id="rentalCarID" value="{{ rentalCar.rentalCarID }}" />
+                <input type="hidden" name="returnStationID" id="returnStationID" value="{{ backStation.rentalStationID }}" />
+                <button class="use"  type="button">立即租赁</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

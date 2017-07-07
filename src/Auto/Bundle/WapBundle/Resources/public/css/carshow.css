@@ -1,0 +1,82 @@
+/* CSS Document */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td{margin: 0; padding: 0;}
+table {border-collapse: collapse;border-spacing: 0;}
+th { font-weight:normal;}
+body{margin:0 auto; font:14px "Microsoft YaHei"; color:#666; font-family:"Microsoft YaHei";}
+input { font:14px "Microsoft YaHei" 微软雅黑; text-indent:4px;*text-indent:0px; font-family:"Microsoft YaHei"; color:#999;}
+textarea,input{word-wrap:break-word; word-break:break-all; padding:0px;}
+
+ul,li{list-style-type:none;}
+
+a {outline:none; star:expression(this.onFocus=this.blur());color:#888;text-decoration:none;}
+a:hover{color:#e74c3c; text-decoration:none;}
+a:active{color:#888;}
+
+img,form,fieldset {border:0 none;}
+
+html{  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); height: 100%;}
+body { position: relative;height: 100%;  background-color: #eeeeee;}
+.clearfix:after{ content: "020";  display: block;  height: 0;  clear: both;  visibility: hidden;  }
+.clearfix {
+    /* 触发 hasLayout */
+    zoom: 1;
+}
+
+.container { background-color: #a52e2e; width: 100%;max-width: 414px; margin: 0 auto; position: absolute; top: 0; left: 0; right: 0;}
+.top-cont {width: 100%; position: relative;}
+.top-bg,.center-bg { width: 100%;}
+.foot-cont {background-color: white; position: relative;}
+.foot-cont img { width: 100%;  }
+.top-bg2 { display: none;}
+.coupon { display: none; }
+.top-text { position: absolute; top: 7%;}
+.top-text img { width: 100%;}
+.center-cont { position: relative;}
+.center-cont .inner{ position: absolute; top: 0px; left: 0px; height: 100%; width: 100%;}
+.center-cont .inner .center-text { text-align: center; padding-top: 3%; }
+.center-cont .inner .center-text img { width:53% ; }
+.register { text-align: center; width: 77.86666%; margin: 15px auto 0px;}
+.input-cont,.button,.cptext { width: 100%; height: 40px;}
+.input-cont { text-align: left; background-color: white; border-radius: 3px; position: relative; }
+.input-cont input { font-size: 16px;
+    background-color: transparent;text-align: left;
+    text-align: left;
+    color: #555;
+    outline: none;
+    width: 90%;
+    position: absolute;
+    top: 10px;
+    left: 5%;
+    color: black;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; }
+
+　::-webkit-input-placeholder { /* WebKit browsers */
+    　　color:#aaa;
+    　　}
+　　:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    　　color:#aaa;
+    　　}
+　　::-moz-placeholder { /* Mozilla Firefox 19+ */
+    　　color:#aaa;
+    　　}
+　　:-ms-input-placeholder { /* Internet Explorer 10+ */
+    　　color:#aaa;
+    　　}
+.cptext { display: none; text-align: center; color: white; font-size: 16px;   height: 25px;}
+.button,.button-href {display: block; background-color: #ccc; border-radius: 30px; margin-top: 13px; text-align: center; line-height: 40px; color: black; font-weight: bold; font-size: 18px;}
+.button.ybttm,.button-href  { background-color: #ffbc2d;}
+.coupon-href { color: white; font-size: 14px; text-decoration: underline; display: inline-block; margin-top: 20px; }
+.coupon-href:link,.coupon-href:visited,.coupon-href:hover,.coupon-href:active { color: white;}
+.button-href { display: none; }
+.cf-text { display: none;  width: 90%; margin: 15px auto 0px; text-align: left; color: white; font-size: 12px; }
+.button-href:link,.button-href:visited,.button-href:hover,.button-href:active { color: black;}
+.prototcol {  max-width: 414px; margin: 0 auto; padding-bottom: 40px; background:#a52e2e url(../images/carshow-protocol-bg.png) no-repeat top; background-size:contain; }
+.prototcol .pt-cont { padding-top: 26%; padding-bottom: 40px; font-size: 14px; color: white;  width: 78%; margin: 0px auto;}
+.prototcol .title { padding-bottom: 10px; text-align: center; font-size: 16px; text-align: center;}
+.pt-text { margin-top: 20px;}
+.tel { position: absolute; display: inline-block; width: 28.9333%;  top: 55.8%; left: 14.6%; height: 12px;}
+.website {position: absolute; display: inline-block; width: 30.9333%;  top:55.8%;right: 14.66%; height: 12px;}
+

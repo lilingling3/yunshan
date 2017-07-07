@@ -1,0 +1,222 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td{margin: 0; padding: 0;}
+table {border-collapse: collapse;border-spacing: 0;}
+th { font-weight:normal;}
+body{margin:0 auto; font:14px "Microsoft YaHei"; color:#000; font-family:"Microsoft YaHei";}
+input { font:14px "Microsoft YaHei"; text-indent:4px;*text-indent:0px; font-family:"Microsoft YaHei"; color:#999;outline: none;}
+textarea,input{word-wrap:break-word; word-break:break-all; padding:0px;}
+ul,li{list-style-type:none;}
+input,button,select,textarea{outline:none;}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+}
+.wrap{
+    width: 100%;
+    padding: 16px;
+    min-width: 768px;
+    background-color: #2e3138;
+    margin: 0 auto;
+    font-size: 12px;
+    color: #d8d9da;
+}
+
+.yellow{
+    color: #ffd800;
+}
+.content{
+    background-color: #444953;
+}
+.form-group{
+    margin-left: 5px;
+}
+
+.top{
+    padding: 15px;
+}
+.top select,input{
+    height: 30px;
+    background-color: #2e3138;
+    color: #7b7e84;
+    border: none;
+    font-size: 14px;
+}
+.top select{
+    padding: 5px 15px;
+}
+.top input{
+    padding: 0 0 0 4px;
+}
+.top .form-group:nth-child(2)>input{
+    width: 100px;
+}
+
+.car-info{
+    margin-top: 65px;
+    position: relative;
+}
+
+.car-info .car-img{
+    position: absolute;
+    top: -40px;
+    left: 15px;
+}
+.car-info img{
+    width: 40%;
+}
+
+.car-info .car-text li{
+    float: left;
+    padding:20px 16px;
+}
+.car-info .car-text:after{
+    content: '';
+    display: table;
+    clear: both;
+}
+.car-info .car-text{
+    margin-left: 25%
+}
+.car-info .car-text span{
+    display:block;
+}
+.car-data{
+    margin-top: 35px;
+}
+.car-data .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+    color: #fff;
+    cursor: default;
+    background-color: #444953;
+    border:1px solid #444953;
+}
+.car-data a {
+    color: #686b71;
+    text-decoration: none;
+    background: #23252b;
+}
+
+.car-data .nav-tabs {
+    border-bottom: 1px solid #444953;
+    background: #2e3138;
+}
+
+#myTabContent table{
+    width: 98%;
+    max-width: 100%;
+    margin-left: 9px;
+    margin-bottom: 0;
+}
+#myTabContent table>tr{
+    padding-left:20px;
+}
+#myTabContent .table > thead > tr > th,
+.table > tbody > tr > td{
+    border-bottom: 1px solid #60646c;
+    height: 40px;
+    line-height: 40px;
+}
+#myTabContent .table > tbody > tr:last-child>td{
+    border-bottom: none;
+}
+#car-control .table > tbody > tr>td:last-child{
+    text-align: center;
+}
+#car-control .table > thead > tr > th:last-child{
+    text-align: center;
+}
+.reset-btn{
+    color: #686b71;
+    background: #23252b;
+    border: none;
+}
+#myTabContent button{
+    font-size: 12px;
+}
+.header-text{
+    color: #686b71;
+}
+#history{
+    margin-top: 13px;
+    word-wrap: break-word;
+}
+#history span{
+    display: inline-block;
+    width: 62px;
+    height: 25px;
+    background: url(../../images/activity_car_info_btn.png) no-repeat;
+    background-size: cover;
+    text-align: center;
+    line-height: 25px;
+    margin-left: 8px;
+}
+/*#history span:first-child{*/
+/*background: url("../images/activity_car_info_car_btn2.png") no-repeat;*/
+/*background-size: cover;*/
+/*}*/
+#history span.spanClick{
+    background: url("../../images/activity_car_info_car_btn2.png") no-repeat;
+    background-size: cover;
+}
+#history span.spanRed{
+    color: red;
+}
+#runningField tr:first-child>td{
+    border-top:1px solid #60646c;;
+}
+#runningField tr>td{
+    text-align: left;
+}
+#data-reading .table{
+    margin-top: 13px;
+}
+
+#data-reading .table tr>td:nth-child(odd){
+    width: 11%;
+    /*border: 1px solid red;*/
+    padding-left: 0.2rem;
+}
+#data-reading .table tr>td:nth-child(even){
+}
+#data-reading .table tr>td:nth-child(5){
+    width: 15%;
+}
+#map-td{
+    position: relative;
+}
+#map{
+    position: absolute;
+    border: none;
+    width: 15px;
+    height: 18px;
+    background-color: transparent;
+}
+#map-div{
+    position: relative;
+    vertical-align: text-bottom;
+    display: inline-block;
+    width: 15px;
+    height: 18px;
+    background: url(../../images/activity_car_info_map-icon.png) no-repeat;
+    background-size: cover;
+    overflow: hidden;
+}
+#myModal{
+    position: absolute;
+}
+#myModal .modal-dialog{
+    margin-top: 135px;
+    height: 380px;
+}
+
+#mapContainer{
+    margin-top: 2rem;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: rgb(252, 249, 242);
+}

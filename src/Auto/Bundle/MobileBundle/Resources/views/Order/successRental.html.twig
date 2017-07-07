@@ -1,0 +1,37 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order', 'show'] %}
+{% block content %}
+    {% include "AutoMobileBundle:Order:_car.html.twig" %}
+
+
+
+   <div class="price">
+       <div class="title">
+           <div class="line tb-center"></div>
+           <span class="title-t tblr-center">支付成功</span>
+       </div>
+       <div class="cont">
+           <p><span class="reality">{{ rentalOrder.costDetail.cost|default(0) }}</span><span class="yuan">元</span></p>
+           <p><a class="check" href="{{ path('auto_mobile_rental_order_detail',{id:rentalOrder.orderID}) }}"><span>查看详情 | <a class="check" href="{{ path('auto_mobile_index') }}">返回首页</a></span></a></p>
+       </div>
+
+       <div class="inner">
+           
+           <div class="row-cont">
+               <p>实付<span class="momney">{{ rentalOrder.amount|default(0) }}元</span></p>
+           </div>
+       </div>
+   </div>
+
+    <div class="phone">
+        客服专线(8:30~23:00)：<a class="mobile" href="tel:400-111-8220"><span>400-111-8220</span></a>
+    </div>
+
+
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -1,0 +1,70 @@
+_auto_api_station:
+    resource: @AutoApiBundle/Controller/StationController.php
+    type:     annotation
+_auto_api_rental_car:
+    resource: @AutoApiBundle/Controller/RentalCarController.php
+    type:     annotation
+_auto_api_order:
+    resource: @AutoApiBundle/Controller/OrderController.php
+    type:     annotation
+_auto_api_illegal_record:
+    resource: @AutoApiBundle/Controller/IllegalRecordController.php
+    type:     annotation
+_auto_api_coupon:
+    resource: @AutoApiBundle/Controller/CouponController.php
+    type:     annotation
+_auto_api_account:
+    resource: @AutoApiBundle/Controller/AccountController.php
+    type:     annotation
+_auto_api_pay:
+    resource: @AutoApiBundle/Controller/PayController.php
+    type:     annotation
+_auto_api_car:
+    resource: @AutoApiBundle/Controller/CarController.php
+    type:     annotation
+_auto_api_message:
+    resource: @AutoApiBundle/Controller/MessageController.php
+    type:     annotation
+_auto_api_operator:
+    resource: @AutoApiBundle/Controller/OperatorController.php
+    type:     annotation
+_auto_api_remind:
+    resource: @AutoApiBundle/Controller/RemindController.php
+    type:     annotation
+_auto_api_activity:
+    resource: @AutoApiBundle/Controller/ActivityController.php
+    type:     annotation
+_auto_api_invoice:
+    resource: @AutoApiBundle/Controller/InvoiceController.php
+    type:     annotation
+_auto_api_recharge:
+    resource: @AutoApiBundle/Controller/RechargeController.php
+    type:     annotation
+_auto_api_sport_member_activity:
+    resource: @AutoApiBundle/Controller/SportMemberActivityController.php
+    type:     annotation
+_auto_api_deposit:
+    resource: @AutoApiBundle/Controller/DepositController.php
+    type:     annotation
+_auto_api_partner:
+    resource: @AutoApiBundle/Controller/PartnerController.php
+    type:     annotation
+_auto_api_insurance:
+    resource: @AutoApiBundle/Controller/InsuranceController.php
+    type:     annotation
+_auto_api_invite:
+    resource: @AutoApiBundle/Controller/InviteController.php
+    type:     annotation
+_auto_api_qiniu:
+    resource: @AutoApiBundle/Controller/QiniuController.php
+    type:     annotation
+_auto_api_zhima:
+    resource: @AutoApiBundle/Controller/ZhiMaController.php
+    type:     annotation
+_auto_api_zhima_xinyong:
+    resource: @AutoApiBundle/Controller/ZhimaXinyongController.php
+    type:     annotation
+
+_auto_api_fastdfs:
+    resource: @AutoApiBundle/Controller/FastDFSController.php
+    type:     annotation

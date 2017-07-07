@@ -1,0 +1,68 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['area', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'投票列表'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>投票名称</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for vote in votes %}
+                     <tr>
+                         <td>{{ vote.name }}</td>
+                         <td><small><a href="{{ path('auto_admin_vote_option_new',{id:vote.id})
+                                 }}">添加选项</a></small></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_vote_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">投票列表 </a>
+                 <a class="item" href="{{ path('auto_admin_vote_new') }}">添加投票 </a>
+
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

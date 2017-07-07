@@ -1,0 +1,72 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>车型名称</label>
+        {{ form_widget(form.car,{'attr': {'placeholder':'车型','class':'ui dropdown' }} ) }}
+    </div>
+
+    <div class="fields">
+
+        <div class="eight wide field">
+            <label>省份/直辖市</label>
+            <select class="ui dropdown" id="country" data-cascading="#{{ form.area.vars.id }}" data-src="{{ path('auto_admin_area_two_cascading') }}"></select>
+        </div>
+
+
+        <div class="eight wide field">
+            <label>城市</label>
+            {{ form_widget(form.area, {attr: {class: 'ui dropdown', 'data-value': form.area.vars.value}}) }}
+        </div>
+
+    </div>
+
+    <div class="fields">
+
+        <div class="eight wide field">
+            <label>定价名称</label>
+            {{ form_widget(form.name,{'attr': {'placeholder':'请输入定价名称'}} ) }}
+        </div>
+        <div class="eight wide field">
+            <label>权重</label>
+            {{ form_widget(form.weight,{'attr': {'class':'ui dropdown'}} ) }}
+        </div>
+    </div>
+
+    <div class="fields">
+
+        <div class="eight wide field">
+            <label>{{ form_label(form.startTime) }}</label>
+            {{ form_widget(form.startTime,{'attr': {'placeholder':'开始日期'}} ) }}
+        </div>
+        <div class="eight wide field">
+            <label>{{ form_label(form.endTime) }}</label>
+            {{ form_widget(form.endTime,{'attr': {'placeholder':'结束日期'}} ) }}
+        </div>
+    </div>
+
+
+
+
+
+    <div class="fields">
+
+        <div class="eight wide field">
+            <label>{{ form_label(form.minHour) }}</label>
+            {{ form_widget(form.minHour,{'attr': {'placeholder':'最小时间'}} ) }}
+        </div>
+        <div class="eight wide field">
+            <label>{{ form_label(form.maxHour) }}</label>
+            {{ form_widget(form.maxHour,{'attr': {'placeholder':'最大时间'}} ) }}
+        </div>
+
+    </div>
+
+
+    <div class=" field">
+        <label>价格（元/分）</label>
+        {{ form_widget(form.price,{'attr': {'placeholder':'请输入价格'}} ) }}
+    </div>
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">保存</button>
+</div>
+{{ form_end(form) }}

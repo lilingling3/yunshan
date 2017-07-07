@@ -1,0 +1,90 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['rental_order', 'show'] %}
+{% block content %}
+    <div class="top-menu">
+        行程详情
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+        <span><a  href="javascript:window.location.reload();"class="refresh"><b></b></a></span>
+    </div>
+    
+    
+		<div class="rental-info order-status-car order-status{{ rentalOrder.status }}">
+
+            {% include "AutoWapBundle:Order:_car.html.twig" %}
+        
+    </div>
+
+
+    <div class="order-info order-info1 order-status{{ rentalOrder.status }}">
+        {% include "AutoWapBundle:Order:_order.html.twig" %}
+        <div class="row">
+            <div class="column">
+                取车时间
+                <p>
+                    {{ rentalOrder.useTime and rentalOrder.useTime!=0 ? rentalOrder.useTime:'-' }}
+                </p>
+            </div>
+            <div class="column">
+
+                还车时间
+                <p>
+                    {{ rentalOrder.endTime and rentalOrder.endTime!=0 ? rentalOrder.endTime:'-' }}
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="rental-price rental-pay-price">
+        <div class="row" id="rental-cost">
+            {% include "AutoWapBundle:Order:_cost.html.twig" %}
+
+        </div>
+    </div>
+
+
+    <!--支付的时候显示的--->
+        <div class="rental-coupon">
+            <div class="row">
+
+                <div class="left">
+
+                    优惠券
+
+                </div>
+                <div class="right">
+
+
+                    {% if coupon %}
+                    <span class="use-coupon">{{ coupon.kind.amount }}元优惠券</span>
+                        <a class="change-coupon" href="{{ path('auto_wap_rental_order_change_coupon',{'id':rentalOrder.orderID,'couponId': coupon.id})}}">[更改]</a>
+                    {% else %}
+
+        {% if coupon_status ==0 %}
+            <span class="use-coupon">当前没有可用优惠券</span>
+        {% endif %}
+
+                    {% if coupon_status ==-1 %}
+                        <span class="use-coupon">未使用优惠券</span> <a class="change-coupon" href="{{ path('auto_wap_rental_order_change_coupon',{'id':rentalOrder.orderID})}}">[更改]</a>
+                    {% endif %}
+{% endif %}
+                </div>
+            </div>
+
+        </div>
+	   <div class="car-button">
+
+           <form action="{{ path('auto_wap_pay_order_fee',{id:rentalOrder.orderID}) }}" method="get">
+               <input name="coupon" type="hidden" value="{% if coupon %}{{ coupon.id }}{% endif %}" >
+          <button class="pay" type="submit" user-data="{{ app.user.token }}" order-data="{{ rentalOrder.orderID }}">实付{% if coupon %} {{ rentalOrder.costDetail.cost-coupon.kind.amount>0?rentalOrder.costDetail.cost-coupon.kind.amount:0 }}元{% else
+          %}{{ rentalOrder
+             .costDetail.cost }}元{% endif %}</button>
+
+        </form>
+    </div>
+
+{% endblock %}

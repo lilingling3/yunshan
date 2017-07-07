@@ -1,0 +1,73 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['regioninspection', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'车检'} %}
+     <div class="ui main-content grid">
+         <div class="ui bottom attached segment bk_gray no_border" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_region_inspection_new') }}">添加车检记录 </a>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车牌号码</th>
+                     <th>车检到期时间</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for inspection in inspections %}
+                     <tr>
+                         <td>{{ inspection.rentalCar.license }}</td>
+                         <td>{{ inspection.inspectionTime|date('Y-m-d') }}</td>
+                         <td><a href="{{ path('auto_admin_region_inspection_edit',{'id':inspection.id}) }}"><small>编辑</small></a>|<a href="{{ path('auto_admin_region_inspection_delete',{'id':inspection.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_region_inspection_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

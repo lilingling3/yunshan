@@ -1,0 +1,116 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+{% set page_id  = ['order', 'show'] %}
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        body {
+            position: relative;
+            height: 100%;
+        }
+        .overhide {
+            overflow: hidden;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    {% include "AutoMobileBundle:Order:_car.html.twig" %}
+    <div class="price">
+
+        <div class="cont">
+            <p><span class="reality">{{ rentalOrder.costDetail.cost|default(0) }}</span><span class="yuan">元</span></p>
+            <p><a class="check" href="{{ path('auto_mobile_rental_order_detail',{id:rentalOrder.orderID}) }}"><span>查看详情 | <a class="check" href="{{ path('auto_mobile_index') }}">返回首页</a></span></a></p>
+        </div>
+
+        <div class="inner">
+            <div class="row-cont">
+                <p>
+                    <span class="{% if  maxcoupon %} couponbtn {% else %}couponbtntitle  {% endif %}">
+                   
+                        优惠券
+                    </span>
+                    {% if maxcoupon %}
+                    <span class="momney usecoupon ">
+                        <b>-<span class="couponnum">{{ maxcoupon.amount|default(0) }}</span></b>元
+                        <span class="changecoupon">[更改]</span>
+                    </span>
+                    {% endif %}
+
+                    <span class="fr nousecoupon {% if maxcoupon %} hide{% else %} nomaxcoupon {% endif %} ">{% if maxcoupon %}不使用 <span class="changecoupon">[更改]</span>{% else %}暂无{% endif %}</span>
+                </p>
+            </div>
+                                   
+             <div class="row-cont">
+                <p >
+                    <span class="wcontbtntitle {% if maxWalletAmount %}wcontbtn {% endif %}">
+                        {% if maxWalletAmount %}
+                        <span class="checkicon {% if maxWalletAmount>0  %}check{% endif %} wconticon">
+                            <img src="{{ asset('/bundles/automobile/images/check.png') }}" />
+                        </span>
+                        {% endif %}
+                        账户余额({{ app.user.wallet|default(0) }}元)
+                    </span>
+                    {% if maxWalletAmount %}
+                    <span class="momney usewcont"><b>-<span class="walletAmountCont">{{ maxWalletAmount|default(0) }}</span></b>元</span>
+                    <span class="fr nousewcont  {% if maxWalletAmount %}hide{% endif %}">不使用</span>
+                    {% endif %}
+                </p>
+            </div>
+         
+
+        </div>
+    </div>
+
+    <div class="pay-cont">
+        <div class="paybtn">需支付<span class="needpayamount"></span>元</div>
+        <p class="paylater"><a href="{{ path('auto_mobile_rental_order_list') }}"><span>稍后支付</span></a></p>
+    </div>
+
+
+    <div class="phone">
+        客服专线(8:30~23:00)：<a class="mobile" href="tel:400-111-8220"><span>400-111-8220</span></a>
+    </div>
+
+
+    <div class="divlayer"></div>
+
+    <form id="orderpayform" action="{{ path('auto_mobile_pay_order_fee',{id:rentalOrder.orderID}) }}" method="get">
+        <input name="orderCost" type="hidden" id="orderCost" value="{{ rentalOrder.costDetail.cost }}" >
+        <input name="maxWalletAmount" type="hidden" id="maxWalletAmount" value="{{ maxWalletAmount|default(0) }}" >
+        <input name="wallet" type="hidden" id="useWalletAmount" value="" >
+        <input name="orderID" type="hidden" id="orderID" value="{{ rentalOrder.orderID }}" >
+        <input name="userID" type="hidden" id="userID" value="{{ app.user.token }}" >
+        <input name="coupon" type="hidden" id="couponID" amount="{{ maxcoupon.amount|default(0) }}" value="{{ maxcoupon.couponID|default(0) }}" >
+        <input name="oldcoupon" type="hidden" id="oldcoupon" amount="{{ maxcoupon.amount|default(0) }}" value="{{ maxcoupon.couponID|default(0) }}" >
+
+
+    </form>
+
+    <div class="couponlist" >
+
+        <div class="title">选择优惠券
+            <div class="close-cont">
+                <span class="close"></span>
+                <img src="{{ asset('/bundles/autowap/images/2.0-close.png') }}"/>
+            </div>
+        </div>
+        <div class="list-cont">
+            <div class="lists">
+
+
+            </div>
+            <div class="addmore-cont addmorecoupon">
+                点击加载
+            </div>
+        </div>
+        <div class="unuse-cont">
+            <div class="unuse unusecoupon">
+                土豪不用优惠券
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

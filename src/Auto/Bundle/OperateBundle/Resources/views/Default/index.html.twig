@@ -1,0 +1,126 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['default','index'] %}
+
+{% block content %}
+    <div class="top-menu">
+        运营首页
+        <a href="{{ path('auto_operate_logout') }}" class="left-cont">退出</a>
+        <span><a href="javascript:window.location.reload();" class="refresh">刷新</a></span>
+    </div>
+
+
+        <div class="member-info">
+         {#   <a href="{{ path('auto_operate_account_auth') }}" class="href-a"> </a>#}
+            <div class="portrait"><img src="/bundles/autooperate/images/tou1.png" width="50px"> </div>
+            <div class="detail user">
+                <h4>{{app.user.name}}</h4>
+                <p>{{app.user.mobile}}</p>
+                <p class="forget-pass"><a href="{{ path('auto_operate_forget',{"id":1}) }}"><span class="color-green">修改密码</span></a></p>
+            </div>
+
+        </div>
+
+    <div class="member-li ">
+        <li>
+            <div class="innner-cont">
+                <div class="inner clearfix">
+                    <a href="{{ path("auto_operate_rental_payorder_list") }}" class="href-block">
+                    <div class="icon"></div>
+                    <p>待支付订单</p>
+                    <p>{{ rentalCar.noPayOrderCount|default(0) }}</p>
+                    </a>
+                </div>
+                <div class="inner clearfix">
+                    <a href="{{ path("auto_operate_rental_backorder_list") }}" class="href-block">
+                    <div class="icon"></div>
+                    <p>超时未还车</p>
+                    <p>{{ rentalCar.outTimeOrderCount|default(0) }}</p>
+                    </a>
+                </div>
+                <div class="inner clearfix">
+                    <a href="{{ path("auto_operate_illegal_list") }}" class="href-block">
+                    <div class="icon"></div>
+                    <p>待处理违章</p>
+                    <p>{{ rentalCar.illegalCount|default(0) }}</p>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </div>
+
+    <div class="member-li">
+        <li>
+            <div class="innner-cont innner-cont2">
+                <div class="inner">
+                    <a href="{{ path("auto_operate_station_list") }}" class="href-block">
+                        <div class="text">
+                            <p>负责租赁点</p>
+                            <p>{{ rentalCar.stationCount|default(0) }}</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="inner">
+                    <a href="{{ path("auto_operate_car_search") }}" class="href-block">
+                    <div class="text">
+                        <p>负责车辆</p>
+                        <p>{{ rentalCar.rentalCarCount|default(0) }}</p>
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </li>
+    </div>
+    <div class="member-li">
+        <li>
+            <div class="innner-cont innner-cont2">
+                <div class="inner">
+                    <a href="{{ path("auto_operate_overload_station_list") }}" class="href-block">
+                        <div class="text">
+                            <p>临停租赁点</p>
+                            <p>{{ rentalCar.overloadRentalStationCount|default(0) }}</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="inner">
+                    <a href="{{ path("auto_operate_empty_station_list") }}" class="href-block">
+                        <div class="text">
+                            <p>无车租赁点</p>
+                            <p>{{ rentalCar.emptyRentalStationCount|default(0) }}</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="innner-cont innner-cont2">
+                <div class="inner">
+                    <a href="{{ path("auto_operate_search_license") }}" class="href-block">
+                        <div class="text">
+                            <p>车辆搜索</p>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="inner" style="visibility: hidden;"></div>
+            </div>
+        </li>
+    </div>
+{% if rentalCar.brokenCars|default() %}
+
+    <div class="member-li brokenCars">
+        <p class="title">设备异常车辆表</p>
+        {% for brokenCar in  rentalCar.brokenCars %}
+            <div class="list">
+                <a href="{{ path("auto_operate_rental_car_show",{'id':brokenCar.rentalCarID}) }}" class="ahref"></a>
+                <span class="car ">{{ brokenCar.license }}</span>
+               {% if brokenCar.online==0 %}
+                    <span class="status off">已下线</span>
+                {% else %}
+                    <span class="status off">已上线</span>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['statistics', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'固定数据统计'} %}
+     <div class="ui main-content grid">
+         <div class="fifteen  wide column">
+             <form action="{{ path("auto_admin_statistics_search") }}"  method="post">
+                 <table class="ui very basic table">
+                     <thead >
+                     <tr>
+                         <th>开始时间</th>
+                         <th>结束时间</th>
+
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td >
+                             <input class=" time_input starttime" type="text" id="J-xl" name="starttime" placeholder="开始时间" value="{{ starttime }}"> 23:59:59
+                         </td>
+
+                         <td >
+                             <input class=" time_input endtime" type="text" id="J-xl2" name="endtime" placeholder="结束时间" value="{{ endtime }}"> 23:59:59
+
+                         </td>
+                         <td>
+                             <button class="ui teal button amount_submit " type="submit" >提交</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <script>
+                     var start = {
+                         elem: '#J-xl',
+                         format: 'YYYY-MM-DD', //日期格式
+                         max: laydate.now(-1),
+                         choose: function(datas){
+                             end.min = datas; //开始日选好后，重置结束日的最小日期
+                             end.start = datas //将结束日的初始值设定为开始日
+                         }
+                     }
+                     var end = {
+                         elem: '#J-xl2',
+                         format: 'YYYY-MM-DD', //日期格式
+                         max: laydate.now(-1),
+                         choose: function(datas){
+                             start.max = datas; //结束日选好后，重置开始日的最大日期
+                         }
+                     }
+                     laydate(start);
+                     laydate(end);
+                 </script>
+             </form>
+
+             {% if starttime or endtime %}
+             <h4 class="ui horizontal divider header"><i class="tag icon"></i> 时间段数据|{{ starttime|date('Y年m月d日') }} 至 {{ endtime|date('Y年m月d日') }} </h4>
+             <table class="ui teal table" style="margin-bottom: 0px">
+                 <thead>
+                 <tr>
+                     <th>注册用户</th>
+                     <th>提交认证用户</th>
+                     <th>审核通过用户</th>
+                     <th>充值用户</th>
+                     <th>充值金额</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td> {{ endAmount.registMembers-startAmount.registMembers }}</td>
+                     <td> {{ endAmount.authMembers-startAmount.authMembers }}</td>
+                     <td> {{ endAmount.verifiedMembers-startAmount.verifiedMembers }}</td>
+                     <td> {{ endAmount.rechargeMembers-startAmount.rechargeMembers }}</td>
+                     <td> {{ endAmount.actualRecharges-startAmount.actualRecharges }}</td>
+                 </tr>
+                 </tbody>
+             </table>
+             <table class="ui teal table" style="margin-top: 0px !important;border-top: 0px;">
+                 <thead>
+                 <tr>
+                     <th>生成订单</th>
+                     <th>已取消订单</th>
+                     <th>应收费用（元）</th>
+                     <th>优惠券抵用金额（元）</th>
+                     <th>实收费用（元）</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td> {{ endAmount.orders-startAmount.orders }}</td>
+                     <td> {{ endAmount.cancelOrders-startAmount.cancelOrders }}</td>
+                     <td> {{ endAmount.dueAmount-startAmount.dueAmount }}</td>
+                     <td> {{ endAmount.couponAmount-startAmount.couponAmount }}</td>
+                     <td> {{ endAmount.actualAmount-startAmount.actualAmount }}</td>
+                 </tr>
+                 </tbody>
+             </table>
+             {% else %}
+                 <h4 class="ui horizontal divider header"><i class="tag icon"></i> 累计数据|全部(昨天23:59:59之前) </h4>
+                 <table class="ui teal table" style="margin-bottom: 0px">
+                     <thead>
+                     <tr>
+                         <th>注册用户</th>
+                         <th>提交认证用户</th>
+                         <th>审核通过用户</th>
+                         <th>充值用户</th>
+                         <th>充值金额</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td> {{ amount.registMembers }}</td>
+                         <td> {{ amount.authMembers }}</td>
+                         <td> {{ amount.verifiedMembers }}</td>
+                         <td> {{ amount.rechargeMembers }}</td>
+                         <td> {{ amount.actualRecharges }}</td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <table class="ui teal table" style="margin-top: 0px !important;border-top: 0px;">
+                     <thead>
+                     <tr>
+                         <th>生成订单</th>
+                         <th>已取消订单</th>
+                         <th>应收费用（元）</th>
+                         <th>优惠券抵用金额（元）</th>
+                         <th>实收费用（元）</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td> {{ amount.orders }}</td>
+                         <td> {{ amount.cancelOrders }}</td>
+                         <td> {{ amount.dueAmount }}</td>
+                         <td> {{ amount.couponAmount }}</td>
+                         <td> {{ amount.actualAmount }}</td>
+                     </tr>
+                     </tbody>
+                 </table>
+             {% endif %}
+
+           </div>
+     </div>
+
+ {% endblock %}
+                                                                                                       

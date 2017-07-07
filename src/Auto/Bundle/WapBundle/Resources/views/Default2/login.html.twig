@@ -1,0 +1,38 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default2', 'login'] %}
+{% block content %}
+    <div class="top-menu">
+        登录1111
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+    </div>
+
+    <form action="{{ path('auto_wap_check') }}" method="post">
+
+        <div class="login-form">
+            <li>
+                <div class="in-cont">
+                    <input type="text" class="text" name="_mobile"  required  placeholder="请输入手机号">
+                </div>
+            </li>
+            <li>
+                <div class="in-cont">
+                    <input type="password" class="text" name="_password" required placeholder="请输入密码">
+                </div>
+            </li>
+            {% if error %}<div class="login-error"> 手机号或密码错误</div>{% endif %}
+
+        </div>
+
+        <div class="submit-button">
+            <div class="row">
+                <button type="submit" class="login-in">登录</button>
+            </div>
+
+            <div class="row">
+                <a class="login-btn" href="{{ path('auto_wap_codelogin2') }}">验证码登录</a>
+
+            </div>
+
+        </div>
+    </form>
+{% endblock %}

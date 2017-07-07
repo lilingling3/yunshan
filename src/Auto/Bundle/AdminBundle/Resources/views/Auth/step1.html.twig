@@ -1,0 +1,43 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['auth', 'step1'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/jquery.jqzoom.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/lrtk.js') }}"></script>
+    {{ parent() }}
+    <style>
+        #zoom3 .MagicZoomBigImageCont {
+            margin-left: -784px;
+
+        }
+    </style>
+{% endblock %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'审核','prenav':'新用户认证'} %}
+     {{ form_start(form) }}
+
+     {% include "AutoAdminBundle:Auth:_auth.html.twig" %}
+
+     <div class="ui main-content grid" style="margin-top: 0px;">
+     <div class="wide column" >
+             <div class="ui grid {{ authinfo.status }}">
+
+                 <div class="five wide column">
+                     {{ form_widget(form.idImageAuthError,{'attr': {'class':'ui dropdown wd'}} ) }}
+                 </div>
+                 <div class="five wide column">
+                     {{ form_widget(form.licenseImageAuthError,{'attr': {'class':'ui dropdown wd'}} ) }}
+                 </div>
+                 <div class="five wide column">
+                     {{ form_widget(form.idHandImageAuthError,{'attr': {'class':'ui dropdown wd'}} ) }}
+                 </div>
+             </div>
+     </div>
+     </div>
+     <a href="{{ path('auto_admin_authmember_auth_list') }}">
+         <sapn class="ui teal button" style="margin:26px 76px;">返回</sapn>
+     </a>
+     <button class="ui teal button auth_submit" style="margin:26px 76px;">提交</button>
+
+
+     {{ form_end(form) }}
+ {% endblock %}

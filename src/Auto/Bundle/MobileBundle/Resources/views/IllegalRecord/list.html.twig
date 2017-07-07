@@ -1,0 +1,63 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+{% set page_id  = ['illegalRecord', 'list'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        html,body {
+            height: 100%;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="rules_cont">
+        {% if not illegals %}
+            <div class="show_info">好厉害，您没有违章^_^</div>
+        {% endif %}
+        {% for illegal in illegals %}
+            <a href="{{ path('auto_mobile_illegalRecord_show',{'id':illegal.illegalRecordID}) }}">
+                <div class="rules_li {% if not illegal.handleTime  %} unhandle {% endif %}" >
+                    <div class="row row-top">
+                        <p class="b">
+                            {{ illegal.createTime|date('Y/m/d') }}
+                            {% if illegal.handleTime  %}
+                                <span class="status-handle">已处理</span>
+                            {% else%}
+                                <span class="status-unhandle"><span class="triangle"></span>未处理</span>
+                            {% endif %}
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="column">
+                            <div class="item">
+                                <p>车牌</p>
+                                {{ illegal.rentalCar.license }}
+
+                            </div>
+
+                            <div class="item">
+                                <p>车型</p>
+                                {{ illegal.rentalCar.car.name }}
+
+                            </div>
+
+                            <div class="item">
+                                <p>积分/罚款</p>
+                                <span class="color-red" >{{ illegal.illegalScore|default('0')  }}</span>分&nbsp;
+                                <span class="color-red" >{{ illegal.illegalAmount|default('0')  }}</span>元
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    {% if pageCount>1 %}
+        <div class="morebtn"  user="{{ app.user.token }}">
+            加载更多
+        </div>
+    {% endif %}
+
+{% endblock %}

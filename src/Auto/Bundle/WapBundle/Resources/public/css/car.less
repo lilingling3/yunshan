@@ -1,0 +1,339 @@
+@import "parameter";
+#page.car.list {
+  .member-li {
+    background-color: #fff;
+    margin-top: 10px;
+    a:first-child li{
+      border-top: 1px solid @color-gray;
+    }
+    li {
+
+      position: relative;
+      list-style: none;
+      border-bottom: 1px solid @color-gray;
+      height: 44px;
+      vertical-align: middle;
+      padding-left: 1.5rem;
+      padding-top: 3px;
+      line-height: 44px;
+      color: #000;
+      b{
+        position: absolute;
+        right: 10px;
+        top:10px;
+        background:url("../images/ligo.png") no-repeat 0px 5px;
+        width: 17px;
+        height: 30px;
+
+        background-size: 10px 20px;
+      }
+    }
+  }
+}
+
+#page.car.foton,#page.car.jac {
+  font-size: 20px;
+ .container {
+   overflow: hidden;
+  .car-inner {
+    width: 98%;
+    margin: 5px auto;
+    img {
+      width: 100%;
+    }
+  }
+   .car-info {
+     overflow: hidden;
+    .title {
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      padding: 0px 10px;
+      background-color: #56bcaf;
+      color: white;
+      font-size: 80%;
+      span {
+        font-size: 60%;
+      }
+    }
+     .info-list {
+       margin: 5px 4%;
+       .list-row {
+         width: 100%;
+         position: relative;
+         .row-l,.row-r {
+           width: 50%;
+           float: left;
+           .icon {
+             float: left;
+             display: inline-block;
+             width: 30px;
+             height: 30px;
+             background: url(../images/icon.png) no-repeat center;
+             background-size: 71px;
+             &.icon1 {background-position: 0px 2px; }
+             &.icon2 {background-position: -45px 2px; }
+             &.icon3 {background-position: 0px -31px; }
+             &.icon4 {background-position: -45px -31px; }
+             &.icon5 {background-position: 0px -64px; }
+             &.icon6 {background-position: -45px -64px; }
+             &.icon7 {background-position: 0px -97px; }
+             &.icon8 {background-position: -45px -97px; }
+             &.icon9 {background-position: 0px -130px; }
+             &.icon10 {background-position: -45px -130px; }
+           }
+           p{
+             line-height: 30px;
+             font-size: 70%;
+             color: black;
+           }
+           .info-img-cont {
+             position: relative;
+             width: 97%;
+             margin: 15px auto 5px;
+             overflow: hidden;
+             .img-num {
+               position: absolute;
+               width: 22px;
+               height: 22px;
+               line-height: 22px;
+               text-align: center;
+               color: white;
+               font-size: 60%;
+               background-color: #52b7be;
+             }
+             .info-img {
+               width: 100%;
+             }
+             .info-bottom {
+               width: 100%;
+               height: 30px;
+               background: url(../images/graybg.png) no-repeat center;
+               background-size: cover;
+               position: absolute;
+               bottom: 5px;
+               p {
+                 padding: 0px 2px;
+                 height: 30px;
+                 line-height: 30px;
+                 text-align: left;
+                 font-size: 60%;
+                 color: white;
+               }
+             }
+           }
+         }
+       .row-l{
+          .info-img-cont{
+            float: right;
+            right:3% ;
+          }
+       }
+         .row-r{
+           .info-img-cont{
+             float: left;
+             left: 3%;
+           }
+         }
+       }
+       .other-text {
+         margin: 10px auto;
+         p {
+           line-height: 30px;
+           font-size: 70%;
+           color: black;
+         }
+         .charging {
+           float: right;
+           position: relative;
+           margin-top: 10px;
+           p{
+             position: absolute;
+             bottom: 9px;
+             right: 85px;
+             width: 132px;
+             text-align: right;
+             font-size: 60%;
+           }
+           img {
+             width: 80px;
+             float: right;
+           }
+         }
+       }
+     }
+   }
+ }
+}
+
+
+
+
+#page.car.show{
+  background-color: white;
+  .container {
+    min-height: 100%;
+    position: relative;
+    margin: 0px auto;
+    width: 90%;
+    max-width: 640px;
+    padding-top: 30px;
+    overflow: hidden;
+    .top-cont {
+      height: 30px;
+      background: url(../images/instruction-top.png) no-repeat bottom left;
+      background-size: 50%;
+    }
+    .top-incont {
+      font-size: 16px;
+      text-align: left;
+      color: black;
+      margin: 10px 0px;
+      .title {
+        margin: 10px 0px 15px;
+        position: relative;
+        .circle {
+          color: #2bbfbf;
+          font-size: 20px;
+          margin: 0px 6px;
+        }
+      }
+      .img-cont {
+        width: 100%;
+        img {
+          width: 100%;
+        }
+      }
+    }
+
+
+    .car-cont {
+      position: relative;
+      padding-bottom: 30px;
+      color: black;
+      .left-line {
+        position: absolute;
+        width: 2px;
+        left: -1px;
+        height: 100%;
+        top: 10px;
+        z-index: 1001;
+        background: url(../images/car-line.png) repeat-y center;
+        background-size: 50%;
+      }
+
+      .car-incont {
+        .car-title {
+          margin: 20px 0px;
+          position: relative;
+          .greenl {
+            position: absolute;
+            display: inline-block;
+            width: 4px;
+            left: -2px;
+            top: 50%;
+            height: 14px;
+            transform: translate(0%,-50%);
+            -webkit-transform: translate(0%,-50%);
+            -ms-transform: translate(0%,-50%);
+            -moz-transform: translate(0%,-50%);
+            -o-transform: translate(0%,-50%);
+            z-index: 100;
+            img {
+              width: 100%;
+            }
+          }
+          p {
+            text-indent: 8px;
+            font-size: 16px;
+          }
+        }
+
+        .car-img {
+          width: 90%;
+          margin: 0px auto;
+          display: -ms-flexbox;
+          display: -webkit-box;
+          display: flex;
+          flex-flow: row;
+          display: -webkit-flex;
+          -webkit-flex-flow: row;
+          display: -moz-flex;
+          -moz-flex-flow: row;
+          display: -ms-flex;
+          -ms-flex-flow: row;
+          .col {
+            -webkit-box-flex: 1;
+            -moz-box-flex: 1;
+            flex: 1;
+            -webkit-flex: 1;
+            -moz-flex: 1;
+            -ms-flex: 1;
+            box-sizing: border-box;
+            .row {
+              position: relative;
+              .small-img {
+                width: 40px;
+                display: inline-block;
+                img {
+                  width: 100%;
+                }
+              }
+              p {
+                font-size: 12px;
+                color: black;
+                display: inline-block;
+                left: 43px;
+                position: absolute;
+                top: 50%;
+                transform: translate(0%,-50%);
+                -webkit-transform: translate(0%,-50%);
+                -ms-transform: translate(0%,-50%);
+                -moz-transform: translate(0%,-50%);
+                -o-transform: translate(0%,-50%);
+              }
+            }
+          }
+
+          &.big-icon{
+            .col:first-child {
+              margin-right: 10px;
+            }
+            .row:nth-child(2) {
+              margin-top: 10px;
+            }
+            .big-img {
+              width: 100%;
+              position: relative;
+              img {
+                width: 100%;
+                display: block;
+              }
+              .tag { display:block; width: 20px; height: 20px; line-height: 20px; text-align: center; color: white; position: absolute;
+                top: 6px; left: 6px;background: url(../images/graybg.png) ; background-size: cover; border-radius: 20px; }
+              .layer {
+                position: absolute;
+                width: 100%;
+                bottom: 0px;
+                left: 0px;
+                height: 30px;
+                background: url(../images/graybg.png) repeat;
+                z-index: 100;
+                color: white;
+                font-size: 12px;
+                text-align: left;
+                text-indent: 2px;
+                line-height: 30px;
+                word-break:keep-all;           /* 不换行 */
+                white-space:nowrap;          /* 不换行 */
+              }
+            }
+          }
+        }
+
+      }
+
+      .comment  { margin-left: 5%; margin-top: 10px }
+    }
+  }
+}

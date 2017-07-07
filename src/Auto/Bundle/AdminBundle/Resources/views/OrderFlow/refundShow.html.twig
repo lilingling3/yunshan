@@ -1,0 +1,43 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['recharge', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'充值活动'} %}
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <div class="ui form">
+                 <div class=" field">
+                     <label>手机号</label>
+                     {{ record.mobile }}
+                 </div>
+                 <div class=" field">
+                     <label>实退金额</label>
+                     {{ record.refundAmount }}
+                 </div>
+                 <div class=" field">
+                     <label>退扣余额</label>
+                     {{ record.chargeAmount }}
+                 </div>
+                 <div class=" field">
+                     <label>类型</label>
+                     {% if record.operateID == '4' %} 退款{% endif %}
+                     {% if record.operateID == '5' %} 扣款{% endif %}
+                 </div>
+                 <div class=" field">
+                    <label>操作人</label>
+                    {{ record.operator }}-{{ record.operatorMobile }}
+                 </div>
+                 <div class=" field">
+                     <label>备注信息</label>
+                     {{ record.remark }}
+                 </div>
+
+                 <a onclick="history.go(-1)" class="ui teal button">返回</a>
+                 <button class="ui teal button" type="submit">提交</button>
+             </div>
+         </div>
+
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,19 @@
+services:
+    auto_api.api_key_user_provider:
+        class:      Auto\Bundle\Api2Bundle\Security\ApiKeyUserProvider
+        arguments: [@doctrine.orm.entity_manager]
+
+    auto_api.apikey_authenticator:
+        class:     Auto\Bundle\Api2Bundle\Security\ApiKeyAuthenticator
+
+    auto_api.listener_access_denied:
+        class: Auto\Bundle\Api2Bundle\Security\ApiAccessDeniedException
+        tags:
+          - { name: kernel.event_listener, event: kernel.exception, method: onAccessDeniedException }
+
+    auto_api.controller_listener:
+        class: Auto\Bundle\Api2Bundle\Security\ApiControllerListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+
+

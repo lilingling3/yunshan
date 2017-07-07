@@ -1,0 +1,16 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['illegal', 'edit'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'编辑','prenav':'保养'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:RentalCar:upkeepForm.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

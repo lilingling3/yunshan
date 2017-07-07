@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>车牌号</label>
+        {{ rentalCar.license() }}
+    </div>
+
+
+    <div class=" field">
+        <label>{{ form_label(form.carStartId) }}</label>
+        {{ form_widget(form.carStartId,{'attr': {'placeholder':'carStart设备号','class':'ui'}} ) }}
+    </div>
+
+
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

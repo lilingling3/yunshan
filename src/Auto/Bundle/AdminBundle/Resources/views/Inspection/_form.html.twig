@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.rentalCar) }}</label>
+        {{ form_widget(form.rentalCar,{'attr': {'placeholder':'租赁车辆','class':'ui dropdown'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.inspectionTime) }}</label>
+        {{ form_widget(form.inspectionTime) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.remark) }}</label>
+        {{ form_widget(form.remark) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.nextInspectionTime) }}</label>
+        {{ form_widget(form.nextInspectionTime) }}
+    </div>
+
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

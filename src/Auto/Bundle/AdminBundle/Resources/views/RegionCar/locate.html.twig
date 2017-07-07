@@ -1,0 +1,66 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'locate'] %}
+
+{% block javascripts %}
+    <script src="https://webapi.amap.com/maps?v=1.3&key=b9d7491ba1d58fecf58d56ca808024a5"></script>
+    {{ parent() }}
+
+    <script>
+        var map = new AMap.Map('mapContainer', {
+            // 设置中心点
+
+            center: [{{ coordinate.0 }}, {{ coordinate.1 }}],
+
+            // 设置缩放级别
+            zoom: 16
+        });
+        //地图中添加地图操作ToolBar插件
+        map.plugin(["AMap.ToolBar"],function() {
+            var toolBar = new AMap.ToolBar();
+            map.addControl(toolBar);
+        });
+        var markers = [];
+
+        AMap.event.addDomListener(document.getElementById('clearMarker'), 'click', function() {
+            map.remove(markers);
+        }, false);
+
+        addMarker({{ coordinate.0 }},{{ coordinate.1 }});
+
+        function addMarker(lng,lat){
+
+            marker = new AMap.Marker({
+                icon:"/bundles/autoadmin/images/map-marker.png",
+                position:new AMap.LngLat(lng,lat)
+            });
+            marker.setMap(map);  //在地图上添加点
+            markers.push(marker);
+        }
+
+    </script>
+
+{% endblock %}
+{% block content %}
+    <div class="top-menu">
+        车辆定位
+        {#<a href="{{ path("auto_operate_station_list") }}"><b></b></a>#}
+
+    </div>
+
+    <div id="mapContainer" style="height: 500px; width: 100%; overflow: hidden" ></div>
+
+    {% if unusual ==1 %}
+        <h4><span>GPS异常获取：{{ time }}－GPS获取异常请重试</span></h4>
+    {% else %}
+        <h4>GPS正常获取：{{ time }}－GPS获取正常</h4>
+    {% endif %}
+
+
+    <button id="clearMarker">删除标记</button>
+    <div class="marks">
+    {% for location in locations %}
+
+        <li><a href="javascript:void(0)" onclick="addMarker({{ location.coordinate.0 }},{{ location.coordinate.1 }})">
+                {{ location.time|date('m-d H:i:s') }}</a></li>
+    {% endfor %}
+{% endblock %}

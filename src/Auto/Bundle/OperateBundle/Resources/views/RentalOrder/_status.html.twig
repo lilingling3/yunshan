@@ -1,0 +1,52 @@
+{% macro name(order) %}
+    {% if order.status==0 %}
+        已取消
+    {% endif %}
+    {% if order.status==1 %}
+        {% if order.useTime %}
+            已取车
+        {% else %}
+            未取车
+        {% endif %}
+
+    {% endif %}
+    {% if order.status==2 %}
+        已完成
+    {% endif %}
+    {% if order.status==3 %}
+        待付款
+
+    {% endif %}
+{% endmacro %}
+
+
+
+
+
+{% macro object(order) %}
+
+    {% if(order.cancelTime()) %}
+     已取消
+    {% else %}
+
+        {% if(order.useTime()) %}
+            {% if order.endTime %}
+                {% if order.payTime %}
+                    已完成
+                {% else %}
+                    待付款
+                {% endif %}
+            {% else %}
+                已取车
+            {% endif %}
+        {% else %}
+            未取车
+        {% endif %}
+
+
+
+    {% endif %}
+
+
+
+{% endmacro %}

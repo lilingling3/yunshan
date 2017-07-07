@@ -1,0 +1,133 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['orderFlow', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'租赁订单','prenav':'订单流水'} %}
+     <div class="ui main-content" id="yui_3_14_1_1_1461549608378_26">
+         <div class="ui top attached menu tabular no_border">
+             <a class="active item font-normal bk_gray no_border">租赁订单</a>
+             <a class="item " href="{{ path("auto_admin_order_flow_recharge_list") }}">充值订单</a>
+             <a class="item" href="{{ path("auto_admin_order_flow_refund_list") }}">余额扣款退款</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_order_flow_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td>
+                             <select name="status" class="ui dropdown">
+                                 <option>全部状态</option>
+
+                                 <option value="100">已取消</option>
+                                 <option value="101">未取车</option>
+                                 <option value="102">租赁中</option>
+                                 <option value="103">待支付</option>
+                                 <option value="199">已完成</option>
+                             </select>
+                         </td>
+                         <td>
+                            {% include "AutoAdminBundle:OrderFlow:_area.html.twig" %}
+                         </td>
+
+                         <td class="ui input">
+                             <input type="text" name="mobile" placeholder="请输入手机号">
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">查询</button>
+                         </td>
+                         <td style="width: 415px;"></td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>手机号</th>
+                     <th>车牌号</th>
+                     <th>下单时间</th>
+                     <th>产生费用(元)</th>
+                     <th>减免</th>
+                     <th>优惠券</th>
+                     <th>余额冲抵</th>
+                     <th>支付时间</th>
+                     <th>实付金额</th>
+                     <th>支付渠道</th>
+                     <th>状态</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for rentalorder in rentalOrders %}
+                 <tr>
+                     <td>{{ rentalorder.member.mobile }}</td>
+                     <td>{{ rentalorder.rentalCar.license }}</td>
+                     <td>{% if rentalorder.createTime %}
+                         {{ rentalorder.createTime|date('Y-m-d H:i:s') }}
+                         {% endif %}
+                     </td>
+                     <td>{{  should_obtain_fee[rentalorder.id]}}</td>
+                     <td>减免</td>
+                     <td>{% if rentalorder.coupon %}
+                         {{ rentalorder.coupon.kind.amount }}
+                         {% endif %}
+                     </td>
+                     <td>{{ rentalorder.walletAmount }}</td>
+                     <td>
+                         {% if rentalorder.payTime %}
+                         {{ rentalorder.payTime|date('Y-m-d H:i:s') }}
+                         {% endif %}
+                     </td>
+                     <td>{{ rentalorder.amount }}</td>
+                     <td>
+                         {% if rentalorder.wechatTransactionId %}
+                             微信
+                         {% elseif  rentalorder.alipayTradeNo%}
+                             支付宝
+                         {% endif %}
+                     </td>
+                     <td>{{ status.object(rentalorder) }}</td>
+                     <td><a href="{{ path('auto_admin_rental_order_show',{id:rentalorder.id}) }}">查看</a></td>
+                 </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_order_flow_list",{'page':k}) ~ "?"~ querystring }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+     </div>
+
+
+ {% endblock %}

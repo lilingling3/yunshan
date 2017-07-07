@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/automobile/css/activityInvitationAward.css') }}">
+    <title>邀请好友</title>
+    <script>
+        function toRewardRule()
+        {
+            JSInterface.toRewardRule();
+        }
+        function toRewardList()
+        {
+            JSInterface.toRewardList();
+        }
+    </script>
+</head>
+<body>
+<div id="page" class="activity invitationAward">
+    <div class="top">
+        <img  src="{{ asset('/bundles/automobile/images/activity-share-top.png') }}">
+    </div>
+    <section class="center">
+        <img class="bg" src="{{ asset('/bundles/automobile/images/activity-share-center.png') }}" />
+        <div class="inner">
+            <i class="inner-top"><img class="bg" src="{{ asset('/bundles/automobile/images/activity-share-center-top.png') }}"/></i>
+            <div class="text">
+                <p>当ta首次注册并成功认证后</p>
+                <p>您将额外获得{{ amountnum.amount|default(0) }}元现金奖励</p>
+            </div>
+            <div class="cb lr-center">
+                <span class="gift"><img  src="{{ asset('/bundles/automobile/images/activity-share-gift.png') }}" /></span>
+                <span onclick="toRewardRule()" class="regulation blue">奖励规则</span></div>
+        </div>
+    </section>
+    <div class="b-text">
+        <p>邀请好友已成功认证{{ amountnum.inviteNum|default(0) }}人，可获得{{ amountnum.totalAmount|default(0) }}元奖励</p>
+        <span class="blue" onclick="toRewardList()">点击查看</span>
+    </div>
+</div>
+</body>
+</html>

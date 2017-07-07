@@ -1,0 +1,23 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'编辑','prenav':'理赔记录  '} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:SettleClaim:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         {#<div class="four wide monitor column">#}
+         {#<div class="ui secondary vertical pointing menu">#}
+         {#<a class="active item">编辑租赁车辆 </a>#}
+         {#<a class="item" href="{{ path('auto_admin_rental_price_list') }}">租赁车辆列表 </a>#}
+         {#</div>#}
+         {#</div>#}
+
+     </div>
+
+
+ {% endblock %}

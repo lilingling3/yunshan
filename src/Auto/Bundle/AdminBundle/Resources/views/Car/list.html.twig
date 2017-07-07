@@ -1,0 +1,97 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'车型管理'} %}
+     <div class="ui main-search grid  bk_gray" style="padding: 0px">
+
+         <div class="fifteen wide column" style="background: transparent;">
+             <form action="{{ path("auto_admin_car_search") }}" method="post">
+                 <table class="ui very basic table">
+                     <tbody>
+                         <td class="ui input">
+                             <input type="text" name="car" placeholder="请输入车型名称">
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">提交</button>
+                         </td>
+                         <td style=" width: 303px;"></td>
+                         <td style=" width: 355px;"></td>
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_car_new') }}">添加车型 </a>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车型名称</th>
+                     <th>车身结构</th>
+                     <th>级别</th>
+                     <th>长宽高</th>
+                     <th>车门数</th>
+                     <th>车座数</th>
+                     <th>电池容量（kWh）</th>
+                     <th>续航里程（km）</th>
+                     <th>自动下线里程（km）</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                     {% for car in cars %}
+                         <tr>
+                             <td>{{ car.name }}</td>
+                             <td>{{ car.bodyType.name }}</td>
+                             <td>{{ car.level.name }}</td>
+                             <td>{{ car.length }}*{{ car.width }}*{{ car.height }}</td>
+                             <td>{{ car.doors }}</td>
+                             <td>{{ car.seats }}</td>
+                             <td>{{ car.battery }}</td>
+                             <td>{{ car.driveMileage }}</td>
+                             <td>{{ car.autoOfflineMileage }}</td>
+                             <td><a href="{{ path('auto_admin_car_edit',{'id':car.id}) }}"><small>编辑</small></a>|<a href="{{ path('auto_admin_car_delete',{'id':car.id}) }}"><small>删除</small></a></td>
+                         </tr>
+                     {% endfor %}
+                 </tbody>
+             </table>
+
+
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_car_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                    <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+         </div>
+     </div>
+
+
+ {% endblock %}

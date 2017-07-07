@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>数据字典</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/automobile/css/database.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/automobile/js/module/jquery-1.9.0.min.js') }}" ></script>
+</head>
+<body>
+<div id="page" class="activity database">
+    <div class="container">
+        <div class="nav">
+            <div class="navrow active">
+                <div class="leftrank"><a class="rank rank1 "><span>用户模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#member"><span>用户表member</span></a></li>
+                    <li><a class="rank2"  href="#auth_membe"><span>用户认证auth_member</span></a></li>
+                    <li><a class="rank2"  href="#appeal"><span>黑名单申诉表appeal</span></a></li>
+                    <li><a class="rank2"  href="#black_list"><span>黑名单列表black_list</span></a></li>
+                    <li><a class="rank2"  href="#mobile_device"><span>用户安装app的设备信息表mobile_device</span></a></li>
+                    <li><a class="rank2"  href="#validate_member_record"><span>确认的用户validate_member_record</span></a></li>
+                    <li><a class="rank2"  href="#wallet_record"><span>钱包记录表wallet_record</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " ><span>优惠卷模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#coupon"><span>优惠券列表coupon</span></a></li>
+                    <li><a class="rank2"  href="#coupon_activity"><span>优惠券活动coupon_activity</span></a></li>
+                    <li><a class="rank2"  href="#coupon_activity_coupon_kind"><span>活动与种类关联表coupon_activity_coupon_kind</span></a></li>
+                    <li><a class="rank2"  href="#coupon_kind"><span>优惠券种类coupon_kind</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " ><span>活动模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#market_activity"><span>市场活动market_activity</span></a></li>
+                    <li><a class="rank2"  href="#invit"><span>邀请活动记录invit </span></a></li>
+                    <li><a class="rank2"  href="#invit_reward"><span>邀请成功invit_reward </span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 "><span>充值，发票，理赔模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#recharge_activity"><span>充值活动recharge_activity</span></a></li>
+                    <li><a class="rank2"  href="#recharge_price_step"><span>充值阶梯recharge_price_step</span></a></li>
+                    <li><a class="rank2"  href="#recharge_order"><span>充值订单记录recharge_order</span></a></li>
+                    <li><a class="rank2"  href="#recharge_operate"><span>类型recharge_operate</span></a></li>
+                    <li><a class="rank2"  href="#recharge_record"><span>充值记录，recharge_record</span></a></li>
+                    <li><a class="rank2"  href="#invoice"><span>发票记录invoice</span></a></li>
+                    <li><a class="rank2"  href="#invoice_place"><span>发票区域invoice_place</span></a></li>
+                    <li><a class="rank2"  href="#settle_claim"><span>理赔记录settle_claim</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 "><span>短信模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#message"><span>短信信息记录表message</span></a></li>
+                    <li><a class="rank2"  href="#sms"><span>短信记录表sms</span></a></li>
+                    <li><a class="rank2"  href="#smscode"><span>短信验证码记录表smscode</span></a></li>
+                </ul>
+            </div>
+
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 "><span>投票模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#vote"><span>投票基础信息表vote</span></a></li>
+                    <li><a class="rank2"  href="#vote_options"><span>投票选项表vote_options</span></a></li>
+                    <li><a class="rank2"  href="#vote_records"><span>投票记录表vote_records</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " ><span>省市区模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#area"><span>区域area</span></a></li>
+                    <li><a class="rank2"  href="#business_district"><span>商圈business_district</span></a></li>
+                </ul>
+            </div>
+
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " ><span>车辆属性模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#car"><span>车型信息car</span></a></li>
+                    <li><a class="rank2"  href="#car_start_tbox"><span>设备信息表car_start_tbox</span></a></li>
+                    <li><a class="rank2"  href="#body_type"><span>车身结构body_type</span></a></li>
+                    <li><a class="rank2"  href="#color"><span>车辆颜色color</span></a></li>
+                    <li><a class="rank2"  href="#car_level"><span>车辆级别car_level</span></a></li>
+                    <li><a class="rank2"  href="#license_place"><span>车牌号归属地license_place</span></a></li>
+                    <li><a class="rank2"  href="#rental_kind"><span>租赁种类rental_kind</span></a></li>
+                    <li><a class="rank2"  href="#car_discount"><span>车型折扣car_discount</span></a></li>
+                    <li><a class="rank2"  href="#recommend_station"><span>recommend_station</span></a></li>
+                </ul>
+            </div>
+
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 "><span>租赁车辆信息模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#rental_car"><span>租赁车辆基本信息rental_car</span></a></li>
+                    <li><a class="rank2"  href="#rental_car_online_record"><span>车辆上下线记录rental_car_online_record</span></a></li>
+                    <li><a class="rank2"  href="#rental_price"><span>租赁价格rental_price</span></a></li>
+                    <li><a class="rank2"  href="#dispatch_rental_car"><span>车辆调度表（调度到的站点）dispatch_rental_car</span></a></li>
+                    <li><a class="rank2"  href="#illegal_record"><span>违章记录illegal_record</span></a></li>
+                    <li><a class="rank2"  href="#inspection"><span>车辆检测表inspection</span></a></li>
+                    <li><a class="rank2"  href="#insurance"><span>保险insurance</span></a></li>
+                    <li><a class="rank2"  href="#insurance_record"><span>车辆保险记录insurance_record</span></a></li>
+                    <li><a class="rank2"  href="#maintenance_record"><span>车辆维修记录maintenance_record</span></a></li>
+                    <li><a class="rank2"  href="#mileage_records"><span>车辆公里数记录表mileage_records</span></a></li>
+                    <li><a class="rank2"  href="#upkeep"><span>车辆保养列表upkeep</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " href="#station"><span>租赁点模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#station"><span>租赁点station</span></a></li>
+                    <li><a class="rank2"  href="#rental_station"><span>租赁点信息rental_station</span></a></li>
+                    <li><a class="rank2"  href="#remind"><span>租赁点有车提醒remind</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " href="#base_order"><span>订单,押金模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#base_order"><span>订单表base_order：订单基础表（消费金额、时间等）</span></a></li>
+                    <li><a class="rank2"  href="#rental_order"><span>租赁订单信息表rental_order（租赁点、租赁车辆、优惠券等）</span></a></li>
+                    <li><a class="rank2"  href="#order_relief_record"><span>订单减免表order_relief_record</span></a></li>
+                    <li><a class="rank2"  href="#deposit"><span> 押金deposit</span></a></li>
+                    <li><a class="rank2"  href="#deposit_area"><span> 押金地区deposit_area</span></a></li>
+                    <li><a class="rank2"  href="#deposit_orde"><span> 押金记录deposit_order</span></a></li>
+                    <li><a class="rank2"  href="#pay_notify_log"><span> 支付回调log,pay_notify_log</span></a></li>
+                    <li><a class="rank2"  href="#payment_order"><span> 缴费记录 ,payment_order</span></a></li>
+                    <li><a class="rank2"  href="#refund_record"><span> 退款审核列表 ,refund_record</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 "><span>运营模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#operator"><span>运营人员operator</span></a></li>
+                    <li><a class="rank2"  href="#operator_station"><span>运营者所管租赁点operator_station</span></a></li>
+                    <li><a class="rank2"  href="#operate_record"><span>运营相关记录operate_record</span></a></li>
+                    <li><a class="rank2"  href="#operator_attendance_record"><span>运营人员上下班打卡记录operator_attendanceRecord</span></a></li>
+                    <li><a class="rank2"  href="#region"><span>运营区域region</span></a></li>
+                    <li><a class="rank2"  href="#statistics_amount_record"><span>运营总数据统计表statistics_amount_record</span></a></li>
+                    <li><a class="rank2"  href="#statistics_operate_record"><span>运营统计表statistics_operate_record</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 "><span>充电模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#charging_pile"><span>充电桩charging_pile</span></a></li>
+                    <li><a class="rank2"  href="#charging_records"><span>充电记录charging_records</span></a></li>
+                    <li><a class="rank2"  href="#charging_station"><span>充电站点charging_station</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 "><span>其他模块</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#company"><span>公司company</span></a></li>
+                    <li><a class="rank2"  href="#partner"><span>合作伙伴partner</span></a></li>
+                    <li><a class="rank2"  href="#app_update"><span>app发布相关信息，(app下载地址，是否强制更新等信息)app_update</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="innercont">
+            <div class="module">
+                <section id="member">
+                    <p class="title"><b>用户表member</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>username</td><td>varchar(255)</td><td>用户名</td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td>姓名</td></tr>
+                        <tr><td>nickname</td><td>varchar(255)</td><td>绰号</td> </tr>
+                        <tr><td>portrait</td><td>text</td><td>肖像</td></tr>
+                        <tr><td>password</td><td>varchar(60)</td><td>密码</td></tr>
+                        <tr><td>salt</td><td>varchar(60)</td><td></td></tr>
+                        <tr><td>mobile</td><td>varchar(11)</td><td>手机号</td></tr>
+                        <tr><td>sex</td><td>Int(11)</td><td>性别</td></tr>
+                        <tr><td>nation</td><td>varchar(50)</td><td>民族</td></tr>
+                        <tr><td>address</td><td>varchar(255)</td><td>地址</td></tr>
+                        <tr><td>age</td><td>int(32)</td><td>年龄</td></tr>
+                        <tr><td>business</td><td>int(32)</td><td>商业</td></tr>
+                        <tr><td>wechatid</td><td>varchar(255)</td><td></td></tr>
+                        <tr><td>letvid</td><td>varchar(255)</td><td></td></tr>
+                        <tr><td>job</td><td>int(32)</td><td>工作</td></tr>
+                        <tr><td>wallet</td><td>float(53)</td><td>钱包</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>lastlogintime</td><td>timestamp</td><td>上一次登录时间</td></tr>
+                        <tr><td>roles</td><td>text</td><td>角色 ["ROLE_USER","ROLE_ADMIN","ROLE_OPERATE"]，ROLE_USER:普通用户 ROLE_ADMIN：管理员  ROLE_OPERATE：运营人员</td></tr>
+                        <tr><td>token</td><td>varchar(255)</td><td>token,用户唯一标识</td></tr>
+                        <tr><td>source</td><td>int(32)</td><td>用户登录渠道 1:ios, 2:android 3：h5</td></tr>
+                        <tr><td>idnumber</td><td>varchar(255)</td><td>身份证</td></tr>
+                    </table>
+                </section>
+                <section id="auth_membe">
+                    <p class="title"><b>用户认证auth_member</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member表</span></a></td></tr>
+                        <tr><td>licenseimage</td><td>text</td><td>驾驶证照片</td></tr>
+                        <tr><td>licenseimageautherror</td><td>int(32)</td><td>驾驶证照片错误信息0：正常，1错误</td></tr>
+                        <tr><td>idimage</td><td>text</td><td>身份证照片</td></tr>
+                        <tr><td>licenseimageautherror</td><td>int(32)</td><td>身份证照片错误信息0：正常，1错误</td></tr>
+                        <tr><td>idhandimage</td><td>text</td><td>手持身份证照片</td></tr>
+                        <tr><td>licenseimageautherror</td><td>int(32)</td><td>手持身份证照片错误信息0：正常，1错误</td></tr>
+                        <tr><td>idnumber</td><td>varchar(255)</td><td>手持身份证照片</td></tr>
+                        <tr><td>documentnumber</td><td>varchar(255)</td><td>档案号</td></tr>
+                        <tr><td>licenseautherror</td><td>int(32)</td><td>认证失败错误号</td></tr>
+                        <tr><td>validateresult</td><td>varchar(255)</td><td>old第三方认证结果</td></tr>
+                        <tr><td>validateerror</td><td>int(32)</td><td>old第三方审核</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>authtime</td><td>timestamp</td><td>审核时间</td></tr>
+                        <tr><td>applytime</td><td>timestamp</td><td>用户提交认证时间</td></tr>
+                        <tr><td>licensestartdate</td><td>date</td><td>驾证有效开始日期</td></tr>
+                        <tr><td>licenseenddate</td><td>date</td><td>驾证失效日期</td></tr>
+                        <tr><td>licensenumber</td><td>date</td><td>驾驶证号</td></tr>
+                        <tr><td>licenseaddress</td><td>text</td><td>驾驶证地址</td></tr>
+                        <tr><td>idaddress</td><td>text</td><td>身份证地址</td></tr>
+                        <tr><td>licenseprovince</td><td>text</td><td>驾证地址省份</td></tr>
+                        <tr><td>licensecity</td><td>text</td><td>驾证地址城市</td></tr>
+                        <tr><td>licensevalidyear</td><td>int(32)</td><td>驾证有效期</td></tr>
+                        <tr><td>validatenewresult</td><td>varchar(255)</td><td>第三方审核结果</td></tr>
+                        <tr><td>submittype</td><td>int(32)</td><td>审核结果，0:审核通过，1：审核失败</td></tr>
+                    </table>
+                </section>
+                <section id="appeal">
+                    <p class="title"><b>黑名单申诉表appeal</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>black_list_id</td><td>int(32)</td><td>外键black_list</td></tr>
+                        <tr><td>reason</td><td>varchar（255）</td><td>理由</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>handleTime</td><td>timestamp</td><td>处理时间</td></tr>
+                    </table>
+                </section>
+                <section id="black_list">
+                    <p class="title"><b>黑名单black_list</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>auth_member_id</td><td>int(32)</td><td><a href="#auth_member"><span class="green">关联auth_member</span></a></td>
+                        </tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>结束时间</td></tr>
+                        <tr><td>reason</td><td>int（16）</td><td>状态（拉黑种类）</td></tr>
+                        <tr><td>detail</td><td>varchar（255）</td><td>描述</td></tr>
+                    </table>
+                </section>
+                <section id="mobile_device">
+                    <p class="title"><b>用户安装app的设备信息表mobile_device</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>auth_member_id</td><td>int(32)</td><td><a href="#auth_member"><span class="green">关联auth_member</span></a></td></tr>
+                        <tr><td>devicetoken</td><td>varchar（255）</td><td>设备系列号</td></tr>
+                        <tr><td>platform</td><td>int（16）</td><td>平台 1：ios,2:android</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>kind</td><td>int（16）</td><td>操作，1;login  2:open</td></tr>
+                    </table>
+                </section>
+                <section id="validate_member_record">
+                    <p class="title"><b>确认的用户validate_member_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member</td><td>int(32)</td><td><a href="#auth_member"><span class="green">关联auth_member</span></a></td></tr>
+                        <tr><td>createTime</td><td>datetime</td><td>创建时间</td></tr>
+                        <tr><td>resultJson</td><td>text</td><td>接口返回结果</td></tr>
+                    </table>
+                </section>
+                <section id="wallet_record">
+                    <p class="title"><b>钱包记录表wallet_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rentalOrder</td><td>targetEntity</td><td><a href="#rental_order"><span class="green">关联rental_order</span></a></td></tr>
+                        <tr><td>createTime</td><td>datetime</td><td>创建时间</td></tr>
+                        <tr><td>amount</td><td>float</td><td>余额</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="coupon">
+                    <p class="title"><b>优惠券列表coupon</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>auth_member_id</td><td>int(32)</td><td><a href="#auth_member"><span class="green">关联auth_member</span></a></td></tr>
+                        <tr><td>kind_id</td><td>int（32）</td><td><a href="#coupon_kind"><span class="green">关联coupon_kind</span></a></td></tr>
+                        <tr><td>activity_id</td><td>int（32）</td><td><a href="#coupon_kind"><span class="green">关联coupon_activity</span></a></td></tr>
+                        <tr><td>mobile</td><td>varchar（11）</td><td>手机号</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>失效日期</td></tr>
+                        <tr><td>usetime</td><td>timestamp</td><td>使用时间</td></tr>
+                        <tr><td>code</td><td>varchar（255）</td><td></td></tr>
+                    </table>
+                </section>
+                <section id="coupon_activity">
+                    <p class="title"><b>优惠券活动coupon_activity</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>order_id</td><td>int(32)</td><td><a href="#base_order"><span class="green">关联base_order</span></a></td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>name</td><td>varchar（11）</td><td>活动名</td></tr>
+                        <tr><td>count</td><td>int(32)</td><td>发放个数</td></tr>
+                        <tr><td>total</td><td>int(32)</td><td></td></tr>
+                        <tr><td>online</td><td>int（16）</td><td>'1': '上线', '0' :'下线'</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="coupon_activity_coupon_kind">
+                    <p class="title"><b>活动与种类关联表coupon_activity_coupon_kind</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>coupon_activity_id</td><td>int(32)</td><td><a href="#coupon_activity"><span class="green">关联coupon_activity</span></a></td></tr>
+                        <tr><td>coupon_kind_id</td><td>int（32）</td><td><a href="#coupon_kind"><span class="green">关联coupon_kind</span></a></td></tr>
+                    </table>
+                </section>
+                <section id="coupon_kind">
+                    <p class="title"><b>优惠券种类coupon_kind </b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td>优惠名称</td></tr>
+                        <tr><td>validday</td><td>int（32）</td><td>有效天数</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>amount</td><td>float(53)</td><td>金额</td></tr>
+                        <tr><td>needhour</td><td>int(32)</td><td>优惠条件最低租赁时常</td></tr>
+                        <tr><td>car_level_id</td><td>int(32)</td> <td><a href="#car_level"><span class="green">关联car_level</span></a></td></tr>
+                        <tr><td>needamount</td><td>float(53)</td><td>优惠条件最低租赁金额</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="market_activity">
+                    <p class="title"><b>市场活动market_activity</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>title</td><td>varchar(255)</td><td>活动名称</td></tr>
+                        <tr><td>kind</td><td>int（16）</td><td>活动类型</td></tr>
+                        <tr><td>subject</td><td>int(16)</td><td>内部广告跳转位置</td></tr>
+                        <tr><td>link</td><td>varchar(255)</td><td>活动链接</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>starttime</td><td>timestamp</td> <td>开始时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>结束时间</td></tr>
+                        <tr><td>image</td><td>varchar（255）</td><td>图片</td></tr>
+                        <tr><td>thumb</td><td>varchar（255）</td><td>缩略图</td></tr>
+                    </table>
+                </section>
+                <section id="invit">
+                    <p class="title"><b>邀请记录invit</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>inviter_id</td><td>int(32)</td><td><a href="#member"><span class="green">邀请人，关联invite</span></a></td></tr>
+                        <tr><td>inviteemobile</td><td>varchar</td><td>被邀请人电话</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>channel</td><td>int（32）</td><td>分享渠道</td></tr>
+                        <tr><td>dtype</td><td>varchar（32）</td><td>分享渠道</td></tr>
+                    </table>
+                </section>
+                <section id="invit_reward">
+                    <p class="title"><b>邀请关系表invit_reward</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>record_id</td><td>int(32)</td><td><a href="#invite"><span class="green">关联invite</span></a></td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="recharge_activity">
+                    <p class="title"><b>充值活动recharge_activity</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td>活动名称</td></tr>
+                        <tr class="nouse"><td>discount</td><td>float（53）</td><td>充返比例</td></tr>
+                        <tr class="nouse"><td>image</td><td>varchar(255)</td><td></td></tr>
+                        <tr class="nouse"><td>summary</td><td>varchar(255)</td><td></td></tr>
+                        <tr><td>weight</td><td>int(16)</td><td></td></tr>
+                        <tr class="nouse"><td>amount</td><td>varchar（255）</td><td>金额</td></tr>
+                        <tr><td>starttime</td><td>timestamp</td> <td>开始时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>结束时间</td></tr>
+                    </table>
+                </section>
+                <section id="recharge_price_step">
+                    <p class="title"><b>充值阶梯recharge_price_step</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>activity_id</td><td>varchar(255)</td><td><a href="#recharge_activity"><span class="green">关联recharge_activity</span></a></td></tr>
+                        <tr><td>step</td><td>int(16)</td><td>阶梯号</td></tr>
+                        <tr><td>price</td><td>float（53）</td><td>金额</td></tr>
+                        <tr><td>cashback</td><td>float（53）</td> <td>返现</td></tr>
+                    </table>
+                </section>
+                <section id="recharge_order">
+                    <p class="title"><b>充值订单记录recharge_order</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>activity_id</td><td>int(32)</td><td><a href="#recharge_activity"><span class="green">关联recharge_activity</span></a></td></tr>
+                        <tr><td>amount</td><td>float(53)</td><td>总金额</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>paytime</td><td>timestamp</td><td>支付时间</td></tr>
+                        <tr><td>actualamount</td><td>float（53）</td><td>充值金额</td></tr>
+                        <tr><td>refundamount</td><td>float（53）</td><td>退款金额</td></tr>
+                        <tr><td>actualrefundamount</td><td>float（53）</td><td></td></tr>
+                        <tr><td>wechatrefundid</td><td>varchar（255）</td><td>微信退款单号</td></tr>
+                        <tr><td>alipayrefundno</td><td>varchar（255）</td><td>支付宝退款单号</td></tr>
+                        <tr><td>refundtime</td><td>timestamp</td><td>退款时间</td></tr>
+                        <tr><td>wechattransactionid</td><td>varchar（255）</td><td>微信支付</td></tr>
+                        <tr><td>alipaytradeno</td><td>varchar（255）</td><td>支付宝支付</td></tr>
+                    </table>
+                </section>
+                <section id="recharge_operate">
+                    <p class="title"><b>类型recharge_operate</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int(32)</td><td><a href="#member"><span class="green">充值人，关联member</span></a></td></tr>
+                        <tr><td>operate_id</td><td>int(32)</td><td><a href="#recharge_operate"><span class="green">关联recharge_operate</span></a></td></tr>
+                        <tr><td>operater_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>recharge_order_id</td><td>int(32)</td><td><a href="#recharge_order"><span class="green">关联recharge_order</span></a></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>amount</td><td>float（53）</td><td>金额</td></tr>
+                        <tr><td>walletamount</td><td>float（53）</td><td>余额</td></tr>
+                        <tr><td>remark</td><td>varchar（255）</td><td>备注</td></tr>
+                    </table>
+                </section>
+                <section id="recharge_record">
+                    <p class="title"><b>充值记录，recharge_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td>名称</td></tr>
+                    </table>
+                </section>
+                <section id="invoice">
+                    <p class="title"><b>发票记录invoice</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>delivery_company_id</td><td>int(32)</td><td><a href="#company"><span class="green">关联company</span></a></td></tr>
+                        <tr><td>delivery_member_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>auth_member_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>apply_member_id</td><td>int(32)</td><td><a href="#member"><span class="green">申请人,关联member</span></a></td></tr>
+                        <tr><td>amount</td><td>float(53)</td><td>发票金额</td></tr>
+                        <tr><td>title</td><td>varchar（255）</td><td></td></tr>
+                        <tr><td>deliveryname</td><td>varchar（255）</td><td>发件人姓名</td></tr>
+                        <tr><td>deliveryaddress</td><td>varchar（255）</td><td>发件人地址</td></tr>
+                        <tr><td>deliverymobile</td><td>varchar（255）</td><td>发件人手机号</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>refundtime</td><td>timestamp</td><td>退款时间</td></tr>
+                        <tr><td>authtime</td><td>timestamp</td><td>开票时间</td></tr>
+                        <tr><td>deliverytime</td><td>timestamp</td><td>发件时间</td></tr>
+                        <tr><td>deliverynumber</td><td>varchar（255）</td><td>快递号</td></tr>
+                    </table>
+                </section>
+                <section id="invoice_place">
+                    <p class="title"><b>发票区域invoice_place</b></p>
+                    <table border="1"  cellspacing="0px"  >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td>名称 ，京，粤等</td></tr>
+                    </table>
+                </section>
+                <section id="settle_claim">
+                    <p class="title"><b>理赔记录settle_claim</b></p>
+                    <table border="1"  cellspacing="0px"  >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>createTime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>claimLicense_plate</td><td>varchar(50)</td><td>理赔车车牌号</td></tr>
+                        <tr><td>downReason</td><td>varchar(255)</td><td>事故原因</td></tr>
+                        <tr><td>downTime</td><td>timestamp</td><td>事故时间</td></tr>
+                        <tr><td>applyTime</td><td>timestamp</td><td>报案时间</td></tr>
+                        <tr><td>settletime</td><td>timestamp</td><td>交案时间</td></tr>
+                        <tr><td>claimTime</td><td>timestamp</td><td>理赔时间</td></tr>
+                        <tr><td>claimAmount</td><td>float(53)</td><td>理赔金额</td></tr>
+                        <tr><td>images</td><td>json_array</td><td>图片</td></tr>
+                        <tr><td>maintenance_record_id</td><td>in(32)</td><td><a href="#maintenance_record"><span class="green">关联maintenance_record</span></a></td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="message">
+                    <p class="title"><b>短信信息记录表message</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td> <td>创建时间</td></tr>
+                        <tr><td>content</td><td>text</td><td>信息内容</td></tr>
+                        <tr class="nouse"><td>url</td><td>varchar（255）</td><td></td></tr>
+                        <tr><td>kind</td><td>int（16）</td><td>'1' ： '系统消息', '2' ： '活动消息'</td></tr>
+                        <tr><td>status</td><td>int（16）</td><td>状态  1001：已读  1000未读'</td></tr>
+                    </table>
+                </section>
+                <section id="sms">
+                    <p class="title"><b>短信记录表sms</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>message</td><td>varchar(255)</td><td>短信内容</td></tr>
+                        <tr><td>mobile</td><td>varchar(255)</td> <td>手机号</td></tr>
+                        <tr><td>status</td><td>int(16)</td><td>0:未发送  1：已发送</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="smscode">
+                    <p class="title"><b>短信验证码记录表smscode</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>code</td><td>varchar(255)</td><td>验证码</td></tr>
+                        <tr><td>mobile</td><td>varchar(255)</td> <td>手机号</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>发送时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>失效时间</td></tr>
+                        <tr><td>kind</td><td>int（32）</td><td>1：注册 2:找回密码</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="vote">
+                    <p class="title"><b>投票基础信息表vote</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td>投票名称</td></tr>
+                        <tr><td>countpreperson</td><td>int(32)</td><td>最多投票数量(0表示不限制)</td></tr>
+                        <tr><td>countpreday</td><td>int(32)</td><td>每天最多投票数量(0表示不限制)</td></tr>
+                        <tr><td>countpreoptionperson</td><td>int(32)</td><td>每个选项最多投票数量(0表示不限制)</td></tr>
+                        <tr><td>countpreoptionday</td><td>int（32）</td><td>每个选项每天最多投票数量(0表示不限制)</td></tr>
+                        <tr><td>startdate</td><td>date</td><td>开始时间</td></tr>
+                        <tr><td>enddate</td><td>date</td><td>结束时间</td></tr>
+                    </table>
+                </section>
+                <section id="vote_options">
+                    <p class="title"><b>投票选项表vote_options</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>vote_id</td><td>int(32)</td><td><a href="#vote"><span class="green">关联vote</span></a></td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td>名称</td></tr>
+                        <tr><td>image</td><td>varchar(255)</td><td>图片</td></tr>
+                    </table>
+                </section>
+                <section id="vote_records">
+                    <p class="title"><b>投票记录表vote_records</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>option_id</td><td>int(32)</td><td><a href="#vote_options"><span class="green">关联vote_options</span></a></td></tr>
+                        <tr><td>wechatid</td><td>varchar(255)</td><td></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="area">
+                    <p class="title"><b>省市区area</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>parent_id</td><td>int(32)</td><td>父级id</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>地区名称</td></tr>
+                        <tr><td>latitude</td><td>numeric(10)</td><td>纬度</td></tr>
+                        <tr><td>longitude</td><td>numeric（10）</td><td>精度</td></tr>
+                    </table>
+                </section>
+                <section id="business_district">
+                    <p class="title"><b>商圈business_district</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>area_id</td><td>int(32)</td><td><a href="#area"><span class="green">所在区,关联area</span></a></td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>商圈名称</td></tr>
+                        <tr><td>latitude</td><td>numeric(10)</td><td>纬度</td></tr>
+                        <tr><td>longitude</td><td>numeric（10）</td><td>精度</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="car">
+                    <p class="title"><b>车型信息car</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>body_type_id</td><td>int（32）</td><td><a href="#body_type"><span class="green">车身结构,关联body_type</span></a></td></tr>
+                        <tr><td>level_id</td><td>int（32）</td><td><a href="#car_level"><span class="green">车辆级别,关联car_level</span></a></td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>车型名称</td></tr>
+                        <tr><td>brand</td><td>varchar（255）</td><td>品牌</td></tr>
+                        <tr><td>starttype</td><td>int（32）</td><td><a href="#start_type"><span class="green">启动方式,关联start_type</span></a></td></tr>
+                        <tr><td>length</td><td>int（32）</td><td>长</td></tr>
+                        <tr><td>width</td><td>int（32）</td><td>宽</td></tr>
+                        <tr><td>height</td><td>int（32）</td><td>高</td></tr>
+                        <tr><td>doors</td><td>int（32）</td><td>车门数</td></tr>
+                        <tr><td>battery</td><td>int（32）</td><td>电池容量</td></tr>
+                        <tr><td>seats</td><td>int（32）</td><td>车座数</td></tr>
+                        <tr><td>image</td><td>int（32）</td><td>图片</td></tr>
+                        <tr><td>airbags</td><td>int（32）</td><td>气囊数</td></tr>
+                        <tr><td>drivemileage</td><td>numeric</td><td>续航里程</td></tr>
+                    </table>
+                </section>
+                <section id="car_start_tbox">
+                    <p class="title"><b>设备信息表car_start_tbox</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">关联rental_car</span></a></td></tr>
+                        <tr><td>carstartid</td><td>varchar（255）</td><td>启动码</td></tr>
+                        <tr><td>password</td><td>varchar（255）</td><td>密码</td></tr>
+                    </table>
+                </section>
+                <section id="body_type">
+                    <p class="title"><b>车身结构body_type</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>车身描述（两厢车，三厢车等）</td></tr>
+                    </table>
+                </section>
+                <section id="color">
+                    <p class="title"><b>车辆颜色color</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>颜色名称</td></tr>
+                    </table>
+                </section>
+                <section id="car_level">
+                    <p class="title"><b>车辆级别car_level</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>级别名称（小型车，豪华型等)</td></tr>
+                    </table>
+                </section>
+                <section id="license_place">
+                    <p class="title"><b>车牌号归属地license_place</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>归属地简称（例如：京、津、冀等）</td></tr>
+                    </table>
+                </section>
+                <section id="rental_kind">
+                    <p class="title"><b>租赁种类rental_kind</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td></td></tr>
+                        <tr><td>unit</td><td>varchar（255）</td><td></td></tr>
+                    </table>
+                </section>
+                <section id="car_discount">
+                    <p class="title"><b>车型折扣car_discount</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>car_id</td><td>int（32）</td><td><a href="#car"><span class="green">关联car</span></a></td></tr>
+                        <tr><td>discount</td><td>float（53）</td><td>折扣</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>starttime</td><td>timestamp</td><td>开始日期</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>结束日期</td></tr>
+                    </table>
+                </section>
+                <section id="recommend_station">
+                    <p class="title"><b>recommend_station</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>address</td><td>varchar（255）</td><td></td></tr>
+                        <tr><td>reason</td><td>varchar(255)</td><td></td></tr>
+                        <tr><td>latitude</td><td>numeric(10)</td><td></td></tr>
+                        <tr><td>longitude</td><td>numeric(10)</td><td></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td></td></tr>
+                        <tr><td>name</td><td>varchar(255)</td><td></td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="rental_car">
+                    <p class="title"><b>租赁车辆基本信息rental_car</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>car_id</td><td>int（32）</td><td><a href="#car"><span class="green">车型，关联car</span></a></td></tr>
+                        <tr><td>rental_station_id</td><td>int（32）</td><td><a href="#rental_station"><span class="green">所属租赁点，关联rental_station</span></a></td></tr>
+                        <tr><td>license_place_id</td><td>int（32）</td><td><a href="#license_place"><span class="green">车牌归属点，关联license_place</span></a></td></tr>
+                        <tr><td>company_id</td><td>int（32）</td><td><a href="#company"><span class="green">归属公司，关联company</span></a></td></tr>
+                        <tr><td>device_company_id</td><td>int（32）</td><td><a href="#company"><span class="green">设备公司，关联company</span></a></td></tr>
+                        <tr><td>online_id</td><td>int（32）</td><td><a href="#online"><span class="green">上下线状态，关联online</span></a></td></tr>
+                        <tr><td>color</td><td>int（32）</td><td><a href="#color"><span class="green">车身颜色，关联color</span></a></td></tr>
+                        <tr><td>licenseplate</td><td>varchar（255）</td><td>车牌号</td></tr>
+                        <tr><td>enginenumber</td><td>varchar（255）</td><td>发动机号</td></tr>
+                        <tr><td>chassisnumber</td><td>varchar（255）</td><td>车架号</td></tr>
+                        <tr><td>images</td><td>text</td><td>图片</td></tr>
+                        <tr><td>boxid</td><td>varchar（255）</td><td>设备号</td></tr>
+                        <tr><td>buyprice</td><td>float（53）</td><td>购买价格（万）</td></tr>
+                        <tr><td>registerdate</td><td>date</td><td>车辆注册登记日期</td></tr>
+                        <tr><td>operationkind</td><td>int（32）</td><td>车辆使用性质 '1' ：'营运', '2' ：‘'非营运', '3' ： '租赁'</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>inspecttime</td><td>timestamp</td><td>检查时间</td></tr>
+                    </table>
+                </section>
+                <section id="rental_car_online_record">
+                    <p class="title"><b>车辆上下线记录rental_car_online_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">车辆，rental_car_id</span></a></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>status</td><td>int（16）</td><td>1：上线，0：下线</td></tr>
+                        <tr><td>reason</td><td>text</td><td>上下线原因</td></tr>
+                        <tr><td>remark</td><td>varchar（32）</td><td>上下线备注原因</td></tr>
+                        <tr><td>backrange</td><td>numeric（10）</td><td> </td></tr>
+                    </table>
+                </section>
+                <section id="rental_price">
+                    <p class="title"><b>租赁价格rental_price</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>car_id</td><td>int（32）</td><td><a href="#car"><span class="green">车型，关联car</span></a></td></tr>
+                        <tr><td>area_id</td><td>int（32）</td><td><a href="#area"><span class="green">地区关联rea</span></a></td></tr>
+                        <tr><td>name</td><td>VARCHAR(255)</td><td>名称</td></tr>
+                        <tr><td>price</td><td>DOUBLE</td><td>价格</td></tr>
+                        <tr><td>startTime</td><td>DATETIME</td><td>开始时间</td></tr>
+                        <tr><td>endTime</td><td>DATETIME</td><td>结束时间</td></tr>
+                        <tr><td>weight</td><td>SMALLINT(6)</td><td> '0'： '一般', '1' ： '中等', '2' ： '重要'</td></tr>
+                        <tr><td>maxHour</td><td>INT(11)</td><td>最大时间(小时)</td></tr>
+                        <tr><td>minHour</td><td>INT(11)</td><td>最小时间(小时)</td></tr>
+                    </table>
+                </section>
+                <section id="dispatch_rental_car">
+                    <p class="title"><b>车辆调度表（调度到的站点）dispatch_rental_car</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">车辆，rental_car_id</span></a></td></tr>
+                        <tr><td>rental_order_id</td><td>int（32）</td><td><a href="#rental_order"><span class="green">订单，rental_order</span></a></td></tr>
+                        <tr><td>rental_station_id</td><td>int（32）</td><td><a href="#rental_station"><span class="green">租赁点，rental_station</span></a></td></tr>
+                        <tr><td>operate_member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>kind</td><td>int（16）</td><td>1：运营人员调配，2：用户订单</td></tr>
+                        <tr><td>status</td><td>int(16)</td><td>状态 1：成功   0：失败</td></tr>
+                    </table>
+                </section>
+                <section id="illegal_record">
+                    <p class="title"><b>违章记录illegal_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>order_id</td><td>int（32）</td><td><a href="#rental_order"><span class="green">车辆，关联rental_order</span></a></td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">车辆，关联rental_car_id</span></a></td></tr>
+                        <tr><td>agent_id</td><td>int（32）</td><td><a href="#member"><span class="green">代处理人，关联member</span></a></td></tr>
+                        <tr><td>illegal</td><td>varchar（255）</td><td>违章行为</td></tr>
+                        <tr><td>handletime</td><td>timestamp</td><td>处理时间</td></tr>
+                        <tr><td>illegaltime</td><td>timestamp</td><td>违章时间</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>illegalscore</td><td>int（32）</td><td>罚分</td></tr>
+                        <tr><td>illegalplace</td><td>varchar（255）</td><td>违章地点</td></tr>
+                        <tr><td>illegalamount</td><td>float（53）</td><td>罚款(元)</td></tr>
+                        <tr><td>agentamount</td><td>float（53）</td><td>代处理金额</td></tr>
+                        <tr><td>agenttime</td><td>timestamp</td><td>代处理时间</td></tr>
+                        <tr><td>remark</td><td>varchar（255）</td><td>代处理备注</td></tr>
+                    </table>
+                </section>
+                <section id="inspection">
+                    <p class="title"><b>车辆检测表inspection</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">车辆，关联rental_car_id</span></a></td></tr>
+                        <tr><td>inspectiontime</td><td>timestamp</td><td>年检时间</td></tr>
+                        <tr><td>nextinspectiontime</td><td>timestamp</td><td>下次年检时间</td></tr>
+                        <tr><td>remark</td><td>varchar（255）</td><td>备注</td></tr>
+                        <tr calss="nouse"><td>inspectionyear</td><td>timestamp</td><td></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="insurance">
+                    <p class="title"><b>保险insurance</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>（全险，交强险）</td></tr>
+                    </table>
+                </section>
+                <section id="insurance_record">
+                    <p class="title"><b>车辆保险记录insurance_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">车辆，关联rental_car_id</span></a></td></tr>
+                        <tr><td>company_id</td><td>int(32)</td><td><a href="#company"><span class="green">投保公司，关联company</span></a></td></tr>
+                        <tr><td>insuranceamount</td><td>float（53）</td><td>投保金额</td></tr>
+                        <tr><td>insurance</td><td>int（16）</td><td>投保类型 '1':'交强险','2': '商业险'</td></tr>
+                        <tr><td>insurancetime</td><td>timestamp</td><td>投保时间</td></tr>
+                        <tr><td>starttime</td><td>timestamp</td><td>保险生效时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>投保失效时间</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>insurancenumber</td><td>varchar（255）</td><td>投保单号</td></tr>
+                    </table>
+                </section>
+                <section id="maintenance_record">
+                    <p class="title"><b>车辆维修记录maintenance_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">车辆，关联rental_car_id</span></a></td></tr>
+                        <tr><td>company_id</td><td>int(32)</td><td><a href="#company"><span class="green">修理厂名称，关联company</span></a></td></tr>
+                        <tr><td>parent_id</td><td>float（53）</td><td><a href="#maintenance_record"><span class="green">关联maintenance_record</span></a></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>maintenancereason</td><td>varchar（255）</td><td>事故原因</td></tr>
+                        <tr><td>thirdpartylicenseplate</td><td>varchar（255）</td><td>第三方车牌号</td></tr>
+                        <tr><td>maintenancetime</td><td>timestamp</td><td></td></tr>
+                        <tr><td>downtime</td><td>timestamp</td><td></td></tr>
+                        <tr><td>maintenanceproject</td><td>text</td><td>维修项目</td></tr>
+                        <tr><td>kind</td><td>int(16)</td><td>维修类型，'0' => '请选择', '1' => '事故维修', '2' => '故障维修'</td></tr>
+                        <tr><td>maintenanceamount</td><td>float8(53)</td><td>定损/维修金额（元）</td></tr>
+                        <tr><td>images</td><td>text</td><td>图片</td></tr>
+                    </table>
+                </section>
+                <section id="mileage_records">
+                    <p class="title"><b>车辆公里数记录表mileage_records</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rental_order_id</td><td>int（32）</td><td><a href="#rental_order"><span class="green">订单，关联rental_order</span></a></td></tr>
+                        <tr><td>operator_id</td><td>int(32)</td><td><a href="#member"><span class="green">运营人员，关联member</span></a></td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">关联rental_car</span></a></td></tr>
+                        <tr><td>mileage</td><td>float（53）</td><td>英里数</td></tr>
+                        <tr><td>kind</td><td>int（16）</td><td></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="mileage_records">
+                    <p class="title"><b>车辆保养列表upkeep</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>createTime</td><td>datetime</td><td>记录时间</td></tr>
+                        <tr><td>upkeepTime</td><td>datetime</td><td>保养时间</td></tr>
+                        <tr><td>nextUpkeepTime</td><td>datetime</td><td>下次保养时间</td></tr>
+                        <tr><td>remark</td><td>string（255）</td><td>备注</td></tr>
+                        <tr><td>rentalCar</td><td>targetEntity</td><td><a href="#rental_car"><span class="green">关联rental_car</span></a></td></tr>
+                        <tr><td>nextMileage</td><td>decimal（2）</td><td>下次保养里程（km）</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="station">
+                    <p class="title"><b>租赁点station</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>area_id</td><td>int（32）</td><td><a href="#car"><span class="green">关联area</span></a></td></tr>
+                        <tr><td>business_district_id</td><td>int（32）</td><td><a href="#business_district"><span class="green">所在商圈，关联business_district</span></a></td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>名称</td></tr>
+                        <tr><td>street</td><td>varchar(255)</td><td>具体位置</td></tr>
+                        <tr><td>latitude</td><td>numeric(10)</td><td>纬度</td></tr>
+                        <tr><td>longitude</td><td>numeric（10）</td><td>经度</td></tr>
+                        <tr><td>online</td><td>int（32）</td><td>0:下线，1上线</td></tr>
+                        <tr class="donot"><td>dtype</td><td>varchar（255）</td><td></td></tr>
+                    </table>
+                </section>
+                <section id="rental_station">
+                    <p class="title"><b>租赁点信息rental_station</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>company_id</td><td>int（32）</td><td><a href="#company"><span class="green">关联company</span></a></td></tr>
+                        <tr><td>images</td><td>varchar（255）</td></td><td>图片</td></tr>
+                        <tr><td>parkingspacetotal</td><td>int(32)</td><td>停车位总数</td></tr>
+                        <tr><td>usableparkingspace</td><td>int(32)</td><td>可停车位总数</td></tr>
+                        <tr><td>backtype</td><td>int（32）</td><td>还车类型,'600' : '原地还车', '601' : '异地还车'</td></tr>
+                        <tr><td>contactmobile</td><td>varchar（255）</td><td>联系电话</td></tr>
+                    </table>
+                </section>
+                <section id="remind">
+                    <p class="title"><b>租赁点有车提醒remind</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>rental_station_id</td><td>int（32）</td></td><td><a href="#rental_station"><span class="green">关联rental_station</span></a></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>remindtime</td><td>timestamp</td><td>提醒时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>结束时间</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="base_order">
+                    <p class="title"><b>订单表base_order：订单基础表（消费金额、时间等） </b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>amount</td><td>float（53）</td><td>实付金额</td></tr>
+                        <tr><td>dueamount</td><td>float(53)</td><td>应付金额</td></tr>
+                        <tr><td>walletamount</td><td>float（53）</td><td>余额冲抵</td></tr>
+                        <tr class="nouse"><td>reliefamount</td><td>float(53)</td><td>减免金额</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr ><td>endtime</td><td>timestamp</td><td>结束时间</td></tr>
+                        <tr ><td>paytime</td><td>timestamp</td><td>支付时间</td></tr>
+                        <tr ><td>canceltime</td><td>timestamp</td><td>取消时间</td></tr>
+                        <tr><td>dtype</td><td>varchar（255）</td><td></td></tr>
+                    </table>
+                </section>
+                <section id="rental_order">
+                    <p class="title"><b>租赁订单信息表rental_order（租赁点、租赁车辆、优惠券等）</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">关联rental_car</span></a></td></tr>
+                        <tr><td>pick_up_station_id</td><td>int（32）</td><td><a href="#rental_station"><span class="green">取车租赁点，关联rental_station</span></a></td></tr>
+                        <tr><td>return_station_id</td><td>int(32)</td><td><a href="#rental_station"><span class="green">还车租赁点，关联rental_station</span></a></td></tr>
+                        <tr><td>coupon_id</td><td>int（32）</td><td><a href="#coupon"><span class="green">优惠券,关联coupon</span></a></td></tr>
+                        <tr><td>wechattransactionid</td><td>varchar(255)</td><td>微信支付渠道流水ID</td></tr>
+                        <tr><td>alipaytradeno</td><td>varchar(255)</td><td>支付宝支付渠道流水ID</td></tr>
+                        <tr ><td>usetime</td><td>timestamp</td><td>取车时间</td></tr>
+                        <tr ><td>mileage</td><td>numeric（10）</td><td>行驶里程</td></tr>
+                        <tr ><td>startmileage</td><td>numeric（10）</td><td>开始英里数</td></tr>
+                        <tr><td>endmileage</td><td>numeric（10）</td><td>结束英里数</td></tr>
+                        <tr class="nouse"><td>cancelreason</td><td>text</td><td>取消原因</td></tr>
+                        <tr><td>source</td><td>int(16)</td><td>下单渠道 1：ios   2：安卓   3：微信公共号  4:微信小程序</td></tr>
+                        <tr><td>refundamount</td><td>float（53）</td><td>退款金额</td></tr>
+                        <tr><td>refundtime</td><td>timestamp</td><td>退款时间</td></tr>
+                        <tr><td>partner_id</td><td>int（32）</td><td></td></tr>
+                        <tr><td>mobile</td><td>varchar（11）</td><td>手机号</td></tr>
+                    </table>
+                </section>
+                <section id="order_relief_record">
+                    <p class="title"><b>订单减免表order_relief_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>order_id</td><td>int（32）</td><td><a href="#base_order"><span class="green">关联base_order</span></a></td></tr>
+                        <tr><td>operate_member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>amount</td><td>float（53）</td><td>折扣</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="deposit">
+                    <p class="title"><b>押金deposit</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>totalamount</td><td>float（53）</td><td>金额</td></tr>
+                        <tr><td>kind</td><td>int(16)</td><td>状态 302：已退款 3011：没退款</td></tr>
+                    </table>
+                </section>
+                <section id="deposit_area">
+                    <p class="title"><b>押金地区deposit_area</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>area_id</td><td>int（32）</td><td><a href="#area"><span class="green">关联area</span></a></td></tr>
+                        <tr><td>isneed_deposit</td><td>int（16）</td><td>是否需要押金 0:不需要  1：需要</td></tr>
+                        <tr><td>needdepositamount</td><td>float(53)</td><td>需要缴纳押金的总额</td></tr>
+                    </table>
+                </section>
+                <section id="deposit_order">
+                    <p class="title"><b>押金记录deposit_order</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>amount</td><td>float（53）</td><td>实付金额</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>paytime</td><td>timestamp</td><td>支付时间</td></tr>
+                        <tr><td>refundamount</td><td>float（53）</td><td>退款金额</td></tr>
+                        <tr><td>actualrefundamount</td><td>float（53）</td><td>实际退款金额</td></tr>
+                        <tr><td>wechatrefundid</td><td>varchar（255）</td><td>微信流水号</td></tr>
+                        <tr><td>alipayrefundno</td><td>varchar（255）</td><td>支付宝流水号</td></tr>
+                        <tr><td>refundtime</td><td>timestamp</td><td>退款时间</td></tr>
+                        <tr><td>endtime</td><td>timestamp</td><td>实际退款时间</td></tr>
+                    </table>
+                </section>
+                <section id="pay_notify_log">
+                    <p class="title"><b>支付回调log,pay_notify_log</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>type</td><td>int（32）</td><td></td></tr>
+                        <tr><td>jsoncontent</td><td>text</td><td></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="payment_order">
+                    <p class="title"><b>缴费记录 ,payment_order</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>amount</td><td>float(53)</td><td>缴费金额</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>paytime</td><td>timestamp</td><td>支付时间</td></tr>
+                        <tr><td>wechattransactionid</td><td>varchar（255）</td><td>微信支付流水ID</td></tr>
+                        <tr><td>alipaytradeno</td><td>varchar（255）</td><td>微信支付流水ID</td></tr>
+                        <tr><td>kind</td><td>int(32)</td><td>缴费类型</td></tr>
+                        <tr><td>reason</td><td>varchar(255)</td><td>缴费原因说明信息</td></tr>
+                    </table>
+                </section>
+                <section id="refund_record">
+                    <p class="title"><b>退款审核列表 ,refund_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>checktime</td><td>timestamp</td><td>审核时间</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>审核时间</td></tr>
+                        <tr><td>refundinstrustions</td><td>varchar（255）</td><td></td></tr>
+                        <tr><td>checkfailedreason</td><td>varchar（255）</td><td>审核失败原因</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="operator">
+                    <p class="title"><b>运营人员operator</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr class="nouse"><td>position</td><td>int（16）</td><td>位置</td></tr>
+                    </table>
+                </section>
+                <section id="operator_station">
+                    <p class="title"><b>运营者所管租赁点operator_station</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>operator_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>station_id</td><td>int（32）</td><td><a href="#station"><span class="green">关联station</span></a></td></tr>
+                    </table>
+                </section>
+                <section id="operate_record">
+                    <p class="title"><b>运营相关记录operate_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>operate_member_id</td><td>int（32）</td><td><a href="#member"><span class="green">操作人，关联member</span></a></td></tr>
+                        <tr><td>behavior</td><td>int(16)</td><td>操作 1：创建，2：更新  3：删除</td></tr>
+                        <tr><td>objectid</td><td>int(32)</td><td>对象类型</td></tr>
+                        <tr><td>objectname</td><td>varchar(255)</td><td>对象名称</td></tr>
+                        <tr><td>content</td><td>varchar(255)</td><td>内容</td></tr>
+                    </table>
+                </section>
+                <section id="operator_attendance_record">
+                    <p class="title"><b>运营人员上下班打卡记录operator_attendance_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>latitude</td><td>numeric(10)</td><td>纬度</td></tr>
+                        <tr><td>longitude</td><td>numeric(10)</td><td>精度</td></tr>
+                        <tr><td>status</td><td>int(32)</td><td>1:上班，2：下班</td></tr>
+                    </table>
+                </section>
+                <section id="region">
+                    <p class="title"><b>运营区域region</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>member_id</td><td>int（32）</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>areas_id</td><td>int（32）</td><td><a href="#areas"><span class="green">关联areas</span></a></td></tr>
+                    </table>
+                </section>
+                <section id="statistics_amount_record">
+                    <p class="title"><b>运营总数据统计表statistics_amount_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>dateTime</td><td>timestamp</td><td></td></tr>
+                        <tr><td>createTime</td><td>datetime</td><td>创建时间</td></tr>
+                        <tr><td>registMembers</td><td>integer</td><td>注册用户总数</td></tr>
+                        <tr><td>authMembers</td><td>integer</td><td>提交认证用户总数</td></tr>
+                        <tr><td>verifiedMembers</td><td>integer</td><td>认证通过用户总数</td></tr>
+                        <tr><td>rechargeMembers</td><td>integer</td><td>充值用户总数</td></tr>
+                        <tr><td>actualRecharges</td><td>integer</td><td>实际充值总金额</td></tr>
+                        <tr><td>recharges</td><td>float</td><td>充值后对应总金额</td></tr>
+                        <tr><td>orders</td><td>integer</td><td>订单总数</td></tr>
+                        <tr><td>cancelOrders</td><td>integer</td><td>已取消订单总数</td></tr>
+                        <tr><td>dueAmount</td><td>float</td><td>总完成订单应收费用（元）</td></tr>
+                        <tr><td>reliefAmount</td><td>float</td><td>总完成订单减免费用（元）</td></tr>
+                        <tr><td>couponAmount</td><td>float</td><td>总完成订单优惠券抵用金额（元）</td></tr>
+                        <tr><td>actualAmount</td><td>float</td><td>总完成订单实收费用（元）</td></tr>
+                    </table>
+                </section>
+                <section id="statistics_operate_record">
+                    <p class="title"><b>运营统计表statistics_operate_record</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>rentalCar</td><td>targetEntity</td><td><a href="#rental_car"><span class="green">关联rental_car</span></a></td></tr>
+                        <tr><td>rentalStation</td><td>targetEntity</td><td><a href="#rental_station"><span class="green">关联rental_station</span></a></td></tr>
+                        <tr><td>createTime</td><td>datetime</td><td>创建时间</td></tr>
+                        <tr><td>stayTime</td><td>datetime</td><td>在库时长</td></tr>
+                        <tr><td>rentalTime</td><td>datetime</td><td>单车出租时长</td></tr>
+                        <tr><td>dayRentalTime</td><td>datetime</td><td>日间出租时长</td></tr>
+                        <tr><td>nightRentalTime</td><td>datetime</td><td>夜间出租时长</td></tr>
+                        <tr><td>orderCount</td><td>integer</td><td>订单数</td></tr>
+                        <tr><td>dayOrderCount</td><td>integer</td><td>日间订单数</td></tr>
+                        <tr><td>nightOrderCount</td><td>integer</td><td>夜间订单数</td></tr>
+                        <tr><td>revenueAmount</td><td>float</td><td>营收</td></tr>
+                        <tr><td>couponAmount</td><td>float</td><td>优惠券</td></tr>
+                        <tr><td>rentalAmount</td><td>float</td><td>实收</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="charging_pile">
+                    <p class="title"><b>充电桩charging_pile</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>station_id</td><td>int（32）</td><td><a href="#station"><span class="green">关联station</span></a></td></tr>
+                        <tr><td>no</td><td>int（32）</td><td>编号</td></tr>
+                        <tr><td>ident</td><td>varchar(255)</td><td>系统唯一编号</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="charging_records">
+                    <p class="title"><b>充电记录charging_records</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>mileage_id</td><td>int（32）</td><td><a href="#mileage_records"><span class="green">关联mileage_records</span></a></td></tr>
+                        <tr><td>rental_car_id</td><td>int（32）</td><td><a href="#rental_car"><span class="green">关联rental_car</span></a></td></tr>
+                        <tr><td>operator_id</td><td>int(32)</td><td><a href="#member"><span class="green">关联member</span></a></td></tr>
+                        <tr><td>degree</td><td>float(53)</td><td>度数</td></tr>
+                        <tr><td>cost</td><td>float(53)</td><td>金额</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                    </table>
+                </section>
+                <section id="charging_station">
+                    <p class="title"><b>充电站点charging_station</b></p>
+                    <table border="1"  cellspacing="0px" class="nouse" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>images</td><td>text</td><td>图片</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td>创建时间</td></tr>
+                        <tr><td>outid</td><td>int(32)</td><td></td></tr>
+                        <tr><td>currentstatus</td><td>int(32)</td><td></td></tr>
+                        <tr><td>isactive</td><td>int(32)</td><td></td></tr>
+                        <tr><td>porttype</td><td>int(32)</td><td></td></tr>
+                        <tr><td>address</td><td>varchar(255)</td><td></td></tr>
+                        <tr><td>fastcount</td><td>int(32)</td><td></td></tr>
+                        <tr><td>slowcount</td><td>int(32)</td><td></td></tr>
+                        <tr><td>nature</td><td>int(32)</td><td></td></tr>
+                        <tr><td>type</td><td>int(32)</td><td></td></tr>
+                        <tr><td>evcount</td><td>int(32)</td><td></td></tr>
+                        <tr><td>authstatus</td><td>int(32)</td><td></td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="company">
+                    <p class="title"><b>公司company</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>area_id</td><td>int（32）</td><td><a href="#car"><span class="green">关联area</span></a></td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>公司简称</td></tr>
+                        <tr><td>fullname</td><td>varchar(255)</td><td>公司全称</td></tr>
+                        <tr class="nouse"><td>englishname</td><td>varchar（255）</td><td>英文名称</td></tr>
+                        <tr><td>caseno</td><td>varchar(255)</td><td>公司备案号</td></tr>
+                        <tr><td>enterprisecode</td><td>varchar（255）</td><td>企业代码</td></tr>
+                        <tr ><td>address</td><td>varchar（255）</td><td>地址</td></tr>
+                        <tr ><td>contactname</td><td>varchar（255）</td><td>联系人</td></tr>
+                        <tr ><td>contactmobile</td><td>varchar（255）</td><td>联系方式</td></tr>
+                        <tr  class="nouse"><td>kind</td><td>varchar（255）</td><td>公司类型</td></tr>
+                    </table>
+                </section>
+                <section id="partner">
+                    <p class="title"><b>合作伙伴partner</b></p>
+                    <table border="1"  cellspacing="0px"  class="nouse">
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>name</td><td>varchar（255）</td><td>名称</td></tr>
+                        <tr><td>secret</td><td>varchar(255)</td><td></td></tr>
+                        <tr><td>code</td><td>varchar（20）</td><td></td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td></td></tr>
+                        <tr><td>amount</td><td>float（53）</td><td></td></tr>
+                        <tr ><td>actureamount</td><td>float（53）</td><td></td></tr>
+                        <tr ><td>discount</td><td>float（53）</td><td></td></tr>
+                        <tr ><td>status</td><td>int（16）</td><td></td></tr>
+                    </table>
+                </section>
+                <section id="partner">
+                    <p class="title"><b>app发布相关信息，(app下载地址，是否强制更新等信息)app_update</b></p>
+                    <table border="1"  cellspacing="0px"  class="nouse">
+                        <tr><th>名称</th><th>类型</th><th>描述</th></tr>
+                        <tr><td>id</td><td>int(32)</td><td>主键</td></tr>
+                        <tr><td>versionCode</td><td>integer</td><td>当前版本号</td></tr>
+                        <tr><td>version</td><td>text</td><td>版本号，字符串</td></tr>
+                        <tr><td>downloadsite</td><td>text</td><td>app下载地址</td></tr>
+                        <tr><td>createtime</td><td>timestamp</td><td></td></tr>
+                        <tr><td>explain</td><td>string（255）</td><td>说明</td></tr>
+                        <tr ><td>forceUpgrade</td><td>integer</td><td>是否强制升级 0:不强制  1:强制</td></tr>
+                        <tr ><td>encrypt</td><td>string（255）</td><td>加密</td></tr>
+                    </table>
+                </section>
+            </div>
+
+        </div>
+
+    </div>
+<script type="text/javascript" src="{{ asset('/bundles/automobile/js/activity/activityDataBase.js') }}" ></script>
+</body>
+</html>

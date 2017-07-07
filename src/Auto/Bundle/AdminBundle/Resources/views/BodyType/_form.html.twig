@@ -1,0 +1,10 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.name) }}</label>
+        {{ form_widget(form.name,{'attr': {'placeholder':'车型结构'}} ) }}
+    </div>
+
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

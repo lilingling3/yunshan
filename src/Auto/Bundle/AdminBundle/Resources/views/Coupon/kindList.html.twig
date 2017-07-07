@@ -1,0 +1,87 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'优惠券类型'} %}
+     <div class="ui main-content grid">
+
+
+
+
+         <div class="ten wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>优惠券名称</th>
+                     <th>有效天数(天)</th>
+                     <th>金额(元)</th>
+                     <th>满多少小时</th>
+                     <th>满多少金额</th>
+                     <th>车辆级别</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for kind in couponKinds %}
+                 <tr>
+                     <td>{{ kind.name }}</td>
+                     <td>{{ kind.validDay }}</td>
+                     <td>{{ kind.amount }}</td>
+                     <td>需满{{ kind.needHour }}小时</td>
+                     <td>{{ kind.needAmount }}</td>
+                     <td>{{ kind.carLevel.name|default('全部车型') }}</td>
+                     <td>
+                         <a href="{{ path('auto_admin_coupon_kind_edit',{'id':kind.id})
+                         }}"><small>编辑</small></a>
+                     </td>{#|<a href="{{ path('auto_admin_coupon_kind_delete',{'id':kind.id}) }}">删除</a>#}
+                 </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_coupon_kind_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                    <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">优惠券种类列表 </a>
+                 <a class="item" href="{{ path('auto_admin_coupon_kind_new') }}">添加优惠券类型</a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

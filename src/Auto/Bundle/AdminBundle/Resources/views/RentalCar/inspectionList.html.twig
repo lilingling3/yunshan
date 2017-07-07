@@ -1,0 +1,78 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'年检'} %}
+     <div class="ui main-content grid">
+         <div class="ui bottom attached segment bk_gray no_border" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                        <tr>
+                            <td>
+                                <a class="ui teal button" href="{{ path('auto_admin_rentalcar_show',{'id':rentalCar.id}) }}">返回 </a>
+                            </td>
+                            <td>
+                                <a class="ui teal button" href="{{ path('auto_admin_rentalcar_inspection_new',{'id':rentalCar.id}) }}">添加年检记录 </a>
+                             </td>
+                         </tr>
+                     </tbody>
+                 </table>
+
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车牌号</th>
+                     <th>下次年检时间</th>
+                     <th>年检时间</th>
+                     <th>记录时间</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for inspection in inspections %}
+                     <tr>
+                         <td>{{ inspection.rentalCar.license }}</td>
+                         <td>{{ inspection.nextInspectionTime|date('Y-m-d') }}</td>
+                         <td>{{ inspection.inspectionTime|date('Y-m-d') }}</td>
+                         <td>{{ inspection.createTime|date('Y-m-d') }}</td>
+                         <td><a href="{{ path('auto_admin_rentalcar_inspection_edit',{'id':inspection.id,'rentalcarid':rentalCar.id}) }}"><small>编辑</small></a>|<a href="{{ path('auto_admin_rentalcar_inspection_delete',{'id':inspection.id,'rentalcarid':rentalCar.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_inspection_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,130 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'年检'} %}
+     <div class="ui main-content grid" bk_gray" style="padding: 0px">
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_inspection_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+
+                     {# <tr>
+                         <td>
+                             <a class="ui teal button" href="{{ path('auto_admin_inspection_list') }}">添加年检记录 </a>
+                         </td>
+                     </tr>#}
+
+                     <tr>
+                         <td>
+                             <select name="licensePlace" id="licensePlace" class="ui dropdown"  style="width: 100px;">
+                                 <option value="">归属地</option>
+                                 {% for  licensePlace in licensePlaces %}
+                                     <option value="{{ licensePlace.id }}">{{ licensePlace.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td>
+                             <input class=" time_input" type="text"  name="licensePlate" placeholder="请输入车牌号" value="">
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="startTime" id="J-xl"  placeholder="开始时间">
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="endTime" id="J-xl2"  placeholder="结束时间">
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">查询</button>
+                         </td>
+                         <td></td>
+                         <td></td>
+                         <td></td>
+
+                     </tr>
+
+                     </tbody>
+                      <script>
+                         var start = {
+                             elem: '#J-xl',
+                             format: 'YYYY-MM-DD', //日期格式
+                             choose: function(datas){
+                                 end.min = datas; //开始日选好后，重置结束日的最小日期
+                                 end.start = datas //将结束日的初始值设定为开始日
+                             }
+                         }
+                         var end = {
+                             elem: '#J-xl2',
+                             format: 'YYYY-MM-DD', //日期格式
+                             choose: function(datas){
+                                 start.max = datas; //结束日选好后，重置开始日的最大日期
+                             }
+                         }
+                         laydate(start);
+                         laydate(end);
+                     </script>
+                 </table>
+             </form>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车牌号</th>
+                     <th>下次年检时间</th>
+                     <th>年检时间</th>
+                     <th>记录时间</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for inspection in inspections %}
+                     <tr>
+                         <td>{{ inspection.rentalCar.license }}</td>
+                         <td>{{ inspection.nextInspectionTime|date('Y-m-d') }}</td>
+                         <td>{{ inspection.inspectionTime|date('Y-m-d') }}</td>
+                         <td>{{ inspection.createTime|date('Y-m-d') }}</td>
+                         <td><a href="{{ path('auto_admin_inspection_edit',{'id':inspection.id}) }}"><small>编辑</small></a>|<a href="{{ path('auto_admin_inspection_delete',{'id':inspection.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_inspection_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

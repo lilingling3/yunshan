@@ -1,0 +1,128 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['appeal', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'申诉管理'} %}
+     <div class="ui main-search grid">
+         <div class="ui top attached menu tabular no_border">
+             <a class="item " href="{{ path("auto_admin_black_list") }}">黑名单</a>
+             <a class="active item font-normal bk_gray no_border">申诉管理</a>
+         </div>
+         <div class="ten wide column">
+             <form action="{{ path("auto_admin_appeal_search") }}" method="post">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+                         <td>
+                             <select name="status" class="ui dropdown">
+                                 <option>状态</option>
+                                 <option value="1">已申诉</option>
+                                 <option value="2">申诉失败</option>
+                                 <option value="3">申诉成功</option>
+                             </select>
+
+                         </td>
+
+                         <td class="ui input">
+                             <input type="text" name="idNumber" placeholder="请输入驾驶证号">
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">搜索</button>
+                         </td>
+                         {#<td>#}
+                             {#<a href="{{ path('auto_admin_appeal_new') }}" class="ui teal button">添加用户申诉</a>#}
+                         {#</td>#}
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+
+
+     <div class="ui main-content grid">
+
+         {% if   appeals  %}
+             <div class="fifteen wide column">
+                 <table class="ui very basic table">
+                     <thead>
+                     <tr>
+                         <th>姓名</th>
+                         <th>驾驶证号</th>
+                         <th>申诉状态</th>
+                         <th>操作</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     {% for appeal in  appeals %}
+                         <tr>
+                             <td>{{ appeal.blacklist.authMember.member.name }}</td>
+                             <td>{{ appeal.blacklist.authMember.IDNumber }}</td>
+
+                             <td>
+                                 {%  if appeal.handleTime  %}
+                                 {% if appeal.status ==0 %}申诉失败{% else %}申诉成功{% endif %}
+                                 {% else %}<span class="orange">已申诉</span>{% endif %}
+                             </td>
+
+                             <td>
+                                 <a href="{{ path('auto_admin_appeal_show',{'id':appeal.id})
+                                 }}">详情</a>
+                             </td>
+
+                         </tr>
+                     {% endfor %}
+                     </tbody>
+                 </table>
+
+                 {% if total > 1 %}
+                     {% spaceless %}
+                         {% set l = min(max(1, page - 2), total - 4) %}
+                         {% set h = l + 4 %}
+
+                         {% set k = 1 %}
+                         <div class="ui pagination menu">
+                             {% for i in 1..9 %}
+                                 {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                     {% if k != page %}
+                                         <a class="item" href="{{ path("auto_admin_appeal_list",{'page':k,'status':status,'idNumber':idNumber}) }}">{{
+                                     k }}</a>{#,'status':status#}
+                                     {% else %}
+                                         <a class="active item">{{ k }}</a>
+                                     {% endif %}
+                                 {% endif %}
+
+                                 {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                     <i>&hellip;</i>
+                                     {% set k = k == 2 ? l : total - 1 %}
+                                 {% else %}
+                                     {% set k = k + 1 %}
+                                 {% endif %}
+                             {% endfor %}
+                         </div>
+                     {% endspaceless %}
+                 {% endif %}
+
+             </div>
+         {% else %}
+             {% if idNumber %}
+             <div class="fifteen wide column">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+                         <td style="text-align: center">您输入的驾驶证号<span class="red">{{ idNumber }}</span>无此驾驶证信息，请核实</td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </div>
+                 {% else %}{% endif %}
+
+         {% endif %}
+
+     </div>
+
+
+
+
+ {% endblock %}

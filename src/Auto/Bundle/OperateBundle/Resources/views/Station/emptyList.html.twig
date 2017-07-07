@@ -1,0 +1,30 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['station', 'emptyList'] %}
+
+{% block content %}
+    <div class="top-menu">
+        无车租赁点
+        <a href="{{ path("auto_operate_index") }}" class="left-cont" ><b></b></a>
+        <span><a href="javascript:window.location.reload();" >刷新</a></span>
+
+    </div>
+
+    <div class="station-list">
+        {% for station in rental_stations %}
+            <a href="{{ path('auto_operate_rental_car_list',{'sid':station.rentalStationID}) }}">
+                <div class="row">
+                    <h3>{{ station.name }}</h3>
+                    <div class="station-cont">
+                        <p>{{ station.street }}</p>
+                    </div>
+                    <div class="column">
+                        <p>已租车辆 {{ station.processRentalCarCount }} 辆
+                            <span class="line">上线车辆 {{ station.onlineRentalCarCount }} 辆</span>
+                            <span class="line">下线车辆 {{ station.offlineRentalCarCount }} 辆</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}

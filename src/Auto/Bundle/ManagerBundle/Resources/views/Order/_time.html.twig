@@ -1,0 +1,27 @@
+{% macro name(time) %}
+    {% set dd = (time/60/60/24)|round(0, 'floor') %}
+    {% set hh = (time/60/60%24)|round(0, 'floor') %}
+    {% set mm = (time/60%60)|round(0, 'floor') %}
+
+
+    {% set t='' %}
+    {% if dd>0 %}
+        {% set t=t~dd~'天' %}
+    {% endif %}
+
+    {% if hh>0 %}
+        {% set t=t~hh~'小时' %}
+    {% endif %}
+
+    {% if mm>0 %}
+        {% set t=t~mm~'分钟' %}
+    {% endif %}
+
+    {% if t=='' %}
+        {% set t= '0' %}
+    {% endif %}
+    {{ t }}
+{% endmacro %}
+
+
+

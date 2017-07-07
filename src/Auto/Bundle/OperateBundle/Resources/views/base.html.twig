@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block meta %}
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+{% endblock %}
+{% block stylesheets %}
+
+    {% stylesheets "bundles/autooperate/css/*.less" filter="less, cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="{{ asset('/jquery/jquery.min.js') }}"></script>
+    {% javascripts "bundles/autooperate/js/*.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="page" class="{{ page_id|default([])|join(' ') }}">
+
+        {% block content %}
+
+
+        {% endblock %}
+
+    </div>
+{% endblock %}

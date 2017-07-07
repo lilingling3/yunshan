@@ -1,0 +1,40 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['coo_operator', 'set'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'设置站点','prenav':'运营人员'} %}
+     <div class="ui main-content grid">
+         <div class="ui big message" style="width: 100%">
+             {{ operator.member.name }} （ {{ operator.member.mobile }} ）
+             <a href="#" onclick="history.go(-1)" class="ui teal button" style="display: inline-block;float: right">返回</a>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <form name="form" method="post" action="{{ path('auto_admin_region_operator_station_set_do',{'id':operator.id}) }}">
+                 <div class="ui form">
+                     <div class=" field">
+                         <label>请选择要管理的站点</label>
+                     </div>
+                     <div class=" field">
+                         <select class="ui dropdown" id="country" data-cascading="#provincial" data-src="{{ path('auto_admin_area_all') }}"></select>
+                     </div>
+                     <div class=" field">
+                         <select class="ui dropdown" id="provincial" data-cascading="#area"></select>
+                     </div>
+                     <div class=" field">
+                         <select class="ui dropdown" id="area"></select>
+                     </div>
+                     <div class=" field" id="rental_station">
+                     </div>
+                     <button class="ui teal button" type="submit">提交</button>
+                 </div>
+             </form>
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

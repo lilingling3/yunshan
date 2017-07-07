@@ -1,0 +1,39 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['sms', 'send'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'发送','prenav':'短信管理'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             {{ form_start(form) }}
+             <div class="ui form">
+                 <div class=" field">
+                     <label>手机号</label>
+                     {{ form_widget(form.mobile,{'attr': {'placeholder':'手机号' }} ) }}
+                 </div>
+
+
+                 <div class=" field">
+                     <label>短信内容&nbsp;(<span id="word-count">0</span>)</label>
+                     {{ form_widget(form.content,{'attr': {'placeholder':'短信内容'}} ) }}
+                 </div>
+
+                 <button class="ui teal button" type="submit">提交</button>
+             </div>
+             {{ form_end(form) }}
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="item" href="{{ path('auto_admin_sms_list') }}">短信列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

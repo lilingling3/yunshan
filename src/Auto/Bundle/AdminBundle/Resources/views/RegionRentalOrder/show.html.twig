@@ -1,0 +1,512 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'查看','prenav':'订单管理 '} %}
+
+
+     <div class="ui main-content grid">
+         <div style="width: 100%">
+             <a href="javascript:void(0);" onclick="history.go(-1)" class="ui teal button" style="display: inline-block;float: right">返回</a>
+             <a href="javascript:void(0)"  class="ui teal button" style="display: inline-block;float: right">修改减免金额</a>
+         </div>
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal  header"> 订单信息 </h4>
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>订单编号</th>
+                     <th>下单时间</th>
+                     <th>取车时间</th>
+                     <th>还车时间</th>
+                     <th>行驶里程</th>
+                     <th>用车时长</th>
+                     <th>产生费用</th>
+                     <th>车型折扣率</th>
+                     <th>租赁点折扣率</th>
+                     <th>总折扣率</th>
+                     <th>折扣金额</th>
+                     <th>减免</th>
+                     <th>状态</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td>{{ order.id }}</td>
+
+                     <td>{{ order.createTime|date('Y-m-d H:i:s') }}</td>
+                     <td>{% if order.useTime %}
+                         {{ order.useTime|date('Y-m-d H:i:s') }}
+                         {% endif %}
+                    </td>
+                     <td>
+                         {% if  order.endTime %}
+                             {{ order.endTime|date('Y-m-d H:i:s') }}
+                         {% endif %}
+
+                     </td>
+                     {#<td>#}
+                         {#{% if  order.payTime %}#}
+                             {#{{ order.payTime|date('Y-m-d H:i:s') }}#}
+                         {#{% endif %}#}
+                     {#</td>#}
+                     <td>
+                        {{ order.mileage//1000|default(0) }}公里
+                     </td>
+                     <td> {{ useTime }}</td>
+                     <td> {{ rentalOrder.costDetail.cost }}</td>
+                     <td>车型折扣率</td>
+                     <td>租赁点折扣率</td>
+                     <td>总折扣率</td>
+                     <td>折扣金额</td>
+                     <td>减免</td>
+
+                     <td>{{ status.object(order) }}</td>
+                 </tr>
+                 </tbody>
+             </table>
+
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+     <div class="ui main-content grid">
+     <div class="sixteen wide column">
+         <h4 class="ui horizontal  header">支付信息 </h4>
+         {#<i class="tag icon"></i>#}
+         <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+             <thead>
+             <tr>
+                 <th>支付渠道流水ID</th>
+                 <th>支付渠道</th>
+                 <th>支付时间</th>
+                 <th>优惠券ID</th>
+                 <th>优惠券名称</th>
+                 <th>优惠券金额</th>
+                 <th>余额冲抵</th>
+                 <th>实付金额</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr>
+                 <td>
+                     {% if order.wechatTransactionId %}
+                         {{ order.wechatTransactionId }}
+                         {% elseif order.alipayTradeNo %}
+                          {{ order.alipayTradeNo }}
+                     {% endif %}
+                 </td>
+                 <td>
+                     {% if order.wechatTransactionId %}
+                         微信支付
+                     {% elseif order.alipayTradeNo %}
+                         支付宝支付
+                     {% endif %}
+                 </td>
+                 <td>
+                     {% if order.payTime %}
+                     {{ order.payTime|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </td>
+                 <td>
+                     {%  if order.coupon %}
+                         {% if   order.coupon.useTime %}
+                             {{ order.coupon.id }}
+                         {% else %}
+                         {% endif %}
+                     {% else %}  {% endif %}
+
+                 </td>
+                 <td>{%  if order.coupon %}
+                         {% if   order.coupon.useTime %}
+                             {{ order.coupon.kind.name }}
+                         {% else %}
+                         {% endif %}
+                     {% else %}  {% endif %}
+                 </td>
+                 <td>{%  if order.coupon %}
+                         {% if   order.coupon.useTime %}
+                             {{ order.coupon.kind.amount }}
+                         {% else %}0
+                         {% endif %}
+                     {% else %} 0{% endif %}</td>
+                 <td>{{ order.walletAmount }}</td>
+                 <td>{{ order.amount }}</td>
+             </tr>
+
+             </tbody>
+         </table>
+     </div>
+     </div>
+
+
+     <div class="ui main-content grid">
+     <div class="eight wide column">
+         <h4 class="ui horizontal  header">用户信息 </h4>
+         {#<i class="tag icon"></i>#}
+         <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+             <thead>
+             <tr>
+                 <th>姓名</th>
+                 <th>手机号</th>
+                 <th>驾驶证号</th>
+                 <th>档案编号</th>
+                 <th>有效期</th>
+                 <th>状态</th>
+             </tr>
+             </thead>
+             <tbody>
+             <tr>
+                 <td>{{ order.member.name }}</td>
+                 <td>{{ order.member.mobile }}</td>
+                 <td>{{ auth.IDNumber|default() }}</td>
+                 <td>{{ auth.documentNumber }}</td>
+                 <td>{{ auth.licenseStartDate|date('Y-m-d') }}至{{ auth.licenseEndDate|date('Y-m-d') }}</td>
+                 <td>{% if blacked %}<span class="red">已拉黑</span>{% else %}正常{% endif %}</td>
+             </tr>
+
+             </tbody>
+         </table>
+     </div>
+         <div class="eight wide column">
+             <h4 class="ui horizontal header"> 车辆信息 </h4>
+
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>车牌号</th>
+                     <th>车型</th>
+                     <th>车管联系电话</th>
+                     <th>操作</th>
+                 </tr></thead>
+
+                 <tbody>
+                 <tr>
+                     <input type="hidden" id="rental-car-id" value="{{ order.rentalcar.id }}">
+                     <input type="hidden" id="rental-user-id" value="{{ app.user.token }}">
+
+                     <td>{{ order.rentalCar.license }}</td>
+                     <td>{{ order.rentalCar.car.name }}</td>
+                     <td>车管联系电话</td>
+                     <td>
+                         <a href="javascript:void(0);" class="opendoor">开门</a>|
+                         <a href="javascript:void(0);" class="closedoor">锁门</a>|
+                         <a href="javascript:void(0);" class="onElectric">通电</a>|
+                         <a href="javascript:void(0);" class="getstation">GPS定位</a>|
+                         <a href="{{ path("auto_admin_statistics_mileage_records",{'rentalCarID':order.rentalcar.id,'startTime':order.createTime|date('Y-m-d H:i:s'),'endTime':order.endTime|date('Y-m-d H:i:s') }) }}">续航里程</a>
+                     </td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+
+     <div class="ui main-content grid">
+         <div class="eight wide column">
+             <h4 class="ui horizontal  header">租赁费用 </h4>
+             {#<i class="tag icon"></i>#}
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>费用名称</th>
+                     <th>计费时间</th>
+                     <th>计费价格</th>
+                     <th>租赁时长</th>
+                     <th>租赁金额</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                {% for rentalprice in order_cost %}
+
+                 <tr>
+                     <td>{{ rentalprice.name }}</td>
+                     <td>{{ rentalprice.startTime|date('H:i') }}~{{ rentalprice.endTime|date('H:i') }}</td>
+                     <td>{{ rentalprice.price }}</td>
+                     <td>
+                         {#{{( (rentalprice.time/3600)|number_format(2)) }}#}
+                         {{ rentalTime[rentalprice.rentalPriceID] }}
+                     </td>
+                     <td>
+                         {{ rentalprice.amount }}
+                     </td>
+                 </tr>
+                {% endfor %}
+
+                 </tbody>
+             </table>
+         </div>
+         <div class="eight wide column">
+             <h4 class="ui horizontal header"> 租赁点信息 </h4>
+
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>租赁点名称</th>
+                     <th>地区</th>
+                     <th>租赁点电话</th>
+                 </tr></thead>
+
+                 <tbody>
+                 <tr>
+                     <td>取车：
+                         {% if order.pickUpStation %}
+                         {{ order.pickUpStation.name }}
+                         {% endif%}
+                         </td>
+                     <td>
+                         {% if order.pickUpStation %}
+                             {{ order.pickUpStation.area.parent.parent.name }}-{{ order.pickUpStation.area.parent.name }}-{{ order.pickUpStation.area.name }}
+                         {% endif%}
+                         </td>
+                     <td>租赁点电话</td>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td>还车：
+                         {% if order.returnStation %}
+                             {{ order.returnStation.name }}
+                         {% endif%}
+                     </td>
+                     <td>
+                         {% if order.returnStation %}
+                             {{ order.returnStation.area.parent.parent.name }}-{{ order.returnStation.area.parent.name }}-{{ order.returnStation.area.name }}
+                         {% endif%}
+                     </td>
+                     <td>租赁点电话</td>
+                     </td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+         <div class="eight wide column">
+             <h4 class="ui horizontal  header">充电费用 </h4>
+             {#<i class="tag icon"></i>#}
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>充电站名称</th>
+                     <th>电桩编号</th>
+                     <th>电桩属性</th>
+                     <th>充电价格</th>
+                     <th>开始时间</th>
+                     <th>充电度</th>
+                     <th>充电金额</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                     <tr>
+                         <td>充电站名称</td>
+                         <td>电桩编号</td>
+                         <td>电桩属性</td>
+                         <td>充电价格</td>
+                         <td>开始时间</td>
+                         <td>充电度</td>
+                         <td>充电金额</td>
+                     </tr>
+                 </tbody>
+             </table>
+         </div>
+         <div class="eight wide column">
+             <h4 class="ui horizontal header"> 停车费用 </h4>
+
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th>停车场名称</th>
+                     <th>入场时间</th>
+                     <th>出场时间</th>
+                     <th>停车费用</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+
+                 <tbody>
+                 <tr>
+                     <td>停车场名称</td>
+                     <td>入场时间</td>
+                     <td>出场时间</td>
+                     <td>停车费用</td>
+                     <td>
+                         <a href="javascript:void(0)" class="into">入场图</a>|
+                         <a href="javascript:void(0)" class="out">出场图</a>
+                     </td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+
+
+
+     {#{% if  order.useTime %}
+         <div class="ui main-content grid">
+
+
+             <h4 class="ui horizontal divider header"><i class="tag icon"></i> 收费信息 </h4>
+             <table class="ui teal table">
+                 <thead>
+                 <tr>
+
+                     <th>费用名称</th>
+                     <th>计费时间</th>
+                     <th>计费价格(元/时)</th>
+                     <th>计费时长</th>
+                     <th>计费金额</th>
+                 </tr></thead>
+
+                 <tbody>
+
+
+                 {% for cost in cost_details.rentalPrice %}
+                     <tr>
+                         <td>{{ cost.name }}</td>
+                         <td>{{ cost.startTime }}-{{ cost.endTime }}</td>
+                         <td>{{ cost.price }}</td>
+                         <td>
+                             {{ time.name(cost.time) }}
+                         </td>
+                         <td>
+                             {{ cost.amount }}元</td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+         </div>
+     {% endif %}
+
+
+
+     <div class="ui main-content grid">
+         <h4 class="ui horizontal divider header"><i class="tag icon"></i> 车辆信息 </h4>
+
+         <table class="ui teal table">
+             <thead>
+             <tr>
+                 <th>车牌号码</th>
+                 <th>车型</th>
+                 <th>结构/座位</th>
+                 <th>站点</th>
+                 <th>操作</th>
+             </tr></thead>
+
+             <tbody>
+             <tr>
+                 <td>{{ order.rentalCar.license }}</td>
+                 <td>{{ order.rentalCar.car.name }}</td>
+                 <td>{{ order.rentalCar.car.bodyType.name }}/{{ order.rentalCar.car.seats }}</td>
+                 <td>{{ order.pickUpStation.name }}</td>
+                 <td><a href="/admin/rentalcar/show/{{ order.rentalCar.id }}">车辆详情</a></td>
+             </tr>
+             </tbody>
+         </table>
+     </div>
+
+     {% if  illegals %}
+         <div class="ui main-content grid">
+             <h4 class="ui horizontal divider header"><i class="tag icon"></i> 违章信息 </h4>
+             <table class="ui teal table">
+                 <thead>
+                 <tr>
+
+                     <th>违章时间</th>
+                     <th>违章地点</th>
+                     <th>违章行为</th>
+                     <th>罚分</th>
+                     <th>罚款（元）</th>
+                     <th>处理状态</th>
+                 </tr></thead>
+
+                 <tbody>
+
+
+                 {% for illegal in illegals %}
+                     <tr>
+                         <td>{{ illegal.illegalTime| date('Y-m-d')}}</td>
+                         <td>{{ illegal.illegalPlace }}</td>
+                         <td>{{ illegal.illegal }}</td>
+                         <td>{{ illegal.illegalScore  }}</td>
+                         <td>{{ illegal.illegalAmount  }}</td>
+                         <td>
+                             {% if illegal.handleTime  %}
+                                 <span class="status-handle">已处理</span>
+                             {% else%}
+                                 <span class="status-unhandle">未处理</span>
+                             {% endif %}
+                         </td>
+
+                     </tr>
+                 {% endfor %}
+
+                 </tbody>
+             </table>
+         </div>
+     {% endif %}
+#}
+
+     <div class="open-door door">
+         <div>
+             <h4>确认后将对车辆进行开门，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要开门的车辆号牌">
+
+             <button class="ui teal button cancel">取消</button>
+             <button class="ui teal button right open" >确认</button>
+         </div>
+     </div>
+
+     <div class="close-door door">
+         <div>
+             <h4>确认后将对车辆进行锁门，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要锁门的车辆号牌">
+
+             <button class="ui teal button cancel ">取消</button>
+             <button class="ui teal button right lock">确认</button>
+         </div>
+     </div>
+
+     <div class="on_electric door">
+         <div>
+             <h4>确认后将对车辆进行通电，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要通电的车辆号牌">
+
+             <button class="ui teal button cancel ">取消</button>
+             <button class="ui teal button right on">确认</button>
+         </div>
+     </div>
+
+     <div class="off_electric door">
+         <div>
+             <h4>确认后将对车辆进行断电，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要断电的车辆号牌">
+
+             <button class="ui teal button cancel ">取消</button>
+             <button class="ui teal button right off">确认</button>
+         </div>
+     </div>
+
+
+
+
+     <div class=" gps door">
+         <iframe id="framenow" src="/admin/rentalcar/locate/{{ order.rentalcar.id }}"></iframe>
+     </div>
+
+
+
+
+ {% endblock %}

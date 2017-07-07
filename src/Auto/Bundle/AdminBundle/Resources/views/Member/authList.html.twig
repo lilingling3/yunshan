@@ -1,0 +1,154 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['member', 'auth'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'用户认证','prenav':'用户管理'} %}
+     <div class="ui main-search grid bk_gray" style="padding: 0px">
+
+         <div class="ten wide">
+             <form action="{{ path("auto_admin_member_auth_search") }}" method="post">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+                         <td>
+                             <select name="status" class="ui dropdown">
+                                 <option>认证状态</option>
+                                 <option value="201">待认证</option>
+                                 <option value="202">认证失败</option>
+                                 <option value="203">证件过期</option>
+                                 <option value="299">认证成功</option>
+                             </select>
+
+                         </td>
+
+                         <td class="ui input">
+                             <input type="text" name="mobile" placeholder="请输入手机号">
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="name" placeholder="请输入姓名">
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">提交</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+
+
+     <div class="ui main-content grid">
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>用户手机号</th>
+                     <th>姓名</th>
+                     <th>驾驶证号</th>
+                     <th>注册时间</th>
+                     <th>提交认证时间</th>
+                     <th>认证状态</th>
+                     <th>审核时间</th>
+                     <th>审核时长</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for auth in auth_members %}
+                     <tr>
+                         <td>{{ auth.member.mobile }}</td>
+                         <td>{{ auth.member.name }}</td>
+                         <td>{{ auth.IDNumber }}</td>
+                         <td>
+                             {% if auth.member.createTime %}
+                             {{ auth.member.createTime|date('Y-m-d H:i:s') }}</td>
+                            {% endif %}
+                         <td>
+                             {% if auth.applyTime %}
+                             {{ auth.applyTime|date('Y-m-d H:i:s') }}
+                             {% endif %}
+                         </td>
+
+                         <td>
+                             {% if auth.status==201 %}
+                                 <span style="color:#F90;font-size: 14px">待认证</span>
+                             {% endif %}
+                             {% if auth.status==202 %}
+                                 认证失败
+                             {% endif %}
+                             {% if auth.status==203 %}
+                                 证件过期
+                             {% endif %}
+                             {% if auth.status==299 %}
+                                 认证成功
+                             {% endif %}
+                         </td>
+                         <td>{% if  auth.authTime%}
+                             {{ auth.authTime|date('Y-m-d H:i:s') }}
+                             {% endif %}
+                         </td>
+                         <td>{% if  auth.authTime %}
+                             {{ time[auth.id] }}
+                             {% endif %}
+                         </td>
+
+                         <td>
+                             {% if auth.status==201 %}
+                                 <a href="{{ path('auto_admin_member_auth_edit',{'id':auth.id,'page':page})}}">审核</a>
+                             {% else %}
+                             <a href="{{ path('auto_admin_member_auth_show',{'id':auth.id,'page':page})}}">查看</a>
+                             {% endif %}
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_member_auth_list",{'page':k,
+                                         'status':status}) }}">{{
+                                         k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column" style="display:none">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">用户认证列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+
+
+ {% endblock %}

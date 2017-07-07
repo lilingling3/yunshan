@@ -1,0 +1,120 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['dataChart', 'order'] %}
+{% block stylesheets %}
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/Chart.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/bundles/autoadmin/js/module/laydate.js') }}"></script>
+    {{ parent() }}
+{% endblock %}
+
+{% block content %}
+    {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'数据图表'} %}
+
+
+    <div class="ui main-content">
+        <div class="ui top attached menu tabular no_border">
+            <a class="item active font-normal st_bt"  href="#">数据图表</a>
+            <a class="item "  href="{{ path("auto_admin_statistics_location") }}">车辆定位</a>
+        </div>
+        <div class="ui bottom attached segment  no_border">
+            <form action="{{ path("auto_admin_chart_register") }}"  method="get">
+                <table class="ui very basic table no_border">
+                    <tbody>
+                    <tr>
+                        <td>数据类型</td>
+                        <td style="width: 70%;">
+                            <a class="chart_top_a" href="{{ path("auto_admin_chart_operate") }}">运营数据</a>
+                            <a class="chart_top_a  " href="{{ path("auto_admin_chart_order") }}">订单数据</a>
+                            <a class="chart_top_a chart_top_active" href="javascript:void(0)">注册数据</a>
+                            <a class="chart_top_a " href="{{ path("auto_admin_chart_identification") }}">认证数据</a>
+                        </td>
+
+                        <td style="border-left: 1px solid rgba(34,36,38,.15);width: 20%;" rowspan="3">
+                            <button class="ui teal button chart_operate_submit " type="submit" >按条件搜索</button>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>统计地区</td>
+                        <td>
+                            <select  style= 'color:#999'class=" time_input" name="province" id="province" class="ui dropdown" disabled="true">
+                                <option value="0">省份</option>
+                            </select>
+                            <select  style= 'color:#999' class=" time_input"  name="city" id="city" class="ui dropdown" disabled="true">
+                                <option value="0">全部城市</option>
+                            </select>
+                            <select  style= 'color:#999' class=" time_input"  name="area" id="area" class="ui dropdown" disabled="true">
+                                <option value="0">全部城区</option>
+                            </select>
+                            <select  style= 'color:#999' class=" time_input"  name="rental_station" id="rental_station" class="ui dropdown" disabled="true">
+                                <option value="0">全部租赁点</option>
+                            </select>
+                        </td>
+
+
+                    </tr>
+                    <tr>
+                        <td>时间范围</td>
+                        <td>
+                            <p class="chart_time">
+                                <input type="text" name="day" value="" id="days" style="display: none"/>
+                                <a class="chart_top_a " data-day="3" href="javascript:void(0)">3天</a>
+                                <a class="chart_top_a " data-day="7" href="javascript:void(0)">7天</a>
+                                <a class="chart_top_a "  data-day="15" href="javascript:void(0)">15天</a>
+                                <a class="chart_top_a "  data-day="30" href="javascript:void(0)">30天</a>
+                                <a class="chart_top_a "  data-day="90" href="javascript:void(0)">90天</a>
+                            </p>
+                            <p style="float: left;width: 265px;margin-left: 10px;">
+                                <input class=" time_input" style="width: 130px;" type="text" id="J-xl" name="start_time" placeholder="开始时间" value="" autocomplete="off">
+                                <input class=" time_input" style="width: 130px;" type="text" id="J-xl2" name="end_time" placeholder="结束时间" value="" autocomplete="off">
+                            </p>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        <div class="ui bottom attached segment bk_gray border_top ">
+            <p> 全部省份 | 全部城市 | 全部城区 |全部租赁点
+                |{{ startTime }}至{{ endTime }}
+            </p>
+        </div>
+    </div>
+
+    <div class="ui main-content " style="position: relative;overflow: hidden;">
+        <div class="chart_cont_left">
+            <ul>
+                <li class="one">注册数据</li>
+                <li>
+                    <p>新增注册</p>
+                    <p class="two">{{ countNewMembers }}</p>
+                </li>
+                <li>
+                    <p>累计注册</p>
+                    <p class="two">{{ countMembers }}</p>
+                </li>
+            </ul>
+        </div>
+        <div class="chart_cont_right">
+            {#<canvas id="canvas"></canvas>#}
+            <div  >
+                {% if  newMembers %}
+                    {% for time in time_list %}
+                        {% for member in newMembers %}
+                            {% if time==member.createTime|default()|date('Y-m-d') %}
+                                <input class='chart_register_input' type="hidden" value="{{ everyDayMember[time] }} " data-day="{{ member.createTime|default()|date('Y-m-d') }}">
+                            {% else %}
+                                <input class='chart_register_input' type="hidden" value="0 " data-day="{{ time}}">
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    {% for time in time_list %}
+                        <input class='chart_register_input' type="hidden" value="0 " data-day="{{ time}}">
+                    {% endfor %}
+                {% endif %}
+                <canvas id="register_canvas"></canvas>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

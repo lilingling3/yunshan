@@ -1,0 +1,48 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'车牌归属地','prenav':'添加'} %}
+     <div class="ui main-content grid">
+         <div class="ui top attached menu tabular no_border">
+             <a class="item" href="{{ path("auto_admin_rentalcar_list") }}">租赁车辆</a>
+             <a class="item active  font-normal bk_gray no_border" >车牌归属地</a>
+             <a class="item " href="{{ path("auto_admin_company_list")}}">归属公司</a>
+             <a class="item " href="{{ path("auto_admin_equipment_company_list")}}">设备公司</a>
+             <a class="item " href="{{ path("auto_admin_insurance_company_list") }}">保险公司</a>
+         </div>
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <table class="ui very basic table no_border" >
+                 <tbody >
+                 <tr>
+                     <td>
+                         <a class="ui teal button" href="{{ path('auto_admin_license_place_new') }}">添加车辆归属地 </a>
+                     </td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车牌归属地</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for place in places %}
+                     <tr>
+                         <td><a href="{{ path('auto_admin_license_place_edit',{'id':place.id}) }}">{{ place.name }}</a></td>
+
+                         <td><a href="{{ path('auto_admin_license_place_edit',{'id':place.id}) }}"><small>编辑</small></a>|<a href="{{ path('auto_admin_license_place_delete',{'id':place.id}) }}"><small>删除</small></a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+         </div>
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,14 @@
+services:
+#    auto_api.example:
+#        class: Auto\Bundle\ApiBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    auto_api.rental_car_controller:
+        class: Auto\Bundle\ApiBundle\Controller\RentalCarController
+
+
+    auto_api.partner_listener:
+        class: Auto\Bundle\ApiBundle\EventListener\PartnerControllerListener
+        arguments: [@doctrine.orm.entity_manager, @service_container]
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }

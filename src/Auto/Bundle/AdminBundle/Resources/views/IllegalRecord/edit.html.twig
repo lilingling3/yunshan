@@ -1,0 +1,22 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['illegal', 'edit'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'编辑','prenav':'车辆违章管理'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:IllegalRecord:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">修改车辆违章 </a>
+                 <a class="item" href="{{ path('auto_admin_illegal_record_list') }}">车辆违章列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

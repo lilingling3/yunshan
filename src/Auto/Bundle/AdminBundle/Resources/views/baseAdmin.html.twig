@@ -1,0 +1,358 @@
+{% extends "::base.html.twig" %}
+
+{% block meta %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('/semantic/dist/semantic.min.css') }}">
+    {% stylesheets "bundles/autoadmin/css/*.less" filter="less, cssrewrite" %}
+    <link rel="stylesheet" href="{{ asset_url }}"/>
+    <script type="text/javascript" src="{{ asset('/jquery/jquery.min.js') }}"></script>
+    {% endstylesheets %}
+
+{% endblock %}
+
+{% block javascripts %}
+   {# <script type="text/javascript" src="{{ asset('/jquery/jquery.min.js') }}"></script>#}
+    <script type="text/javascript" src="{{ asset('/yui3/yui/yui-min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('/semantic/dist/semantic.min.js') }}"></script>
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=b9d7491ba1d58fecf58d56ca808024a5&plugin=AMap.Autocomplete"></script>
+    <script type="text/javascript">
+        YUI.GlobalConfig = {
+            modules: {
+                'auto-cascading': '{{ asset('/bundles/autoadmin/js/module/cascading.js') }}',
+                'mojomaja-photograph': {
+                    'fullpath': '{{ asset('/bundles/mojomajaphotograph/js/photograph.js') }}'
+                },
+                'austra-seed': '{{ asset('/bundles/autoadmin/js/module/seed.js') }}'
+            }
+        };
+    </script>
+
+    {% javascripts "bundles/autoadmin/js/*.js" %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+{% endblock %}
+
+{% block body %}
+    <div id="admin" class="{{ page_id|default([])|join(' ') }} swipe">
+
+        <div class="ui grid">
+            <div class="two wide center aligned column main-left sidebar" >
+                <a href="{{ path('auto_admin_index') }}" style="color:#fff;">
+                    <i class="circular big inverted teal user icon"></i>
+
+                    <p>{{ app.user.mobile }}</p>
+                </a>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <ul>
+                        <li class="active"><i class="users grey big icon"></i><p>用户管理</p>
+                            <div class="menu-li" style="width: 270px">
+                                <dl><a href="{{ path('auto_admin_authmember_auth_list') }}">用户认证</a></dl>
+                                {#<dl><a href="{{ path('auto_admin_member_auth_list') }}">用户认证</a></dl>#}
+                                <dl><a href="{{ path('auto_admin_black_list') }}">黑名单</a></dl>
+                                <dl><a href="{{ path('auto_admin_role_list') }}">权限设置</a></dl>
+                                <dl><a href="{{ path('auto_admin_operator_list') }}">运营端设置</a></dl>
+                                {#<dl><a href="{{ path('auto_admin_appeal_list') }}">申诉管理</a></dl>#}
+
+                            </div>
+                        </li>
+                        <li><i class="users grey big icon"></i><p>合作伙伴</p>
+                            <div class="menu-li" style="width: 270px">
+                                <dl><a href="{{ path('auto_admin_partner_index') }}">伙伴认证</a></dl>
+
+                            </div>
+                        </li>
+
+                        <li><i class="unordered list grey big icon"></i><p>订单管理</p>
+                            <div class="menu-li"  style="width: 100px">
+                                <dl><a href="{{ path("auto_admin_rental_order_list") }}">租赁订单</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="block layout grey big icon"></i><p>站点管理</p>
+                            <div class="menu-li"  style="width: 273px">
+                                <dl><a href="{{ path('auto_admin_rental_station_list') }}">租赁点管理</a></dl>
+                                <dl><a href="{{ path('auto_admin_rental_company_list') }}">租赁公司</a></dl>
+                                <dl><a href="{{ path('auto_admin_area_list') }}">地区列表</a></dl>
+                                <dl><a href="{{ path('auto_admin_area_businessDistrict_list') }}">商圈列表</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="car grey big icon"></i><p>车辆管理</p>
+                            <div class="menu-li" style="width: 460px">
+                                <dl><a href="{{ path('auto_admin_car_list') }}">车型管理</a></dl>
+                                <dl><a href="{{ path('auto_admin_rentalcar_list') }}">租赁车辆</a></dl>
+                                {#<dl><a href="{{ path('auto_admin_insurance_record_list') }}">车辆保险</a></dl>#}
+                                <dl><a href="{{ path('auto_admin_maintenance_record_list') }}">车辆维修</a></dl>
+                                <dl><a href="{{ path('auto_admin_illegal_record_list') }}">车辆违章</a></dl>
+                                <dl><a href="{{ path('auto_admin_inspection_list') }}">年检</a></dl>
+                                <dl><a href="{{ path('auto_admin_upkeep_list') }}">保养</a></dl>
+                                <dl><a href="{{ path('auto_admin_statistics_location') }}">车辆定位</a></dl>
+                                {#<dl><a href="{{ path('auto_admin_car_info') }}">车辆信息查询</a></dl>#}
+                                <dl><a href="{{ path('auto_admin_carproblem_list') }}">车辆问题</a></dl>
+                                {#<dl><a href="{{ path('auto_admin_dispatch_list') }}">移库记录</a></dl>#}
+                            </div>
+                        </li>
+                        <li><i class="yen grey big icon"></i><p>定价管理</p>
+                            <div class="menu-li"  style="width: 120px">
+                                <dl><a href="{{ path("auto_admin_rental_price_list") }}">租赁车型定价</a></dl>
+                                {#<dl>电桩定价</dl>#}
+                            </div>
+                        </li>
+                        <li><i class="tags grey big icon"></i><p>优惠券管理</p>
+                            <div class="menu-li" style="width: 390px">
+                                <dl><a href="{{ path("auto_admin_coupon_kind_list") }}">优惠券类型</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_list") }}">优惠券管理</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_new") }}">添加优惠券</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_activity_list") }}">优惠活动</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_code_new") }}">添加优惠兑换码</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="unordered mail grey big icon"></i><p>短信管理</p>
+                            <div class="menu-li" style="width: 230px">
+                                <dl><a href="{{ path("auto_admin_sms_list") }}">短信列表</a></dl>
+                                <dl><a href="{{ path("auto_admin_sms_code_list") }}">验证码列表</a></dl>
+                                <dl><a href="{{ path("auto_admin_sms_code_send") }}">发送短信</a></dl>
+                            </div>
+                        </li>
+                        <li ><i class="unordered eyedropper grey big icon"></i><p>活动管理</p>
+                            <div class="menu-li" style="width: 230px">
+                                <dl><a href="{{ path("auto_admin_marketActivity_list") }}">活动广告</a></dl>
+                                <dl><a href="{{ path("auto_admin_rechargeActivity_list") }}">充值活动</a></dl>
+                                <dl><a href="{{ path("auto_admin_invite_record_list") }}">邀请好友</a></dl>
+                            </div>
+                        </li>
+                        <li ><i class="unordered history grey big icon"></i><p>数据统计</p>
+                            <div class="menu-li" style="width: 288px">
+                                <dl><a href="{{ path("auto_admin_statistics_amount") }}">固定数据统计</a></dl>
+                                <dl><a href="{{ path("auto_admin_statistics_operate_two") }}">运营数据</a></dl>
+                                <dl><a href="{{ path("auto_admin_chart_operate") }}">数据图表</a></dl>
+                                <dl><a href="{{ path("auto_admin_daily_list") }}">数据导出</a></dl>
+                                {#<dl><a href="{{ path("auto_admin_statistics_mileage_records") }}">车辆续航数据</a></dl>#}
+
+
+                            </div>
+                        </li>
+
+                        <li><i class="money grey big icon"></i><p>财务管理</p>
+                            <div class="menu-li" style="width: 330px">
+                                <dl><a href="{{ path('auto_admin_order_flow_list') }}">订单流水</a></dl>
+                                <dl><a href="{{ path('auto_admin_invoice_list') }}">发票管理</a></dl>
+                                <dl><a href="{{ path('auto_admin_payment_order_list') }}">缴费记录</a></dl>
+                                <dl><a href="{{ path('auto_admin_parking_record_list') }}">停车记录</a></dl>
+                                <dl><a href="{{ path('auto_admin_deposit_record_list') }}">租车押金</a></dl>
+                            </div>
+                        </li>
+
+                        {#<li><i class="world grey big icon"></i><p>地区管理</p>
+                            <div class="menu-li" style="width: 100px">
+                                <dl><a href="{{ path('auto_admin_area_list') }}">地区列表</a></dl>
+                            </div>
+                        </li>#}
+                        {#
+                        <li><i class="lightning grey big icon"></i><p>电桩管理</p>
+                            <div class="menu-li">
+                                <dl><a href="{{ path('auto_admin_charging_pile_list') }}">电桩管理</a></dl>
+                            </div>
+                        </li>
+                        #}
+                        {#
+                        <li><i class="unordered list grey big icon"></i><p>投票管理</p>
+                            <div class="menu-li">
+                                <dl><a href="{{ path("auto_admin_vote_list") }}">投票列表</a></dl>
+                            </div>
+                        </li>
+                        #}
+                        {#
+                        <li ><i class="unordered payment grey big icon"></i><p>充值活动</p>
+                            <div class="menu-li" style="width: 300px">
+                                <dl><a href="{{ path("auto_admin_rechargeActivity_list") }}">充值活动</a></dl>
+                            </div>
+                        </li>#}
+
+                    </ul>
+                {% endif %}
+
+                {% if is_granted('ROLE_FINANCE') %}
+                    <ul>
+                        <li><i class="money grey big icon"></i><p>财务管理</p>
+                            <div class="menu-li" style="width: 200px">
+                                <dl><a href="{{ path('auto_admin_order_flow_list') }}">订单流水</a></dl>
+                                <dl><a href="{{ path('auto_admin_invoice_list') }}">发票管理</a></dl>
+                                <dl><a href="{{ path('auto_admin_refund_record_list') }}">退款审核</a></dl>
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+
+                {% if is_granted('ROLE_COO') %}
+                    <ul>
+                        <li class="active"><i class="users grey big icon"></i><p>用户管理</p>
+                            <div class="menu-li" style="width: 200px">
+                                <dl><a href="{{ path('auto_admin_black_list') }}">黑名单</a></dl>
+                                <dl><a href="{{ path('auto_admin_operator_list') }}">运营端设置</a></dl>
+
+                            </div>
+                        </li>
+                        <li><i class="unordered list grey big icon"></i><p>订单管理</p>
+                            <div class="menu-li"  style="width: 100px">
+                                <dl><a href="{{ path("auto_admin_rental_order_list") }}">租赁订单</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="block layout grey big icon"></i><p>站点管理</p>
+                            <div class="menu-li"  style="width: 170px">
+                                <dl><a href="{{ path('auto_admin_rental_station_list') }}">租赁点管理</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="car grey big icon"></i><p>车辆管理</p>
+                            <div class="menu-li" style="width: 360px">
+                                <dl><a href="{{ path('auto_admin_car_list') }}">车型管理</a></dl>
+                                <dl><a href="{{ path('auto_admin_rentalcar_list') }}">租赁车辆</a></dl>
+                                <dl><a href="{{ path('auto_admin_maintenance_record_list') }}">车辆维修</a></dl>
+                                <dl><a href="{{ path('auto_admin_illegal_record_list') }}">车辆违章</a></dl>
+                                <dl><a href="{{ path('auto_admin_inspection_list') }}">年检</a></dl>
+                                <dl><a href="{{ path('auto_admin_statistics_location') }}">车辆定位</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="tags grey big icon"></i><p>优惠券管理</p>
+                            <div class="menu-li" style="width: 180px">
+                                <dl><a href="{{ path("auto_admin_coupon_list") }}">优惠券管理</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_new") }}">添加优惠券</a></dl>
+                            </div>
+                        </li>
+                        <li ><i class="unordered history grey big icon"></i><p>数据统计</p>
+                            <div class="menu-li" style="width: 170px">
+                                <dl><a href="{{ path("auto_admin_statistics_operate_two") }}">运营数据</a></dl>
+                                <dl><a href="{{ path("auto_admin_chart_operate") }}">数据图表</a></dl>
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+
+                {% if is_granted('ROLE_REGION_MANAGER') %}
+                    <ul>
+                        <li class="active"><i class="users grey big icon"></i><p>用户管理</p>
+                            <div class="menu-li" style="width: 200px">
+                                <dl><a href="{{ path('auto_admin_black_list') }}">黑名单</a></dl>
+                                <dl><a href="{{ path('auto_admin_region_operator_list') }}">运营端设置</a></dl>
+
+                            </div>
+                        </li>
+                        <li><i class="unordered list grey big icon"></i><p>订单管理</p>
+                            <div class="menu-li"  style="width: 100px">
+                                <dl><a href="{{ path("auto_admin_region_rental_order_list") }}">租赁订单</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="block layout grey big icon"></i><p>站点管理</p>
+                            <div class="menu-li"  style="width: 170px">
+                                <dl><a href="{{ path('auto_admin_region_rental_station_list') }}">租赁点管理</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="car grey big icon"></i><p>车辆管理</p>
+                            <div class="menu-li" style="width: 360px">
+                                <dl><a href="{{ path('auto_admin_regioncar_list') }}">租赁车辆</a></dl>
+                                <dl><a href="{{ path('auto_admin_region_maintenance_record_list') }}">车辆维修</a></dl>
+                                <dl><a href="{{ path('auto_admin_region_illegal_record_list') }}">车辆违章</a></dl>
+                                <dl><a href="{{ path('auto_admin_region_inspection_list') }}">车检</a></dl>
+                                <dl><a href="{{ path('auto_admin_region_statistics_location') }}">车辆定位</a></dl>
+                            </div>
+                        </li>
+
+                        <li ><i class="unordered history grey big icon"></i><p>数据统计</p>
+                            <div class="menu-li" style="width: 170px">
+                                <dl><a href="{{ path("auto_admin_region_statistics_operate_two") }}">运营数据</a></dl>
+                                <dl><a href="{{ path("auto_admin_region_chart_operate") }}">数据图表</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="tags grey big icon"></i><p>优惠券管理</p>
+                            <div class="menu-li" style="width: 180px">
+                                <dl><a href="{{ path("auto_admin_coupon_list") }}">优惠券管理</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_new") }}">添加优惠券</a></dl>
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+
+                {% if is_granted('ROLE_MARKET') %}
+                    <ul>
+                        <li><i class="tags grey big icon"></i><p>优惠券管理</p>
+                            <div class="menu-li" style="width: 260px">
+                                <dl><a href="{{ path("auto_admin_coupon_kind_list") }}">优惠券类型</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_list") }}">优惠券管理</a></dl>
+                                <dl><a href="{{ path("auto_admin_coupon_activity_list") }}">优惠活动</a></dl>
+                            </div>
+                        </li>
+                        <li ><i class="unordered eyedropper grey big icon"></i><p>活动管理</p>
+                            <div class="menu-li" style="width: 160px">
+                                <dl><a href="{{ path("auto_admin_marketActivity_list") }}">活动广告</a></dl>
+                                <dl><a href="{{ path("auto_admin_rechargeActivity_list") }}">充值活动</a></dl>
+                            </div>
+                        </li>
+                        <li ><i class="unordered history grey big icon"></i><p>数据统计</p>
+                            <div class="menu-li" style="width: 130px">
+                                <dl><a href="{{ path("auto_admin_statistics_amount") }}">固定数据统计</a></dl>
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+
+                {% if is_granted('ROLE_SERVER') %}
+                    <ul>
+                        <li class="active"><i class="users grey big icon"></i><p>用户管理</p>
+                            <div class="menu-li" style="width: 150px">
+                                <dl><a href="{{ path('auto_admin_authmember_auth_list') }}">用户认证</a></dl>
+                                {#<dl><a href="{{ path('auto_admin_member_auth_list') }}">用户认证</a></dl>#}
+                                <dl><a href="{{ path('auto_admin_black_list') }}">黑名单</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="unordered list grey big icon"></i><p>订单管理</p>
+                            <div class="menu-li" style="width: 100px">
+                                <dl><a href="{{ path("auto_admin_rental_order_list") }}">租赁订单</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="car grey big icon"></i><p>车辆管理</p>
+                            <div class="menu-li" style="width: 100px">
+                                <dl><a href="{{ path('auto_admin_illegal_record_list') }}">车辆违章</a></dl>
+                            </div>
+                        </li>
+
+                        <li><i class="unordered mail grey big icon"></i><p>短信管理</p>
+                            <div class="menu-li" style="width: 120px">
+                                <dl><a href="{{ path("auto_admin_sms_code_list") }}">验证码列表</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="tags grey big icon"></i><p>优惠券管理</p>
+                            <div class="menu-li" style="width: 120px">
+                                <dl><a href="{{ path("auto_admin_coupon_list") }}">优惠券管理</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="money grey big icon"></i><p>财务管理</p>
+                            <div class="menu-li" style="width: 160px">
+                                <dl><a href="{{ path('auto_admin_order_flow_recharge_list') }}">订单流水</a></dl>
+                                <dl><a href="{{ path('auto_admin_invoice_invoicedList') }}">发票管理</a></dl>
+                            </div>
+                        </li>
+                        <li><i class="money grey big icon"></i><p>财务管理</p>
+                            <div class="menu-li" style="width: 150px">
+                                <dl><a href="{{ path('auto_admin_refund_record_list') }}">退款审核</a></dl>
+                            </div>
+                        </li>
+                    </ul>
+                {% endif %}
+
+
+            </div>
+
+            <div class="fourteen wide column main-right">
+                {% block content %}
+
+
+                {% endblock %}
+            </div>
+
+
+        </div>
+
+    </div>
+{% endblock %}

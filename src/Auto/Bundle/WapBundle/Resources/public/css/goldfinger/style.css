@@ -1,0 +1,122 @@
+@charset "utf-8";
+/* CSS Document */
+html{ margin:0; padding:0; height:100%;width:750px; overflow:hidden;}
+body{ width:750px; position:relative; height:100%; overflow:hidden; margin:0; padding:0; margin:0 auto;}
+section,div,li,ul,p,a,h1,h2,h3,span,figure,aside{ margin:0; padding:0; list-style:none;}
+.img{pointer-events:none;-webkit-touch-callout:none;-webkit-user-select:none; }
+.animation { -webkit-transition: all 0.35s;}
+.stion {-webkit-transition: all 0.3s;}
+.stion1{  -webkit-transition: all 0.3s linear;}
+.stion2{  -webkit-transition: all 1s;}
+.hudnfg{ width:750px; height:100%; overflow:hidden; position:absolute; left:0px; top:0px; background-size:cover;}
+.load{ background:#000; width:100%; height:100%; position:absolute; left:0px; top:0px; z-index:100;}
+.page{ position:absolute; left:0px; top:0px; width:100%; height:100%;}
+.page1{ background:url(../../images/goldfinger/bg0.jpg) no-repeat center bottom; background-size:cover;}
+.title_loadnum{ line-height:60px; text-align:center; font-family: Arial; color:#fff; font-size:26px; position:absolute; width:100%; font-size:26px; top:50%; margin-top:-30px;}
+.hide{ display:none;}
+.Histogram{ width:120px; height:50px; position:absolute; left:50%; margin-left:-60px; top:50%; margin-top:-100px;}
+.Histogram p{ height:50px; float:left; width:16px; margin:0 2px; position:relative;}
+.Histogram span{ display:block; width:16px; height:40px; background:#fe6993; position:absolute; left:0px; bottom:0px;-webkit-animation:loading 1.5s infinite linear; opacity:0.6;}
+@-webkit-keyframes loading{
+50%{ height:70px; opacity:1;}
+}
+.Histogram p:nth-child(1) span{ -webkit-animation:loading 1.5s 0.15s infinite linear;}
+.Histogram p:nth-child(2) span{ -webkit-animation:loading 1.5s 0.3s infinite linear;}
+.Histogram p:nth-child(3) span{ -webkit-animation:loading 1.5s 0.45s infinite linear;}
+.Histogram p:nth-child(4) span{ -webkit-animation:loading 1.5s 0.6s infinite linear;}
+.Histogram p:nth-child(5) span{ -webkit-animation:loading 1.5s 0.75s infinite linear;}
+.Histogram p:nth-child(6) span{ -webkit-animation:loading 1.5s 0.9s infinite linear;}
+
+.startbuton{ background:url(../../images/goldfinger/img3.png) no-repeat center center; width:318px; height:358px; position:absolute; left:50%; margin-left:-159px; top:50%; margin-top:-50px;}
+.glass{ width:100%; height:100%; position:absolute; left:0px; top:0px;}
+.glsas{ background:url(../../images/goldfinger/00.png) no-repeat center center; background-size:cover; position:absolute; left:0px; top:0px; display:block; width:100%; height:100%;}
+.tit1{ background:url(../../images/goldfinger/img2.png) no-repeat center center; width:750px; height:340px; position:absolute; left:0px; top:50%; margin-top:-390px; opacity:0; -webkit-transform:translateY(-100px); -webkit-filter:blur(3px);}
+.tit2{ background:url(../../images/goldfinger/img4.png) no-repeat center center;width:750px; height:340px; position:absolute; left:0px; top:50%; margin-top:-450px; opacity:0; -webkit-transform:translateY(-100px); -webkit-filter:blur(3px);}
+.titleIn{ -webkit-transform:translateY(0px); opacity:1;-webkit-filter:blur(0px); -webkit-transition:all 0.8s;}
+.titleOut{ -webkit-transform:translateY(100px); opacity:0;-webkit-filter:blur(3px); -webkit-transition:all 0.8s;}
+.galslit{ width:100%; height:100%; position:absolute; left:0px; top:0px;}
+.galslit li{ width:100%; height:100%; position:absolute; left:0px; top:0px; background-repeat:no-repeat; background-size:cover; background-position:center bottom; display:none;}
+.galslit li.choshow{ display:block;}
+.galslit li:nth-child(1){ background:url(../../images/goldfinger/y1.png) no-repeat center bottom;}
+.galslit li:nth-child(2){ background:url(../../images/goldfinger/y2.png) no-repeat center bottom;}
+.galslit li:nth-child(3){ background:url(../../images/goldfinger/1.png) no-repeat center bottom;}
+.galslit li:nth-child(4){ background:url(../../images/goldfinger/2.png) no-repeat center bottom;}
+.galslit li:nth-child(5){ background:url(../../images/goldfinger/3.png) no-repeat center bottom;}
+.galslit li:nth-child(6){ background:url(../../images/goldfinger/4.png) no-repeat center bottom;}
+.galslit li:nth-child(7){ background:url(../../images/goldfinger/5.png) no-repeat center bottom;}
+.galslit li:nth-child(8){ background:url(../../images/goldfinger/6.png) no-repeat center bottom;}
+.galslit li:nth-child(9){ background:url(../../images/goldfinger/07.png) no-repeat center bottom;}
+.galslit li:nth-child(10){ background:url(../../images/goldfinger/08.png) no-repeat center bottom;}
+.galslit li:nth-child(11){ background:url(../../images/goldfinger/09.png) no-repeat center bottom;}
+.start_am{ -webkit-animation:but1 1.2s infinite;}
+@-webkit-keyframes but1{
+50%{ opacity:0.3;-webkit-filter:blur(3px);}
+}
+
+.page2{ background:url(../../images/goldfinger/bg1.jpg) no-repeat center center; background-size:cover;}
+.wh954{ width:750px; height:960px; position:absolute; left:0px; top:50%; margin-top:-480px;}
+.tit3{ background:url(../../images/goldfinger/img5.png) no-repeat center center; height:266px; width:750px; position:absolute; left:0px; top:0px; opacity:0; -webkit-transform:translateY(-100px); -webkit-filter:blur(3px);}
+.follrtbuton{ width:750px; position:absolute; left:0px; bottom:0px; text-align:center; opacity:0; -webkit-transform:translateY(100px); -webkit-filter:blur(3px);}
+.follrtbuton a{ display:inline-block; margin:0 0px;-webkit-animation:but2 0.8s infinite;}
+@-webkit-keyframes but2{
+50%{ -webkit-transform:scale(0.9); opacity:0.9;}
+}
+.curt .tit3,.curt .follrtbuton{ -webkit-transition:all 0.8s 0.3s ease-in-out;-webkit-transform:translateY(0px); opacity:1;-webkit-filter:blur(0px); }
+.vidoe{ width:750px; height:440px; position:absolute; left:0; top:50%; margin-top:-160px; overflow:hidden; background:#000;}
+
+.page3{ background:url(../../images/goldfinger/bg2.jpg) no-repeat center bottom; background-size:cover;}
+.table{ width:100%; height:100%; position:absolute; left:0px; top:0px;}
+.table_out{-webkit-transition:all 0.8s 0.1s;opacity:0; -webkit-transform:translateY(-100px); -webkit-filter:blur(5px);}
+.tablielist{ position:absolute; left:0px; top:20%; width:100%;}
+.tit4{ }
+.inputd{ width:507px; height:67px; box-sizing:border-box; border:2px solid #f0eff1; margin:0 auto; margin-top:20px; overflow:hidden; padding:10px 15px; }
+.inputd input{ width:100%; line-height:43px; background:none; height:43px; color:#fff; font-size:30px;}
+.but_subit{ background:url(../../images/goldfinger/img10.png) no-repeat center center; width:204px; height:74px; margin:0 auto; margin-top:40px;}
+.tit4 span{ display:none;}
+.tit4 span:nth-child(1){background:url(../../images/goldfinger/img8.png) no-repeat center center; height:403px;}
+.tit4 span:nth-child(2){background:url(../../images/goldfinger/img9.png) no-repeat center center; height:351px;}
+.last_page{ width:750px; height:1000px; position:absolute; left:0px; top:50%; margin-top:-500px; display:none;}
+.tomp{ width:750px; position:absolute; left:0px; top:0px;opacity:0; -webkit-transform:translateY(-300px); -webkit-filter:blur(1px);}
+.floog{ background:url(../../images/goldfinger/img16.png) no-repeat center center; width:220px; height:53px; position:absolute; left:50%; margin-left:-110px; bottom:0px;opacity:0; -webkit-transform:translateY(100px); -webkit-filter:blur(3px);}
+.tit5{ background:url(../../images/goldfinger/img11.png) no-repeat center center; width:368px; height:87px; margin:0 auto;}
+.tit6{ text-align:center; margin-top:20px; color:#fff;}
+.tit6 h3{ line-height:40px; font-size:36px;}
+.tit6 img{ display:block; width:420px; margin:20px auto;}
+.tit6 h4{ font-size:30px; line-height:30px;}
+.fshbuton{ position:relative; height:170px; text-align:center; margin-top:80px;}
+.fshbuton a{ display:inline-block; width:160px; margin:0 65px; padding-top:110px; line-height:60px; color:#f538fc; font-size:36px;}
+.fshbuton a:nth-child(1){ background:url(../../images/goldfinger/img12.png) no-repeat center top;}
+.fshbuton a:nth-child(2){ background:url(../../images/goldfinger/img13.png) no-repeat center top;}
+.fshbuton:before{ content:""; width:2px; height:150px; position:absolute; left:50%; margin-left:-1px; top:0px; background:#fff;}
+.last_paged .tomp,.last_paged .floog{ -webkit-transition:all 0.6s 0.1s;opacity:1; -webkit-transform:translateY(0px); -webkit-filter:blur(0px);}
+.sharbg{ width:100%; height:100%; position:absolute; left:0px; top:0px; z-index:200; display:none;}
+.sharbg:before{ content:""; background:#000; opacity:0.6; width:100%; height:100%; position:absolute; left:0px; top:0px;}
+.sharbg img{ display:block; width:100%; position:absolute; left:0px; top:0px;-webkit-animation:glss1 1.5s infinite linear;}
+@-webkit-keyframes glss1{
+50%{ opacity:0.6; -webkit-transform:translate(10px,-10px);}
+}
+.tit7{ background:url(../../images/goldfinger/img17.png) no-repeat center center; width:334px; height:147px; position:absolute; left:180px; top:230px;-webkit-animation:glss2 1.5s infinite linear;}
+@-webkit-keyframes glss2{
+50%{ opacity:1; -webkit-transform: scale(1.2);}
+}
+/****/
+.musiced{  position:absolute; left:20px; top:100px; z-index:100; opacity:0.8}
+.msyuddtd{background:url(../../images/goldfinger/musice.png) no-repeat center center; width:54px; height:54px;}
+.kuddtz{-webkit-animation: kdd1 2s infinite linear}
+.bigyf{ background:url(../../images/goldfinger/yid1.png) no-repeat center center; width:25px; height:53px; position:absolute; left:0px; top:-80px;-webkit-animation: dd1 2s infinite}
+.smyf{ background:url(../../images/goldfinger/yid2.png) no-repeat center center; width:12px; height:30px; position:absolute; right:0px; top:-30px;-webkit-animation: dd1 1.5s infinite}
+@-webkit-keyframes dd1{
+0%{ -webkit-transform: translateY(0px) scale(0.6); opacity:0.6;}
+100%{-webkit-transform: translateY(-50px) scale(0.6); opacity:0;}
+}
+@-webkit-keyframes kdd1{
+0%{ -webkit-transform: rotate(0deg)}
+100% {
+ -webkit-transform: rotate(360deg);	
+}
+}
+.audied{ display:none;}
+@media (max-height:1000px){
+	.wh954{ -webkit-transform:scale(0.9);}
+	.last_page{ -webkit-transform:scale(0.9);}
+}

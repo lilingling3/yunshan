@@ -1,0 +1,28 @@
+<div class="ordercont">
+    <div class="column">
+        <p class="title"><span class="circle tb-center"></span>下单</p>
+        <p class="text">{{ rentalOrder.createTime }}</p>
+        {% if rentalOrder.cancelTime is null  %}
+        <p class="title mt" ><span class="circle tb-center"></span>用车</p>
+        <p class="text">{% if  rentalOrder.offset and rentalOrder.offset>0 %}{{ rentalOrder.offset and rentalOrder.offset!=0 ? time.name(rentalOrder.offset):'-' }} {% else %}0分钟{% endif %}</p>
+        {% endif %}
+    </div>
+
+
+    <div class="column">
+        <p class="title"><span class="circle tb-center"></span>状态</p>
+        <p class="text text{{ rentalOrder.status }}">{{ status.name(rentalOrder) }}</p>
+        {% if rentalOrder.cancelTime is null  %}
+            {% if  rentalOrder.status ==101 or  rentalOrder.status ==102 %}
+                <p class="title mt"><span class="circle tb-center"></span>用车费用</p>
+                <p class="text "><span class="red">{{ rentalOrder.costDetail.cost }}</span>元</p>
+            {% else %}
+                <p class="title mt"><span class="circle tb-center"></span>{% if rentalOrder.useTime is null  %}取消时间{% else %}还车时间{% endif %}</p>
+                <p class="text ">{{ rentalOrder.endTime and rentalOrder.endTime!=0 ? rentalOrder.endTime:'-' }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+</div>
+
+

@@ -1,0 +1,57 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['default', 'message'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'车辆日志','prenav':'租赁车辆'} %}
+     <div class="ui main-content grid">
+     <p>车型：{{ rentalCar.car.name }} | 车牌号：{{  rentalCar.license}}</p>
+     <div class="ui top attached menu tabular no_border" style="padding: 0;">
+         <a class=" item " href="{{ path("auto_admin_rentalcar_operateRecord",{'id':rentalCar.id}) }}">上下线</a>
+         <a class="item "  {#href="{{ path("auto_admin_rentalcar_electricRecord",{'id':rentalCar.id}) }}"#}>通断电</a>
+         <a class="item ">开关门</a>
+         <a class="item active font-normal bk_gray no_border" >移库记录</a>
+         <a class="item " href="{{ path("auto_admin_rentalcar_record",{'id':rentalCar.id}) }}">数据日志</a>
+         <button style="position: absolute;right: 125px;" class="ui teal button " onclick="history.go(-1)">返回</button>
+     </div>
+         <div class="fifteen wide column bk_gray" style="padding: 0px">
+             <table class="ui very basic table">
+
+                 <thead>
+                 <tr>
+                     <th class="no_border" style="padding: 15px;">操作时间</th>
+                     <th class="no_border" style="padding: 15px;">操作人</th>
+                     <th class="no_border" style="padding: 15px;">操作人手机号</th>
+                     <th class="no_border" style="padding: 15px;">所属租赁点</th>
+                     <th class="no_border" style="padding: 15px;">操作方法</th>
+                     <th class="no_border" style="padding: 15px;">状态</th>
+                 </tr>
+                 </thead>
+                 <tbody style="background: #fff;">
+                 {% for dispatchRecord in dispatchRecords %}
+                     <tr>
+                         <td>
+                             {{ dispatchRecord.createTime|date('Y-m-d H:i:s')}}
+                         </td>
+                        {% if dispatchRecord.kind==2 %}
+                         <td> {{ dispatchRecord.rentalOrder.member.name|default }}</td>
+                         <td>{{ dispatchRecord.rentalOrder.member.mobile|default }}</td>
+                        {% else %}
+                        <td> {{ dispatchRecord.operateMember.name|default }}</td>
+                        <td>{{ dispatchRecord.operateMember.mobile|default }}</td>
+                        {% endif %}
+                            <td>{{ dispatchRecord.rentalStation.name|default}}</td>
+                            <td>{% if dispatchRecord.kind==2 %}订单还车{% else %}运营移库{% endif %}</td>
+                         <td>{% if dispatchRecord.status==1 %}成功{% else %}失败{% endif %}</td>
+                     </tr>
+
+                 {% endfor %}
+
+                 </tbody>
+             </table>
+         </div>
+
+
+     </div>
+
+
+ {% endblock %}

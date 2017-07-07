@@ -1,0 +1,99 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['refund_record', 'new'] %}
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'退款审核'} %}
+     <div class="ui main-search grid  bk_gray" style="padding: 0px">
+
+         <div class="fifteen wide column" style="background: transparent;">
+             <form action="{{ path("auto_admin_refund_record_new") }}" method="get">
+                 <div class="ui input">
+                         <input type="text" name="mobile" placeholder="请输入用户手机号" value="{{ mobile }}">
+                 </div>
+                 <button class="ui teal button" type="submit">提交</button>
+                 <a class="ui teal button" href="{{ path('auto_admin_refund_record_list') }}">返回 </a>
+             </form>
+         </div>
+     </div>
+     {%  if member  %}
+         {% if isHasChecking %}
+             <div class="ui main-content grid">
+                 <span>用户{{ member.mobile }}有正在审核中的退款申请，请等待审核完毕！</span>
+             </div>
+         {% else %}
+         <div class="ui main-content grid">
+
+             <div class="sixteen wide column">
+                 <h4 class="ui horizontal  header"> 申请用户信息 </h4>
+                 <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                     <thead>
+                     <tr>
+                         <th>手机号</th>
+                         <th>姓名</th>
+                         <th>未处理违章</th>
+                         <th>未付款订单</th>
+                         <th>未缴费记录</th>
+                         <th>账户余额</th>
+                         <th>状态</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr>
+                         <td>{{ member.mobile }}</td>
+                         <td>{{ member.name }}</td>
+                         <td>{% if isHasIllegalRecord %}异常{% else %}正常{% endif %}</td>
+                         <td>{% if isHasOrder %}异常{% else %}正常{% endif %}</td>
+                         <td>{% if isHasPaymentOrder %}异常{% else %}正常{% endif %}</td>
+                         <td>{{ member.wallet }}</td>
+                         <td>
+                             {% if isHasPaymentOrder or isHasOrder or isHasPaymentOrder %}
+                                 不可退款
+                             {% else %}
+                                 <a href="javascript:void(0);" id="applyRefund">申请退款</a>
+                             {% endif %}
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </div>
+             <div class="sixteen wide column">
+                 <form id="applyRefundFrom" action="{{ path("auto_admin_refund_record_create") }}" method="post">
+                     <h4 class="ui horizontal  header"> 退款说明 </h4>
+                     <div class="ui form">
+                         <div class="field">
+                         <input type="hidden" name="memberId" value="{{ member.id }}">
+                             <textarea rows="2" id="refundInstrustions" name="refundInstrustions" placeholder="请输入退款说明"></textarea>
+                             <p class="error" style="color:red"></p>
+                         </div>
+
+                     </div>
+                 </form>
+             </div>
+
+         </div>
+             <div class="apply-refund door">
+                 <div>
+                     <h3>确认提交用户{{ member.mobile }}（{{ member.name }}）的退款申请吗？</h3>
+
+                     <p class="red">* 用户告知：申请后无法取消！送返金额不退！</p>
+
+                     <p class="red">审核期间用户进行充值、余额支付</p>
+
+                     <p class="red">会影响退款而造成退款失败！</p>
+
+                     <button class="ui teal button refund-cancel">取消</button>
+                     <button class="ui teal button right apply" >确认</button>
+                 </div>
+             </div>
+        {% endif %}
+     {% else %}
+         <div class="ui main-content grid">
+             <span>没有内容</span>
+         </div>
+     {% endif %}
+
+
+ {% endblock %}

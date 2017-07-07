@@ -1,0 +1,49 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['area', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'地区列表'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+
+             <ul class="ui list">
+                 {% for area in areas %}
+                     <li><h3>{{ area.name }}</h3>&nbsp;<small>[<a href="{{ path('auto_admin_area_new',{'parent_id':area
+                                     .id})
+                             }}">添加市</a>|<a href="{{ path('auto_admin_area_delete',{'id':area.id})
+                             }}">删除</a>|<a href="{{ path('auto_admin_area_province_edit',{'id':area.id})
+                             }}">修改</a>]</small>
+                         <ul>
+                             {% for a in area.children %}
+                                 <li>{{ a.name }}<small>&nbsp;<a href="{{ path('auto_admin_area_new',{'parent_id':a.id})
+                                     }}">[添加县或区|<a href="{{ path('auto_admin_area_delete',{'id':a.id})
+                                             }}">删除</a>|<a href="{{ path('auto_admin_area_edit',{'id':a.id})
+                                             }}">修改</a>]</a></small>
+                                     <ul>
+                                         {% for val in a.children %}
+                                             <li>{{ val.name }}&nbsp;<small>[<a href="{{ path
+                                                     ('auto_admin_area_delete',{'id':val.id})
+                                                     }}">删除</a>|<a href="{{ path('auto_admin_area_edit',{'id':val.id})
+                                                     }}">修改</a>]</small></li>
+                                         {% endfor %}
+                                     </ul>
+                                 </li>
+                             {% endfor %}
+                         </ul>
+                 </li>
+                 {% endfor %}
+             </ul>
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">地区列表 </a>
+                 <a class="item" href="{{ path('auto_admin_area_new_province') }}">添加省份 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

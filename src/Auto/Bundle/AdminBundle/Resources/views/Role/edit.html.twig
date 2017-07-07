@@ -1,0 +1,55 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['role', 'edit'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'编辑','prenav':'权限设置'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             <form name="form" method="post" action="{{ path('auto_admin_role_update',{ id: member.id }) }}">
+                 <div class="ui form">
+                     <div class=" field">
+                         <label>手机号</label>
+                         <input type="text" value="{{ member.mobile }}" disabled="disabled" />
+                     </div>
+                     <div class=" field">
+                         <label>姓名</label>
+                         <input type="text" id="form_mobile" name="form[name]" value="{{ member.name }}" required="required" placeholder="请输入人员姓名" />
+                     </div>
+                     <div class=" field">
+                         <label>角色</label>
+                         <div class="ui checkbox">
+                             <input type="checkbox" name="form[roles][]" value="admin" {% if(rolesflag.admin) %} checked="checked" {% endif %}/><label>管理员</label>
+                         </div>
+                         <div class="ui checkbox">
+                            <input type="checkbox" name="form[roles][]" value="coo" {% if(rolesflag.coo) %} checked="checked" {% endif %}/><label>运营总监</label>
+                         </div>
+                         <div class="ui checkbox">
+                             <input type="checkbox" name="form[roles][]" value="region_manager" {% if(rolesflag.region_manager) %} checked="checked" {% endif %}/><label>大区经理</label>
+                         </div>
+                         <div class="ui checkbox">
+                            <input type="checkbox" name="form[roles][]" value="operate" {% if(rolesflag.operate) %} checked="checked" {% endif %}/><label>运营专员</label>
+                         </div>
+                         <div class="ui checkbox">
+                            <input type="checkbox" name="form[roles][]" value="finance" {% if(rolesflag.finance) %} checked="checked" {% endif %}/><label>财务主管</label>
+                         </div>
+                         <div class="ui checkbox">
+                            <input type="checkbox" name="form[roles][]" value="server" {% if(rolesflag.server) %} checked="checked" {% endif %}/><label>客服主管</label>
+                         </div>
+                         <div class="ui checkbox">
+                            <input type="checkbox" name="form[roles][]" value="market" {% if(rolesflag.market) %} checked="checked" {% endif %}/><label>市场主管</label>
+                         </div>
+                     </div>
+
+                     <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+                     <button class="ui teal button" type="submit">提交</button>
+                 </div>
+             </form>
+         </div>
+         <div class="one wide column">
+         </div>
+     </div>
+
+
+ {% endblock %}

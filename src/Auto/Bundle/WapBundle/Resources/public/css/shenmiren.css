@@ -1,0 +1,27 @@
+/* CSS Document */
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td{margin: 0; padding: 0;}
+table {border-collapse: collapse;border-spacing: 0;}
+th { font-weight:normal;}
+html { font-size: 62.5%}
+body{margin:0 auto; color:#666; font-family:"Microsoft YaHei"; }
+input { font:14px "Microsoft YaHei" 微软雅黑; text-indent:4px;*text-indent:0px; font-family:"Microsoft YaHei"; color:#999;}
+textarea,input{word-wrap:break-word; word-break:break-all; padding:0px;}
+
+ul,li{list-style-type:none;}
+table { width:100%;}
+tr { width:100%;}
+
+a {outline:none; star:expression(this.onFocus=this.blur());color:#888;text-decoration:none;}
+a:hover{color:#e74c3c; text-decoration:none;}
+a:active{color:#888;}
+h3 { font-size: 80%; font-weight: normal;}
+b { font-weight: normal;}
+img,form,fieldset {border:0 none;}
+
+html{  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); height: 100%; font-size: 15px;}
+body { position: relative; height: 100%;  background-color: #eeeeee; }
+html,body { height: 100%;}
+.clearfix:after{ content: "020";  display: block;  height: 0;  clear: both;  visibility: hidden;  }
+.clearfix { zoom: 1; }
+.container { background: white; margin:0px auto; position: relative; width: 100%; max-width: 1100px; height: 100%; min-height: 200px;  }
+.container .bg { display: block; width: 100%;}

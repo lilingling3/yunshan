@@ -1,0 +1,70 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% set page_id  = ['rental_car', 'question'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <script type="text/javascript"  src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="top-c">
+           <p>
+               <span class="light"><img src="{{ asset('/bundles/automobile/images/light.png') }}" /></span>
+               当您发现驾呗所属车辆有破损、异常等情况，拍照上传审核后有机会获得用车优惠券，感谢您的支持与配合！</p>
+        </div>
+        <div class="cont">
+          <p class="title">请选择您遇到的问题<i>多选，至少选择一个问题</i></p>
+          <div class="inner">
+              {% for key,problem in problems %}
+                  <div class="row">
+                      {% for pky, p in problem %}
+                      <div class="q-cont" qid="{{ p.id }}">{{ p.name }}</div>
+                        {% if key==problems|length and problem|length <2 and pky<2 %}
+                            <div class="q-cont1"></div>
+                        {% endif %}
+                       {% endfor %}
+                  </div>
+              {% endfor %}
+          </div>
+        </div>
+        <div class="b-cont">
+           <p class="title">上传照片<i>0/3</i></p>
+          {# <div class="inner">#}
+               <form  action="{{ path('auto_mobile_rentalCar_upload') }}"  method="post">
+                   <div class="inner">
+                     <div class="img-cont">
+                         <span class="pluse-icon"></span>
+                         <div class="inner-img-cont show" flag="0">
+                             <span class="plus"></span>
+                         </div>
+                     </div>
+                     <div class="img-cont">
+                         <span class="pluse-icon"></span>
+                         <div class="inner-img-cont" flag="1">
+                             <span class="plus"></span>
+                         </div>
+                     </div>
+                     <div class="img-cont">
+                         <span class="pluse-icon"></span>
+                         <div class="inner-img-cont" flag="2">
+                             <span class="plus"></span>
+                         </div>
+                     </div>
+                </div>
+                <input type="hidden" value="" id="images-arr" name="images" />
+                <input type="hidden" id="orderId" name="orderId" value="{{ orderId }}" />
+                <input type="hidden" id="questions" name="questions" value="" />
+                <input type="hidden" id="uptoken" name="uptoken" value="{{ uptoken }}" />
+             </form>
+           {#</div>#}
+            <div class="btn">提&nbsp;&nbsp;&nbsp;&nbsp;交</div>
+        </div>
+    </div>
+    <input type="hidden" id="appId" value="{{ signPackage.appId }}" />
+    <input type="hidden" id="timestamp" value="{{ signPackage.timestamp }}" />
+    <input type="hidden" id="nonceStr" value="{{ signPackage.nonceStr }}" />
+    <input type="hidden" id="signature" value="{{ signPackage.signature }}" />
+    <input type="hidden" id="AccessToken" value="{{ AccessToken }}" />
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

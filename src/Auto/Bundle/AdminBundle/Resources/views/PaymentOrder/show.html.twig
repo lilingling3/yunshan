@@ -1,0 +1,83 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['payment_order', 'show'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'查看','prenav':'缴费记录'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="fifteen wide column">
+             <div class="ui form">
+                 <div class=" fields">
+                     <div class=" six wide field">
+                         <label>创建时间</label>
+                         {{ paymentOrder.createTime|date('Y-m-d H:i:s') }}
+                     </div>
+                     <div class=" five wide field">
+                         <label>用户姓名</label>
+                         {{ paymentOrder.member.name }}
+                     </div>
+                     <div class=" five wide field">
+                         <label>手机号</label>
+                         {{ paymentOrder.member.mobile }}
+                     </div>
+                 </div>
+
+                 <div class="fields">
+                     <div class="six wide field">
+                         <label>缴费金额（元）</label>
+                         {{ paymentOrder.amount }}
+                     </div>
+                     <div class="five wide field">
+                         <label>类型</label>
+                         {{ kinds[paymentOrder.kind] }}
+                     </div>
+                     <div class="five wide field">
+                         <label>状态</label>
+                         {% if paymentOrder.payTime %}
+                             已缴费
+                         {% else %}
+                             未缴费
+                         {% endif %}
+                     </div>
+                 </div>
+                 <div class=" fields">
+                     <div class="fifteen wide field">
+                         <label>缴费原因</label>
+                         {{ paymentOrder.reason |default() }}
+                     </div>
+                 </div>
+                 <div class=" fields">
+                     <div class=" six wide field">
+                         <label>支付时间</label>
+                         {% if paymentOrder.payTime %}
+                         {{ paymentOrder.payTime|date('Y-m-d H:i:s') }}
+                         {% endif %}
+                     </div>
+                     <div class=" five wide field">
+                         <label>支付渠道</label>
+                         {% if paymentOrder.wechatTransactionId %}
+                             微信
+                         {% elseif  paymentOrder.alipayTradeNo%}
+                             支付宝
+                         {% endif %}
+                     </div>
+                     <div class=" five wide field">
+                         <label>渠道流水号</label>
+                         {% if paymentOrder.wechatTransactionId %}
+                             {{ paymentOrder.wechatTransactionId }}
+                         {% elseif  paymentOrder.alipayTradeNo%}
+                             {{ paymentOrder.alipayTradeNo }}
+                         {% endif %}
+                     </div>
+                 </div>
+
+             </div>
+             <div><button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button></div>
+         </div>
+         <div class="one wide column">
+         </div>
+     </div>
+
+
+ {% endblock %}

@@ -1,0 +1,114 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['rentalstation', 'show'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'查看','prenav':'租赁点管理'} %}
+     <div class="ui main-content grid">
+
+
+         <div class="ten wide column">
+             <div class="ui form">
+                 <div class=" fields">
+                     <div class=" ten wide field">
+                         <label>名称</label>
+                         {{ station.name }}
+                     </div>
+                     <div class=" six wide field">
+                         <label>还车类型</label>
+                         {% if station.backType== 600 %}原地还车{% else %}异地还车{% endif %}
+                     </div>
+                 </div>
+
+                 <div class="fields">
+                     <div class="four wide field">
+                         <label>省份</label>
+                         {{ station.area.parent.parent.name }}
+                     </div>
+                     <div class="four wide field">
+                         <label>城市</label>
+                         {{ station.area.parent.name }}
+                     </div>
+                     <div class="four wide field">
+                         <label>地区</label>
+                         {{ station.area.name }}
+                     </div>
+                     <div class="four wide field">
+                         <label>商圈</label>
+                        {% if station.businessDistrict %} {{ station.businessDistrict.name }} {% endif %}
+                     </div>
+                 </div>
+                 <div class=" fields">
+                     <div class="ten wide field">
+                         <label>地址</label>
+                         {{ station.street|default() }}
+                     </div>
+                     <div class=" six wide field">
+                         <label>租赁公司</label>
+                         {{ station.company.name|default() }}
+                     </div>
+                 </div>
+                 <div class=" fields">
+                     <div class="five wide field">
+                         <label>停车位总数</label>
+                         {{ station.parkingSpaceTotal }}
+                     </div>
+                     <div class="five wide field">
+                         <label>联系电话</label>
+                         {{ station.contactMobile }}
+                     </div>
+                     <div class="six wide field">
+                         <label>上线状态</label>
+                         {% if station.online==1 %}已上线{% else %}下线中{% endif %}
+                     </div>
+                 </div>
+
+
+                 <div class="fields">
+                     <div class="five wide field">
+                         <label>可停车位总数</label>
+                         {{ station.usableParkingSpace }}
+                     </div>
+                     <div class="five wide field">
+                         <label> 维度</label>
+                         {{ station.latitude}}
+                     </div>
+                     <div class="six wide field">
+                         <label> 经度</label>
+                         {{ station.longitude}}
+                     </div>
+
+                 </div>
+
+                 <div class="field">
+                     <div id="allmap"></div>
+                 </div>
+
+                 <div class="photographs">
+                     <label>相关图片</label>
+                     {% for p in station.images %}
+                         <div class="field photograph">
+                             <img src="{{ p|photograph }}">
+                         </div>
+                     {% endfor %}
+
+                 </div>
+
+             </div>
+             <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+             <a  class="ui teal button " href="{{ path('auto_admin_rental_station_edit',{'id':station.id}) }}">编辑</a>
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">编辑租赁点 </a>
+                 <a class="item" href="{{ path('auto_admin_rental_station_list') }}">租赁点列表 </a>
+                 <a class="item" href="{{ path('auto_admin_rental_station_new') }}">新建租赁点 </a>
+             </div>
+         </div>
+     </div>
+     <input type="hidden" id="auto_bundle_managerbundle_rentalstation_latitude" value="{{  station.latitude }}" />
+     <input type="hidden" id="auto_bundle_managerbundle_rentalstation_longitude" value="{{  station.longitude }}" />
+
+ {% endblock %}

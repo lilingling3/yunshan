@@ -1,0 +1,36 @@
+auto_api_2:
+    resource: "@AutoApi2Bundle/Resources/config/routing.yml"
+    prefix:   %auto_api_2.route.prefix%
+    host: %auto_api_2.route.host%
+
+auto_operate:
+    resource: "@AutoOperateBundle/Resources/config/routing.yml"
+    prefix:   /o
+
+auto_mobile:
+    resource: "@AutoMobileBundle/Resources/config/routing.yml"
+    prefix:   /mobile
+
+auto_wap:
+    resource: "@AutoWapBundle/Resources/config/routing.yml"
+    prefix:   /wap
+    
+auto_api:
+    resource: "@AutoApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+
+auto_admin:
+    resource: "@AutoAdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+auto_web:
+    resource: "@AutoWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
+auto_manager:
+    resource: "@AutoManagerBundle/Resources/config/routing.yml"
+    prefix:   /manager
+
+mojomaja_photograph:
+    resource: "@MojomajaPhotographBundle/Resources/config/routing.yml"
+    prefix:   /photograph

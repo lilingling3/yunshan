@@ -1,0 +1,50 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['parkingRecord', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'停车记录'} %}
+
+     <div class="ui main-content grid">
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>车牌号</th>
+                     <th>停车场名称</th>
+                     <th>停车时长</th>
+                     <th>出场时间</th>
+                     <th>产生费用</th>
+                     <th>停简单收取费用</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for v in list %}
+                 <tr>
+                     <td>{{ v.carNum }}</td>
+                     <td>{{ v.parkName }}</td>
+                     <td>{{ v.parkTime[:2] }}:{{ v.parkTime[2:2] }}:{{ v.parkTime[4:2] }}</td>
+                     <td>{{ v.endDT }}</td>
+                     <td>{{ v.allAmount }}</td>
+                     <td>{{ v.onlineAmont }}</td>
+                 </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+
+
+             <div class="ui pagination menu">
+                 {% if page > 1 %}
+                 <a class="item" href="{{ path("auto_admin_parking_record_list",{'page': 1}) }}">首页</a>
+                 <a class="item" href="{{ path("auto_admin_parking_record_list",{'page':page-1}) }}">上一页</a>
+                 <a class="active item">{{ page }}</a>
+                 {% endif %}
+                 {% if nextFlag %}
+                     <a class="item" href="{{ path("auto_admin_parking_record_list",{'page':page+1}) }}">下一页</a>
+                 {% endif %}
+             </div>
+
+         </div>
+     </div>
+
+
+ {% endblock %}

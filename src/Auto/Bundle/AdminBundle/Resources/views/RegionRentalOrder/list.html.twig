@@ -1,0 +1,143 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':' ','prenav':'订单管理'} %}
+     <div class="ui main-search grid bk_gray" style="padding: 0px">
+
+         <div class="ten wide">
+             <form action="{{ path("auto_admin_region_rental_order_search") }}" method="post">
+                 <table class="ui very basic table">
+                     <tbody>
+                     <tr>
+                         <td>
+                             <select name="status" class="ui dropdown">
+                                 <option>请选择</option>
+
+                                 <option value="100" {% if carstatus==100 %} selected="selected" {% endif %}>已取消</option>
+                                 <option value="101"  {% if carstatus==101 %} selected="selected" {% endif %}>未取车</option>
+                                 <option value="102"  {% if carstatus==102 %} selected="selected" {% endif %}>租赁中{#已取车未还车#}</option>
+                                 <option value="103"  {% if carstatus==103 %} selected="selected" {% endif %}>待支付{#已下单已取车未付款#}</option>
+                                 <option value="199"  {% if carstatus==199 %} selected="selected" {% endif %}>已完成</option>
+                             </select>
+
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="idnumber" placeholder="请输入身份证号" value="{{ idnumber }}">
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="mobile" placeholder="请输入手机号" value="{{ mobile }}">
+                         </td>
+                         <td id="yui_3_14_1_1_1461549608378_20">
+                             <select name="licensePlace" id="licensePlace" class="ui dropdown">
+                                 {% for  val in licensePlaces %}
+                                     <option value="{{ val.id }}" {%  if val.id == licensePlace  %} selected="selected" {% endif %} >{{ val.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td class="ui input">
+                             <input type="text" name="plateNumber" placeholder="请输入车牌" value="{{ plateNumber }}">
+                         </td>
+                         <td>
+                             <button class="ui teal button" type="submit">查询</button>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+     </div>
+
+
+     <div class="ui main-content grid">
+
+
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     {#<th>订单编号</th>#}
+                     <th>手机号</th>
+                     <th>姓名</th>
+                     <th>车牌号</th>
+                     <th>下单时间</th>
+                     <th>取车时间</th>
+                     <th>还车时间</th>
+                     <th>用车时长</th>
+                     <th>订单状态</th>
+                     {#<th>实付金额(元)</th>#}
+                     <th>产生费用(元)</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for rentalorder in rentalOrders %}
+                     <tr>
+                         {#<td>{{ rentalorder.id }}</td>#}
+                         <td>{{ rentalorder.member.mobile }}</td>
+                         <td>{{ rentalorder.member.name }}</td>
+                         <td>{{ rentalorder.rentalCar.license }}</td>
+                         <td>{{ rentalorder.createTime|date('Y-m-d H:i:s') }}</td>
+                         <td> {% if rentalorder.useTime %}
+                                 {{ rentalorder.useTime|date('Y-m-d H:i:s') }}
+                             {% endif %}
+                         </td>
+                         <td>
+                             {% if rentalorder.endTime %}
+                                 {{ rentalorder.endTime|date('Y-m-d H:i:s') }}
+                             {% endif %}
+
+                             </td>
+                         <td style="color:#0099FF">{{ rentalUseTime[rentalorder.id] }}</td>
+                         <td>{{ status.object(rentalorder) }}</td>
+                         <td style="color:#349196">{{ should_obtain_fee[rentalorder.id] }}</td>
+                         <td><a href="{{ path('auto_admin_region_rental_order_show',{id:rentalorder.id}) }}">查看</a></td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_region_rental_order_list",{'page':k,'status':carstatus,'mobile':mobile,'licensePlace':licensePlace,'plateNumber':plateNumber,'idnumber':idnumber}) }}">{{ k
+                                         }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+         <div class="four wide monitor column" style="display: none">
+             <div class="ui secondary vertical pointing menu">
+                 <a class="active item">租赁订单列表 </a>
+             </div>
+         </div>
+     </div>
+
+
+ {% endblock %}

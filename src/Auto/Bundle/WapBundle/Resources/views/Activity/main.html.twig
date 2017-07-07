@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>睡了你4年，怎能轻易说分手？</title>
+    <meta charset="utf-8" />
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="apple-touch-fullscreen" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Expires" content="-1" />
+    <meta http-equiv="pragram" content="no-cache" />
+    <script src="{{ asset('/bundles/autowap/main/js/offline.js') }}"></script><!--移动端兼容适配 -->
+    <script type="text/javascript">
+        if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+            var version = parseFloat(RegExp.$1);
+            if(version>2.3){
+                var phoneScale = parseInt(window.screen.width)/750;
+                document.write('<meta name="viewport" content="width=750, minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+            }else{
+                document.write('<meta name="viewport" content="width=750, target-densitydpi=device-dpi">');
+            }
+        }else{
+            document.write('<meta name="viewport" content="width=750, user-scalable=no, target-densitydpi=device-dpi">');
+        }
+        //微信去掉下方刷新栏
+        if(navigator.userAgent.indexOf('MicroMessenger') >= 0){
+            document.addEventListener('WeixinJSBridgeReady', function() {
+                //WeixinJSBridge.call('hideToolbar');
+            });
+        }
+    </script>
+    <script src="http://s95.cnzz.com/z_stat.php?id=1259181302&web_id=1259181302" language="JavaScript"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <link href="{{ asset('/bundles/autowap/main/css/public.css') }}" rel="stylesheet" />
+    <link href="{{ asset('/bundles/autowap/main/css/style.css') }}" rel="stylesheet" />
+    <script type="text/javascript" src="{{ asset('/bundles/autowap/main/js/jquery.js') }}"></script>
+    <script type="text/javascript"  src="{{ asset('/bundles/autowap/main/js/fast.js') }}"></script>
+    <script src="{{ asset('/bundles/autowap/main/js/soundManager2.js') }}"></script>
+    <script src="{{ asset('/bundles/autowap/main/js/PxLoader.js') }}"></script>
+    <script src="{{ asset('/bundles/autowap/main/js/PxLoaderImage.js') }}"></script>
+    <script src="{{ asset('/bundles/autowap/main/js/PxLoaderSound.js') }}"></script>
+
+</head>
+<body>
+<div class="load">
+    <div class="Histogram">
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+        <p><span></span></p>
+    </div>
+    <div class="title_loadnum"><span>0</span>%</div>
+</div>
+<article class="hudnfg">
+{#    <section class="page page0">
+        <img src="{{ asset('/bundles/autowap/main/images/img2.png?v=1.1') }}" />
+        <div class="butnd"></div>
+        <div class="fburond"></div>
+    </section>#}
+    <section class="page page1">
+        <div class="timer">
+            <h6><span id="h">01</span>:<span id="m">00</span></h6>
+            <p class="day"><span class="mon">8</span>月<span class="data">21</span>日</p>
+            <p class="week">星期一</p>
+        </div>
+        <ul class="the_news">
+            <li>
+                <h6><span>微信</span> 现在</h6>
+                <p>雷布斯：老甄，我听说你最近在造车？！</p>
+                <aside>滑动来查看</aside>
+            </li>
+        </ul>
+        <div class="flooer">
+            <p>>> 滑动来解锁</p>
+        </div>
+    </section>
+    <section class="page page2">
+        <div class="tell_list">
+
+            <ul >
+                <li>
+                    <div><img src="{{ asset('/bundles/autowap/main/images/lisimg_1.png') }}"></div>
+                    <div class="litop"><img src="{{ asset('/bundles/autowap/main/images/lisimg_2.png') }}"></div>
+                </li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_3.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_4.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_5.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_6.png') }}"></li>
+                <li>
+                    <div><img src="{{ asset('/bundles/autowap/main/images/lisimg_7.png') }}"></div>
+                    <div class="litop"><img src="{{ asset('/bundles/autowap/main/images/lisimg_8.png') }}"></div>
+                </li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_9.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_10.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_11.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_12.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_13.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_14.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_15.png') }}"></li>
+                <li>
+                    <div><img src="{{ asset('/bundles/autowap/main/images/lisimg_16.png') }}"></div>
+                    <div class="litop"><img src="{{ asset('/bundles/autowap/main/images/lisimg_17.png') }}"></div>
+                </li>
+                <li>
+                    <div><img src="{{ asset('/bundles/autowap/main/images/lisimg_18.png') }}"></div>
+                    <div class="litop"><img src="{{ asset('/bundles/autowap/main/images/lisimg_19.png') }}"></div>
+                </li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_20.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_21.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_22.png') }}"></li>
+                <li><img src="{{ asset('/bundles/autowap/main/images/lisimg_23.png') }}"></li>
+                <li class="dialogue" ><img  src="{{ asset('/bundles/autowap/main/images/lisimg_24.png') }}"></li>
+                <li class="dialogue" ><img  src="{{ asset('/bundles/autowap/main/images/lisimg_25.png') }}"></li>
+
+            </ul>
+
+            <div class="byiond">
+                <div class="byiond-top">
+                    <img class="byiondimg" src="{{ asset('/bundles/autowap/main/images/byiond_top.png') }}">
+                    <img class="byiondimg1" style="display: none;" src="{{ asset('/bundles/autowap/main/images/byiond_top1.png') }}">
+                </div>
+               <div class="btn-cont">
+                    <span class="btn btn-go"><a href="{{ path("auto_wap_activity_codelogin") }}"></a><img src="{{ asset('/bundles/autowap/main/images/btn.png') }}"></span>
+                    <span class="btn btn-nogo"><img src="{{ asset('/bundles/autowap/main/images/btn1.png') }}"></span>>
+                </div>
+                <div class="btn-cont1">
+                    <span class="btn go"><a href="{{ path("auto_wap_activity_codelogin") }}"></a><img src="{{ asset('/bundles/autowap/main/images/btn3.png') }}"></span>
+                </div>
+            </div>
+        </div>
+        <div class="flobuton"></div>
+    </section>
+    <section class="page page3 hide">
+        <ul class="conliost">
+            <li>
+                <div class="topimg"><span></span><img src="{{ asset('/bundles/autowap/main/images/img7_1.png') }}"></div>
+                <div class="textd">
+                    <h5>甄布斯</h5>
+                    <span></span>
+                </div>
+            </li>
+            <li>
+                <div class="topimg"><span></span><img src="{{ asset('/bundles/autowap/main/images/img8_1.png') }}"></div>
+                <div class="textd">
+                    <h5>雷布斯</h5>
+                    <span></span>
+                </div>
+            </li>
+        </ul>
+        <div class="flord"></div>
+        <div class="but1"></div>
+    </section>
+    <section class="page page4 hide">
+        <div class="wh560">
+            <div class="tit7"></div>
+            <div class="ermd"><img src="{{ asset('/bundles/autowap/main/images/img12.png') }}" width="254" height="254"></div>
+            <div class="chmm"><img src="{{ asset('/bundles/autowap/main/img/mf.png') }}"></div>
+            <div class="but2"></div>
+        </div>
+    </section>
+    <section class="page page5 copage hide">
+        <section class="costion">
+            <section class="bgfdf" style="background-image:url(img/bg1.jpg);">
+                <div class="ftit1"></div>
+                <div class="logo"></div>
+                <div class="tit1 flter"></div>
+                <div class="down"></div>
+            </section>
+        </section>
+        <section class="costion hide">
+            <section class="bgfdf" style="background-image:url(img/bg2.jpg);">
+                <div class="logo"></div>
+                <div class="map"></div>
+                <div class="tit2 flter"></div>
+                <div class="down"></div>
+            </section>
+        </section>
+        <section class="costion hide">
+            <section class="bgfdf" style="background-image:url(img/bg2.jpg);">
+                <div class="logo"></div>
+                <div class="wh800">
+                    <div class="tit3"></div>
+                    <div class="tit6"></div>
+                    <div class="ewm"><img src="{{ asset('/bundles/autowap/main/img/img7.png') }}"></div>
+                    <div class="tit4"></div>
+                    <div class="chmm"><img src="{{ asset('/bundles/autowap/main/img/mf.png') }}"></div>
+                </div>
+            </section>
+        </section>
+    </section>
+    <div class="musiced hide">
+        <div class="msyuddtd kuddtz"></div>
+        <div class="yifd bigyf"></div>
+        <div class="yifd smyf"></div>
+    </div>
+    <audio  src="{{ asset('/bundles/autowap/main/1.mp3') }}" loop preload="auto" class="audied"></audio>
+</article>
+<!---->
+<script type="text/javascript" src="{{ asset('/bundles/autowap/main/js/public.js') }}"></script>
+<script type="text/javascript"src="{{ asset('/bundles/autowap/main/js/loading.js') }}"></script>
+</body>
+<script type="text/javascript">
+    wx.config({
+        'debug': false,
+        'appId': '{{ signPackage.appId }}',
+        'timestamp': '{{ signPackage.timestamp }}',
+        'nonceStr': '{{ signPackage.nonceStr }}',
+        'signature': '{{ signPackage.signature }}',
+        'jsApiList': ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+    });
+    wx.ready(function () {
+
+        //自定义内容
+        var dataForWeixin = {
+            title: '睡了你4年，怎能轻易说分手？',
+            desc: '4年了，一起吃饭、一起睡觉、一起找乐子，突然要离开了，分手这个词真说不出口。好基友，要毕业了，送你个福利吧。',
+            imgUrl: 'http://lecarshare.com/photograph/9e/fc/9efc9616aeafa4ca69df13979b56f1c8205db784.jpeg',
+            link: '{{ url }}'
+        };
+
+        //分享到朋友圈
+        wx.onMenuShareTimeline({
+            title: dataForWeixin.title, // 分享标题
+            link: dataForWeixin.link, // 分享链接
+            imgUrl: dataForWeixin.imgUrl,  // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        //分享给朋友
+        wx.onMenuShareAppMessage({
+            title: dataForWeixin.title, // 分享标题,
+            desc: dataForWeixin.desc, // 分享标题,
+            link: dataForWeixin.link, // 分享标题, // 分享链接
+            imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+            type: 'link', // 分享类型,music、video或link，不填默认为link
+            dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+        //分享给qq
+        wx.onMenuShareQQ({
+            title: dataForWeixin.title, // 分享标题,
+            desc: dataForWeixin.desc, // 分享标题,
+            link: dataForWeixin.link, // 分享标题, // 分享链接
+            imgUrl: dataForWeixin.imgUrl, // 分享标题 , // 分享图标
+            success: function () {
+                // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+                // 用户取消分享后执行的回调函数
+            }
+        });
+
+    });
+</script>
+</html>

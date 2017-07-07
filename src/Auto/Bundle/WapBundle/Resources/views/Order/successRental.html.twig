@@ -1,0 +1,54 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['rental_order', 'show'] %}
+{% block content %}
+    <div class="top-menu">
+        行程详情
+        <a href="{{ path("auto_wap_index") }}"><b></b></a>
+        <span><a  href="javascript:window.location.reload();"class="refresh"><b></b></a></span>
+    </div>
+
+
+    <div class="rental-info order-status-car order-status{{ rentalOrder.status }}">
+
+        {% include "AutoWapBundle:Order:_car.html.twig" %}
+
+    </div>
+
+
+    <div class="order-info order-info1 order-status{{ rentalOrder.status }}">
+        {% include "AutoWapBundle:Order:_order.html.twig" %}
+        <div class="row">
+            <div class="column">
+                取车时间
+                <p>
+                    {{ rentalOrder.useTime and rentalOrder.useTime!=0 ? rentalOrder.useTime:'-' }}
+                </p>
+            </div>
+            <div class="column">
+
+                还车时间
+                <p>
+                    {{ rentalOrder.endTime and rentalOrder.endTime!=0 ? rentalOrder.endTime:'-' }}
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="rental-price">
+        <div class="row" id="rental-cost">
+
+            {% include "AutoWapBundle:Order:_cost.html.twig" %}
+            <div class="fact-pay">
+                <p>实付费<span class="fact-pay-yuan">{{ rentalOrder.amount }}</span>元</p>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

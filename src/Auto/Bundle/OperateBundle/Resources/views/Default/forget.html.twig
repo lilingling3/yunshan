@@ -1,0 +1,30 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['default', 'forget'] %}
+{% block content %}
+    <div class="top-menu">
+        {% if id==2 %}
+        忘记密码
+            {% elseif id==1 %}
+                修改密码
+                {% endif %}
+            </div>
+    <form action="{{ path("auto_operate_reset") }}" method="post">
+        <div class="register-form">
+            <li>
+                <img src="{{ asset('/bundles/autooperate/images/usericon3.png') }}">
+                <input type="text" class="text" name="mobile" id="mobile"  required  placeholder="请输入手机号">
+            </li>
+            <li>
+                <input type="text" class="text code-text" name="code"  required  placeholder="请输入短信验证码">
+                <button type="button" class="code-button">获取验证码</button>
+            </li>
+            <li><img src="{{ asset('/bundles/autooperate/images/usericon2.png') }}">
+                <input type="password" id="password" class="text password-text" name="password" required placeholder="密码由6-16位数字/字母组成"/>
+            </li>
+        </div>
+        <p class="service-text">&nbsp;&nbsp;</p>
+        <div class="row">
+            <button type="submit" class="register" id="sub-register">重置密码</button>
+        </div>
+    </form>
+{% endblock %}

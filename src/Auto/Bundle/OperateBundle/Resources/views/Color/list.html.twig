@@ -1,0 +1,32 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['color','list'] %}
+
+{% block content %}
+<div class="top-menu">
+    所有颜色
+    <a href="{{ path("auto_operate_index") }}" class="left-cont"><b></b></a>
+    <span><a  href="javascript:window.location.reload();" >刷新</a></span>
+</div>
+    <div class="container">
+        <section class="cont">
+            <p class="title">已有颜色</p>
+            <div class="list">
+                {% for color in colors %}
+                <span colorid="{{ color.id }}">{{ color.name }}</span>
+                {% endfor %}
+            </div>
+        </section>
+        {{ form_start(form) }}
+        <section class="cont">
+            <div class="menu-li">
+                <label for="color-input">添加颜色</label>
+                <span class="text-r">
+                     {{ form_widget(form.name,{'attr': {'placeholder':'颜色'}} ) }}
+                </span>
+            </div>
+        </section>
+        <button class="submit-data" type="submit">确认添加</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

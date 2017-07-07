@@ -1,0 +1,4 @@
+services:
+#    auto_mobile.example:
+#        class: Auto\Bundle\MobileBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

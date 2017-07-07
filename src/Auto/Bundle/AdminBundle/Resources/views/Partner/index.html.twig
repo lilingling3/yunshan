@@ -1,0 +1,93 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['partner', 'list'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'合作伙伴'} %}
+     <div class="ui main-content" id="yui_3_14_1_1_1461549608378_26">
+         <h1>Partner list</h1>
+         <div class="ui main-content" id="yui_3_14_1_1_1461549608378_26">
+             <div class="ui bottom attached segment bk_gray no_border" >
+                 <form action="{{ path("auto_admin_partner_index") }}" method="get" >
+                     <table class="ui very basic table no_border" >
+                         <tbody >
+                         <tr>
+                             <td>
+                                 <select name="id" id="pname" class="ui dropdown">
+                                     <option value="">伙伴名称</option>
+                                     {% for name in names %}
+                                     <option value="{{ name.id }}">{{ name.name }}</option>
+                                     {% endfor %}
+                                 </select>
+                             </td>
+                             <td>
+                                 <select name="status" id="status" class="ui dropdown">
+                                     <option value="">状态</option>
+                                     <option value="1">开启</option>
+                                     <option value="0">关闭</option>
+                                 </select>
+                             </td>
+                             <td>
+                                 <button class="ui teal button  " type="submit">搜索</button>
+                             </td>
+                             <td>
+                                 <a class="ui teal button" href="{{ path('auto_admin_partner_new') }}">Create a new entry </a>
+                             </td>
+
+                         </tr>
+                         </tbody>
+                     </table>
+                 </form>
+             </div>
+         </div>
+         <div class="ui main-content grid">
+             <div class="fifteen wide column">
+                 <table class=" records_list ui very basic table">
+
+             <thead>
+             <tr>
+
+                 <th>名称</th>
+                 <th>密钥</th>
+                 <th>密匙</th>
+                 <th>创建时间</th>
+                 <th>操作次数/时</th>
+                 <th>操作人员</th>
+                 <th>折扣</th>
+                 <th>状态</th>
+                 <th>操作</th>
+             </tr>
+             </thead>
+             <tbody>
+             {% for entity in entities %}
+                 <tr>
+                     <td>{{ entity.name }}</td>
+                     <td>{{ entity.secret }}</td>
+                     <td>{{ entity.code }}</td>
+                     <td>{% if entity.createTime %}{{ entity.createTime|date('Y-m-d H:i:s') }}{% endif %}</td>
+                     <td>{{ entity.operateLimit }}</td>
+                     <td><p class="text">{{ entity.operatorIds }}</p></td>
+                     <td>{{ entity.discount }}</td>
+                     <td>{% if entity.status ==0 %}关闭{% else %}开启{% endif %}</td>
+                     <td>
+
+                             <span>
+                                 <a href="{{ path('auto_admin_rental_order_list', { 'partnerMember': entity.member.id }) }}">订单</a>
+                             </span>
+                             <span>
+                                 <a href="{{ path('auto_admin_rentalcar_list', { 'partnerCode': entity.code }) }}">车辆</a>
+                             </span>
+                             <span>
+                                 <a href="{{ path('auto_admin_rental_station_list', { 'partnerCode': entity.code }) }}">网点</a>
+                             </span>
+                             <span>
+                                 <a href="{{ path('auto_admin_partner_edit', { 'id': entity.id }) }}">编辑</a>
+                             </span>
+
+                     </td>
+                 </tr>
+             {% endfor %}
+             </tbody>
+         </table>
+                 </div>
+             </div>
+     </div>
+ {% endblock %}

@@ -1,0 +1,60 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['coupon2','unuseable'] %}
+{% block content %}
+
+    <article class="content">
+
+        <!--没有优惠券-->
+        {% if not coupons %}
+            <div class="no-coupon-t">
+                <p class="no-coupon">很抱歉，您暂时没有优惠券！</p>
+            </div>
+        {% endif %}
+        <!--有优惠券-->
+        <!--可用的优惠券--->
+        <div class="list">
+        {% for coupon in coupons %}
+
+            <section class="{% if coupon.valid ==400 %}avaiable{% else %}unavaiable{% endif %}" coupon-value="{{ coupon
+            .amount }}" >
+                <div class="row">
+                    <div class="coupon-cont">
+                        <div class="incont">&yen; <span class="amount">{{ coupon.amount }}</span></div>
+                    </div>
+                    <div class="coup-text">
+                        <p>{{ coupon.name }}</p>
+                        <p class="date">有效期至{{ coupon.endTime }} {% if coupon.valid ==401 %}[已使用]{% endif %}{% if coupon.valid ==402 %}[已过期]{% endif %}</p>
+                        <p class="needhour">{% if  coupon.needHour ==0 %}无使用条件{% else %}满{{ coupon.needHour }}小时可用{% endif %}</p>
+                    </div>
+
+                </div>
+            </section>
+
+        {% endfor %}
+            </div>
+    </article>
+
+    {% if pageCount>1 %}
+
+        <div class="morecouponbtn"  user="{{ app.user.token }}">
+            加载更多
+        </div>
+    {% endif %}
+
+
+    <div class="tcont">
+        <a class="inline" href="{{ path('auto_wap_coupon_useablelist') }}"><span>可用优惠券</span></a>
+    </div>
+
+    <div class="footdiv">
+        <a class="foota"  href="{{ path('auto_wap_index3') }}">
+            <img src="{{ asset('/bundles/autowap/images/2.0-home.png') }}"/>
+        </a>
+
+        <a class="foota" href="http://a.app.qq.com/o/simple.jsp?pkgname=com.lecarx.lecarx&g_f=991653" >
+            <img src="{{ asset('/bundles/autowap/images/2.0-down.png') }}"/>
+        </a>
+    </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

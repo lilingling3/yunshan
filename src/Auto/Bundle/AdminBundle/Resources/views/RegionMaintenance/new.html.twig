@@ -1,0 +1,18 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['regionmaintenance', 'new'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'添加','prenav':'车辆维修'} %}
+     <div class="ui main-content grid">
+
+         <div class="ten wide column">
+             {% include "AutoAdminBundle:RegionMaintenance:_form.html.twig" %}
+         </div>
+         <div class="one wide column">
+         </div>
+
+
+     </div>
+
+
+ {% endblock %}

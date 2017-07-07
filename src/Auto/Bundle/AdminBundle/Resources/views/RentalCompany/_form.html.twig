@@ -1,0 +1,52 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.name) }} <span class="red">*</span></label>
+        {{ form_widget(form.name,{'attr': {'placeholder':'请输入公司名称'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.caseNo) }} <span class="red">*</span></label>
+        {{ form_widget(form.caseNo,{'attr': {'placeholder':'请输入公司备案号'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.enterpriseCode) }} <span class="red">*</span></label>
+        {{ form_widget(form.enterpriseCode,{'attr': {'placeholder':'请输入企业代码'}} ) }}
+    </div>
+    <div class="fields">
+
+        <div class="five wide field">
+            <label>省份 <span class="red">*</span></label>
+            <select class="ui dropdown" id="country" data-cascading="#provincial" data-src="{{ path('auto_admin_area_all') }}"></select>
+        </div>
+
+        <div class="five wide field">
+            <label>城市 <span class="red">*</span></label>
+            <select class="ui dropdown" id="provincial" data-cascading="#{{ form.area.vars.id }}"></select>
+        </div>
+
+        <div class="six wide field">
+            <label>地区 <span class="red">*</span></label>
+            {{ form_widget(form.area, {attr: {class: 'ui dropdown', 'data-value': form.area.vars.value}}) }}
+        </div>
+
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.address) }} <span class="red">*</span></label>
+        {{ form_widget(form.address,{'attr': {'placeholder':'请输入公司地址'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.contactName) }}</label>
+        {{ form_widget(form.contactName,{'attr': {'placeholder':'请输入公司联系人'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.contactMobile) }}</label>
+        {{ form_widget(form.contactMobile,{'attr': {'placeholder':'请输入公司联系人的联系方式'}} ) }}
+    </div>
+    <div  class=" field">
+        <small class="red">* 号部分需与营业执照与备案证一致，请核对后填写。</small>
+    </div>
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">保存</button>
+</div>
+{{ form_end(form) }}

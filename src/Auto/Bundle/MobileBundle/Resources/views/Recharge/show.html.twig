@@ -1,0 +1,51 @@
+{% extends "AutoMobileBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['recharge', 'show'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        html,body {
+            position: relative;
+            height: 100%;
+            background-color:white;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="recharge">
+    	 <div class="top-recharge">
+             <p class="detail">{{ amount.wallet|default(0) }}元<a href="{{ path('auto_mobile_recharge_list') }}">明细</a></p>
+    	     <p class="account">{% if amount.isDefaultActivity==1 %}余额充值享受快捷支付{% else %}充{{ steplists[0][0]["amount"] }}元,得{{ steplists[0][0]["amount"]+steplists[0][0]["discountAmount"] + steplists[0][0]["addAmount"]  }}{% endif %}</p>
+    	 </div>
+        {% for key, steplist in steplists %}
+
+             <div class="center-recharge">
+         	      <div class="center-one">
+         	      {% for stepkey, step in steplist %}
+         	  	       <div class="center-two {% if key==0 and stepkey==0 %}divOver{% endif %}" amount="{{ step.amount }}" step="{{ step.discountAmount+step.addAmount  }}">
+           	    	     <div class="inner-cont tb-center">
+           	    	        <p>{{ step.amount }}元</p>
+           	    	       {% if step.discountAmount and step.discountAmount>=0 %} <p class="blue"> 送{{ step.discountAmount  }}元余额</p>{% endif %}
+                       </div>
+                      </div>
+                      {% endfor %}
+         	       </div>
+         	  </div>
+        {% endfor %}
+         </div>
+         <div class="bottom-recharge">
+         <p class="protocol">点击立即充值表示同意<a class="chargeprotocol" href="{{ path('auto_wap_activity_rechargeProtocol') }}">《驾呗充值协议》</a></p>
+         	<span class="code">充值{{steplists[0][0].amount }}元</span>
+         </div>
+          <div class="back"><a class="back"  href="{{ path('auto_mobile_index') }}">返回首页</a></div>
+    </div>
+
+<input type="hidden" id="rechargeActivity" value="{{ amount.isDefaultActivity }}" />
+    <form method="get" action="{{ path('auto_mobile_pay_wechat_recharge') }}">
+         <input  type="hidden" name="amount" value="{{steplists[0][0].amount }}" id="amount"/>
+    </form>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}

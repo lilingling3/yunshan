@@ -1,0 +1,52 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['order2', 'detail'] %}
+{% block content %}
+    <div class="top-menu">
+        行程详情
+        <a href="{{ path('auto_wap_rental_order_show2',{'id':rentalOrder.orderID}) }}" ><b></b></a>
+        <span><a  href="javascript:window.location.reload();" class="refresh"><b></b></a></span>
+    </div>
+
+
+    <div class="container">
+        <div class="cont">
+            <p><span class="title">车牌号码</span>{{ rentalOrder.rentalCar.license }}</p>
+            <p><span class="title">车型</span>{{ rentalOrder.rentalCar.car.name }}</p>
+        </div>
+
+        <div class="cont">
+            <p><span class="title">下单时间</span>{{ rentalOrder.createTime }}</p>
+            <p><span class="title">取车时间</span>{{ rentalOrder.useTime|default('-') }}</p>
+            <p><span class="title">还车时间</span>{{ rentalOrder.endTime|default('-') }}</p>
+            <p><span class="title">支付时间</span>{{ rentalOrder.payTime|default('-') }}</p>
+            <p><span class="title">行驶里程</span>{% if  rentalOrder.mileage %}{{ rentalOrder.mileage}}公里{% else %}-{% endif %}</p>
+            {% if  rentalOrder.costDetail.charge %}
+                {% for price in rentalOrder.costDetail.charge.rentalPrice  %}
+                    <p><span class="title">{{ price.name}}</span>{{ time.name(price.time) }}</p>
+                {% endfor %}
+
+                {% else %}
+                    <p><span class="title">日间时长</span>-</p>
+                    <p><span class="title">夜间时长</span>-</p>
+            {% endif %}
+        </div>
+
+        <div class="cont">
+            {% if  rentalOrder.costDetail.charge %}
+                {% for price in rentalOrder.costDetail.charge.rentalPrice %}
+                    <p><span class="title">{{ price.name}}</span>{{ price.amount }}元</p>
+                {% endfor %}
+            {% else %}
+                <p><span class="title">日间费用</span>-</p>
+                <p><span class="title">夜间费用</span>-</p>
+            {% endif %}
+            <p><span class="title">总费用</span>{{ (rentalOrder.costDetail.cost)//1 }}.{{ (rentalOrder.costDetail.cost*10)%10 }}{{ (rentalOrder.costDetail.cost*100)%10 }}</p>
+            <p><span class="title">优惠券</span>{% if rentalOrder.coupon %}-{{ rentalOrder.costDetail.cost>rentalOrder.coupon.amount?rentalOrder.coupon.amount:rentalOrder.costDetail.cost }}{% else %} 0{% endif %}元</p>
+            <p><span class="title">实付费</span>
+                {{ (rentalOrder.amount)//1 }}.{{ (rentalOrder.amount*10)%10 }}{{ (rentalOrder.amount*100)%10 }}</p>
+        </div>
+    </div>
+{% endblock %}

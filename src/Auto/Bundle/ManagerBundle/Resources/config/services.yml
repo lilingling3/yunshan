@@ -1,0 +1,221 @@
+services:
+#    auto_manager.example:
+#        class: Auto\Bundle\ManagerBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    auto_manager.abstract_helper:
+        class:      Auto\Bundle\ManagerBundle\Helper\AbstractHelper
+        arguments:  [ '@doctrine','@templating','@service_container','@router','@snc_redis.default' ]
+        abstract:   true
+
+    auto_manager.area_helper:
+             class:     Auto\Bundle\ManagerBundle\Helper\AreaHelper
+             parent:    auto_manager.abstract_helper
+
+    auto_manager.station_helper:
+             class:     Auto\Bundle\ManagerBundle\Helper\StationHelper
+             parent:    auto_manager.abstract_helper
+             calls:
+                        - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+                        - [ setRentalCarHelper, [ '@auto_manager.rental_car_helper' ] ]
+                        - [ setGPSHelper, [ '@auto_manager.gps_helper' ] ]
+
+    auto_manager.rental_car_helper:
+             class:     Auto\Bundle\ManagerBundle\Helper\RentalCarHelper
+             parent:    auto_manager.abstract_helper
+             calls:
+                         - [ setCarHelper, [ '@auto_manager.car_helper' ] ]
+                         - [ setStationHelper, [ '@auto_manager.station_helper' ] ]
+                         - [ setRentalPriceHelper, [ '@auto_manager.rental_price_helper' ] ]
+                         - [ setOrderHelper, [ '@auto_manager.order_helper' ] ]
+                         - [ setAMapHelper, [ '@auto_manager.amap_helper' ] ]
+                         - [ setCarStartHelper, [ '@auto_manager.car_start_helper' ] ]
+                         - [ setFeeZuHelper, [ '@auto_manager.fee_zu_helper' ] ]
+                         - [ setBaoJiaHelper, [ '@auto_manager.bao_jia_helper' ] ]
+                         - [ setYunshanZhihuiHelper, [ '@auto_manager.yunshan_zhihui_helper' ] ]
+                         - [ setZhiXinTongHelper, [ '@auto_manager.zhixin_tong_helper' ] ]
+                         - [ setCloudBoxHelper, [ '@auto_manager.cloud_box_helper' ] ]
+                         - [ setRedisHelper, [ '@snc_redis.default' ] ]
+                         - [ setMonologHelper, [ '@monolog.logger.operate' ] ]
+                         - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+
+    auto_manager.chang_jing_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\ChangJingHelper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+
+    auto_manager.coordinate_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CoordinateHelper
+    auto_manager.gps_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\GpsHelper
+
+
+    auto_manager.car_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CarHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+                       
+
+    auto_manager.order_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\OrderHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setRentalCarHelper, [ '@auto_manager.rental_car_helper' ] ]
+                       - [ setRentalPriceHelper, [ '@auto_manager.rental_price_helper' ] ]
+                       - [ setCouponHelper, [ '@auto_manager.coupon_helper' ] ]
+                       - [ setStationHelper, [ '@auto_manager.station_helper' ] ]
+                       - [ setRedisHelper, [ '@snc_redis.default' ] ]
+
+
+    auto_manager.rental_price_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\RentalPriceHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.illegal_record_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\IllegalRecordHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setRentalCarHelper, [ '@auto_manager.rental_car_helper' ] ]
+                       - [ setOrderHelper, [ '@auto_manager.order_helper' ] ]
+
+    auto_manager.coupon_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CouponHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setSMSHelper, [ '@auto_manager.sms_helper' ] ]
+
+
+    auto_manager.wechat_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\WeChatHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setDefaultPrivate ]
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+
+    auto_manager.sms_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\SMSHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.member_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\MemberHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setOrderHelper, [ '@auto_manager.order_helper' ] ]
+                       - [ setCouponHelper, [ '@auto_manager.coupon_helper' ] ]
+                       - [ setPushHelper, [ '@auto_manager.push_helper' ] ]
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+
+    auto_manager.car_start_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CarStartHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.invoice_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\InvoiceHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.car_start_socket_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CarStartSocketHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.logs_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\LogsHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.curl_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CurlHelper
+
+    auto_manager.amap_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\AMapHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+
+    auto_manager.message_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\MessageHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.market_activity_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\MarketActivityHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+
+    auto_manager.push_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\PushHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.bao_jia_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\BaoJiaHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+                       - [ setRedisHelper, [ '@snc_redis.default' ] ]
+    auto_manager.yunshan_zhihui_helper:
+                class:     Auto\Bundle\ManagerBundle\Helper\YunshanZhihuiHelper
+                parent:    auto_manager.abstract_helper
+
+    auto_manager.fee_zu_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\FeeZuHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+                       - [ setRedisHelper, [ '@snc_redis.default' ] ]
+    auto_manager.zhixin_tong_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\ZhiXinTongHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+    auto_manager.easy_stop_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\EasyStopHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+                       - [ setRedisHelper, [ '@snc_redis.default' ] ]
+
+    auto_manager.cloud_box_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CloudBoxHelper
+            parent:    auto_manager.abstract_helper
+
+    auto_manager.recharge_helper:
+             class:     Auto\Bundle\ManagerBundle\Helper\RechargeHelper
+             parent:    auto_manager.abstract_helper
+    auto_manager.global_helper:
+             class:     Auto\Bundle\ManagerBundle\Helper\GlobalHelper
+             parent:    auto_manager.abstract_helper
+    auto_manager.payment_helper:
+             class:     Auto\Bundle\ManagerBundle\Helper\PaymentHelper
+             parent:    auto_manager.abstract_helper
+             calls:
+                        - [ setGlobalHelper, [ '@auto_manager.global_helper' ] ]
+                        - [ setPushHelper, [ '@auto_manager.push_helper' ] ]
+    auto_manager.deposit_helper:
+            class:      Auto\Bundle\ManagerBundle\Helper\DepositHelper
+            parent:     auto_manager.abstract_helper
+
+    auto_manager.insurance_helper:
+            class:      Auto\Bundle\ManagerBundle\Helper\InsuranceHelper
+            parent:     auto_manager.abstract_helper
+            calls:
+                        - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+                        
+    auto_manager.invite_helper:
+            class:      Auto\Bundle\ManagerBundle\Helper\InviteHelper
+            parent:     auto_manager.abstract_helper
+            calls:
+                        - [ setGlobalHelper, [ '@auto_manager.global_helper' ] ]
+    auto_manager.partner_helper:
+            class:      Auto\Bundle\ManagerBundle\Helper\PartnerHelper
+            parent:     auto_manager.abstract_helper
+            calls:
+                       - [ setCurlHelper, [ '@auto_manager.curl_helper' ] ]
+                       - [ setRedisHelper, [ '@snc_redis.default' ] ]
+                       - [ setCacheHelper, [ '@auto_manager.cache_helper' ] ]
+    auto_manager.cache_helper:
+            class:     Auto\Bundle\ManagerBundle\Helper\CacheHelper
+            parent:    auto_manager.abstract_helper
+            calls:
+                       - [ setRedisHelper, [ '@snc_redis.default' ] ]
+    auto_manager.fastdfs_helper:
+            class:      Auto\Bundle\ManagerBundle\Helper\FastDFSHelper
+            parent:     auto_manager.abstract_helper

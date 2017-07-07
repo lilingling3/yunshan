@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"/>
+	<meta content="telephone=no" name="format-detection"/>
+	<meta name="description" content=""/>
+	<meta name="keywords" content=""/>
+    <title>邀请函</title>
+    <link rel="stylesheet" href="{{ asset('/bundles/autoweb/css/font.css') }}">
+    <link rel="stylesheet" href="{{ asset('/bundles/autoweb/css/style.css') }}">
+<body>
+	<div class="section sec4">
+		<div class="headBg">
+            <img src="{{ asset('/bundles/autoweb/images/headBg.png') }}">
+		</div>
+		<div class="container">
+			<span class="finishMark"></span>
+			<div><a  class="submitButton" href="javascript:void(0);">提交完成</a> </div>
+		</div>
+		<div class="logo">
+			<h3></h3>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		new function (){
+			var _self = this;
+			_self.width = 640;//设置默认最大宽度
+			_self.fontSize = 100;//默认字体大小
+			_self.widthProportion = function(){var p = (document.body&&document.body.clientWidth&&document.getElementsByTagName("html")[0].offsetWidth)/_self.width;return p>1?1:p<0.5?0.5:p;};
+			_self.changePage = function(){
+				document.getElementsByTagName("html")[0].setAttribute("style","font-size:"+_self.widthProportion()*_self.fontSize+"px !important");
+			}
+			_self.changePage();
+			window.addEventListener("resize",function(){_self.changePage();},false);
+		};
+	</script>
+</body>
+</html>

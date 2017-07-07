@@ -1,0 +1,294 @@
+@import "parameter";
+#page.illegal_record.list{
+  overflow: hidden;
+  .rental-order{
+    margin-top: 5px;
+    background-color: #fff;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    padding: 0px 2%;
+    border: 1px solid @color-gray;
+    .rental-ahref {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 97%;
+      top: 0px;
+      bottom: 0px;
+      z-index: 4;
+    }
+    .row{
+      color: #000;
+      width: 96%;
+      padding:15px 0% 5px;
+      &.row-style {
+        padding:5px 0% 5px;
+        height: 80px;
+      }
+      &.id{
+        font-size: 14px;
+        padding: 10px 0%;
+        border-bottom: 1px solid @color-gray;
+        span{
+          float: right;
+          color: @color-secondary;
+        }
+      }
+
+      .left,.right{
+        width: 50%;
+        float: left;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+        font-size: 12px;
+        .text {
+          position: absolute;
+          top: 50%;
+          transform: translate(0%,-50%);
+          -webkit-transform: translate(0%,-50%);
+          -ms-transform: translate(0%,-50%);
+          -moz-transform: translate(0%,-50%);
+          -o-transform: translate(0%,-50%);
+          color: black;
+          &.cancel {
+            color: @color-secondary;
+          }
+          p{
+            line-height: 20px;
+            .t-name {
+              color: @color-secondary;
+            }
+
+            .color-green {
+              color:@color-green;
+            }
+            .color-blue {
+              color:@color-blue;
+            }
+            .color-yellow {
+              color:#ff8a00;
+            }
+            .color-red {
+              color:@color-red;
+            }
+            .color-black {
+              color:black;
+            }
+            a:link,a:visited,a:hover,a:active {
+              color: black;
+            }
+          }
+        }
+      }
+
+    }
+  }
+
+  .rental-info{
+    margin-top: 5px;
+    background-color: #fff;
+    border-top:1px solid @color-gray;
+    border-bottom:1px solid @color-gray;
+    .row{
+      padding: 10px 0;
+      width: 96%;
+      margin: 0 auto;
+      overflow: hidden;
+      height: 80px;
+      .left{
+        width: 45%;
+        text-align: right;
+        position: relative;
+        height: 86px;
+
+        float: left;
+        img{
+          height: 80px;
+          min-width: 116px;
+        }
+        .image-cont {
+          position: absolute;
+          margin: 0px auto;
+
+          height: 86px;
+          text-align: center;
+          top: 50%;
+          left: 50%;
+          -ms-transform: translate(-50% ,-50%);
+          -moz-transform: translate(-50% ,-50%);
+          -webkit-transform: translate(-50% ,-50%);
+          -o-transform: translate(-50% ,-50%);
+          .car-img-bottom {
+            position: absolute;
+            height: 20px;
+            bottom: 0px;
+            line-height:20px;
+            left: 0px;
+            right: 0px;
+            z-index: 100;
+            background-color: #66cc00;
+            text-align: center;
+            font-size: 12px;
+            color: white;
+          }
+          .car-img-bottom-red {
+            background-color: #ff0000;
+          }
+        }
+
+
+      }
+      .right{
+        float: right;
+        width: 55%;
+        height: 100%;
+        position: relative;
+        .column{
+          width: 100%;
+          height: auto;
+          overflow: hidden;
+          padding-top:5px;
+          position: absolute;
+          top: 50%;
+          -webkit-transform: translate(0%,-50%);
+          -ms-transform: translate(0%,-50%);
+          -moz-transform: translate(0%,-50%);
+          -o-transform: translate(0%,-50%);
+          transform: translate(0%,-50%);
+          &:first-child{
+            padding-top: 0;
+          }
+          .item{
+            float: left;
+            height: auto;
+            width: 49%;
+            font-size: 14px;
+            &:first-child{
+              border-right: 1px solid #e7e7e7;
+            }
+            &:last-child{
+              width: 47%;
+              padding-left: 2%;
+            }
+            p{
+              font-size: 12px;
+              color: @color-secondary;
+
+            }
+          }
+        }
+
+        p{
+          font-size: 12px;
+          line-height: 20px;
+        }
+        .color-gray {
+          color: @color-secondary;
+        }
+        .color-red {
+          color:@color-red;
+        }
+        .color-green {
+          color:@color-green;
+        }
+        .color-blue {
+          color:@color-blue;
+        }
+        .color-yellow {
+          color:#ff8a00;
+        }
+      }
+    }
+    .address{
+      font-size: 14px;
+      padding: 10px 0;
+      width: 96%;
+      margin: 0 auto;
+
+      p{
+        font-size: 12px;
+        color: @color-secondary;
+        line-height: 24px;
+      }
+    }
+  }
+  .show_info {
+    padding: 10px 0px;
+    text-align: center;
+  }
+}
+
+
+#page.illegal_record.show{
+  overflow: hidden;
+  .rental-order{
+    margin-top: 5px;
+    background-color: #fff;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    padding: 0px 2%;
+    border: 1px solid @color-gray;
+    .rental-ahref {
+      display: block;
+      position: absolute;
+      width: 100%;
+      height: 97%;
+      top: 0px;
+      bottom: 0px;
+      z-index: 4;
+    }
+    .row{
+      color: #000;
+      width: 96%;
+      padding:15px 0% 5px;
+      &.row-style {
+        padding:5px 0% 5px;
+        p{
+          color: black;
+          line-height: 20px;
+          font-size: 14px;
+          .t-name {
+            display: inline-block;
+            color: @color-secondary;
+            width: 70px;
+            text-align: right;
+          }
+          .color-gray {
+            color: @color-secondary;
+          }
+          .color-red {
+            color:@color-red;
+          }
+          .color-green {
+            color:@color-green;
+          }
+          .color-blue {
+            color:@color-blue;
+          }
+          .color-yellow {
+            color:#ff8a00;
+          }
+          .tel:link,.tel:visited,.tel:hover,.tel:active{
+            color: black;
+          }
+        }
+      }
+      &.id{
+        font-size: 14px;
+        padding: 10px 0%;
+        border-bottom: 1px solid @color-gray;
+        span{
+          float: right;
+          color: @color-secondary;
+        }
+      }
+
+    }
+  }
+
+ }

@@ -1,0 +1,45 @@
+{{ form_start(form) }}
+<div class="ui form">
+    <div class=" field">
+        <label>{{ form_label(form.rentalCar) }}</label>
+        {{ form_widget(form.rentalCar,{'attr': {'placeholder':'租赁车辆','class':'ui dropdown'}} ) }}
+    </div>
+    <script>
+        var option_html = '<option value="{{ rentalcar.id }}">京{{ rentalcar.licensePlate }}</option>';
+        document.getElementById('auto_bundle_managerbundle_insurance_record_rentalCar').innerHTML = option_html;
+    </script>
+    <div class=" field">
+        <label>{{ form_label(form.company) }}</label>
+        {{ form_widget(form.company,{'attr': {'placeholder':'保险公司','class':'ui dropdown'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.insurance) }}</label>
+        {{ form_widget(form.insurance,{'attr': {'placeholder':'保险类型','class':'ui dropdown'}} ) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.startTime) }}</label>
+        {{ form_widget(form.startTime) }}
+    </div>
+
+    <div class=" field">
+        <label>{{ form_label(form.endTime) }}</label>
+        {{ form_widget(form.endTime) }}
+    </div>
+    <div class="field">
+        <label>{{ form_label(form.insuranceAmount) }}(元)</label>
+        {{ form_widget(form.insuranceAmount,{'attr': {'placeholder':'投保金额' }} ) }}
+    </div>
+
+    <div class=" field">
+        <label>{{ form_label(form.insuranceTime) }}</label>
+        {{ form_widget(form.insuranceTime) }}
+    </div>
+    <div class="field">
+        <label>{{ form_label(form.insuranceNumber) }}</label>
+        {{ form_widget(form.insuranceNumber,{'attr': {'placeholder':'投保单号' }} ) }}
+    </div>
+
+    <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+    <button class="ui teal button" type="submit">保存</button>
+</div>
+{{ form_end(form) }}

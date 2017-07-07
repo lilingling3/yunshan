@@ -1,0 +1,115 @@
+@import "parameter";
+#page.station.list,#page.station.overloadList,#page.station.emptyList{
+/*member-info start*/
+	.member-info {
+		position: relative;
+	    margin-top: 10px;
+	    background-color: #fff;
+	    padding: 1rem 1rem;
+	    height: 50px;
+		.portrait {
+			background-color: #eee;
+		    -moz-border-radius: 25px;
+		    -webkit-border-radius: 25px;
+		    border-radius: 25px;
+		    height: 50px;
+		    width: 50px;
+		    line-height: 50px;
+		    font-size: 30px;
+		    color: #fff;
+		    text-align: center;
+		    float: left;
+		    img {
+		    	width:50px;
+		    }
+		    }
+		    .detail.user {
+				height: auto;
+			    padding-top: 0px;
+			    position: absolute;
+			    top: 50%;
+			    transition: tr;
+			    transform: translate(50px, -50%);
+			    -moz-transform: translate(50px, -50%);
+			    -mz-transform: translate(50px, -50%);
+			    -webkit-transform: translate(50px, -50%);
+			    -o-transform: translate(50px, -50%);
+			    width: auto;
+			    overflow: hidden;
+			    float: left;
+			    padding-left: 1rem;
+			    h4 {
+			    	font-size: 14px;
+    				color: #000;
+			    }
+			    p{
+			    	font-size: 12px;
+			    	line-height: 16px;
+			    	color:@color-secondary;
+			    }
+		    }
+		
+	}
+
+
+/*member-info end*/
+  .station-list{
+    .row{
+	  border-top:1px solid @color-gray;
+	  border-bottom:1px solid @color-gray;
+      background-color: #fff;
+      padding:10px 2%;
+      margin-top: 10px;
+      overflow: hidden;
+      height: auto;
+      h3{
+        font-size: 16px;
+        line-height: 24px;
+        color: #000;
+		font-weight: normal;
+      }
+      p{
+        color: @color-secondary;
+        font-size: 12px;
+      }
+      h4{
+        font-size: 12px;
+        line-height: 30px;
+        color: #000;
+
+      }
+	  .station-cont {
+		p {
+		  font-size:14px;
+		  padding:6px 0px;
+		}
+	  }
+
+      .column{
+		padding-top: 10px;
+		font-size: 12px;
+		border-top: 1px #e7e7e7 solid;
+        p{
+          font-size: 12px;
+          color: black;
+          .car-mun {
+          	color:@color-third;
+          }
+		  .line {
+			border-left: 1px solid #d4d4d4;
+			padding-left: 8px;
+			margin-left: 8px;
+		  }
+        }
+
+
+
+      }
+	  .station-cont {
+		font-size: 14px;
+	  }
+    }
+  }
+
+
+}

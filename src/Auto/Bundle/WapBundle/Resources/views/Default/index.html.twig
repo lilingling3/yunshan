@@ -1,0 +1,106 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default', 'index'] %}
+{% block content %}
+	<div class="top-menu">
+		云杉智行
+		<span>{% if app.user %}<a href="{{ path('auto_wap_logout') }}">退出</a>{% endif %}</span>
+	</div>
+
+	<div class="addWrap">
+		<div class="swipe" id="mySwipe">
+			<div class="swipe-wrap">
+				<div>
+					<a href="javascript:;"><img class="img-responsive" src="{{ asset('/bundles/autowap/images/banner1.jpg') }}"/></a>
+				</div>
+				<div>
+					<a href="javascript:;"><img class="img-responsive" src="{{ asset('/bundles/autowap/images/banner2.jpg') }}"/></a>
+				</div>
+				
+
+			</div>
+		</div>
+		<div class="ull">
+			<ul id="position">
+				<li class="cur"></li>
+				<li></li>
+			</ul>
+		</div>
+	</div>
+
+
+	<a href="
+	{% if app.user %}
+	{{ path('auto_wap_account_auth_status') }}
+	{% else %}
+	{{ path('auto_wap_login') }}
+	{% endif %}
+	">
+		{% include "AutoWapBundle:Account:_status.html.twig" %}
+	</a>
+
+	{% if app.user and (auth.status ==202 or auth.status ==203) %}
+		<div class="member-auth">
+			<a href="{{ path('auto_wap_account_auth_status') }}">
+				<div>
+					<span class="li-imgcont"><img src="{{ asset('/bundles/autowap/images/li4.png') }}" /></span>
+					<div class="li-title">
+						{% if auth.status ==202 %}
+							认证失败请重新申请
+						{% else %}
+							认证过期请重新申请
+						{% endif %}
+					</div>
+				</div>
+				<b></b>
+			</a>
+		</div>
+	{% endif %}
+
+	<div class="member-li">
+
+
+		<a href="{{ path('auto_wap_station_list') }}">
+			<li>
+				<span class="li-imgcont"><img src="{{ asset('/bundles/autowap/images/li1.png') }}"></span>
+				<div class="li-title">车辆租赁</div>
+				<b></b>
+			</li>
+		</a>
+
+		<a href="{{ path('auto_wap_rental_order_list') }}">
+			<li>
+				<span class="li-imgcont"><img src="{{ asset('/bundles/autowap/images/li2.png') }}"></span>
+				<div class="li-title">我的行程{% if progress %}&nbsp;-&nbsp;<span>您已租赁车辆</span>{% endif %}</div>
+				<b></b>
+			</li>
+		</a>
+
+	</div>
+	<div class="member-li">
+		<a href="{{ path('auto_wap_coupon') }}">
+			<li>
+				<span class="li-imgcont"><img src="{{ asset('/bundles/autowap/images/coupon.png') }}"></span>
+				<div class="li-title">优惠券</div>
+				<b></b>
+			</li>
+		</a>
+		<a href="{{ path('auto_wap_illegalRecord') }}">
+			<li>
+				<span class="li-imgcont"><img src="{{ asset('bundles/autowap/images/rules.png') }}"></span>
+				<div class="li-title">租赁违章{% if illegal_count %}&nbsp;-&nbsp;<span class="color-red">{{ illegal_count }}个未处理</span>{% endif %}</div>
+				<b></b>
+			</li>
+		</a>
+
+
+		<a href="{{ path('auto_wap_more') }}">
+			<li>
+				<span class="li-imgcont"><img src="{{ asset('/bundles/autowap/images/more.png') }}"></span>
+				<div class="li-title">更多</div>
+				<b></b>
+			</li>
+		</a>
+	</div>
+
+
+{% endblock %}

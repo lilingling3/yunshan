@@ -1,0 +1,47 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default', 'fuli'] %}
+{% block stylesheets %}
+    {{ parent() }}
+    <script type="text/javascript" type="text/css" href="{{ asset('/bundles/autowap/js/module/fuli.js') }}"> </script>
+
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="inner-cont clearfix">
+            <div class="top-title"><img src="{{ asset('/bundles/autowap/images/fuli-title.png') }}" /></div>
+            <div class="top-logo"><img src="{{ asset('/bundles/autowap/images/fuli-logo.png') }}" /></div>
+            <div class="code-text"><img src="{{ asset('/bundles/autowap/images/fuli-code-text.png') }}"  /></div>
+            <div class="login" id="fuli-login">
+
+                <ul class="clearfix">
+                    <li class="name clearfix">
+                        <label for="name"><span><img src="{{ asset('/bundles/autowap/images/fuli-name.png') }}" /></span></label>
+                        <div><img class="bu-bg" src="{{ asset('/bundles/autowap/images/fuli-botton1.png') }}"/><input  name="name" id="name" placeholder="请输入中文名称" /></div></li>
+                    <li class="phone clearfix">
+                        <label for="phone"><span><img src="{{ asset('/bundles/autowap/images/fuli-phone.png') }}" /></span></label>
+                        <div><img class="bu-bg" src="{{ asset('/bundles/autowap/images/fuli-botton1.png') }}" /><input name="phone" id="phone" placeholder="请输入11位手机号码" /></div>
+                    </li>
+                    <li class="workcard clearfix">
+                        <label><span><img src="{{ asset('/bundles/autowap/images/fuli-card.png') }}" /></span></label>
+                        <div><img class="bu-bg" src="{{ asset('/bundles/autowap/images/fuli-botton1.png') }}" /><input  name="workcard" id="workcard" placeholder="请输入六位工卡号" /></div>
+                    </li>
+                    <li class="botton clearfix">
+                        <div id="fuli-button" class="submit"><img class="bu-bg" src="{{ asset('/bundles/autowap/images/fuli-botton2.png') }}" />
+                            <span><img src="{{ asset('/bundles/autowap/images/fuli-button-t.png') }}" /></span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="suss-cont" id="fuli-suss-cont">
+                    <div class="login-suss"><img  src="{{ asset('/bundles/autowap/images/fuli-suss.png') }}" /></div>
+                    <div class="arrow"><img src="{{ asset('/bundles/autowap/images/fuli-arrow.png') }}" /></div>
+                </div>
+            <div class="code"><img  src="{{ asset('/bundles/autowap/images/fuli-code.png') }}" /></div>
+            <div class="foot"><img  src="{{ asset('/bundles/autowap/images/fuli-foot.png') }}"  /></div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

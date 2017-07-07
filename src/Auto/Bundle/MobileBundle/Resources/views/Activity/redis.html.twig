@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>数据字典</title>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/bundles/automobile/css/database.css') }}">
+    <script type="text/javascript" src="{{ asset('/bundles/automobile/js/module/jquery-1.9.0.min.js') }}" ></script>
+</head>
+<body>
+<div id="page" class="activity database">
+    <div class="container">      
+        <div class="nav">
+            <div class="navrow active">
+                <div class="leftrank"><a class="rank rank1 "><span>HASH</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#location"><span>车辆当前定位</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " ><span>LIST</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#range"><span>剩余里程历史数据</span></a></li>
+                    <li><a class="rank2"  href="#gps"><span>车辆Gps历史数据</span></a></li>
+                    <li><a class="rank2"  href="#mileage"><span>总里程历史数据</span></a></li>
+                    <li><a class="rank2"  href="#power"><span>剩余电量历史数据</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " ><span>STRING</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#session"><span>Session详细</span></a></li>
+                    <li><a class="rank2"  href="#rental"><span>租车ID</span></a></li>
+                </ul>
+            </div>
+            <div class="navrow ">
+                <div class="leftrank"><a class="rank rank1 " ><span>SET</span></a></div>
+                <ul>
+                    <li><a class="rank2"  href="#station"><span>租赁点下辖车辆</span></a></li>
+                    <li><a class="rank2"  href="#city"><span>城市下辖车辆</span></a></li>
+                    <li><a class="rank2"  href="#province"><span>省下辖车辆</span></a></li>
+                    <li><a class="rank2"  href="#cartype"><span>该车型车辆</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="innercont">
+            <div class="module">
+                <section id="location">
+                    <p class="title"><b>车辆当前定位 feeZu-car-curlocation</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储车辆设备号对应的gps(GCJ-02坐标系)位置信息</td></tr>
+                        <tr><td>键值</td><td>车辆设备号，例：116232100004643 </td></tr>
+                        <tr><td>详细内容</td><td><p>经度、纬度、车牌号、保存数据时间。</p><p>例：[109.72973485611,18.405598449538,"\u7ca4AE67E0","20170221141536"]</p></td></tr>
+                        <tr><td>保存机制</td><td><p>脚本中创建timer每10s获取一次全部车辆的位置信息等，</p>
+                                                <p>并保存数据到log日志中。</p></td></tr>
+                        <tr><td>检查机制</td><td><p>在crontab中启动检测脚本，每2min检查一次log日志更新情况，</p>
+                                                <p>如果log日志不更新，重启保存进程。</p></td></tr>
+                        <tr><td>使用</td><td>后台车辆监控、分时保险功能等</td></tr>
+                    </table>
+                </section>
+            </div>
+            <div class="module">
+                <section id="range">
+                    <p class="title"><b>剩余里程历史数据 feeZu-range-设备号</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储车辆设备号对应的剩余里程历史数据。</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>车辆设备号、剩余里程、保存数据时间</p><p>例：{"id":"116232100003372","range":42,"time":1487323641}</p></td></tr>
+                        <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>使用</td><td>暂无。</td></tr>
+                    </table>
+                </section>
+                <section id="gps">
+                    <p class="title"><b>车辆Gps历史数据 feeZu-gps-设备号</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储车辆设备号对应的gps(GCJ-02坐标系)位置历史信息</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号、经度、纬度、保存数据时间。</p><p>例：{"id":"116502100004071","coordinate":[109.74846529843,18.371899476493],"time":1487323645}</p></td></tr>
+                        <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>使用</td><td>历史轨迹回放</td></tr>
+                        
+                    </table>
+                </section>
+                <section id="mileage">
+                    <p class="title"><b>总里程历史数据 feeZu-mileage-设备号</b></p>
+                    <table border="1"  cellspacing="0px" >
+                        <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储车辆设备号对应的总里程历史信息</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号、总里程、保存数据时间。</p><p>例：{"id":"116232100003749","mileage":5233,"time":1487323734}</p></td></tr>
+                        <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>使用</td><td>暂无。</td></tr>
+                        
+                    </table>
+                </section>
+                <section id="power">
+                    <p class="title"><b>剩余电量历史数据 feeZu-power-设备号</b></p>
+                    <table border="1"  cellspacing="0px" >
+                       <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储车辆设备号对应的电量历史信息</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号、总里程、保存数据时间。</p><p>例：{"id":"116502100005252","power":27,"time":1487323576}</p></td></tr>
+                        <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>使用</td><td>暂无。</td></tr>
+                        
+                    </table>
+                </section>
+                <section id="session">
+                    <p class="title"><b>Session详细 session + 用户token</b></p>
+                    <table border="1"  cellspacing="0px" >
+                       <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储车辆设备号对应的电量历史信息</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号、总里程、保存数据时间。</p><p>例：{"id":"116502100005252","power":27,"time":1487323576}</p></td></tr>
+                        <tr><td>保存机制</td><td><p>登录</p></td></tr>
+                        <!-- <tr><td>使用</td><td>暂无。</td></tr> -->
+                        
+                    </table>
+                </section>
+                <section id="rental">
+                    <p class="title"><b>租车ID api-rental-car-车辆ID</b></p>
+                    <table border="1"  cellspacing="0px" >
+                       <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储车辆设备号对应的电量历史信息</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号、总里程、保存数据时间。</p><p>例：{"id":"116502100005252","power":27,"time":1487323576}</p></td></tr>
+          <!--               <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr> -->
+                        <tr><td>使用</td><td>暂无。</td></tr>
+                        
+                    </table>
+                </section>
+                <section id="station">
+                    <p class="title"><b>租赁点下辖车辆 location-station-car-租赁点Id</b></p>
+                    <table border="1"  cellspacing="0px" >
+                       <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储相应的租赁点下辖车辆的设备号</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号</p></td></tr>
+          <!--               <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr> -->
+                        <tr><td>用途</td><td>快速筛选车辆设备号，结合车辆当前定位使用</td></tr>
+                        
+                    </table>
+                </section>
+                <section id="city">
+                    <p class="title"><b>城市下辖车辆 location-city-car-城市Id</b></p>
+                    <table border="1"  cellspacing="0px" >
+                       <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储相应的市下辖车辆的设备号</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号</p></td></tr>
+          <!--               <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr> -->
+                        <tr><td>用途</td><td>快速筛选车辆设备号，结合车辆当前定位使用</td></tr>
+                        
+                    </table>
+                </section>
+                <section id="province">
+                    <p class="title"><b>省下辖车辆 location-province-car-省Id</b></p>
+                    <table border="1"  cellspacing="0px" >
+                       <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储相应的省下辖车辆的设备号</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号</p></td></tr>
+          <!--               <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr> -->
+                        <tr><td>用途</td><td>快速筛选车辆设备号，结合车辆当前定位使用</td></tr>
+                        
+                    </table>
+                </section>
+                <section id="cartype">
+                    <p class="title"><b>该车型车辆 location-car-type-车型Id</b></p>
+                    <table border="1"  cellspacing="0px" >
+                       <tr><th>内容</th><th>详细</th>
+                        <tr><td>概要</td><td>存储相应的车型的车辆的设备号</td></tr>
+                        <tr><td>键值</td><td>序列</td></tr>
+                        <tr><td>详细内容</td><td><p>设备号</p></td></tr>
+          <!--               <tr><td>保存机制</td><td><p>与车辆当前定位机制一致</p></td></tr>
+                        <tr><td>检查机制</td><td><p>与车辆当前定位机制一致</p></td></tr> -->
+                        <tr><td>用途</td><td>快速筛选车辆设备号，结合车辆当前定位使用</td></tr>
+                        
+                    </table>
+                </section>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<script type="text/javascript" src="{{ asset('/bundles/automobile/js/activity/activityDataBase.js') }}" ></script>
+</body>
+</html>

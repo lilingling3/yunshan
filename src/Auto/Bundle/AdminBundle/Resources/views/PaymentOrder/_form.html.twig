@@ -1,0 +1,28 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+    <div class="field">
+        <label>用户手机号</label>
+        <input type="text" id="mobile" name="mobile" required="required" placeholder="请输入用户手机号">
+    </div>
+    <div class="field">
+        <label>{{ form_label(form.amount) }}</label>
+        {{ form_widget(form.amount,{'attr': {'placeholder':'请输入用户需缴费金额' }} ) }}
+    </div>
+    <div class="field">
+        <label>{{ form_label(form.kind) }}</label>
+        {{ form_widget(form.kind,{'attr': {'class':'ui dropdown' }} ) }}
+    </div>
+    <div class="field" id="payment_order_reason" style="display: none;">
+        <label>{{ form_label(form.reason) }}</label>
+        {{ form_widget(form.reason,{'attr': {'placeholder':'请输入缴费原因说明信息' }} ) }}
+    </div>
+
+</div>
+
+
+
+<button  class="ui teal button adminbackgo " >返回</button>
+<button class="ui teal button paymentOrderNewSubment"  >提交</button>
+
+{{ form_end(form) }}

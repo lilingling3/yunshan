@@ -1,0 +1,95 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+    <div class=" field" style="float:left;clear: none;">
+        <label>用户证件照</label>
+        <div class="field-img-cont clearfix jqzoom">
+            <a href="{{ auth.licenseImage|photograph }}" id="zoom1" class="MagicZoom MagicThumb"><img data-rotate="0" alt="证件照片"src="{{ auth.licenseImage|photograph }}" style="width:440px;" id="main_img" class="main_img">
+            </a>
+        </div>
+        <label>用户身份证</label>
+        <div class="field-img-cont clearfix jqzoom">
+            <a href="{{ auth.idImage|photograph }}" id="zoom2" class="MagicZoom MagicThumb"><img data-rotate="0" alt="证件照片"src="{{ auth.idImage|photograph }}" style="width:440px;" id="main_img2" class="main_img">
+            </a>
+        </div>
+
+
+    </div>
+    <div class="field other auth_form" style="float: left; width: 55%;margin-left: 5%;clear: none;">
+        <div class="fields">
+            <div class="eight wide field">
+                <label>手机号</label>
+                <p>{{ auth.member.mobile }}</p>
+            </div>
+            <div class="eight wide field">
+                <label>注册时间</label>
+                <p>{{ auth.member.createTime|date('Y-m-d H:i:s') }}</p>
+            </div>
+            <div class="eight wide field">
+                <label>认证时间</label>
+                <p>{% if auth.applyTime  %}
+                        {{ auth.applyTime|date('Y-m-d H:i:s') }}
+                    {% endif %}
+                </p>
+            </div>
+            {#<div class="six wide field">#}
+                {#<label>账户余额（元）</label>#}
+                {#<p>{{ auth.member.wallet}}</p>#}
+            {#</div>#}
+            <div class="two wide field">
+                <label>状态</label>
+                <p > {% if blacked %}<a href="{{ path('auto_admin_blacklist_show',{'id':blacked[0].id})}}" class="red">已拉黑</a>{% else %}正常{% endif %}</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>审核</label>
+            {{ form_widget(form.AuthMember.licenseAuthError,{'attr': {'class':'ui dropdown'}} ) }}
+        </div >
+        <div class="fields">
+            <div class="eight wide field">
+                <label>姓名</label>
+                {{ form_widget(form.name,{'attr': {'class':'ui dropdown'}} ) }}
+            </div>
+            <div class="eight wide field">
+                <label>性别</label>
+                {{ form_widget(form.sex,{'attr': {'placeholder':'性别' }} ) }}
+            </div>
+            <div class="eight wide field">
+                <label>民族</label>
+                {{ form_widget(form.nation,{'attr': {'class':'ui dropdown'}} ) }}
+            </div>
+        </div>
+        <div class="field">
+            <div class="eight wide field">
+                <label>{{ form_label(form.AuthMember.IDNumber) }}</label>
+                {{ form_widget(form.AuthMember.IDNumber,{'attr': {'placeholder':'驾驶证号'}} ) }}
+            </div>
+            <div class="eight wide field">
+                <label>{{ form_label(form.AuthMember.documentNumber) }}</label>
+                {{ form_widget(form.AuthMember.documentNumber,{'attr': {'placeholder':'档案号' }} ) }}
+            </div>
+        </div>
+
+        <div class="fields">
+            <div class="eight wide field">
+                <label>{{ form_label(form.AuthMember.licenseStartDate) }}</label>
+                {{ form_widget(form.AuthMember.licenseStartDate) }}
+            </div>
+            <div class="eight wide field">
+                <label>{{ form_label(form.AuthMember.licenseEndDate) }}</label>
+                {{ form_widget(form.AuthMember.licenseEndDate) }}
+            </div>
+        </div>
+        <div class="field">
+            <label>住址</label>
+            {{ form_widget(form.address,{'attr': {'placeholder':'地址' }} ) }}
+        </div >
+
+
+
+        <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+        <button class="ui teal button auth_submit" type="submit">提交</button>
+    </div>
+</div>
+{{ form_end(form) }}

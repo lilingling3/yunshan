@@ -1,0 +1,176 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% import "AutoManagerBundle:Order:_time.html.twig" as time %}
+
+{% set page_id  = ['car', 'new'] %}
+ {% block content %}
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'发件','prenav':'发票管理 '} %}
+
+
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal  header"> 申请人信息 </h4>
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th style="width: 33.3%">手机号</th>
+                     <th style="width: 33.3%">姓名</th>
+                     <th>申请时间</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     {% if invoice.applyMember %}
+                     <td>{{ invoice.applyMember.mobile }}</td>
+
+                     <td>{{ invoice.applyMember.name }}</td>
+                     <td> {{ invoice.createTime|date('Y-m-d H:i:s') }}</td>
+                         {% endif %}
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal  header">发票信息信息 </h4>
+             {#<i class="tag icon"></i>#}
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th style="width: 33.3%">申请发票金额（元）</th>
+                     <th style="width: 33.3%">发票内容</th>
+                     <th>发票抬头</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td>
+                         {{ invoice.amount }}
+                     </td>
+                     <td>
+                         车辆租赁服务
+                     </td>
+                     <td>{{ invoice.title }}</td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+
+
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal  header">收件信息 </h4>
+             {#<i class="tag icon"></i>#}
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th style="width: 33.3%">收件人</th>
+                     <th style="width: 33.3%">联系方式</th>
+                     <th>收件地址</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td>{{ invoice.deliveryName }}</td>
+                     <td>{{ invoice.deliveryMobile }}</td>
+                     <td>{{ invoice.deliveryAddress }}</td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal header"> 开票人信息 </h4>
+
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th style="width: 33.3%">手机号</th>
+                     <th style="width: 33.3%">姓名</th>
+                     <th>开票时间</th>
+                 </tr>
+                 </thead>
+
+                 <tbody>
+                 <tr>
+                     <td>{{ invoice.authMember.mobile }}</td>
+                     <td>{{ invoice.authMember.name }}</td>
+                     <td>{{ invoice.authTime |date('Y-m-d H:i:s')}}</td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+
+
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal  header">发件人信息 </h4>
+             {#<i class="tag icon"></i>#}
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th style="width: 33.3%">手机号</th>
+                     <th style="width: 33.3%">姓名</th>
+                     <th>发件时间</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td>-</td>
+                     <td>-</td>
+                     <td>-</td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <h4 class="ui horizontal header"> 物流信息0 </h4>
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;">
+                 <thead>
+                 <tr>
+                     <th style="width: 33.3%"> 快递公司</th>
+                     <th>快递单号</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 <tr>
+                     <td>
+                         <select name="deliveryCompany" id="deliveryCompany" class="ui dropdown">
+                             {% for  deliveryCompany in company %}
+                                 <option value="{{ deliveryCompany.id }}">{{ deliveryCompany.name }}</option>
+                             {% endfor %}
+                         </select>
+                     </td>
+                     <td> <input class=" time_input" type="text"  name="deliveryNumber" id="deliveryNumber" placeholder="请输入快递单号" value=""></td>
+                 </tr>
+                 </tbody>
+             </table>
+         </div>
+     </div>
+     <div class="ui main-content grid">
+         <div class="sixteen wide column">
+             <div style="width: 15%;margin: 0 auto">
+                 <button  class="ui teal button " onclick="JavaScript:history.back(-1);">返回</button>
+                 <button class="ui teal button " id='delivery' type="submit" >发件</button>
+             </div>
+         </div>
+
+
+     </div>
+
+
+     <div class="delivery door">
+         <div>
+             <h4 style="height: 63%;line-height: 11;text-align: center;font-weight: normal">物流信息不可修改！请确认物流信息准确无误!</h4>
+             <button class="ui teal button cancel">取消</button>
+             <a class="ui teal button right delivery-yes" data-invoiceid="{{ invoice.id }}" data-member="{{ app.user.id }}"  style="display: block;width: 45%">确定</a>
+         </div>
+     </div>
+
+ {% endblock %}

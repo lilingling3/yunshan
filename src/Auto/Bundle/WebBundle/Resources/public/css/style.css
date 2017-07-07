@@ -1,0 +1,518 @@
+/*reset*/
+body, ul, ol, dl, li, dd, h1, h2, h3, h4, h5, h6, p, input {
+    margin: 0;
+}
+img {
+    border: none;
+}
+input, button, textarea, select {
+    border: none;
+    padding:0;
+}
+input[type="button"], input[type="submit"], input[type="reset"] {
+    -webkit-appearance: none;
+
+}
+body {
+    background: #fff;
+    font-family: "微软雅黑", "microsoft yahei";
+}
+ul, ol {
+    list-style: none;
+    padding: 0
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/*默认a标签样式*/
+a:link, a:visited {
+    /*color: #5e5e5e; */
+    text-decoration: none;
+}
+/*a:hover { !*color:#999;*! }*/
+/*a:hover { color: #c9394a; !*text-decoration: underline;*! }*/
+/*a:active { color: #666; }*/
+/*浮动和清除浮动*/
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.clear {
+    zoom: 1;
+}
+.clear:after {
+    content: "";
+    display: block;
+    height: 0;
+    visibility: visible;
+    clear: both;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    /*font-size:62.5%;*/
+    font-size: 72%;
+}
+/*首页*/
+.indexBg{
+    width:100%;
+    height:100%;
+    background: url("../images/bg_t.png") no-repeat 0 0;
+    background-size:100% 100%;
+    -webkit-background-size:100% 100%;
+    -moz-background-size:100% 100%;
+    position: relative;
+}
+.indexBg .arrow{
+    position: absolute;
+    bottom:.62rem;
+    left:50%;
+    width:.495rem;    /*99px*/
+    height:.29rem;   /*58px*/
+    margin-left: -.2475rem;
+    background: url("../images/arrow1.png") no-repeat 0 0;
+    background-size:100% 100%;
+}
+
+/*二级页面*/
+.sec2{
+    background-color: #fff;
+    text-align: center;
+    position: relative;
+}
+.sec2 .headTitle{
+    width:2.9rem;   /*290px*/
+    height:2.29rem;    /*229px*/
+    background: url("../images/titleBg.png") no-repeat 0 0;
+    background-size:100% 100%;
+    display: inline-block;
+}
+.describeCon{
+    text-align: left;
+    margin:auto .295rem;  /*59px*/
+}
+.describeCon h4{
+    /*font-family: NotoSan—M;*/
+    font-size: .19rem;
+    line-height: .26rem;
+    /*font-weight: normal;*/
+}
+.describeCon p{
+    /*font-family: NotoSan—L;*/
+    font-size: .19em;
+    text-indent: 2em;
+    line-height: .26rem;
+}
+.describeCon p strong{
+    /*font-family: NotoSan—M;*/
+    /*font-weight: normal;*/
+}
+.describeDetails{
+    font-size: .19rem;
+    line-height: .26rem;
+    margin-top:.1rem ;
+}
+.describeDetails b{
+    /*font-family: NotoSan—M;*/
+    /*font-weight: normal;*/
+}
+.describeDetails span{
+    /*font-family: NotoSan—L;*/
+}
+.describeDetails .segment{
+    margin-bottom: .1rem;
+}
+.describeFooter{
+    margin:auto .2rem;
+}
+.describeFooter p{
+    /*font-family: 'NotoSan—L';*/
+    font-size: .19rem;
+    line-height: .26rem;
+}
+.describeFooter .map{
+    width:2.99rem;   /*399px*/
+    height:1.76rem;    /*276px*/
+    /*//background: url("../images/map.png") no-repeat 0 0;*/
+    /*//background-size:100% 100%;*/
+    display: inline-block;
+}
+.describeFooter .map img{
+    width:100%;
+    height:100%;
+}
+.describeFooter .map.max{width:100%;height:auto;position: fixed;
+    top:0;
+    left:0;
+}
+.mapMax{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 20;
+    width:100%;
+    height:100%;
+    display: none;
+    margin:0 auto;
+}
+.mapMax .layout{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: 20;
+    background-color: #000;
+    opacity:0.8;
+    width:100%;
+    height:100%;
+}
+.mapMax img{
+    position: absolute;
+    top:25%;
+    left:0;
+    z-index: 21;
+    width:100%;
+}
+.map .arrow2{
+    position: absolute;
+    bottom:.22rem;
+    left:50%;
+    width:.495rem;    /*99px*/
+    height:.29rem;   /*58px*/
+    margin-left: -.2475rem;
+    background: url("../images/arrow2.png") no-repeat 0 0;
+    background-size:100% 100%;
+}
+
+/*三级页面*/
+.headBg img{
+    width:100%;
+    vertical-align: top;
+}
+.sec3 .container{
+    margin:0 12.5%;
+}
+.sec3 .container h3{
+    font-size: .14rem;
+    margin-top: .1rem;
+    /*font-family: NotoSan—M;*/
+    /*font-weight: normal;*/
+}
+.sec3 .container p{
+    text-indent: 2em;
+    font-size: .14rem;
+    margin-top:.2rem;
+    margin-bottom:.2rem;
+    /*font-family: NotoSan—L;*/
+}
+.sec3 .container .segment{
+    width:100%;
+    /*border:1px solid red;*/
+}
+.sec3 .container .segment input{
+    display: block;
+    height:.46rem;
+    line-height:.46rem;
+    background-color: #CCCCCC;
+    color: #000;
+    margin-bottom: .1rem;
+    width:98%;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    padding-left:2%;
+    outline:none;
+    /*font-family: NotoSan—L;*/
+}
+.sec3 .container .segment input::-webkit-input-placeholder{
+    color: #ffffff;
+}
+.sec3 .container .segment input.submitButton{
+    display: block;
+    height:.5rem;
+    line-height:.5rem;
+    background-color: #1496be;
+    color: #fff;
+    margin-bottom: .1rem;
+    width:100%;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    font-size:.26rem;
+    text-align: center;
+    /*font-family: NotoSan—L;*/
+}
+.sec3 .logo{
+    text-align: center;
+}
+.logo h3{
+    width:2.09rem;   /*209px*/
+    height:.49rem;    /*49px*/
+    background: url("../images/logo.png") no-repeat 0 0;
+    background-size:100% 100%;
+    display: inline-block;
+    margin-top: .25rem;
+}
+
+/*提交完成*/
+.sec4{
+    text-align: center;
+}
+.finishMark{
+    width:1.02rem;   /*102px*/
+    height:1.38rem;    /*138px*/
+    background: url("../images/finishTip.png") no-repeat 0 0;
+    background-size:100% 100%;
+    display: inline-block;
+    margin-top:20%;
+}
+.sec4 .submitButton{
+    display: block;
+    height:0.85rem; /*102px*/
+    line-height:0.85rem; /*102px*/
+    background-color: #CCCCCC;
+    color: #fff;
+    width:75%;
+    margin:.55rem 12.5% 22%;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    background-color:#1496be;
+    font-size:.3rem;
+}
+
+
+
+@media screen and (max-height:480px){
+    .indexBg{
+        background: url("../images/bg_t.png") no-repeat 0 0;
+        background-size:100% 100%;
+        -webkit-background-size:100% 100%;
+        -moz-background-size:100% 100%;
+    }
+    .describeDetails{
+        margin-top:0;
+    }
+    .describeDetails .segment{
+        margin-bottom: .05rem;
+    }
+    .describeFooter .map{
+        margin-top: .05rem;
+    }
+    .finishMark{
+        margin-top:13%;
+    }
+    .sec4 .submitButton{
+        margin:.55rem 12.5% 7%;
+    }
+    .sec3 .container h3{
+        line-height: .26rem;
+        font-size: .18rem;
+        margin-top:.1rem;
+    }
+    .sec3 .container p{
+        font-size: .18rem;
+    }
+    .sec3 .container p{
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: .26rem;
+    }
+    .headBg img{
+        height:130px;
+    }
+    .sec3 .container p{
+        margin-bottom: .1rem;
+    }
+    /*.describeFooter .map{*/
+        /*display: none;*/
+    /*}*/
+}
+@media screen and (min-height:481px) and (max-height:568px){
+    .indexBg{
+        background: url("../images/bg_s.png") no-repeat 0 0;
+        background-size:100% 100%;
+        -webkit-background-size:100% 100%;
+        -moz-background-size:100% 100%;
+    }
+    .sec3 .container .segment input,.sec3 .container .segment input.submitButton{
+        height:.56rem;
+        line-height:.56rem;
+    }
+    .describeCon h4{
+        margin-top: .15rem;
+    }
+    .logo h3{
+        margin-top: .55rem;
+    }
+    .describeCon h4,.describeCon p,.describeFooter p{
+        font-size: .22rem;
+        line-height: .3rem;
+    }
+    .describeCon p{
+        line-height: .32rem;
+    }
+    .describeDetails{
+        margin-top: .15rem;
+        margin-bottom: .15rem;
+    }
+    .describeFooter{
+        margin-top: .15rem;
+    }
+    .describeFooter .map{
+        margin-top:.1rem;
+    }
+    .sec3 .container h3{
+        margin-top: .3rem;
+    }
+
+}
+
+@media screen and (min-height:569px) and (max-height:627px){
+    .indexBg{
+        background: url("../images/bg_m.png") no-repeat 0 0;
+        background-size:100% 100%;
+        -webkit-background-size:100% 100%;
+        -moz-background-size:100% 100%;
+    }
+    .describeCon h4,.describeCon p,.describeFooter p,.describeDetails{
+        font-size:.22rem;
+        line-height: .3rem;
+    }
+    .describeDetails{
+        margin-top: .2rem;
+    }
+    .describeDetails .segment{
+        margin-bottom: .1rem;
+    }
+    .describeFooter{
+        margin-top: .3rem;
+    }
+    .describeCon{
+        margin-top: .2rem;
+    }
+    .describeFooter p{
+        font-size:.22rem;
+        line-height: .3rem;
+    }
+    .describeFooter .map{
+        margin-top: .15rem;
+    }
+    .sec3 .container .segment input,.sec3 .container .segment input.submitButton{
+        height:.58rem;
+        line-height:.58rem;
+    }
+    .sec3 .container .segment input.submitButton {
+        height:.59rem;
+        line-height:.59rem;
+     }
+    .sec3 .container h3,.sec3 .container p{
+        font-size:.22rem;
+        line-height: .24rem;
+    }
+    .sec3 .container p{
+        margin-top: .05rem;
+        margin-bottom: .05rem;
+    }
+    .sec4 .submitButton{
+        margin:.55rem 12.5% 15%;
+    }
+    .sec3 .container h3{
+        margin-top: .3rem;
+    }
+}
+@media screen and (min-height:628px){   /*leMax 411 659*/
+    .indexBg{
+        background: url("../images/bg_l.png") no-repeat 0 0;
+        background-size:100% 100%;
+        -webkit-background-size:100% 100%;
+        -moz-background-size:100% 100%;
+    }
+    .sec3 .container .segment input{
+        height:.60rem;
+        line-height:.60rem;
+    }
+    .sec3 .container .segment input.submitButton{
+        height:.61rem;
+        line-height:.61rem;
+    }
+    .sec3 .container h3,.sec3 .container p{
+        font-size:.24rem;
+        line-height: .34rem;
+    }
+    .describeCon h4,.describeCon p,.describeFooter p,.describeDetails{
+        font-size:.22rem;
+        line-height: .3rem;
+    }
+    .describeDetails{
+        margin-top: .2rem;
+        margin-bottom: .2rem;
+    }
+    .sec3 .container p{
+        margin-bottom:.1rem;
+        margin-top:.1rem;
+    }
+    .describeFooter{
+        margin-top: .2rem;
+    }
+    .sec3 .container h3{
+        margin-top: .5rem;
+    }
+    .describeCon h4{
+        margin-top: .2rem;
+    }
+    /*.describeDetails .segment{*/
+        /*margin-bottom: .2rem;*/
+    /*}*/
+    .describeFooter p{
+        font-size:.23rem;
+        line-height: .3rem;
+    }
+    .describeFooter .map{
+        margin-top: .25rem;
+    }
+}
+@media screen and (min-height:628px) and (max-height:660px){
+    .describeCon{
+        margin-top:.1rem;
+    }
+    .describeFooter{
+        margin-top: .3rem;
+    }
+    .describeDetails{
+        margin-top: .1rem;
+    }
+    .describeCon h4,.describeCon p,.describeFooter p,.describeDetails{
+        font-size:.22rem;
+        line-height: .3rem;
+    }
+    .describeDetails .segment{
+        margin-bottom: .1rem;
+    }
+    .sec3 .container .segment input,.sec3 .container .segment input.submitButton{
+        height:.56rem;
+        line-height:.56rem;
+    }
+    .sec3 .container .segment input.submitButton{
+        height:.57rem;
+        line-height:.57rem;
+    }
+    .sec3 .container h3,.sec3 .container p{
+        font-size:.2rem;
+        line-height: .22rem;
+        margin-bottom:.1rem;
+        margin-top:.1rem;
+    }
+    .sec3 .container h3{
+        margin-top: .3rem;
+    }
+    .sec4 .submitButton{
+        margin: .55rem 12.5% 14%;
+    }
+}

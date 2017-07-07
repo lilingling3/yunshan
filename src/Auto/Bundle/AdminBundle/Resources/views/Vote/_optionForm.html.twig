@@ -1,0 +1,30 @@
+{{ form_start(form) }}
+<div class="ui form">
+    {{ form_errors(form) }}
+        <div class=" field">
+            <label>选项名称</label>
+            {{ form_widget(form.name,{'attr': {'placeholder':'选项名称' }} ) }}
+        </div>
+    <div class=" field">
+
+        <div class="photographs">
+            {% set name = form.image.vars.full_name|replace({'__name__': ''}) %}
+            <button class="ui basic button add-file watermark"><i class="icon photo"></i> 上传图片 </button>
+            <script type="text/x-handlebars-template" class="template">
+                <div class="field photograph">
+                    <img src="{{ '{{ path }}' }}">
+                    {{ form_widget(form.image, {full_name: name, value: '{{ localname }}'}) }}
+
+                    <button type="button" class="close" data-dismiss="photograph">&times;</button>
+                </div>
+            </script>
+
+        </div>
+        {% do form.image.setRendered %}
+
+
+    </div>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+
+{{ form_end(form) }}

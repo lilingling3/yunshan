@@ -1,0 +1,109 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'','prenav':'车辆违章'} %}
+     <div class="ui main-content grid">
+         <div class="ui bottom attached segment bk_gray no_border" >
+             <form action="{{ path("auto_admin_illegal_record_list") }}" method="get" >
+                 <table class="ui very basic table no_border" >
+                     <tbody >
+                     <tr>
+                         <td> <input class=" time_input" type="text"  name="mobile" placeholder="请输入手机号" value="">
+                         </td>
+                         <td id="yui_3_14_1_1_1461549608378_20">
+                             <select name="licensePlace" id="licensePlace" class="ui dropdown">
+                                 {% for  licensePlace in licensePlaces %}
+                                     <option value="{{ licensePlace.id }}">{{ licensePlace.name }}</option>
+                                 {% endfor %}
+                             </select>
+                         </td>
+                         <td>
+                             <input class=" time_input" type="text"  name="rentalCarId" placeholder="请输入车牌" value="">
+
+                         </td>
+                         <td>
+                             <button class="ui teal button  " type="submit">查询</button>
+                         </td>
+                         <td style="width: 30%;"></td>
+                         <td style="width: 12%;"></td>
+
+                     </tr>
+                     </tbody>
+                 </table>
+             </form>
+         </div>
+         <div class="fifteen wide column">
+             <table class="ui very basic table">
+                 <thead>
+                 <tr>
+                     <th>手机号</th>
+                     <th>车牌号</th>
+                     <th>违章时间</th>
+                     <th>违章地点</th>
+                     <th>违章行为</th>
+                     <th>罚分</th>
+                     <th>罚款(元)</th>
+                     <th>处理时间</th>
+                     <th>处理类型</th>
+                     <th>操作</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for record in illegals %}
+                     <tr>
+                         <td>{{ record.order.member.mobile|default() }}</td>
+                         <td>{{ record.rentalCar.license }}</td>
+                         <td>{{ record.illegalTime|date('Y-m-d H:i:s') }}</td>
+                         <td>{{ record.illegalPlace }}</td>
+                         <td>{{ record.illegal }}</td>
+                         <td>{{ record.illegalScore }}</td>
+                         <td>{{ record.illegalAmount }}</td>
+                         <td>{% if record.handleTime %}
+                                 {{ record.handleTime|date('Y-m-d H:i:s') }}
+                             {% elseif record.agentTime %}
+                                 {{ record.agentTime|date('Y-m-d H:i:s') }}
+                             {% endif %}</td>
+                         <td>{% if record.agent %}代处理{% endif %}</td>
+                         <td>{% if record.agent == null %} <a href="{{ path('auto_admin_illegal_agent_new',{'id':record.id}) }}">添加代处理 </a>{% endif %}
+                         </td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+             {% if total > 1 %}
+                 {% spaceless %}
+                     {% set l = min(max(1, page - 2), total - 4) %}
+                     {% set h = l + 4 %}
+
+                     {% set k = 1 %}
+                     <div class="ui pagination menu">
+                         {% for i in 1..9 %}
+                             {% if k <= 2 or (l <= k and k <= h) or (total - 1 <= k and k <= total) %}
+                                 {% if k != page %}
+                                     <a class="item" href="{{ path("auto_admin_illegal_record_list",{'page':k}) }}">{{ k }}</a>
+                                 {% else %}
+                                     <a class="active item">{{ k }}</a>
+                                 {% endif %}
+                             {% endif %}
+
+                             {% if (k == 2 and l > 3) or (k == h and h < total - 2) %}
+                                 <i>&hellip;</i>
+                                 {% set k = k == 2 ? l : total - 1 %}
+                             {% else %}
+                                 {% set k = k + 1 %}
+                             {% endif %}
+                         {% endfor %}
+                     </div>
+                 {% endspaceless %}
+             {% endif %}
+
+         </div>
+         <div class="one wide column">
+         </div>
+
+     </div>
+
+
+ {% endblock %}

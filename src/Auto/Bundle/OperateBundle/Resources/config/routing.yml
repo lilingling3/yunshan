@@ -1,0 +1,33 @@
+auto_operate_check:
+    pattern:  /sign-in
+    methods:  [POST]
+
+auto_operate_logout:
+    pattern:  /sign-out
+_auto_operate_homepage:
+    resource: @AutoOperateBundle/Controller/DefaultController.php
+    type:     annotation
+_auto_operate_rental_car:
+    resource: @AutoOperateBundle/Controller/RentalCarController.php
+    type:     annotation
+_auto_operate_rental_order:
+    resource: @AutoOperateBundle/Controller/RentalOrderController.php
+    type:     annotation
+_auto_operate_station:
+    resource: @AutoOperateBundle/Controller/StationController.php
+    type:     annotation
+_auto_operate_account:
+    resource: @AutoOperateBundle/Controller/AccountController.php
+    type:     annotation
+_auto_operate_car:
+    resource: @AutoOperateBundle/Controller/CarController.php
+    type:     annotation
+_auto_operate_color:
+    resource: @AutoOperateBundle/Controller/ColorController.php
+    type:     annotation
+_auto_operate_illegal_record:
+    resource: @AutoOperateBundle/Controller/IllegalRecordController.php
+    type:     annotation
+_auto_operate_app_update:
+    resource: @AutoOperateBundle/Controller/AppUpdateController.php
+    type:     annotation

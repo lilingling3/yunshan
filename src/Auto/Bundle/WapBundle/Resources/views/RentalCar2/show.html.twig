@@ -1,0 +1,101 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['rentalCar2', 'show'] %}
+{% block content %}
+    <div class="top-menu">
+        云杉智行
+        <a href="" class="gocarshow"><b class=""></b></a>
+    </div>
+    <div class="container">
+        <div class="car-cont">
+            <div class="inner">
+                <div class="left">
+                    <div class="car-img">
+                        <img src="{{ rentalCar.image }}" />
+                    </div>
+                </div>
+                <div class="right">
+                    <p class="license">
+                        <span class="license-cont"><span>{{ rentalCar.license }}</span></span>
+                    </p>
+                    <div class="rowd">
+                        <p>
+                            <span class="car-info">{{ rentalCar.car.name }}</span>
+                            <span class="car-info">续航{{ rentalCar.mileage }}公里</span>
+                        </p>
+                    </div>
+                    <p class="price">
+                        {% for price in rentalCar.rentalPrice %}
+                        <span>
+                        {{ price.name }}{{ price.price }}元/小时</span>
+                    {% endfor %}
+
+                    </p>
+                </div>
+            </div>
+            <div class="care">
+                <div class="care-inner">
+                    <p class="title">结构/座位</p>
+                    <p class="t">{{ rentalCar.car.bodyType }}/{{ rentalCar.car.seat }}座</p>
+                </div>
+                {% for price in rentalCar.rentalPrice %}
+                    <div class="care-inner">
+                        <p class="title">{{ price.startTime }} 至 {{ price.endTime }}</p>
+                        <p class="t">{{ price.price }}元/小时</p>
+                    </div>
+                   {% endfor %}
+
+
+            </div>
+        </div>
+
+        <div class="station">
+            <div class="row">
+                <p class="st">取车&nbsp;|&nbsp;{{ rentalCar.rentalStation.name }}</p>
+                <p class="s">{{ rentalCar.rentalStation.street }}</p>
+            </div>
+            <div class="row">
+                <p class="st">还车&nbsp;|&nbsp;{{ backStation.name }}</p>
+                <p class="s">{{ backStation.street }}</p>
+            </div>
+        </div>
+        {% if rentalCar.rentalStation.backType==601 %}
+        <div class="change-s">
+            <span class="change-a"><span>更换还车点</span></span>
+            <form method="post" id="change-station" action="{{ path('auto_wap_rental_car2_change_station2') }}">
+                <input type="hidden" name="stationid"  value="{{ stationId }}" />
+                <input type="hidden" name="rentalCarID"  value="{{ rentalCar.rentalCarID }}" />
+                <input type="hidden" name="backSid"  value="{{ backStation.rentalStationID }}" />
+                <input type="hidden" name="lng"  value="{{ lng }}" />
+                <input type="hidden" name="lat"  value="{{ lat }}" />
+            </form>
+        </div>
+        {% endif %}
+
+        <div class="car-text">
+            <p>确认租车后将开始计费，<b>15分钟</b>内免费取消行程。</p>
+            <p>每天仅限2次免费取消。1小时起租，续航以实际为准。</p>
+        </div>
+        <div class="btn orderbtn">
+            确认租车
+        </div>
+    </div>
+
+
+    <form id="car-form" method="post" action="{{ path('auto_wap_rentalCar1') }}">
+        <input type="hidden" name="stationid" value="{{ stationId }}" />
+        <input type="hidden" name="carid"  value="{{ rentalCar.rentalCarID }}" />
+        <input type="hidden" name="lng"  value="{{ lng }}" />
+        <input type="hidden" name="lat"  value="{{ lat }}" />
+    </form>
+
+
+
+    <form method="post" id="submitorder" action="{{ path('auto_wap_rental_car_order2') }}">
+        <input type="hidden" name="userID"  value="{{ app.user.token }}" />
+        <input type="hidden" name="rentalCarID" value="{{ rentalCar.rentalCarID }}" />
+        <input type="hidden" name="returnStationID"  value="{{ backStation.rentalStationID }}" />
+    </form>
+
+
+
+{% endblock %}

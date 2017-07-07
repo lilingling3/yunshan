@@ -1,0 +1,116 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['rentalCar', 'record'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'车辆日志','prenav':'租赁车辆'} %}
+     <div class="ui main-content grid">
+         <p>车型：{{ rentalCar.car.name }} | 车牌号：{{  rentalCar.license}}</p>
+         <div class="ui top attached menu tabular no_border" style="padding: 0;">
+             <a class="item " href="{{ path("auto_admin_rentalcar_operateRecord",{'id':rentalCar.id}) }}">上下线</a>
+             <a class="item " {#href="{{ path("auto_admin_rentalcar_electricRecord",{'id':rentalCar.id}) }}"#}>通断电</a>
+             <a class="item " >开关门</a>
+             <a class="item " href="{{ path("auto_admin_rentalcar_dispatchRecord",{'id':rentalCar.id}) }}">移库记录</a>
+             <a class="item active  font-normal bk_gray no_border"  >数据日志</a>
+             <button style="position: absolute;right: 35px;" class="ui teal button " onclick="window.location.href='{{ path('auto_admin_rentalcar_list') }}'">返回</button>
+         </div>
+
+         <div class="wide column " style="width: 24% !important;margin-right: 10px;padding: 0px;">
+
+             <h4 class="rentalCar_record_h4 bk_gray">里程 </h4>
+
+             <table class="ui very basic table">
+                 <thead class="bk_gray">
+                 <tr>
+                     <th class="pad_10">里程</th>
+                     <th class="pad_10">时间</th>
+                 </tr>
+                 </thead>
+                 <tbody>
+                 {% for mileage in mileage_list %}
+                     <tr>
+                         <td class="pad_10">{{ mileage.mileage }}</td>
+                         <td class="pad_10">{{ mileage.time|date('Y-m-d H:i:s') }}</td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+         </div>
+
+
+         <div class="wide column" style="width: 36% !important; margin-right: 10px;padding: 0px;">
+
+             <h4 class="rentalCar_record_h4 bk_gray"> gps数据 </h4>
+
+             <table class="ui very basic table">
+                 <thead class="bk_gray">
+                 <tr>
+                     <th class="pad_10">gps</th>
+                     <th class="pad_10">时间</th>
+
+                 </tr></thead>
+                 <tbody>
+                 {% for gps in gps_list %}
+                     <tr>
+                         <td class="pad_10">{{ gps.coordinate.0 }},{{ gps.coordinate.1 }}</td>
+                         <td class="pad_10">{{ gps.time|date('Y-m-d H:i:s') }}</td>
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+         </div>
+
+         <div class=" wide column" style="width: 17.75%!important;margin-right: 10px;padding: 0px;">
+
+             <h4 class="rentalCar_record_h4 bk_gray"> 续航里程 </h4>
+
+             <table class="ui very basic table">
+                 <thead class="bk_gray">
+                 <tr>
+                     <th class="pad_10">续航里程</th>
+                     <th class="pad_10">时间</th>
+
+                 </tr></thead>
+                 <tbody>
+                 {% for range in range_list %}
+                     <tr>
+                         <td class="pad_10">{{ range.range }}</td>
+                         <td class="pad_10">{{ range.time|date('Y-m-d H:i:s') }}</td>
+
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+         </div>
+
+
+         <div class="three wide column " style="margin-right: 10px;padding: 0px;">
+
+             <h4 class="rentalCar_record_h4 bk_gray"> 电量 </h4>
+
+             <table class="ui very basic table">
+                 <thead class="bk_gray">
+                 <tr>
+                     <th class="pad_10">电量</th>
+                     <th class="pad_10">时间</th>
+
+                 </tr></thead>
+                 <tbody>
+                 {% for power in power_list %}
+                     <tr>
+                         <td class="pad_10">{{ power.power }}</td>
+                         <td class="pad_10">{{ power.time|date('Y-m-d H:i:s') }}</td>
+
+                     </tr>
+                 {% endfor %}
+                 </tbody>
+             </table>
+
+         </div>
+
+     </div>
+
+
+ {% endblock %}

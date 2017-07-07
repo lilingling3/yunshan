@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+<div class="ui form">
+
+    <div class=" field">
+        <label>{{ form_label(form.name) }}</label>
+        {{ form_widget(form.name) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.count) }}</label>
+        {{ form_widget(form.count) }}
+    </div>
+    <div class=" field">
+        <label>{{ form_label(form.online) }}</label>
+        {{ form_widget(form.online,{'attr': {'class':'ui dropdown'}}) }}
+    </div>
+    <button class="ui teal button" type="submit">提交</button>
+</div>
+{{ form_end(form) }}

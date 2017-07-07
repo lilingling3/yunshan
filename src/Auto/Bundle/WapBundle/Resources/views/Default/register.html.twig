@@ -1,0 +1,28 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% set page_id  = ['default', 'register'] %}
+{% block content %}
+    <div class="top-menu">
+        新用户注册
+        <a href="{{ path("auto_wap_login") }}"><b></b></a>
+    </div>
+<form action="{{ path("auto_wap_create") }}" method="post">
+    <div class="register-form">
+        <li>
+            <img src="{{ asset('/bundles/autowap/images/usericon3.png') }}">
+            <input type="text" class="text" name="mobile" id="mobile" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"  required  placeholder="请输入手机号">
+        </li>
+        <li>
+            <input type="text" class="text code-text" name="code" onkeyup="value=value.replace(/[^\w\.\/]/ig,'')"  required  placeholder="请输入短信验证码">
+            <button type="button" class="code-button">获取验证码</button>
+        </li>
+        <li><img src="{{ asset('/bundles/autowap/images/usericon2.png') }}">
+            <input type="password" onkeyup="value=value.replace(/[^\w]/ig,'')"  class="text password password-text" id="password" name="password" required
+                   placeholder="密码由6-16位数字/字母组成">
+        </li>
+    </div>
+    <p class="service-text"><a href="{{ path("auto_wap_more_rent") }}">云杉智行软件许可及服务协议</a></p>
+    <div class="row">
+        <button type="button" class="register" id="sub-register">同意协议并注册</button>
+    </div>
+</form>
+{% endblock %}

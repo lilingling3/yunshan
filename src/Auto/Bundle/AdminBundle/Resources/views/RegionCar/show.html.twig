@@ -1,0 +1,196 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+{% set page_id  = ['car', 'list'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'列表','prenav':'租赁车辆管理'} %}
+     <div class="ui main-content grid">
+     <div>
+         <a href="javascript:void(0);" onclick="history.go(-1)" class="ui teal button" type="submit">返回</a>
+     </div>
+
+
+
+     <div class="fifteen wide column">
+         <h4 class="ui horizontal divider header"><i class="tag icon"></i> 车辆信息 </h4>
+         <table class="ui teal table">
+             <thead>
+             <tr>
+                 <th>车型</th>
+                 <th>车辆号牌</th>
+                 <th>发动机号</th>
+                 <th>颜色</th>
+                 <th>所属租赁点</th>
+                 <th>归属公司</th>
+                 <th>上线状态</th>
+                 <th>车辆状态</th>
+                 <th>操作</th>
+             </tr>
+             </thead>
+             <tbody>
+
+             <tr>
+                 <input type="hidden" id="rental-car-id" value="{{ rentalcar.id }}">
+                 <input type="hidden" id="rental-user-id" value="{{ app.user.token }}">
+                 <td>{{ rentalcar.car.name }}</td>
+                 <td id="car-license">{{ rentalcar.license }}</td>
+                 <td>{{ rentalcar.engineNumber }}</td>
+                 <td>{{ rentalcar.color.name }}</td>
+                 <td>{{ rentalcar.rentalStation.name }}</td>
+                 <td>{{ rentalcar.company.name|default() }}</td>
+                 <td>
+                     {% if not rentalcar.online or rentalcar.online.status==0 %}下线中{% else %}已上线{% endif %}
+
+                 </td>
+                 <td>
+                     {% if car_status == 300  %}
+                         可租赁
+                     {% endif%}
+
+                     {% if car_status == 301  %}
+                         租赁使用中
+                     {% endif %}
+                 </td>
+                 <td>
+                     <a href="#" class="opendoor">开门</a>|
+                     <a href="#" class="closedoor">锁门</a>|
+                     <a href="#" class="onElectric">通电</a>|
+                     {% if is_granted('ROLE_ADMIN') %}
+                         <a href="#" class="offElectric">断电</a>|
+                     {% endif %}
+                     <a href="#" class="getstation">GPS定位</a>
+                 </td>
+             </tr>
+
+             </tbody>
+         </table>
+     </div>
+
+     {#/*租赁订单*/#}
+     <div class="fifteen wide column">
+         <h4 class="ui horizontal divider header"><i class="tag icon"></i> 租赁订单 </h4>
+         <table class="ui teal table">
+             <thead>
+             <tr>
+                 <th>订单编号</th>
+                 <th>注册手机号</th>
+                 <th>姓名</th>
+                 <th>下单时间</th>
+                 <th>还车时间</th>
+                 <th>状态</th>
+                 <th>实付金额（元）</th>
+                 <th>操作</th>
+             </tr>
+             </thead>
+             <tbody>
+
+             {% for rentalorder in rentalOrders %}
+                 <tr>
+                     <td>{{ rentalorder.id }}</td>
+                     <td>{{ rentalorder.member.mobile }}</td>
+                     <td>{{ rentalorder.member.name }}</td>
+                     <td>{{ rentalorder.createTime|date('Y-m-d H:i:s') }}</td>
+                     <td>
+                         {% if rentalorder.endTime %}
+                             {{ rentalorder.endTime|date('Y-m-d H:i:s') }}
+                         {% endif %}
+
+
+
+                         </td>
+                     <td>{{ status.object(rentalorder) }}
+
+                         {% if(rentalorder.cancelTime()) %}
+
+                         {% else %}
+
+                             {% if(rentalorder.useTime()) %}
+                                 {% if rentalorder.endTime %}
+                                     {% if rentalorder.payTime %}
+
+                                     {% else %}
+                                         {#<p style="color:red;">#}
+                                             {#{% if rentalorder.amount %}#}
+                                             {#{{ rentalorder.amount }}#}
+                                             {#{% else %}0元#}
+                                             {#{% endif %}#}
+                                             {#</p>#}
+                                     {% endif %}
+                                 {% else %}
+                                     <input class="endTime"type="hidden" value="{{ rentalorder.endTime|date('Y-m-d H:i:s') }}">
+                                     <input class="useTime"type="hidden" value="{{ rentalorder.useTime|date('Y-m-d H:i:s') }}">
+                                     <p class="retalTime" style="color:#09F">
+
+                                     </p>
+                                 {% endif %}
+                             {% else %}
+
+                             {% endif %}
+
+                         {% endif %}
+                     </td>
+                     <td>{{ rentalorder.amount }}</td>
+                     <td><a href="{{ path('auto_admin_region_rental_order_show',{id:rentalorder.id}) }}">查看</a></td>
+                 </tr>
+             {% endfor %}
+
+
+             </tbody>
+         </table>
+
+     </div>
+     <div class="open-door door">
+         <div>
+             <h4>确认后将对车辆进行开门，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要开门的车辆号牌">
+
+             <button class="ui teal button cancel">取消</button>
+             <button class="ui teal button right open" >确认</button>
+         </div>
+     </div>
+
+     <div class="close-door door">
+         <div>
+             <h4>确认后将对车辆进行锁门，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要锁门的车辆号牌">
+
+             <button class="ui teal button cancel ">取消</button>
+             <button class="ui teal button right lock">确认</button>
+         </div>
+     </div>
+
+     <div class="on_electric door">
+         <div>
+             <h4>确认后将对车辆进行通电，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要通电的车辆号牌">
+
+             <button class="ui teal button cancel ">取消</button>
+             <button class="ui teal button right on">确认</button>
+         </div>
+     </div>
+
+     <div class="off_electric door">
+         <div>
+             <h4>确认后将对车辆进行断电，请谨慎操作。</h4>
+
+             <input type="text" placeholder="请输入需要断电的车辆号牌">
+
+             <button class="ui teal button cancel ">取消</button>
+             <button class="ui teal button right off">确认</button>
+         </div>
+     </div>
+
+
+
+
+     <div class=" gps door">
+         <iframe id="framenow" src="{{ path('auto_admin_region_car_locate',{id:rentalcar.id}) }}"></iframe>
+     </div>
+
+
+
+
+ {% endblock %}

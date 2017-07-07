@@ -1,0 +1,33 @@
+{% extends "AutoOperateBundle::base.html.twig" %}
+{% set page_id  = ['station', 'list'] %}
+
+{% block content %}
+  <div class="top-menu">
+        租赁列表
+        <a href="{{ path("auto_operate_index") }}" class="left-cont" ><b></b></a>
+        <span><a href="javascript:window.location.reload();" >刷新</a></span>
+
+    </div>
+  
+    <div class="station-list">
+    {% for station in rental_stations %}
+    <a href="{{ path('auto_operate_rental_car_list',{'sid':station.rentalStationID}) }}">
+        <div class="row">
+            <h3>{{ station.name }}</h3>
+            <div class="station-cont">
+                <p>{{ station.street }}</p>
+            </div>
+            <div class="column">
+                <p>已租车辆 {{ station.processRentalCarCount }} 辆
+                    <span class="line">上线车辆 {{ station.onlineRentalCarCount }} 辆</span>
+                    <span class="line">下线车辆 {{ station.offlineRentalCarCount }} 辆</span>
+                </p>
+            </div>
+            {% if rentalCar>0 %}
+            <a href="javascript:if(confirm('确定要移库吗?'))location='{{ path('auto_operate_rental_car_change_station',{'id':rentalCar,'sid':station.rentalStationID }) }}'" class="btn btn-primary btn-lg"role="button">确认移库</a>
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "AutoWapBundle::base.html.twig" %}
+{% import "AutoManagerBundle:Order:_status.html.twig" as status %}
+
+{% set page_id  = ['rental_order', 'list'] %}
+{% block content %}
+<div class="top-menu">
+    行程详情
+    <a href="{{ path("auto_wap_index") }}"><b></b></a>
+    <span><a href="javascript:window.location.reload();" class="refresh"><b></b></a></span>
+
+</div>
+{% for rentalOrder in rentalOrders %}
+
+      <a href="{{ path('auto_wap_rental_order_show',{'id':rentalOrder.orderID}) }}">
+    
+    <div class="order-li status{{ rentalOrder.status }}">
+    <div class="row">
+    	<p class="b">
+    		 {{ rentalOrder.createTime }}
+            {% if rentalOrder.status!=199 %}
+            <span class="status-top status-top{{ rentalOrder.status }}">{{ status.name(rentalOrder) }}</span>
+    		{% else %}
+    		    <span class="status-top1">已支付<b class="money">{{ rentalOrder.amount  }}</b>元</span>
+    		{% endif %}
+    	</p>
+    </div>
+    <div class="row">
+        <div class="left">
+            <div class="column column-info">
+                <div class="item">
+                    <p>车牌</p>
+                    {{ rentalOrder.rentalCar.license }}
+                </div>
+
+                <div class="item">
+                    <p>型号</p>
+                    {{ rentalOrder.rentalCar.car.name }}
+                </div>
+
+            </div>
+            {% if  rentalOrder.returnRentalStation.rentalStationID==rentalOrder.pickUpRentalStation.rentalStationID%}
+            <div class="column">
+                <p>取还车地点</p>
+                {{ rentalOrder.pickUpRentalStation.street }}
+            </div>
+            {% else %}
+                <div class="column">
+                    <p>取车地点</p>
+                    {{ rentalOrder.pickUpRentalStation.street }}
+                </div>
+                <div class="column border-top">
+                    <p>还车地点</p>
+                    {{ rentalOrder.returnRentalStation.street }}
+                </div>
+            {% endif %}
+        </div>
+        
+    </div>
+</div>
+ </a>
+
+{% endfor %}
+{% endblock %}

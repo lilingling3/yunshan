@@ -1,0 +1,306 @@
+{% extends "AutoAdminBundle::baseAdmin.html.twig" %}
+{% set page_id  = ['member', 'authshow'] %}
+ {% block content %}
+
+     {% include 'AutoAdminBundle::baseNav.html.twig' with {'nav':'详情','prenav':'用户认证'} %}
+     <div class="ui main-content grid" style="margin-top: 0px;    margin-left: -12px">
+         <div class="ui teal table" style="border: none;">
+
+             <div style="    border-bottom: 1px dashed rgba(34,36,38,.15);
+    padding-bottom: 17px;">
+                 手机号：{{ auth.member.mobile }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 注册时间：{{ auth.member.createTime|date('Y-m-d H:i:s') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 认证时间：{% if auth.applyTime  %}
+                     {{ auth.applyTime|date('Y-m-d H:i:s') }}
+                 {% endif %}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 状态：{% if blacked %}<a href="{{ path('auto_admin_blacklist_show',{'id':blacked[0].id})}}" class="red">已拉黑</a>{% else %}正常{% endif %}
+                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 余额：{{ auth.member.wallet|default() }}
+             </div>
+
+             <table class="ui teal table" style="border-top: none;border-left: none;border-right: none;" >
+                 <tr style="font-size:16px;">
+                     <td> <p class="card-d {{ authinfo.status }}  {% if authinfo.status!=200 and authinfo.status!=201 and (auth.idImageAuthError is not null) and  auth.idImageAuthError!=0 %} color-red {% endif %}">
+                             {% if authinfo.status==200 or auth.idImageAuthError is null or auth.idImageAuthError==0 %}
+                                 身份证
+                             {% else %}
+                                 身份证&nbsp;-&nbsp;{{ authinfo.authImageMessage.idImageAuthError }}
+                             {% endif %}
+                         </p>
+                     </td>
+                     <td><p class="card-d {% if authinfo.status!=200 and  authinfo.status!=201 and (auth.licenseImageAuthError is not null) and auth.licenseImageAuthError!=0 %} color-red {% endif %}">
+                             {% if authinfo.status==200 or auth.licenseImageAuthError is null or auth.licenseImageAuthError==0 %}
+                                 驾驶证{% else %} 驾驶证&nbsp;-&nbsp;{{ authinfo.authImageMessage.licenseAuthError }}
+                             {% endif %}
+                         </p></td>
+
+                     <td><p class="card-d {{ authinfo.status }} {% if authinfo.status!=200 and authinfo.status!=201 and (auth.idHandImageAuthError is not null) and  auth.idHandImageAuthError!=0 %} color-red {% endif %}">
+                             {% if authinfo.status==200 or auth.idHandImageAuthError is null or auth.idHandImageAuthError==0 %}
+                                 手持身份证{% else %}手持身份证&nbsp;-&nbsp;{{ authinfo.authImageMessage.idHandImageAuthError }}
+                             {% endif %}</p></td>
+                 </tr>
+                 <tr>
+                     <th>
+                         <img  alt="身份证照片"src="{##}{{ auth.idImage|photograph }} " style="width:340px;height:240px;" class="main_img">
+                     </th>
+                     <th>
+                         <img  alt="驾驶证照片"src="{##}{{ auth.licenseImage|photograph }} " style="width:340px;height:240px;" class="main_img">
+                     </th>
+
+                     <th>
+                         <img  alt="手持身份证照片"src="{##}{{ auth.idHandImage|photograph }} " style="width:340px;height:240px;" class="main_img">
+                     </th>
+                 </tr>
+             </table>
+             <div></div>
+             <div class="baseline" ></div>
+             <table class="ui teal table showdata" style="border-top: none;border-left: none;border-right: none;    line-height: 1px;">
+                 <tr style="color:#747272;">
+                     <td class="tdl">
+                         <table class="uitable1">
+                             <tr>
+                                 <td>
+                                     姓名
+                                 </td>
+                                 <td>
+                                     性别
+                                 </td>
+                                 <td>
+                                     民族
+                                 </td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td>身份证号</td>
+                     <td>身份证住址</td>
+                 </tr>
+                 <tr style="font-weight: bold;">
+                     <td class="tdl">
+                         <table class="uitable1">
+                             <tr>
+                                 <td>{{member.name }}</td>
+                                 <td>{% if member.sex == 901 %}男{% elseif member.sex == 902 %}女{% else %}未知{% endif %}</td>
+                                 <td>{{member.nation }}</td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td>{{ auth.IdNumber }}</td>
+                     <td class="wid100"><p>{{ auth.IDAddress }}</p></td>
+                 </tr>
+             </table>
+             <div class="baseline"></div>
+             <table class="ui teal showdata table" style="border-top: none;border-left: none;border-right: none;border-bottom: 1px dashed rgba(34,36,38,.15);    line-height: 1px;">
+                 <tr  style="color:#747272;">
+                     <td class="tdl">
+                         <table class="uitable2">
+                             <tr>
+                                 <td>驾驶证档案</td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td class="tdl">
+                         <table class="uitable2">
+                             <tr>
+                                 <td>驾驶证号</td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td class="tdl">
+                         <table class="uitable2">
+                             <tr>
+                                 <td>驾驶证住址</td>
+                             </tr>
+                         </table>
+                     </td>
+                 </tr>
+                 <tr  style="font-weight: bold;">
+                     <td class="tdl">
+                         <table class="uitable2">
+                             <tr>
+                                 <td>{{ auth.documentNumber|default() }}</td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td class="tdl">
+                         <table class="uitable2">
+                             <tr>
+                                 <td>{{ auth.IDNumber|default() }}</td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td class="tdl">
+                         <table class="uitable2">
+                             <tr>
+                                 <td class="wid100"><p>{{ auth.licenseAddress }}</p></td>
+                             </tr>
+                         </table>
+                     </td>
+                 </tr>
+             </table>
+             <table class="ui teal table showdata" style="border-top: none;border-left: none;border-right: none;border-bottom: 1px dashed rgba(34,36,38,.15);    line-height: 1px;">
+                 <tr style="color:#747272;">
+                     <td class="tdl">
+                         <table class="uitable1">
+                             <tr>
+                                 <td>
+                                     驾驶证省份
+                                 </td>
+                                 <td>
+                                     驾驶证城市
+                                 </td>
+                                 <td>
+                                     证件有效开始日期
+                                 </td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td>驾驶证有效结束日期</td>
+                     <td>驾驶证有效年数	</td>
+                 </tr>
+                 <tr style="font-weight: bold;">
+                     <td class="tdl">
+                         <table class="uitable1">
+                             <tr>
+                                 <td>{{auth.licenseProvince }}</td>
+                                 <td>{{ auth.licenseCity }}</td>
+                                 <td>{% if auth.licenseStartDate %}{{auth.licenseStartDate|date('Y-m-d') }}{% endif %}</td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td>{% if auth.licenseEndDate %}{{ auth.licenseEndDate|date('Y-m-d') }}{% endif %}</td>
+                     <td>{{ auth.licenseValidYear }}</td>
+                 </tr>
+             </table>
+
+
+             <table class="ui teal table showdata" style="border-top: none;border-left: none;border-right: none; line-height: 1px;">
+                 <tr style="color:#747272;">
+                     <td class="tdl">
+                         <table class="uitable1">
+                             <tr>
+                                 <td style="width: 63%;">
+                                     身份证信息比对是否一致
+                                 </td>
+                                 <td>
+                                     身份证不良信息报警
+                                 </td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td style="display: none;">驾驶证信息是否真实</td>
+                     <td>手机号是否为本人持有</td>
+                 </tr>
+                 <tr style="font-weight: bold;">
+                     <td class="tdl">
+                         <table class="uitable1">
+                             <tr>
+                                 <td style="width: 63%;" class="
+                                 {% if verifys is null or verifys[4] is null %}color-gray
+                                 {% elseif verifys[4].code ==200 and (verifys[4].status =='一致' or verifys[4].status =='无不良记录') %}color-green
+                                 {% else %}color-red
+                                 {% endif %}">
+                                     {% if verifys is null or verifys[4] is null %}未知
+                                     {% elseif verifys[4].code !=200 or verifys[4].status =='不一致' %}
+                                         {% if verifys[4].status %}{{ verifys[4].status }}
+                                             {% else %}
+                                         不一致
+                                         {% endif %}
+                                     {% else %}
+                                         {% if verifys[4].status %}{{ verifys[4].status }}
+                                         {% else %}
+                                             一致
+                                         {% endif %}
+
+                                     {% endif %}
+                                 </td>
+                                 <td class="
+                                 {% if verifys is null or verifys[2] is null %}color-gray
+                                 {% elseif verifys[2].code ==200 and  (verifys[2].status =='一致' or verifys[2].status =='无不良记录' )%}color-green
+                                 {% else %}color-red
+                                 {% endif %}">
+                                     {% if verifys is null or verifys[2] is null %}未知
+                                     {% elseif verifys[2].code !=200 or verifys[2].status =='不一致' %}
+                                         {% if verifys[2].status %}{{ verifys[2].status }}
+                                         {% else %}
+                                             存在不良记录
+                                         {% endif %}
+
+                                     {% else %}
+                                         {% if verifys[2].status %}{{ verifys[2].status }}
+                                         {% else %}
+                                             无不良记录
+                                         {% endif %}
+                                     {% endif %}
+                                 </td>
+                             </tr>
+                         </table>
+                     </td>
+                     <td   style="display: none;" class="
+                     {% if verifys is null or verifys[3] is null %}color-gray
+                 {% elseif verifys[3].code !=200 or verifys[3].status =='不一致' %}color-red
+                 {% else %}color-green
+                     {% endif %}">
+                     {% if verifys is null or verifys[3] is null %}未知
+                     {% elseif verifys[3].code !=200 or verifys[3].status =='不一致' %}
+                         {% if verifys[3].status %} {{ verifys[3].status }}
+                             {% else %}
+                                 不一致
+                          {% endif %}
+
+                     {% else %}
+                         {% if verifys[3].status %} {{ verifys[3].status }}
+                         {% else %}
+                             一致
+                         {% endif %}
+                     {% endif %}
+                     </td>
+                     <td class="
+                     {% if verifys is null or verifys[1] is null %}color-gray
+                 {% elseif verifys[1].code ==200 and verifys[1].status =='一致' %}color-green
+                 {% else %}color-red
+                     {% endif %}">
+                         {% if verifys is null or verifys[1] is null %}未知
+                         {% elseif verifys[1].code ==200 and verifys[1].status =='一致' %}
+                             一致
+                             {% else %}
+                                不一致
+
+                         {% endif %}
+                     </td>
+                 </tr>
+             </table>
+
+             <div class="baseline"></div>
+
+
+             <div class="field other" style="float: left; width: 52%;clear: none;">
+                 <table class="ui very basic table black">
+                     <tbody>
+
+                     <tr>
+                         <td>
+                             <button  class="ui teal button " onclick="JavaScript:history.back(-1);"   style="padding: 15px 70px;">返回</button>
+                             <a href="{{ path('auto_admin_auth_reset',{ 'id':auth.id }) }}" class="ui teal button reset " style="margin:26px 6px;padding: 15px 70px;">
+                                 重置认证信息
+                             </a>
+                             <a class="ui teal button " href="{{ path('auto_admin_auth_step1',{'id':auth.id})}}"  style="padding: 15px 70px;">编辑</a>
+                         </td>
+                     </tr  >
+                     </tbody>
+                 </table>
+             </div>
+         </div>
+     </div>
+
+     <div class="apply-ok door">
+         <div>
+             <p>确定重置认证信息？</p>
+             <button class="ui teal button cancel">取消</button>
+             <button class="ui teal button right submit-do" >确认</button>
+
+         </div>
+     </div>
+
+   
+
+ {% endblock %}

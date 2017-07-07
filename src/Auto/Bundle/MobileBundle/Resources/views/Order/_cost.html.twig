@@ -1,0 +1,31 @@
+<ul>
+    {% for price in rentalOrder.costDetail.charge.rentalPrice %}
+        <li class="clearfix">
+            <span class="title-l">
+                <span class="time-name">{{ price.name }}时长：</span>
+                <b class="day-time">{{ time.name(price.time) }}</b>
+            </span>
+            <span class="cost-r">
+                <span class="pay-detail-name">{{ price.name }}费用：</span>
+                <span class="pay-detail"><b class="day-cost">{{ price.amount }}</b>元</span>
+            </span>
+        </li>
+    {% endfor %}
+    <li class="clearfix">
+        <span class="title-l">
+            <span class="time-name">总时长：</span>
+            <b class="day-time">{{ time.name(rentalOrder.offset) }}</b>
+        </span>
+        <span class="cost-r">
+            <span class="pay-detail-name">费用合计：</span>
+            <span class="pay-detail">
+                <b class="day-cost">{{ (rentalOrder.costDetail.cost)//1 }}.{{ (rentalOrder.costDetail.cost*10)%10 }}{{ (rentalOrder.costDetail.cost*100)%10 }}</b>元
+            </span>
+        </span>
+    </li>
+    {% if rentalOrder.status == 199 and rentalOrder.coupon %}
+        <li class="clearfix">
+            <span class="cost-r"><span class="pay-detail-name">已优惠：</span><span class="pay-detail"><b class="day-cost-coupon">-{{ rentalOrder.costDetail.cost>rentalOrder.coupon.amount?rentalOrder.coupon.amount:rentalOrder.costDetail.cost }}元</b></span></span>
+        </li>
+    {% endif %}
+</ul>
